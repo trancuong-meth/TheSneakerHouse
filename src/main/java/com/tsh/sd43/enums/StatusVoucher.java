@@ -5,12 +5,12 @@ import lombok.Getter;
 @Getter
 public enum StatusVoucher {
 
-    CON_HAN(0),
-    HET_HAN(1);
+    CON_HAN(true),
+    HET_HAN(false);
 
-    private final Integer trangThai;
+    private final Boolean trangThai;
 
-    StatusVoucher(Integer trangThai) {
+    StatusVoucher(Boolean trangThai) {
         this.trangThai = trangThai;
     }
 

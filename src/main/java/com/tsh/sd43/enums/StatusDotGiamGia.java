@@ -5,13 +5,12 @@ import lombok.Getter;
 @Getter
 public enum StatusDotGiamGia {
 
-    CON_HAN(0),
-    HET_HAN(1);
+    CON_HAN(true),
+    HET_HAN(false);
 
-    private final Integer trangThai;
+    private final Boolean trangThai;
 
-    StatusDotGiamGia(Integer trangThai) {
+    StatusDotGiamGia(Boolean trangThai) {
         this.trangThai = trangThai;
     }
-
 }

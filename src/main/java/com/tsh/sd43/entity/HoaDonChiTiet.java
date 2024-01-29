@@ -8,22 +8,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 @Data
 @Entity
-@Table(name = "QuanHuyen")
-public class QuanHuyen {
+@Table(name = "HoaDonChiTiet")
+public class HoaDonChiTiet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Integer id;
+    private Long id;
 
-    @Column(name = "Ma")
-    private String ma;
+    @Column(name = "IdHoaDon")
+    private Long idHoaDon;
 
-    @Column(name = "Ten")
-    private String ten;
-    
-    @Column(name = "ThanhPho")
-    private Long idThanhPho;
+    @Column(name = "IdSanPhamChiTiet")
+    private Long idSanPhamChiTiet;
+
+    @Column(name = "SoLuong")
+    private Integer soLuong;
 }

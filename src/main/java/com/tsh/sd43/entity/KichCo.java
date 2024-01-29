@@ -3,6 +3,8 @@ package com.tsh.sd43.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 @Entity
 @Table(name = "KichCo")
@@ -13,18 +15,15 @@ public class KichCo {
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "IdMauSac")
-    private Long idMauSac;
-
     @Column(name = "Ma")
     private String ma;
 
     @Column(name = "NgayTao")
-    private String ngayTao;
+    private Timestamp ngayTao;
 
     @Column(name = "NgayCapNhat")
-    private String ngayCapNhat;
+    private Timestamp ngayCapNhat;
 
     @Column(name = "TrangThai")
-    private Integer trangThai;
+    private Boolean trangThai;
 }

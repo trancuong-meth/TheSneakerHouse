@@ -5,12 +5,12 @@ import lombok.Getter;
 @Getter
 public enum StatusKichCo {
 
-    HIEN_THI(0),
-    AN(1);
+    HIEN_THI(true),
+    AN(false);
 
-    private final Integer trangThai;
+    private final Boolean trangThai;
 
-    StatusKichCo(Integer trangThai) {
+    StatusKichCo(Boolean trangThai) {
         this.trangThai = trangThai;
     }
 

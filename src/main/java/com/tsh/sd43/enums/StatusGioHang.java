@@ -5,13 +5,12 @@ import lombok.Getter;
 @Getter
 public enum StatusGioHang {
 
-    TRONG(0),
-    KHONG_TRONG(1);
+    TRONG(true),
+    KHONG_TRONG(false);
 
-    private final Integer trangThai;
+    private final Boolean trangThai;
 
-    StatusGioHang(Integer trangThai) {
+    StatusGioHang(Boolean trangThai) {
         this.trangThai = trangThai;
     }
-
 }

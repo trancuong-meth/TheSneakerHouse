@@ -76,5 +76,5 @@ public class HoaDon {
     private String ghiChu;
 
     @Column(name = "TrangThai")
-    private Boolean trangThai;
+    private Integer trangThai;
 }

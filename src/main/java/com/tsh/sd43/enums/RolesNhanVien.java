@@ -5,13 +5,12 @@ import lombok.Getter;
 @Getter
 public enum RolesNhanVien {
 
-    ADMIN(0),
-    NHAN_VIEN(1);
+    ADMIN(true),
+    NHAN_VIEN(false);
 
-    private final Integer chucVu;
+    private final Boolean chucVu;
 
-    RolesNhanVien(Integer chucVu) {
+    RolesNhanVien(Boolean chucVu) {
         this.chucVu = chucVu;
     }
-
 }

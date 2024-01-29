@@ -16,5 +16,4 @@ public enum StatusHoaDon {
     StatusHoaDon(Integer trangThai) {
         this.trangThai = trangThai;
     }
-
 }
