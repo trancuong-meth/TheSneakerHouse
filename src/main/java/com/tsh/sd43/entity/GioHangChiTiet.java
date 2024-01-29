@@ -10,26 +10,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "BinhLuan")
-public class BinhLuan {
+@Table(name = "GioHangChiTiet")
+public class GioHangChiTiet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "IdKhachHang")
-    private Long idKhachHang;
+    @Column(name = "IdGioHang")
+    private Long idGioHang;
 
-    @Column(name = "NoiDung")
-    private String noiDung;
+    @Column(name = "IdSanPhamChiTiet")
+    private Long idSanPhamChiTiet;
 
-    @Column(name = "NgayTao")
-    private String ngayTao;
-
-    @Column(name = "NgayCapNhat")
-    private String ngayCapNhat;
-
-    @Column(name = "TrangThai")
-    private Integer trangThai;
+    @Column(name = "SoLuong")
+    private Integer soLuong;
 }

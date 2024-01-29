@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 @Entity
 @Table(name = "DotGiamGia")
@@ -18,24 +20,27 @@ public class DotGiamGia {
     @Column(name = "Id")
     private Long id;
 
+    @Column(name = "Ma")
+    private String ma;
+
     @Column(name = "Ten")
     private String ten;
 
-    @Column(name = "GiaTri")
-    private Integer giaTri;
+    @Column(name = "PhanTramGiam")
+    private Float phanTramGiam;
 
     @Column(name = "NgayBatDau")
-    private String ngayBatDau;
+    private Timestamp ngayBatDau;
 
     @Column(name = "NgayKetThuc")
-    private String ngayKetThuc;
+    private Timestamp ngayKetThuc;
 
     @Column(name = "NgayTao")
-    private String ngayTao;
+    private Timestamp ngayTao;
 
     @Column(name = "NgayCapNhat")
-    private String ngayCapNhat;
+    private Timestamp ngayCapNhat;
 
     @Column(name = "TrangThai")
-    private Integer trangThai;
+    private Boolean trangThai;
 }

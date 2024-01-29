@@ -8,31 +8,36 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 @Entity
-@Table(name = "BaiViet")
-public class BaiViet {
+@Table(name = "HinhAnh")
+public class HinhAnh {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "IdNhanVien")
-    private Long idNhanVien;
+    @Column(name = "IdSanPhamChiTiet")
+    private Long idSanPhamChiTiet;
 
-    @Column(name = "NoiDung")
-    private String noiDung;
+    @Column(name = "Ten")
+    private String ten;
 
-    @Column(name = "TieuDe")
-    private String tieuDe;
+    @Column(name = "TenFile")
+    private String tenFile;
+
+    @Column(name = "DuLieuHinhAnh")
+    private String duLieuHinhAnh;
 
     @Column(name = "NgayTao")
-    private String ngayTao;
+    private Timestamp ngayTao;
 
     @Column(name = "NgayCapNhat")
-    private String ngayCapNhat;
+    private Timestamp ngayCapNhat;
 
     @Column(name = "TrangThai")
-    private Integer trangThai;
+    private Boolean trangThai;
 }
