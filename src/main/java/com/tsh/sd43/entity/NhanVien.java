@@ -45,9 +45,6 @@ public class NhanVien {
     @Column(name = "SoDienThoai")
     private String soDienThoai;
 
-    @Column(name = "DiaChi")
-    private String diaChi;
-
     @Column(name = "TenDangNhap")
     private String tenDangNhap;
 
