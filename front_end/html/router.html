@@ -8,6 +8,14 @@
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
   <link rel="stylesheet" href="../assets/css/router_custom.css" />
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/tippy.js@6/animations/scale.css"
+  />
+
+  <!-- FONT Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body ng-app="main-app">
@@ -97,6 +105,50 @@
               </a>
           </li>
 
+          <li class="sidebar-item">
+            <a
+              class="sidebar-link has-arrow"
+              href="javascript:void(0)"
+              aria-expanded="false"
+            >
+              <span class="hide-menu">Widgets</span>
+              <span class="d-flex">
+                <i class="fa-solid fa-chevron-up"></i>
+               </span>
+            </a>
+            <ul aria-expanded="false" class="collapse first-level">
+              <li class="sidebar-item">
+                <a href="../main/widgets-cards.html" class="sidebar-link">
+                  <div
+                    class="round-16 d-flex align-items-center justify-content-center"
+                  >
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Cards</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="../main/widgets-banners.html" class="sidebar-link">
+                  <div
+                    class="round-16 d-flex align-items-center justify-content-center"
+                  >
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Banner</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="../main/widgets-charts.html" class="sidebar-link">
+                  <div
+                    class="round-16 d-flex align-items-center justify-content-center"
+                  >
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Charts</span>
+                </a>
+              </li>
+
+
             <li class="sidebar-item">
               <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
                 <span>
@@ -177,7 +229,8 @@
                 <span class="hide-menu">Sample Page</span>
               </a>
             </li>
-          </ul>
+            </ul>
+          </li>
       
         </nav>
         <!-- End Sidebar navigation -->
@@ -254,6 +307,9 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
     
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+  <!-- sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
   <!-- angular js  -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -262,12 +318,24 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js" integrity="sha512-y1qD3hz/IAf8W4+/UMLZ+CN6LIoUGi7srWJ3r1R17Hid8x0yXe+1B5ZelkaL1Mjzedzu0Cg3HBvDG02SAgSzBw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- axios -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js" integrity="sha512-NQfB/bDaB8kaSXF8E77JjhHG5PM6XVRxvHzkZiwl3ddWCEPBa23T76MuWSwAJdMGJnmQqM0VeY9kFszsrBEFrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
+  <!-- tippy -->
+  <!-- Production -->
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+
+  <!-- pagination -->
+  <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.0.3.js"></script>
 
   <!-- file custom -->
   <script>
-      var main_app = angular.module('main-app', ["ngRoute"]);
-      main_app.controller('AngularController', 
+      var main_app = angular.module('main-app', [
+                                                  'ngRoute',
+                                                  'ui.bootstrap'
+                                                ]);
+      main_app.controller('AngularController',
       function ($scope) {
 
       });
@@ -276,14 +344,16 @@
       main_app.config(function ($routeProvider){
         $routeProvider
         .when("/thong-ke", {templateUrl : "index.html"})
-        .when("/phieu-giam-gia", {templateUrl : "voucher/voucher.html", controller : "voucherController"})
+        .when("/phieu-giam-gia", {templateUrl : "voucher/voucher.html", controller : "voucherController as list"})
         .when("/them-phieu-giam-gia", {templateUrl : "voucher/add_voucher.html", controller : "addVoucherController"})
+        .when("/sua-phieu-giam-gia/:id", {templateUrl : "voucher/edit_voucher.html", controller : "editVoucherController"})
         .otherwise({redirectTo : "/phieu-giam-gia"})
       })
     
   </script>
   <script src="../assets/js/voucher/voucher.js"></script>
   <script src="../assets/js/voucher/add_voucher.js"></script>
+  <script src="../assets/js/voucher/edit_voucher.js"></script>
 
 
 </body>

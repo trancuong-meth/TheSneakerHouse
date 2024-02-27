@@ -13,24 +13,29 @@
               </div>
 
               <!-- searh bar -->
-              <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+              <div class="d-sm-flex d-block align-items-center justify-content-between mb-9" >
 
-                <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex; justify-content: space-between;width: 63%;">
 
                     <div class="mb-3 mb-sm-0" >
                         <div style="color: black;margin-bottom: 5px;">
                             Nhập mã, tên phiếu giảm giá
                         </div>
-                        <input style="width: 262px; height: 40px;" type="text" class="form-control" placeholder="Tìm kiếm phiếu giảm giá theo tên,...">
+                        <input style="width: 262px; height: 40px;" 
+                        type="text" 
+                        class="form-control" 
+                        ng-model="key"
+                        ng-keyup="fillterByKey()"
+                        placeholder="Tìm kiếm phiếu giảm giá theo tên,...">
                     </div>
 
                     <div class="mb-3 mb-sm-0" style="margin-left: 15px;" >
                         <div style="color: black;">
                             Trạng thái
                         </div>
-                        <div style="margin-top: 11px;">
+                        <div style="margin-top: 5px;">
                              <span>
-                                <input type="radio" name="radio" style="margin-right: 2px;" checked="true"> 
+                                <input type="radio" name="radio" style="margin-right: 2px;" checked="true" value="all" ng-click="fillterByTrangThai('')"> 
                                 <span style="
                                     display: inline-block;
                                     font-size: 13px;
@@ -40,17 +45,17 @@
                              </span>
     
                              <span style="display: inline-block; margin-left: 10px;">
-                                <input type="radio" name="radio" style="margin-right: 2px;"> 
+                                <input type="radio" name="radio" style="margin-right: 2px;" value="0" ng-click="fillterByTrangThai(0)"> 
                                 <span style="
                                     display: inline-block;
                                     font-size: 13px;
                                     transform: translateY(-2px);
                                    "
-                                > Sắp diễn ra </span>     
+                                > Chưa diễn ra </span>     
                              </span>
     
                              <span style="display: inline-block; margin-left: 10px;">
-                                <input type="radio" name="radio" style="margin-right: 2px;">  
+                                <input type="radio" name="radio" style="margin-right: 2px;" value="1" ng-click="fillterByTrangThai(1)">  
                                 <span style="
                                     display: inline-block;
                                     font-size: 13px;
@@ -60,7 +65,7 @@
                              </span>
     
                              <span style="display: inline-block; margin-left: 10px;">
-                                <input type="radio" name="radio" style="margin-right: 2px;">
+                                <input type="radio" name="radio" style="margin-right: 2px;" value="2" ng-click="fillterByTrangThai(2)">
                                 <span style="
                                     display: inline-block;
                                     font-size: 13px;
@@ -68,6 +73,18 @@
                                    "
                                 > Đã kết thúc </span>   
                              </span>
+
+                             <span style="display: inline-block; margin-left: 10px;">
+                              <input type="radio" name="radio" style="margin-right: 2px;" value="3" ng-click="fillterByTrangThai(3)">
+                              <span style="
+                                  display: inline-block;
+                                  font-size: 13px;
+                                  transform: translateY(-2px);
+                                 "
+                              > Đã hủy </span>   
+                           </span>
+
+                           </span>
                         </div>
                     </div>
 
@@ -118,47 +135,78 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">1</h6></td>
+                      <tr ng-repeat="voucher in vouchers.content">
+                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0"> {{$index + 1}}</h6></td>
                         <td class="border-bottom-0">
-                            <span class="fw-normal">VC02</span>                          
+                            <span class="fw-normal">{{voucher.ma}}</span>                          
                         </td>
                         <td class="border-bottom-0">
-                            <span class="fw-normal">Kim chi</span>                          
+                            <span class="fw-normal">{{voucher.ten}}</span>                          
                         </td>
                         <td class="border-bottom-0">
-                            <span class="fw-normal">100,000 đ</span>                          
+                            <span class="fw-normal">{{voucher.giaTriToiThieu}}</span>                          
                         </td>
                         <td class="border-bottom-0">
-                            <span class="fw-normal">10%</span>                          
+                            <span class="fw-normal">{{voucher.phanTramGiam}}%</span>                          
                         </td>
                         <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">10</p>
+                          <p class="mb-0 fw-normal">{{voucher.soLanDung}}</p>
                         </td>
-                        <td class="border-bottom-0">
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="badge bg-primary rounded-3 fw-semibold"
+                        <td class="border-bottom-0" >
+
+                          <div class="d-flex align-items-center gap-2" ng-if="voucher.trangThai == 0">
+                              <span class="badge bg-warning rounded-3 fw-semibold"
                                   style="    
                                   padding: 11px;
                                   font-size: 11px;"
-                            >Đang diễn ra</span>
+                               >Chưa diễn ra</span>
                           </div>
+
+                          <div class="d-flex align-items-center gap-2" ng-if="voucher.trangThai == 1">
+                            <span class="badge bg-primary rounded-3 fw-semibold"
+                                style="    
+                                padding: 11px;
+                                font-size: 11px;"
+                             >Đang diễn ra</span>
+                          </div>
+
+                        <div class="d-flex align-items-center gap-2" ng-if="voucher.trangThai == 2">
+                          <span class="badge bg-danger rounded-3 fw-semibold"
+                              style="    
+                              padding: 11px;
+                              font-size: 11px;"
+                           >Kết thúc</span>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2" ng-if="voucher.trangThai == 3">
+                          <span class="badge bg-danger rounded-3 fw-semibold"
+                              style="    
+                              padding: 11px;
+                              font-size: 11px;"
+                           >Đã hủy</span>
+                        </div>
+
                         </td>
                         <td class="border-bottom-0">
                           <h6 class="fw-semibold mb-0 fs-4">
-                            <i 
-                             style="
-                             display: inline-block;
-                             font-size: 23px;
-                             color: #d4d42e;"
-                            class="ti ti-edit"></i>
-                            <i
-                             style="
-                             display: inline-block;
-                             font-size: 23px;
-                             color: #f05119;
-                             margin-left: 10px;"
-                            class="ti ti-calendar-off"></i>
+                            <a ng-href="#!sua-phieu-giam-gia/{{voucher.id}}" >
+                              <i   
+                              style="
+                              display: inline-block;
+                              font-size: 23px;  
+                              color: #d4d42e;"
+                              class="ti ti-edit"></i>
+                            </a>
+                            
+                            <a ng-click="changeStatus(voucher.id, voucher.trangThai)">
+                              <i id="change_status"
+                              style="
+                              display: inline-block;
+                              font-size: 23px;
+                              color: #f05119;
+                              margin-left: 10px;"
+                              class="ti ti-calendar-off"></i>
+                          </a>
                           </h6>
                         </td>
                       </tr> 
@@ -167,17 +215,21 @@
                   </table>
                 </div>
 
-              <!-- pagination -->
-              <nav aria-label="Page navigation example" style="float: right;margin-right: 36px;">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#"><</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">></a></li>
-                </ul>
-              </nav>
-              
+                <span  ng-show="numPages!=0">
+                  <uib-pagination items-per-page="itemsPerPage" 
+                  total-items="totalItems" 
+                  ng-model="currentPage" 
+                  class="pagination-sm" 
+                  previous-text="‹" 
+                  next-text="›" first-text="«" last-text="»" 
+                  style="
+                  width: 16%;
+                  margin-left: auto;
+                  margin-right: auto;
+                  " 
+                  max-size="3"
+                  ng-change="pageChanged()"></uib-pagination>
+                </span>
             </div>
           </div>
         </div>

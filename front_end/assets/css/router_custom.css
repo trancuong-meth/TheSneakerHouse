@@ -165,3 +165,37 @@
   color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
+
+.pagination .disabled a{
+  pointer-events: none;
+  color: #777!important;
+}
+
+.pagination .active{
+  background-color: #5D87FF;
+}
+
+.pagination .active a{
+  color: white;
+}
+
+.pagination > li{
+  border: 1px solid #ddd;
+  padding: 7px 14px;
+  border-right: none;
+}
+
+.pagination > li > a{
+  color: #5D87FF;
+}
+
+.pagination > .pagination-prev{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination > .pagination-next{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-right: 1px solid #ddd;
+}

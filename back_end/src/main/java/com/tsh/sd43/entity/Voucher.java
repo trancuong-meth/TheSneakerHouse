@@ -34,7 +34,7 @@ public class Voucher extends PrimaryEntity {
     private BigDecimal giaTriToiDa;
 
     @Column(name = "so_lan_dung")
-    private String soLanDung;
+    private Integer soLanDung;
 
     @Column(name = "ngay_bat_dau")
     private Date ngayBatDau;

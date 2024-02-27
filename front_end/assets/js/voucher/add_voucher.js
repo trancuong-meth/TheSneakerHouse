@@ -72,12 +72,16 @@ main_app.controller("addVoucherController", function($scope, $http){
             ngayBatDau : $scope.voucher.date_start,
             ngayKetThuc : $scope.voucher.date_end
         }
-        $http.post('https://localhost:8080/voucher/add-voucher', data).then(function successCallback(response) {
-            console.log(response.data)
-            toastr.success('Success messages');
-          }, function errorCallback(response) {
-            console.log(response.data)
-            toastr.error('Không thành công')
+        axios.post('http://localhost:8080/voucher/add-voucher', data).then(
+            (response) => {
+                toastr.success('Bạn đã tạo voucher thành công')
+                setTimeout(() => {
+                    location.href = "/html/router.html#!/phieu-giam-gia"
+                }, 400)
+            }
+        ).catch((error) => {
+            console.log(error)
+            toastr.error('Đã có lỗi xảy ra.Vui lòng liên hệ quản trị viên')
         });
         
     }

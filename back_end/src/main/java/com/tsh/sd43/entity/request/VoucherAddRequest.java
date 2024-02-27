@@ -22,7 +22,7 @@ public class VoucherAddRequest {
 
     private BigDecimal giaTriToiDa;
 
-    private String soLanDung;
+    private Integer soLanDung;
 
     private Date ngayBatDau;
 

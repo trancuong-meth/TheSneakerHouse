@@ -13,8 +13,11 @@ public interface IVoucherRepo extends JpaRepository<Voucher, Long> {
 
     @Query( value = """
         select * from Voucher v
+        WHERE trang_thai like :trangThai 
+        AND (ma like :key
+        OR ten like :key)
     """, nativeQuery = true)
-    Page<Voucher> findVouchersByState(Pageable pageable);
+    Page<Voucher> findVouchersByState(Pageable pageable, @Param("trangThai") String trangThai, @Param("key") String key);
 
     @Query(value = """
         select * from Voucher v
