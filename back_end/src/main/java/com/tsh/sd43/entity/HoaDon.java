@@ -1,0 +1,75 @@
+package com.tsh.sd43.entity;
+
+import com.tsh.sd43.entity.base.PrimaryEntity;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
+
+@Data
+@Entity
+@Table(name = "hoa_don")
+public class HoaDon extends PrimaryEntity {
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_nhan_vien")
+    private NhanVien idNhanVien;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_khach_hang")
+    private KhachHang idKhachHang;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_voucher")
+    private Voucher idVoucher;
+
+    @Column(name = "ma")
+    private String ma;
+
+    @Column(name = "ngay_xac_nhan")
+    private Date ngayXacNhan;
+
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+    @Column(name = "ngay_cap_nhat")
+    private Date ngayCapNhat;
+
+    @Column(name = "ten_nguoi_nhan")
+    private String tenNguoiNhan;
+
+    @Column(name = "sdt_nguoi_nhan")
+    private String sdtNguoiNhan;
+
+    @Column(name = "ngay_van_chuyen")
+    private Date ngayVanChuyen;
+
+    @Column(name = "ngay_hoan_thanh")
+    private Date ngayHoanThanh;
+
+    @Column(name = "phi_van_chuyen")
+    private BigDecimal phiVanChuyen;
+
+    @Column(name = "tong_tien")
+    private BigDecimal tongTien;
+
+    @Column(name = "tong_tien_sau_giam")
+    private BigDecimal tongTienSauGiam;
+
+    @Column(name = "phuong_thuc_thanh_toan")
+    private Integer phuongThucThanhToan;
+
+    @Column(name = "loai_hoa_don")
+    private Integer loaiHoaDon;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "ghi_chu")
+    private String ghiChu;
+
+    @Column(name = "trang_thai")
+    private Integer trangThai;
+}

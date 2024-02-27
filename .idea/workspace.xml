@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="decf23c0-62c4-4ee5-9414-667af264ed85" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/application/TheSneakerHouseApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/controller/ProductController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/DotGiamGia.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/GioHang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/GioHangChiTiet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/HinhAnh.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/HoaDon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/HoaDonChiTiet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/KhachHang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/KichCo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/MauSac.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/NhanVien.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/SanPham.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/SanPhamChiTiet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/TheLoai.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/ThuongHieu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/entity/Voucher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/RolesKhachHang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/RolesNhanVien.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusDotGiamGia.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusGioHang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusHinhAnh.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusHoaDon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusKhachHang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusKichCo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusMauSac.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusNhanVien.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusSanPham.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusTheLoai.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusThuongHieu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/enums/StatusVoucher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IDotGiamGiaRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IGioHangChiTietRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IGioHangRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IHinhAnhRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IHoaDonChiTietRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IHoaDonRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IKhachHangRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IKichCoRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IMauSacRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/INhanVienRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/ISanPhamChiTietRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/ISanPhamRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/ITheLoaiRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IThuongHieuRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/repository/IVoucherRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IDotGiamGiaSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IGioHangChiTietSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IGioHangSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IHinhAnhSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IHoaDonChiTietSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IHoaDonSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IKhachHangSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IKichCoSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IMauSacSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/INhanVienSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/ISanPhamChiTietSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/ISanPhamSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/ITheLoaiSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IThuongHieuSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/IVoucherSer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/DotGiamGiaSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/GioHangChiTietSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/GioHangSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/HinhAnhSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/HoaDonChiTietSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/HoaDonSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/KhachHangSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/KichCoSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/MauSacSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/NhanVienSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/SanPhamChiTietSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/SanPhamSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/TheLoaiSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/ThuongHieuSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsh/sd43/service/impl/VoucherSerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/tsh/sd43/TheSneakerHouseApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2cTbslsLhf4Hy6jzBbsbZQG52WZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.TheSneakerHouseApplication.executor": "Run",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/hoang/Documents/TheSneakerHouse/back_end",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.tsh.sd43" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="TheSneakerHouseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="TheSneakerHouse" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.tsh.sd43.TheSneakerHouseApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="decf23c0-62c4-4ee5-9414-667af264ed85" name="Changes" comment="" />
+      <created>1708138724886</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708138724886</updated>
+      <workItem from="1708138725976" duration="249000" />
+      <workItem from="1708138986767" duration="591000" />
+      <workItem from="1708139641034" duration="1234000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
