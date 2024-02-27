@@ -27,6 +27,26 @@ main_app.controller("addVoucherController", function($scope, $http){
             return;
         }
 
+        if(isNaN($scope.voucher.max_price)){
+            toastr.error('Giá trị tối đa phải là số')
+            return;
+        }
+
+        if(isNaN($scope.voucher.min_price)){
+            toastr.error('Giá trị đơn tối thiểu phải là số')
+            return;
+        }
+
+        if(isNaN($scope.voucher.percent)){
+            toastr.error('Giá trị phần trên phải là số')
+            return;
+        }
+
+        if(isNaN($scope.voucher.quantity)){
+            toastr.error('Số lần phải là số')
+            return;
+        }
+
         if($scope.voucher.max_price < 0){
             toastr.error('Giá trị tối đa phải là số duơng')
             return;

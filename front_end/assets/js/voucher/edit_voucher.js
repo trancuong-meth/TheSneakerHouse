@@ -26,6 +26,25 @@ main_app.controller("editVoucherController", function($scope, $http, $routeParam
             return;
         }
 
+        if(isNaN($scope.voucher.giaTriToiDa)){
+            toastr.error('Giá trị tối đa phải là số')
+            return;
+        }
+
+        if(isNaN($scope.voucher.giaTriToiThieu)){
+            toastr.error('Giá trị đơn tối thiểu phải là số')
+            return;
+        }
+
+        if(isNaN($scope.voucher.phanTramGiam)){
+            toastr.error('Giá trị phần trên phải là số')
+            return;
+        }
+
+        if(isNaN($scope.voucher.soLanDung)){
+            toastr.error('Số lần phải là số')
+        }
+
         if($scope.voucher.giaTriToiDa < 0){
             toastr.error('Giá trị tối đa phải là số duơng')
             return;
