@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The sneaker house</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+
+  <!-- CSS Custom Files -->
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
   <link rel="stylesheet" href="../assets/css/router_custom.css" />
+  <link rel="stylesheet" href="../assets/css/customers/add_customer.css"/>
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
 
   <!-- FONT Awesome -->
@@ -30,7 +33,7 @@
             font-size: 24px;
             font-weight: 900;
           ">
-            The sneaker house
+            The Sneaker House
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -89,11 +92,11 @@
               </a>
               <div class="OptionBody sidebar-item">
                 <div class="OptionContainer sidebar-link " onclick="selectSubMenu(this)">
-                  <a
+                  <a href="#!nhan-vien"
                     style="color: #2A3547; transform: translateX(48px); display: inline-block;">Nhân viên</a>
                 </div>
                 <div class="OptionContainer sidebar-link" onclick="selectSubMenu(this)">
-                  <a
+                  <a href="#!khach-hang"
                     style="color: #2A3547; transform: translateX(48px); display: inline-block;">Khách hàng</a>
                 </div>
               </div>
@@ -116,8 +119,6 @@
                 <span class="hide-menu">Phiếu giảm giá</span>
               </a>
             </li>
-
-
 
         </nav>
         <!-- End Sidebar navigation -->
@@ -227,6 +228,7 @@
   <script>
     var sub_menus = [];
     var sub_menu_actives = [];
+    var menu_active = ""
     var main_app = angular.module('main-app', [
       'ngRoute',
       'ui.bootstrap'
@@ -241,21 +243,28 @@
     main_app.config(function ($routeProvider) {
       $routeProvider
         .when("/thong-ke", { templateUrl: "index.html" })
-        .when("/phieu-giam-gia", { templateUrl: "voucher/voucher.html", controller: "voucherController as list" })
-        .when("/them-phieu-giam-gia", { templateUrl: "voucher/add_voucher.html", controller: "addVoucherController" })
-        .when("/sua-phieu-giam-gia/:id", { templateUrl: "voucher/edit_voucher.html", controller: "editVoucherController" })
-        .when("/dot-giam-gia", { templateUrl: "sale/sale.html", controller: "saleController" })
-        .when("/them-dot-giam-gia", { templateUrl: "sale/add_sale.html", controller: "addSaleController" })
-        .when("/sua-dot-giam-gia/:id", { templateUrl: "sale/edit_sale.html", controller: "editSaleController" })
-        .otherwise({ redirectTo: "/dot-giam-gia" })
+        .when("/phieu-giam-gia", { templateUrl: "vouchers/voucher.html", controller: "voucherController as list" })
+        .when("/them-phieu-giam-gia", { templateUrl: "vouchers/add_voucher.html", controller: "addVoucherController" })
+        .when("/sua-phieu-giam-gia/:id", { templateUrl: "vouchers/edit_voucher.html", controller: "editVoucherController" })
+        .when("/dot-giam-gia", { templateUrl: "sales/sale.html", controller: "saleController" })
+        .when("/them-dot-giam-gia", { templateUrl: "sales/add_sale.html", controller: "addSaleController" })
+        .when("/sua-dot-giam-gia/:id", { templateUrl: "sales/edit_sale.html", controller: "editSaleController" })
+        .when("/nhan-vien", { templateUrl: "employees/employee.html", controller: "employeeController" })
+        .when("/them-nhan-vien", { templateUrl: "employees/add_employee.html", controller: "addEmployeeController" })
+        .when("/sua-nhan-vien/:id", { templateUrl: "employees/edit_employee.html", controller: "editEmployeeController" })
+        .when("/khach-hang", { templateUrl: "customers/customer.html", controller: "customerController" })
+        .when("/them-khach-hang", { templateUrl: "customers/add_customer.html", controller: "addCustomerController" })
+        .when("/sua-khach-hang/:id", { templateUrl: "customers/edit_customer.html", controller: "editCustomerController" })
+        .otherwise({ redirectTo: "/khach-hang" })
     })
 
     function ToggleOption(element) {
+      menu_active = element
       element = element.getElementsByClassName("fa-chevron-down")[0];
       sub_menus.push(element);
+
       if (element.parentElement.parentElement.parentElement.classList.contains("open")) {
         element.parentElement.parentElement.parentElement.classList.remove("open");
-
       }
       else {
         element.parentElement.parentElement.parentElement.classList.add("open");
@@ -263,7 +272,15 @@
     }
 
     function removeOption() {
-      console.log(sub_menus)
+      
+      if(sub_menu_actives.length > 0){
+        for (var i = 0; i < sub_menu_actives.length; i++) {
+        if (sub_menu_actives[i].classList.contains("sub_menu_active")) {
+          sub_menu_actives[i].classList.remove("sub_menu_active");
+        }
+      }
+      }
+
       for (var i = 0; i < sub_menus.length; i++) {
         if (sub_menus[i].parentElement.parentElement.parentElement.classList.contains("open")) {
           sub_menus[i].parentElement.parentElement.parentElement.classList.remove("open");
@@ -272,6 +289,10 @@
     }
 
     function selectSubMenu(element){
+      if(menu_active.classList.contains("active")){
+        menu_active.classList.remove("active");
+      }
+
       if(sub_menu_actives.length > 0){
         for (var i = 0; i < sub_menu_actives.length; i++) {
         if (sub_menu_actives[i].classList.contains("sub_menu_active")) {
@@ -284,13 +305,15 @@
       element.classList.add("sub_menu_active");
     }
 
-  </script>
-  <script src="../assets/js/voucher/voucher.js"></script>
-  <script src="../assets/js/voucher/add_voucher.js"></script>
-  <script src="../assets/js/voucher/edit_voucher.js"></script>
-  <script src="../assets/js/sale/sale.js"></script>
-  <script src="../assets/js/sale/add_sale.js"></script>
-  <script src="../assets/js/sale/edit_sale.js"></script>
+ </script>
+  <script src="../assets/js/vouchers/voucher.js"></script>
+  <script src="../assets/js/vouchers/add_voucher.js"></script>
+  <script src="../assets/js/vouchers/edit_voucher.js"></script>
+  <script src="../assets/js/sales/sale.js"></script>
+  <script src="../assets/js/sales/add_sale.js"></script>
+  <script src="../assets/js/sales/edit_sale.js"></script>
+  <script src="../assets/js/cutomers/customer.js"></script>
+  <script src="../assets/js/cutomers/add_customer.js"></script> 
 
 </body>
 
