@@ -199,3 +199,99 @@
   border-bottom-right-radius: 5px;
   border-right: 1px solid #ddd;
 }
+
+
+.OptionHead {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  color: #2A3547;
+  font-size: 14px;
+}
+
+.OptionHead i[class*="fa-chevron-down"] {
+  transition: transform 0.25s ease-out;
+  fill: white;
+  color: #5c5e62;
+  display: inline-block;
+  font-size: 11px;
+}
+
+.active i[class*="fa-chevron-down"]{
+  color: white;
+}
+
+.OptionBody {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+}
+
+.OptionContainer.open>.OptionBody {
+  max-height: 1000px;
+  transition: max-height 0.25s ease-in;
+  overflow: auto;
+  transition: transform 0.15s ease-in;
+}
+
+.OptionContainer.open>.OptionHead i[class*="fa-chevron-down"] {
+  transform: rotate(180deg);
+  transition: transform 0.15s ease-in;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(5, 63, 118);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(2, 54, 102);
+}
+
+.GLOW{
+  color: #fff;
+  box-shadow: 0 0 2px #fff, 0 0 10px #fff, 0 0 20px #0ba9ca, 0 0 30px #0ba9ca,
+      0 0 40px #0ba9ca, 0 0 50px #0ba9ca;
+  -webkit-animation: blink 0.7s infinite alternate;
+  animation: blink 0.7s infinite alternate;
+}
+
+
+@-webkit-keyframes blink {
+  100% {
+      box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ba9ca,
+          0 0 70px #0ba9ca, 0 0 80px #0ba9ca;
+  }
+}
+
+@keyframes blink {
+  100% {
+      box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ba9ca,
+          0 0 70px #0ba9ca, 0 0 80px #0ba9ca;
+  }
+}
+
+.sub_menu_active{
+  background-color: #5D87FF;
+}
+
+.sub_menu_active a{
+  color: #fff!important;
+}
+
+.sub_menu_active:hover{
+  background-color: #5D87FF!important;
+  color: #fff!important;
+}

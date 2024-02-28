@@ -3,13 +3,10 @@ package com.tsh.sd43.entity;
 import com.tsh.sd43.entity.base.PrimaryEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -26,11 +23,11 @@ public class DotGiamGia extends PrimaryEntity {
     private Float phanTramGiam;
 
     @Column(name = "ngay_bat_dau")
-    private Timestamp ngayBatDau;
+    private Date ngayBatDau;
 
     @Column(name = "ngay_ket_thuc")
-    private Timestamp ngayKetThuc;
+    private Date ngayKetThuc;
 
     @Column(name = "trang_thai")
-    private Boolean trangThai;
+    private Integer trangThai;
 }
