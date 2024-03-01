@@ -49,6 +49,7 @@ public class KhachHangSerImpl implements IKhachHangSer {
         khachHang.setNgaySinh(req.getNgaySinh());
         khachHang.setGioiTinh(req.getGioiTinh());
         khachHang.setSoDienThoai(req.getSoDienThoai());
+        khachHang.setCccd(req.getCccd());
         khachHang.setEmail(req.getEmail());
         khachHang.setAvatar(req.getAvatar());
         khachHang.setXa(req.getXa());

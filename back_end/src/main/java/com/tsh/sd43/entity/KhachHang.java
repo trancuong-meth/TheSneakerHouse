@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.Nationalized;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -21,6 +22,7 @@ public class KhachHang extends PrimaryEntity {
     private String ma;
 
     @Column(name = "ten")
+    @Nationalized
     private String ten;
 
     @Column(name = "ngay_sinh")
@@ -31,6 +33,9 @@ public class KhachHang extends PrimaryEntity {
 
     @Column(name = "so_dien_thoai")
     private String soDienThoai;
+
+    @Column(name = "cccd")
+    private String cccd;
 
     @Column(name = "mat_khau")
     private String matKhau;
@@ -45,15 +50,19 @@ public class KhachHang extends PrimaryEntity {
     private String avatar;
 
     @Column(name = "xa")
+    @Nationalized
     private String xa;
 
     @Column(name = "phuong")
+    @Nationalized
     private String phuong;
 
     @Column(name = "tinh")
+    @Nationalized
     private String tinh;
 
     @Column(name = "dia_chi")
+    @Nationalized
     private String diaChi;
 
     @Column(name = "ma_xa")
