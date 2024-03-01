@@ -2,6 +2,7 @@ package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.KhachHang;
 import com.tsh.sd43.entity.Voucher;
+import com.tsh.sd43.entity.request.CustomerAddResquest;
 import com.tsh.sd43.entity.request.VoucherAddRequest;
 import com.tsh.sd43.enums.StatusVoucher;
 import com.tsh.sd43.repository.IKhachHangRepo;
@@ -39,52 +40,29 @@ public class KhachHangSerImpl implements IKhachHangSer {
         return khachHangRepo.findKhachHangById(id).get(0);
     }
 
-//    public Voucher addVoucher(VoucherAddRequest req){
-//        // check state
-//        Date today = new Date();
-//
-//        // add voucher
-//        Voucher voucher = new Voucher();
-//
-//        voucher.setMa(generateCode());
-//        voucher.setTen(req.getTen());
-//        voucher.setPhanTramGiam(req.getPhanTramGiam());
-//        voucher.setGiaTriToiThieu(req.getGiaTriToiThieu());
-//        voucher.setGiaTriToiDa(req.getGiaTriToiDa());
-//        voucher.setSoLanDung(req.getSoLanDung());
-//        voucher.setNgayBatDau(req.getNgayBatDau());
-//        voucher.setNgayKetThuc(req.getNgayKetThuc());
-//
-//        if(req.getNgayBatDau().after(today)){
-//            voucher.setTrangThai(StatusVoucher.CHUA_BAT_DAU.getTrangThai());
-//        }
-//        if(req.getNgayKetThuc().before(today)){
-//            voucher.setTrangThai(StatusVoucher.KET_THUC.getTrangThai());
-//        }
-//        if(req.getNgayBatDau().before(today) && req.getNgayKetThuc().after(today)){
-//            voucher.setTrangThai(StatusVoucher.DANG_DIEN_RA.getTrangThai());
-//        }
-//
-//        return voucherRepo.save(voucher);
-//    }
-//
-//    public Voucher updateVoucher(VoucherAddRequest req){
-//        // add voucher
-//        Voucher voucher = new Voucher();
-//
-//        voucher.setId(req.getId());
-//        voucher.setMa(req.getMa());
-//        voucher.setTen(req.getTen());
-//        voucher.setPhanTramGiam(req.getPhanTramGiam());
-//        voucher.setGiaTriToiThieu(req.getGiaTriToiThieu());
-//        voucher.setGiaTriToiDa(req.getGiaTriToiDa());
-//        voucher.setSoLanDung(req.getSoLanDung());
-//        voucher.setNgayBatDau(req.getNgayBatDau());
-//        voucher.setNgayKetThuc(req.getNgayKetThuc());
-//        voucher.setTrangThai(req.getTrangThai());
-//
-//        return voucherRepo.save(voucher);
-//    }
+    public KhachHang addCustomer(CustomerAddResquest req){
+        // add customer
+        KhachHang khachHang = new KhachHang();
+
+        khachHang.setMa(generateCode());
+        khachHang.setTen(req.getTen());
+        khachHang.setNgaySinh(req.getNgaySinh());
+        khachHang.setGioiTinh(req.getGioiTinh());
+        khachHang.setSoDienThoai(req.getSoDienThoai());
+        khachHang.setEmail(req.getEmail());
+        khachHang.setAvatar(req.getAvatar());
+        khachHang.setXa(req.getXa());
+        khachHang.setPhuong(req.getPhuong());
+        khachHang.setTinh(req.getTinh());
+        khachHang.setDiaChi(req.getDiaChi());
+        khachHang.setMaXa(req.getMaXa());
+        khachHang.setMaPhuong(req.getMaPhuong());
+        khachHang.setMaTinh(req.getMaTinh());
+        khachHang.setTrangThai(true);
+
+        return khachHangRepo.save(khachHang);
+    }
+
 
     public String generateCode(){
         // generate code

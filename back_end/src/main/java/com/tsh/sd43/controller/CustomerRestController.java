@@ -1,5 +1,6 @@
 package com.tsh.sd43.controller;
 
+import com.tsh.sd43.entity.request.CustomerAddResquest;
 import com.tsh.sd43.service.impl.KhachHangSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,13 @@ public class CustomerRestController {
         }
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<?> addVoucher(@RequestBody CustomerAddResquest req){
+        try{
+            return new ResponseEntity<>(customerSer.addCustomer(req), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

@@ -1,24 +1,14 @@
-package com.tsh.sd43.entity;
+package com.tsh.sd43.entity.request;
 
-import com.tsh.sd43.entity.base.PrimaryEntity;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
-@Data
-@Entity
-@Table(name = "khach_hang")
-public class KhachHang extends PrimaryEntity {
-
-    @Column(name = "ma")
-    private String ma;
+@Getter
+@Setter
+public class CustomerAddResquest {
 
     @Column(name = "ten")
     private String ten;
@@ -32,14 +22,8 @@ public class KhachHang extends PrimaryEntity {
     @Column(name = "so_dien_thoai")
     private String soDienThoai;
 
-    @Column(name = "mat_khau")
-    private String matKhau;
-
     @Column(name = "email")
     private String email;
-
-    @Column(name = "loai_khach")
-    private Boolean loaiKhach;
 
     @Column(name = "avatar")
     private String avatar;
@@ -64,7 +48,4 @@ public class KhachHang extends PrimaryEntity {
 
     @Column(name = "ma_tinh")
     private String maTinh;
-
-    @Column(name = "trang_thai")
-    private Boolean trangThai;
 }

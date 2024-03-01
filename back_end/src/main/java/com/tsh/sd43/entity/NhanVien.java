@@ -30,20 +30,14 @@ public class NhanVien extends PrimaryEntity {
     @Column(name = "so_dien_thoai")
     private String soDienThoai;
 
-    @Column(name = "ten_dang_nhap")
-    private String tenDangNhap;
-
     @Column(name = "mat_khau")
     private String matKhau;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "ten_file_hinh_anh")
-    private String tenFile;
-
-    @Column(name = "du_lieu_hinh_anh")
-    private byte[] duLieuHinhAnh;
+    @Column(name = "avatar")
+    private String avatar;
 
     @Column(name = "trang_thai")
     private Boolean trangThai;
@@ -60,6 +54,9 @@ public class NhanVien extends PrimaryEntity {
 
     @Column(name = "tinh")
     private String tinh;
+
+    @Column(name = "dia_chi")
+    private String diaChi;
 
     @Column(name = "ma_xa")
     private String maXa;
