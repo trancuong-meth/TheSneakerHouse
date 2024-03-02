@@ -4,8 +4,7 @@ import com.tsh.sd43.entity.base.PrimaryEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -18,8 +17,8 @@ public class NhanVien extends PrimaryEntity {
     @Column(name = "ma")
     private String ma;
 
-    @Column(name = "ho_va_ten")
-    private String hoVaTen;
+    @Column(name = "ten")
+    private String ten;
 
     @Column(name = "ngay_sinh")
     private Date ngaySinh;

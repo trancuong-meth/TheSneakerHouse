@@ -262,7 +262,7 @@
         .when("/khach-hang", { templateUrl: "customers/customer.html", controller: "customerController" })
         .when("/them-khach-hang", { templateUrl: "customers/add_customer.html", controller: "addCustomerController" })
         .when("/sua-khach-hang/:id", { templateUrl: "customers/edit_customer.html", controller: "editCustomerController" })
-        .otherwise({ redirectTo: "/khach-hang" })
+        .otherwise({ redirectTo: "/nhan-vien" })
     })
 
     function ToggleOption(element) {
@@ -322,6 +322,9 @@
   <script src="../assets/js/cutomers/customer.js"></script>
   <script src="../assets/js/cutomers/add_customer.js"></script> 
   <script src="../assets/js/cutomers/edit_customer.js"></script>
+  <script src="../assets/js/employees/employee.js"></script>
+  <script src="../assets/js/employees/add_employee.js"></script>
+  <script src="../assets/js/employees/edit_employee.js"></script>
 
 </body>
 

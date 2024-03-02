@@ -1,6 +1,5 @@
 package com.tsh.sd43.entity.request;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class CustomerAddResquest {
+public class CustomerAddRequest {
 
     private String ten;
 

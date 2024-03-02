@@ -1,12 +1,8 @@
 package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.KhachHang;
-import com.tsh.sd43.entity.Voucher;
-import com.tsh.sd43.entity.request.CustomerAddResquest;
-import com.tsh.sd43.entity.request.VoucherAddRequest;
-import com.tsh.sd43.enums.StatusVoucher;
+import com.tsh.sd43.entity.request.CustomerAddRequest;
 import com.tsh.sd43.repository.IKhachHangRepo;
-import com.tsh.sd43.repository.IVoucherRepo;
 import com.tsh.sd43.service.IKhachHangSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,7 +36,7 @@ public class KhachHangSerImpl implements IKhachHangSer {
         return khachHangRepo.findKhachHangById(id).get(0);
     }
 
-    public KhachHang addCustomer(CustomerAddResquest req){
+    public KhachHang addCustomer(CustomerAddRequest req){
         // add customer
         KhachHang khachHang = new KhachHang();
 
