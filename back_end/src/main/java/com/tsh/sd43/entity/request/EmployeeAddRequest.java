@@ -9,6 +9,8 @@ import java.util.Date;
 @Setter
 public class EmployeeAddRequest {
 
+    Long id;
+
     String cccd;
 
     String ma;

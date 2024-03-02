@@ -43,11 +43,12 @@ public class NhanVienSerImpl implements INhanVienSer {
 
     public NhanVien addEmployee(EmployeeAddRequest req){
         NhanVien employee = new NhanVien();
+
         employee.setCccd(req.getCccd());
         employee.setDiaChi(req.getDiaChi());
         employee.setEmail(req.getEmail());
         employee.setGioiTinh(req.getGioiTinh());
-        employee.setMa(req.getMa());
+        employee.setMa(generateCode());
         employee.setMaPhuong(req.getMaPhuong());
         employee.setMaTinh(req.getMaTinh());
         employee.setMaXa(req.getMaXa());
@@ -85,7 +86,6 @@ public class NhanVienSerImpl implements INhanVienSer {
         return nhanVienRepo.save(employee);
     }
 
-
     public String generateCode(){
         // generate code
         String newestCode = nhanVienRepo.generateNewestCode();
@@ -95,8 +95,49 @@ public class NhanVienSerImpl implements INhanVienSer {
         return "CUSTOMER_" + (Integer.parseInt(newestCode.substring(9)) + 1);
     }
 
-    public NhanVien updateCustomer(KhachHang khachHang){
+    public NhanVien updateEmployee(EmployeeAddRequest req){
         NhanVien employee = new NhanVien();
+
+        employee.setCccd(req.getCccd());
+        employee.setDiaChi(req.getDiaChi());
+        employee.setEmail(req.getEmail());
+        employee.setGioiTinh(req.getGioiTinh());
+        employee.setMa(req.getMa());
+        employee.setMaPhuong(req.getMaPhuong());
+        employee.setMaTinh(req.getMaTinh());
+        employee.setMaXa(req.getMaXa());
+        employee.setXa(req.getXa());
+        employee.setPhuong(req.getPhuong());
+        employee.setTinh(req.getTinh());
+        employee.setNgaySinh(req.getNgaySinh());
+        employee.setSoDienThoai(req.getSoDienThoai());
+        employee.setTrangThai(true);
+        employee.setTen(req.getTen());
+        employee.setAvatar(req.getAvatar());
+        employee.setId(req.getId());
+
+        if(req.getChucVu() == 0){
+            if(chucVuRepo.findByMa("0") != null){
+                employee.setChucVu(chucVuRepo.findByMa("0"));
+            }else{
+                ChucVu chucVu = new ChucVu();
+                chucVu.setMa("0");
+                chucVu.setTen("Nhân viên");
+                chucVuRepo.save(chucVu);
+                employee.setChucVu(chucVu);
+            }
+        }else if(req.getChucVu() == 1){
+            if(chucVuRepo.findByMa("1") != null){
+                employee.setChucVu(chucVuRepo.findByMa("1"));
+            }else{
+                ChucVu chucVu = new ChucVu();
+                chucVu.setMa("1");
+                chucVu.setTen("Quản trị viên");
+                chucVuRepo.save(chucVu);
+                employee.setChucVu(chucVu);
+            }
+        }
+
         return nhanVienRepo.save(employee);
     }
 
