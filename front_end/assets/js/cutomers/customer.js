@@ -3,7 +3,7 @@ main_app.controller("customerController", function($scope, $http){
     $scope.currentPage = 1;
     $scope.itemsPerPage = 10;
     $scope.totalItems = 1;
-    $scope.key = ""
+    $scope.customerKey = ""
     $scope.trang_thai = ""
     $scope.customers = []
   
@@ -28,7 +28,6 @@ main_app.controller("customerController", function($scope, $http){
   
     loadData()
     
-  
     $scope.pageChanged = function() {
       $http.get('http://localhost:8080/customer/find-all-panigation?page='+ ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.key + '&trang_thai=' + $scope.trang_thai,)
       .then(function(response) {
@@ -41,8 +40,9 @@ main_app.controller("customerController", function($scope, $http){
     //   fillter($scope.key, $scope.trang_thai)
     // }
     
-    // $scope.fillterByKey = function(){
-    //   fillter($scope.key, $scope.trang_thai)
-    // }
+    $scope.fillterByCustomerKey = function(){
+      var key = document.getElementById("customerKey").value
+      fillter(key, $scope.trang_thai)
+    }
   
   })
