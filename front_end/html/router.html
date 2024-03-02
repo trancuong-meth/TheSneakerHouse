@@ -61,13 +61,68 @@
               </a>
             </li>
 
-            <li class="sidebar-item" onclick="removeOption()">
-              <a class="sidebar-link" href="#!test" aria-expanded="false">
-                <span>
-                  <i class="ti ti-shoe"></i>
-                </span>
-                <span class="hide-menu">Quản lý sản phẩm</span>
+            <li class="OptionContainer sidebar-item">
+              <a class="OptionHead sidebar-link" onclick="ToggleOption(this)" style="cursor: pointer;">
+                <div style="display: flex;">
+                  <span>
+                    <i class="ti ti-shoe" style="font-family: tabler-icons !important;
+                   speak: none;
+                   font-style: normal;
+                   font-weight: normal;
+                   font-variant: normal;
+                   text-transform: none;
+                   line-height: 1;
+                   -webkit-font-smoothing: antialiased;
+                   font-size: 21px;"></i>
+                  </span>
+                  <div style="margin-left: 16px;">Quản lý sản phẩm</div>
+                </div>
+
+                <div><i class="fa-solid fa-chevron-down" x="0px" y="0px" width="20" height="20">
+                  </i></div>
               </a>
+              <div class="OptionBody sidebar-item">
+                <a href="#!nhan-vien"
+                class="sidebar-link OptionContainer"
+                style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                  <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
+                    Sản phẩm
+                  </span>
+                </a>
+
+                <a href="#!khach-hang"
+                  class="sidebar-link OptionContainer"
+                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                  <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
+                    Thể loại
+                  </span>
+                </a>
+
+                <a href="#!khach-hang"
+                  class="sidebar-link OptionContainer"
+                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                  <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
+                    Màu sắc
+                  </span>
+                </a>
+
+                <a href="#!khach-hang"
+                  class="sidebar-link OptionContainer"
+                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                  <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
+                    Kích cỡ
+                  </span>
+                </a>
+
+                <a href="#!thuong-hieu"
+                  class="sidebar-link OptionContainer"
+                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                  <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
+                    Thương hiệu
+                  </span>
+                </a>
+
+              </div>
             </li>
 
             <li class="OptionContainer sidebar-item">
@@ -250,18 +305,33 @@
     main_app.config(function ($routeProvider) {
       $routeProvider
         .when("/thong-ke", { templateUrl: "index.html" })
+       
+      // Phiếu giảm giá
         .when("/phieu-giam-gia", { templateUrl: "vouchers/voucher.html", controller: "voucherController as list" })
         .when("/them-phieu-giam-gia", { templateUrl: "vouchers/add_voucher.html", controller: "addVoucherController" })
         .when("/sua-phieu-giam-gia/:id", { templateUrl: "vouchers/edit_voucher.html", controller: "editVoucherController" })
+        
+      // Đợt giảm giá 
         .when("/dot-giam-gia", { templateUrl: "sales/sale.html", controller: "saleController" })
         .when("/them-dot-giam-gia", { templateUrl: "sales/add_sale.html", controller: "addSaleController" })
         .when("/sua-dot-giam-gia/:id", { templateUrl: "sales/edit_sale.html", controller: "editSaleController" })
+        
+      // Nhân viên
         .when("/nhan-vien", { templateUrl: "employees/employee.html", controller: "employeeController" })
         .when("/them-nhan-vien", { templateUrl: "employees/add_employee.html", controller: "addEmployeeController" })
         .when("/sua-nhan-vien/:id", { templateUrl: "employees/edit_employee.html", controller: "editEmployeeController" })
+       
+      // Khách hàng 
         .when("/khach-hang", { templateUrl: "customers/customer.html", controller: "customerController" })
         .when("/them-khach-hang", { templateUrl: "customers/add_customer.html", controller: "addCustomerController" })
         .when("/sua-khach-hang/:id", { templateUrl: "customers/edit_customer.html", controller: "editCustomerController" })
+
+      // Thương hiệu
+        .when("/thuong-hieu", { templateUrl: "products/brands/brand.html", controller: "brandController" })
+        .when("/them-thuong-hieu", { templateUrl: "products/brands/add_brand.html", controller: "addBrandController" })
+        .when("/sua-thuong-hieu/:id", { templateUrl: "products/brands/edit_brand.html", controller: "editBrandController" })
+        
+      // mặc định 
         .otherwise({ redirectTo: "/nhan-vien" })
     })
 
