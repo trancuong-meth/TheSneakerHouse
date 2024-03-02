@@ -407,7 +407,7 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
                 }, 400)
 
             })
-            .catch((error) => console.error("Error:", error));
+            .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
 
         }
     }

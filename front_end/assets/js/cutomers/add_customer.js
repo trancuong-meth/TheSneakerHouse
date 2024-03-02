@@ -87,8 +87,9 @@ main_app.controller("addCustomerController", function ($scope, $http) {
                 }, 400)
 
             })
-            .catch((error) => console.error("Error:", error));
-
+            .catch((error) => {
+                toastr.error('Bạn phải chọn ảnh đại diện');
+            });
     }
 
     // FAST DELIVERY

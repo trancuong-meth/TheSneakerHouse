@@ -94,7 +94,7 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
                 }, 400)
 
             })
-            .catch((error) => console.error("Error:", error));
+            .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
 
     }
 
