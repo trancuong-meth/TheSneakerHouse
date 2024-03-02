@@ -36,7 +36,7 @@ main_app.controller("employeeController", function($scope, $http){
     });
     };
 
-    $scope.fillterByKey = function(){
+    $scope.fillterByEmployeeKey = function(){
       var key = document.getElementById("employeeKey").value
       fillter(key, $scope.trang_thai)
     }
