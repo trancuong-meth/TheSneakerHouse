@@ -66,15 +66,15 @@
                   <table class="table">
                     <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%)">
                       <tr>
-                        <th >
-                          <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">STT</h6>
+                        <th style="width: 7%;">
+                          <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;" >STT</h6>
                         </th>
                         <th class="border-bottom-0"
                             style="width: 25%;"
                         >
                           <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Ảnh</h6>
                         </th>
-                        <th class="border-bottom-0">
+                        <th class="border-bottom-0" style="width: 18%;">
                           <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Tên khách hàng</h6>
                         </th>
                         <th class="border-bottom-0">
@@ -129,18 +129,10 @@
                              >Kích hoạt</span>
                           </div>
 
-                        <div class="d-flex align-items-center gap-2" ng-if="voucher.trangThai == 3">
-                          <span class="badge bg-danger rounded-3 fw-semibold"
-                              style="    
-                              padding: 11px;
-                              font-size: 11px;"
-                           >Đã hủy</span>
-                        </div>
-
                         </td>
                         <td class="border-bottom-0">
                           <h6 class="fw-semibold mb-0 fs-4">
-                            <a ng-href="#!sua-phieu-giam-gia/{{voucher.id}}" >
+                            <a ng-href="#!sua-khach-hang/{{customer.id}}" >
                               <i   
                               style="
                               display: inline-block;
@@ -149,7 +141,7 @@
                               class="ti ti-edit"></i>
                             </a>
                             
-                            <a ng-click="changeStatus(voucher.id, voucher.trangThai)">
+                            <!-- <a ng-click="changeStatus(customer.id, customer.trangThai)">
                               <i id="change_status"
                               style="
                               display: inline-block;
@@ -157,7 +149,7 @@
                               color: #f05119;
                               margin-left: 10px;"
                               class="ti ti-calendar-off"></i>
-                          </a>
+                          </a> -->
                           </h6>
                         </td>
                       </tr> 

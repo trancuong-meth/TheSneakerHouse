@@ -7,7 +7,7 @@ main_app.controller("addCustomerController", function ($scope, $http) {
         ten: '',
         ngaySinh: '',
         cccd: '',
-        gioiTinh: '1',
+        gioiTinh: 1,
         email: "",
         soDienThoai: "",
         maTinh: "",
@@ -89,8 +89,6 @@ main_app.controller("addCustomerController", function ($scope, $http) {
             })
             .catch((error) => console.error("Error:", error));
 
-
-
     }
 
     // FAST DELIVERY
@@ -159,6 +157,18 @@ main_app.controller("addCustomerController", function ($scope, $http) {
         const provinceid = customAttribute;
         const selectDistrict = document.querySelector(` #district`);
 
+        // remove child districts
+        var old_options = selectDistrict.querySelectorAll("option");
+        for(var i = 1; i < old_options.length; i++) {
+            selectDistrict.removeChild(old_options[i]);
+        }
+
+        // remove child wards
+        var old_options = selectWardCode.querySelectorAll("option");
+        for(var i = 1; i < old_options.length; i++) {
+            selectWardCode.removeChild(old_options[i]);
+        }
+
         $scope.customer.maTinh = provinceid
         $scope.customer.tinh = selectedOption.textContent
 
@@ -191,6 +201,12 @@ main_app.controller("addCustomerController", function ($scope, $http) {
         const selectedOption = districtSelect.options[districtSelect.selectedIndex];
         const customAttribute = selectedOption.getAttribute("districtcode");
         const districtid = customAttribute;
+
+        // remove child
+        var old_options = selectWardCode.querySelectorAll("option");
+        for(var i = 1; i < old_options.length; i++) {
+            selectWardCode.removeChild(old_options[i]);
+        }
 
         $scope.customer.maPhuong = districtid;
         $scope.customer.phuong = selectedOption.textContent

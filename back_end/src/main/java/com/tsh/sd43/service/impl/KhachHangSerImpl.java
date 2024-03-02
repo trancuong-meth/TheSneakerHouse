@@ -36,7 +36,7 @@ public class KhachHangSerImpl implements IKhachHangSer {
         return (ArrayList<KhachHang>) khachHangRepo.findAll();
     }
 
-    public KhachHang getVoucherById(Long id){
+    public KhachHang getCustomerById(Long id){
         return khachHangRepo.findKhachHangById(id).get(0);
     }
 
@@ -74,18 +74,28 @@ public class KhachHangSerImpl implements IKhachHangSer {
         return "CUSTOMER_" + (Integer.parseInt(newestCode.substring(9)) + 1);
     }
 
-//    public Voucher editVoucher(Voucher voucher){
-//        Date today = new Date();
-//
-//        if(voucher.getNgayBatDau().after(today)){
-//            voucher.setTrangThai(StatusVoucher.CHUA_BAT_DAU.getTrangThai());
-//        }
-//        if(voucher.getNgayKetThuc().before(today)){
-//            voucher.setTrangThai(StatusVoucher.KET_THUC.getTrangThai());
-//        }
-//        if(voucher.getNgayBatDau().before(today) && voucher.getNgayKetThuc().after(today)){
-//            voucher.setTrangThai(StatusVoucher.DANG_DIEN_RA.getTrangThai());
-//        }
-//        return voucherRepo.save(voucher);
-//    }
+    public KhachHang updateCustomer(KhachHang khachHang){
+        KhachHang customer = new KhachHang();
+        customer.setCccd(khachHang.getCccd());
+        customer.setDiaChi(khachHang.getDiaChi());
+        customer.setEmail(khachHang.getEmail());
+        customer.setGioiTinh(khachHang.getGioiTinh());
+        customer.setMa(khachHang.getMa());
+        customer.setMaPhuong(khachHang.getMaPhuong());
+        customer.setMaTinh(khachHang.getMaTinh());
+        customer.setMaXa(khachHang.getMaXa());
+        customer.setNgaySinh(khachHang.getNgaySinh());
+        customer.setPhuong(khachHang.getPhuong());
+        customer.setSoDienThoai(khachHang.getSoDienThoai());
+        customer.setTen(khachHang.getTen());
+        customer.setTinh(khachHang.getTinh());
+        customer.setAvatar(khachHang.getAvatar());
+        customer.setId(khachHang.getId());
+        customer.setXa(khachHang.getXa());
+        customer.setTrangThai(khachHang.getTrangThai());
+        customer.setNgayTao(khachHang.getNgayTao());
+
+        return khachHangRepo.save(customer);
+    }
+
 }

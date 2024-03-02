@@ -390,7 +390,7 @@
                         <select class="form-select" 
                                 id="city" 
                                 name="city" 
-                                ng-click="getAllDistrict()"
+                                onchange="angular.element(this).scope().getAllDistrict()"
                                 placeholder="Chọn trạng thái">
                         </select>
                     </div> 
@@ -402,7 +402,7 @@
                         <select class="form-select"
                          id="district" 
                          name="district" 
-                         ng-click="getFullWardCode()"
+                         onchange="angular.element(this).scope().getFullWardCode()"
                          placeholder="Chọn trạng thái">
                           <option value="">--Chọn Quận/Huyện--</option>
                         </select>
@@ -419,7 +419,7 @@
                         id="ward" 
                         name="select" 
                         placeholder="Chọn trạng thái"
-                        ng-click="selectWard()">
+                        onchange="angular.element(this).scope().selectWard()">
                         >
                           <option value="">--Chọn Xã/Phường--</option>
                         </select>

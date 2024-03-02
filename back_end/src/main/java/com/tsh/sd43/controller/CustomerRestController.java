@@ -1,5 +1,6 @@
 package com.tsh.sd43.controller;
 
+import com.tsh.sd43.entity.KhachHang;
 import com.tsh.sd43.entity.request.CustomerAddResquest;
 import com.tsh.sd43.service.impl.KhachHangSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,24 @@ public class CustomerRestController {
     public ResponseEntity<?> addVoucher(@RequestBody CustomerAddResquest req){
         try{
             return new ResponseEntity<>(customerSer.addCustomer(req), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-customer/{id}")
+    public ResponseEntity<?> getCustomer(@PathVariable("id")Long id){
+        try{
+            return new ResponseEntity<>(customerSer.getCustomerById(id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateCustomer(@RequestBody KhachHang khachHang){
+        try{
+         return new ResponseEntity<>(customerSer.updateCustomer(khachHang), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

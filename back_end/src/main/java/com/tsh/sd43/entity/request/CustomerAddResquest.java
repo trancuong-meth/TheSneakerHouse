@@ -4,7 +4,8 @@ import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 @Getter
 @Setter
