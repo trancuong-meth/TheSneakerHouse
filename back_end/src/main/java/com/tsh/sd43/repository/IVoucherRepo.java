@@ -16,6 +16,7 @@ public interface IVoucherRepo extends JpaRepository<Voucher, Long> {
         WHERE trang_thai like :trangThai 
         AND (ma like :key
         OR ten like :key)
+        ORDER BY ngay_tao DESC
     """, nativeQuery = true)
     Page<Voucher> findVouchersByState(Pageable pageable, @Param("trangThai") String trangThai, @Param("key") String key);
 

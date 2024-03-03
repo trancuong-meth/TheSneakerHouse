@@ -106,7 +106,7 @@
                   </span>
                 </a>
 
-                <a href="#!khach-hang"
+                <a href="#!kich-co"
                   class="sidebar-link OptionContainer"
                   style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
@@ -328,11 +328,11 @@
 
       // Thương hiệu
         .when("/thuong-hieu", { templateUrl: "products/brands/brand.html", controller: "brandController" })
-        .when("/them-thuong-hieu", { templateUrl: "products/brands/add_brand.html", controller: "addBrandController" })
-        .when("/sua-thuong-hieu/:id", { templateUrl: "products/brands/edit_brand.html", controller: "editBrandController" })
-        
+
+      // Kích cỡ
+        .when("/kich-co", { templateUrl: "products/sizes/size.html", controller: "sizeController" })
       // mặc định 
-        .otherwise({ redirectTo: "/nhan-vien" })
+        .otherwise({ redirectTo: "/kich-co" })
     })
 
     function ToggleOption(element) {
@@ -383,18 +383,28 @@
     }
 
  </script>
+ <!-- VOUCHER -->
   <script src="../assets/js/vouchers/voucher.js"></script>
   <script src="../assets/js/vouchers/add_voucher.js"></script>
   <script src="../assets/js/vouchers/edit_voucher.js"></script>
+
+  <!-- DOT GIAM GIA -->
   <script src="../assets/js/sales/sale.js"></script>
   <script src="../assets/js/sales/add_sale.js"></script>
   <script src="../assets/js/sales/edit_sale.js"></script>
+
+  <!-- KHACH HANG -->
   <script src="../assets/js/cutomers/customer.js"></script>
   <script src="../assets/js/cutomers/add_customer.js"></script> 
   <script src="../assets/js/cutomers/edit_customer.js"></script>
+
+  <!-- NHAN VIEN -->
   <script src="../assets/js/employees/employee.js"></script>
   <script src="../assets/js/employees/add_employee.js"></script>
   <script src="../assets/js/employees/edit_employee.js"></script>
+
+  <!-- THUONG HIEU -->
+  <script src="../assets/js/products/brands/brand.js"></script>
 
 </body>
 

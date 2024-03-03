@@ -17,6 +17,7 @@ public interface IKhachHangRepo extends JpaRepository<KhachHang, Long> {
         WHERE trang_thai like :trangThai 
         AND (ma like :key
         OR ten like :key)
+        ORDER BY ngay_tao DESC
     """, nativeQuery = true)
     Page<KhachHang> findCustomers(Pageable pageable, @Param("trangThai") String trangThai, @Param("key") String key);
 

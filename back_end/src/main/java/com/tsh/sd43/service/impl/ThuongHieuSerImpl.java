@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ThuongHieuSerImpl implements IThuongHieuSer {
@@ -22,11 +23,10 @@ public class ThuongHieuSerImpl implements IThuongHieuSer {
     private IThuongHieuRepo thuongHieuRepo;
 
 
-    public Page<ThuongHieu> getBrands(int pageNo, int pageSize, String key, String trangThai){
+    public Page<ThuongHieu> getBrands(int pageNo, int pageSize, String key){
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return thuongHieuRepo.findBrandsByStateAndName(pageable,
-                "%" + trangThai + "%",
                 "%" + key + "%");
     }
 
@@ -41,12 +41,26 @@ public class ThuongHieuSerImpl implements IThuongHieuSer {
 
     public ThuongHieu addBrand(String req){
       ThuongHieu brand = new ThuongHieu();
+
+      if(!thuongHieuRepo.findBrandsByName(req).isEmpty()){
+          throw new RuntimeException("The brand is already exists");
+      }
       brand.setTen(req);
 
       return thuongHieuRepo.save(brand);
     }
 
     public ThuongHieu updateBrand(ThuongHieu req){
+        List<ThuongHieu> brands = thuongHieuRepo.findBrandsByName(req.getTen());
+
+        if(!brands.isEmpty()){
+            if(!brands.get(0).getId().equals(req.getId())){
+                if(brands.get(0).getTen().equals(req.getTen())){
+                    throw new RuntimeException("The brand is already exists");
+                }
+            }
+        }
+
         return thuongHieuRepo.save(req);
     }
 

@@ -11,9 +11,6 @@ import java.sql.Timestamp;
 @Table(name = "kich_co")
 public class KichCo extends PrimaryEntity {
 
-    @Column(name = "ma")
-    private String ma;
-
     @Column(name = "kich_co")
     private Integer kichCo;
 
