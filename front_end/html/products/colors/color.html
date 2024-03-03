@@ -22,14 +22,14 @@
                     Nhập tên màu sắc
                   </div>
                   <input style="width: 262px; height: 40px;" type="text" class="form-control" ng-model="key"
-                    ng-keyup="fillterByBrandKey()" placeholder="Tìm kiếm màu sắc theo tên,...">
+                    ng-keyup="fillterBycolorKey()" placeholder="Tìm kiếm màu sắc theo tên,...">
                 </div>
   
               </div>
   
               <div>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#brandModal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#colorModal">
                   <i class="ti ti-circle-plus" style="
                               display: inline-block;
                               font-size: 18px;
@@ -61,19 +61,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="brand in brands.content">
+                  <tr ng-repeat="color in colors.content">
                     <td class="border-bottom-0">
                       <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
                     </td>
                     <td class="border-bottom-0">
-                      <span class="fw-normal">{{brand.ten}}</span>
+                      <span class="fw-normal">{{color.ten}}</span>
                     </td>
                     <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">{{brand.ngayTao | date : "dd/MM/y"}}</p>
+                      <p class="mb-0 fw-normal">{{color.ngayTao | date : "dd/MM/y"}}</p>
                     </td>
                     <td class="border-bottom-0">
                       <h6 class="fw-semibold mb-0 fs-4">
-                        <span id="update_brand" type="button" ng-click="loadBrand(brand.id)">
+                        <span id="update_color" type="button" ng-click="loadcolor(color.id)">
                           <i style="
                                 display: inline-block;
                                 font-size: 23px;  
@@ -102,7 +102,7 @@
     </div>
   
     <!-- Modal -->
-    <div class="modal fade" id="brandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="colorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -113,11 +113,17 @@
             <label for="exampleInputEmail1" class="form-label">Tên màu sắc <sup
                 style="color: #fa0000a8;">*</sup></label>
             <input placeholder="Nhập tên màu sắc...." style="height: 40px;" type="text" class="form-control"
-              ng-model="name_brand" id="exampleInputEmail1" aria-describedby="emailHelp">
+              ng-model="name_color" id="exampleInputEmail1" aria-describedby="emailHelp">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary" ng-click="addBrand()">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              <i class="ti ti-x" style="
+                    display: inline-block;
+                    font-size: 18px;
+                    transform: translateY(2px);
+                "></i>
+              Đóng</button>
+            <button type="button" class="btn btn-primary" ng-click="addcolor()">
               <i class="ti ti-circle-plus" style="
                               display: inline-block;
                               font-size: 18px;
@@ -131,7 +137,7 @@
     </div>
   
     <!-- UPDATE Modal -->
-    <div class="modal fade" id="brandUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="colorUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -142,11 +148,17 @@
             <label for="exampleInputEmail1" class="form-label">Tên màu sắc <sup
                 style="color: #fa0000a8;">*</sup></label>
             <input placeholder="Nhập tên màu sắc...." style="height: 40px;" type="text" class="form-control"
-              id="nameUpdateBrand" aria-describedby="emailHelp" ng-model="brand.ten">
+              id="nameUpdatecolor" aria-describedby="emailHelp" ng-model="color.ten">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-warning" ng-click="updateBrand()">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              <i class="ti ti-x" style="
+                    display: inline-block;
+                    font-size: 18px;
+                    transform: translateY(2px);
+                "></i>
+              Đóng</button>
+            <button type="button" class="btn btn-warning" ng-click="updatecolor()">
               <i class="ti ti-edit" style="
                                           display: inline-block;
                                           font-size: 18px;

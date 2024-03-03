@@ -90,7 +90,7 @@
                   </span>
                 </a>
 
-                <a href="#!khach-hang"
+                <a href="#!the-loai"
                   class="sidebar-link OptionContainer"
                   style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
@@ -278,7 +278,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-  <!-- tippy -->
   <!-- Production -->
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://unpkg.com/tippy.js@6"></script>
@@ -335,8 +334,10 @@
       // Màu sắc
         .when("/mau-sac", { templateUrl: "products/colors/color.html", controller: "colorController" })
 
+      // Thể loại
+        .when("/the-loai", { templateUrl: "products/types/type.html", controller: "typeController" })
       // mặc định 
-        .otherwise({ redirectTo: "/mau-sac" })
+        .otherwise({ redirectTo: "/the-loai" })
     })
 
     function ToggleOption(element) {
@@ -415,6 +416,9 @@
 
   <!-- MAU SAC -->
   <script src="../assets/js/products/colors/color.js"></script>
+
+  <!-- THE LOAI -->
+  <script src="../assets/js/products/types/type.js"></script>
 
 </body>
 
