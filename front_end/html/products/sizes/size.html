@@ -61,19 +61,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="brand in brands.content">
+                  <tr ng-repeat="size in sizes.content">
                     <td class="border-bottom-0">
                       <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
                     </td>
                     <td class="border-bottom-0">
-                      <span class="fw-normal">{{brand.ten}}</span>
+                      <span class="fw-normal">{{size.kichCo}}</span>
                     </td>
                     <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">{{brand.ngayTao | date : "dd/MM/y"}}</p>
+                      <p class="mb-0 fw-normal">{{size.ngayTao | date : "dd/MM/y"}}</p>
                     </td>
                     <td class="border-bottom-0">
                       <h6 class="fw-semibold mb-0 fs-4">
-                        <span id="update_brand" type="button" ng-click="loadBrand(brand.id)">
+                        <span id="update_size" type="button" ng-click="loadSize(size.id)">
                           <i style="
                                 display: inline-block;
                                 font-size: 23px;  
@@ -112,12 +112,12 @@
           <div class="modal-body">
             <label for="exampleInputEmail1" class="form-label">Tên kích cỡ <sup
                 style="color: #fa0000a8;">*</sup></label>
-            <input placeholder="Nhập kích cỡ...." style="height: 40px;" type="text" class="form-control"
-              ng-model="name_brand" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input placeholder="Nhập kích cỡ...." style="height: 40px;" type="number" class="form-control"
+              ng-model="size_input" id="exampleInputEmail1" aria-describedby="emailHelp">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary" ng-click="addBrand()">
+            <button type="button" class="btn btn-primary" ng-click="addSize()">
               <i class="ti ti-circle-plus" style="
                               display: inline-block;
                               font-size: 18px;
@@ -135,14 +135,14 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-center" id="exampleModalLabel">Thêm kích cỡ</h5>
+            <h5 class="modal-title text-center" id="exampleModalLabel">Cập nhật kích cỡ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
           </div>
           <div class="modal-body">
             <label for="exampleInputEmail1" class="form-label">Tên kích cỡ <sup
                 style="color: #fa0000a8;">*</sup></label>
             <input placeholder="Nhập kích cỡ...." style="height: 40px;" type="text" class="form-control"
-              id="nameUpdateBrand" aria-describedby="emailHelp" ng-model="brand.ten">
+              id="sizeUpdateBrand" aria-describedby="emailHelp" ng-model="size.kichCo">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>

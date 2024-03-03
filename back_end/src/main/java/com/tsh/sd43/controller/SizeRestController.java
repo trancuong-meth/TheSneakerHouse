@@ -47,7 +47,7 @@ public class SizeRestController {
         }
     }
 
-    @GetMapping("/get-brand/{id}")
+    @GetMapping("/get-size/{id}")
     public ResponseEntity<?> getVoucherById(@PathVariable("id")Long id){
         try{
             return new ResponseEntity<>(sizeService.getSizeById(id), HttpStatus.OK);
