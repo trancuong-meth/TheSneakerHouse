@@ -14,6 +14,4 @@ public class TheLoai extends PrimaryEntity {
     @Column(name = "ten")
     private String ten;
 
-    @Column(name = "trang_thai")
-    private Boolean trangThai;
 }

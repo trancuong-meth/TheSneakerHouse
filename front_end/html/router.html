@@ -98,7 +98,7 @@
                   </span>
                 </a>
 
-                <a href="#!khach-hang"
+                <a href="#!mau-sac"
                   class="sidebar-link OptionContainer"
                   style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
@@ -331,8 +331,12 @@
 
       // Kích cỡ
         .when("/kich-co", { templateUrl: "products/sizes/size.html", controller: "sizeController" })
+
+      // Màu sắc
+        .when("/mau-sac", { templateUrl: "products/colors/color.html", controller: "colorController" })
+
       // mặc định 
-        .otherwise({ redirectTo: "/kich-co" })
+        .otherwise({ redirectTo: "/mau-sac" })
     })
 
     function ToggleOption(element) {
@@ -408,6 +412,9 @@
 
   <!-- KICH CO -->
   <script src="../assets/js/products/sizes/size.js"></script>
+
+  <!-- MAU SAC -->
+  <script src="../assets/js/products/colors/color.js"></script>
 
 </body>
 

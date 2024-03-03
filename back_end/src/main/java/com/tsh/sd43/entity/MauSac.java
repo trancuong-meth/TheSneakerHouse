@@ -11,10 +11,7 @@ import java.sql.Timestamp;
 @Table(name = "mau_sac")
 public class MauSac extends PrimaryEntity {
 
-    @Column(name = "ma")
-    private String ma;
-
-    @Column(name = "ten_mau_sac")
-    private String tenMauSac;
+    @Column(name = "ten")
+    private String ten;
 
 }
