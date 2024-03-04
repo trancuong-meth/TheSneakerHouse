@@ -82,7 +82,7 @@
                   </i></div>
               </a>
               <div class="OptionBody sidebar-item">
-                <a href="#!nhan-vien"
+                <a href="#!san-pham"
                 class="sidebar-link OptionContainer"
                 style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
@@ -336,8 +336,14 @@
 
       // Thể loại
         .when("/the-loai", { templateUrl: "products/types/type.html", controller: "typeController" })
+
+      // Sản phẩm
+        .when("/san-pham", { templateUrl: "products/products/product.html", controller: "productController" })
+        .when("/them-san-pham", { templateUrl: "products/products/add_product.html", controller: "addProductController" })
+        .when("/sua-san-pham/:id", { templateUrl: "products/products/edit_product.html", controller: "editProductController" })
+
       // mặc định 
-        .otherwise({ redirectTo: "/the-loai" })
+        .otherwise({ redirectTo: "/san-pham" })
     })
 
     function ToggleOption(element) {
@@ -419,6 +425,10 @@
 
   <!-- THE LOAI -->
   <script src="../assets/js/products/types/type.js"></script>
+
+   <!-- SAN PHAM -->
+   <script src="../assets/js/products/products/product.js"></script>
+   <script src="../assets/js/products/products/add_product.js"></script>
 
 </body>
 
