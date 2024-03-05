@@ -22,9 +22,11 @@ main_app.controller("addProductController", function ($scope, $http) {
         { 'id': 1, 'ten': 'Đen' },
         { 'id': 2, 'ten': 'Trắng' },
         { 'id': 3, 'ten': 'ghi' }]
+    $scope.name_color = ''
 
     // sizes
     $scope.sizes = []
+    $scope.newSize = ''
 
     // brandsF
     $scope.brands = []
@@ -41,25 +43,21 @@ main_app.controller("addProductController", function ($scope, $http) {
     $scope.loadData = function () {
         $http.get('http://localhost:8080/brand/get-all')
             .then(function (response) {
-                console.log(response.data)
                 $scope.brands = response.data
             });
 
         $http.get('http://localhost:8080/type/get-all')
             .then(function (response) {
-                console.log(response.data)
                 $scope.types = response.data
             });
 
         $http.get('http://localhost:8080/color/get-all')
             .then(function (response) {
-                console.log(response.data)
                 $scope.colors = response.data
             });
 
         $http.get('http://localhost:8080/size/get-all')
             .then(function (response) {
-                console.log(response.data)
                 $scope.sizes = response.data
             });
 
@@ -68,7 +66,7 @@ main_app.controller("addProductController", function ($scope, $http) {
     $scope.loadData()
 
     $scope.resetProductDetails = function () {
-        $scope.productDetails = []
+        $scope.productDetails.splice(0, $scope.productDetails.length);
     }
 
     $scope.chooseSize = function (size) {
@@ -112,12 +110,16 @@ main_app.controller("addProductController", function ($scope, $http) {
         var modal = bootstrap.Modal.getOrCreateInstance(e)
         $scope.listChooseSize = $scope.listChooseSizeModal
         modal.hide()
+        toastr.success(`Bạn đã thêm kích cỡ thành công  !!!`);
+        $scope.addProductDetail()
     }
 
     $scope.chooseColorAddProduct = function () {
         var e = document.getElementById("colorListProductModal")
         var modal = bootstrap.Modal.getOrCreateInstance(e)
+        $scope.listChooseColor.splice(0, $scope.listChooseColor.length);
         modal.hide()
+        toastr.success(`Bạn đã thêm màu sắc thành công  !!!`);
 
         for (var i = 0; i < $scope.listChooseColorId.length; i++) {
             var result = $scope.colors.find(x => x.id == $scope.listChooseColorId[i])
@@ -125,7 +127,8 @@ main_app.controller("addProductController", function ($scope, $http) {
                 $scope.listChooseColor.push(result)
             }
         }
-
+        
+        $scope.addProductDetail()
     }
 
     $scope.removeChooseSize = function (size) {
@@ -133,6 +136,7 @@ main_app.controller("addProductController", function ($scope, $http) {
             if ($scope.listChooseSize[i] === size)
                 $scope.listChooseSize.splice(i, 1);
         }
+        $scope.addProductDetail()
     }
 
     $scope.removeChooseColor = function (color) {
@@ -146,7 +150,7 @@ main_app.controller("addProductController", function ($scope, $http) {
                 $scope.listChooseColorId.splice(i, 1);
             }
         }
-
+        $scope.addProductDetail()
     }
 
     $scope.buttonChooseSize = function () {
@@ -188,10 +192,30 @@ main_app.controller("addProductController", function ($scope, $http) {
     }
 
     $scope.removeChooseByColorAndSize = function (colorId, size) {
-        console.log(colorId + "-" + size)
         var productDetailHtml = document.getElementById("color-size-" + colorId + "-" + size)
+        var productDetailTabColor = document.getElementById("modal-product-detail-color-" + colorId)
 
         productDetailHtml.remove()
+        console.log(colorId)
+        for(var i = 0 ; i < $scope.productDetails.length; i++){
+            if($scope.productDetails[i].color.id == colorId && $scope.productDetails[i].size == size){
+                $scope.productDetails.splice(i, 1)
+            }
+        }
+        var productByColor = $scope.productDetails.find(x => x.color.id == colorId)
+        var productBySize = $scope.productDetails.find(x => x.size == size)
+        console.log(productByColor)
+        console.log(productBySize)
+
+        if(productByColor === undefined){
+            productDetailTabColor.remove()
+            $scope.removeChooseColor($scope.colors.find(x => x.id == colorId))
+        }
+
+        if(productBySize === undefined){
+            $scope.removeChooseSize(size)
+        }
+
     }
 
     $scope.addProduct = function () {
@@ -201,7 +225,17 @@ main_app.controller("addProductController", function ($scope, $http) {
     $scope.addProductDetail = function () {
         $scope.resetProductDetails()
 
-        // add list of product detail
+        if($scope.listChooseColor.length > 0 && $scope.listChooseSize.length > 0){
+            for(var i = 0; i < $scope.listChooseColor.length; i++){
+                for(var j = 0; j < $scope.listChooseSize.length; j++){
+                    $scope.productDetails.push({
+                        'color': $scope.listChooseColor[i],
+                        'size': $scope.listChooseSize[j]
+                    })
+                }
+            }
+            console.log($scope.productDetails)
+        }
 
     }
 
@@ -243,6 +277,64 @@ main_app.controller("addProductController", function ($scope, $http) {
                 toastr.error("Tên thể loại này đã tồn tại.Vui lòng nhập tên thể loại khác!!!");
             })
         }
+    }
+
+    $scope.addColorAddProduct = function () {
+        var colorModal = document.querySelector("#colorAddProductModal")
+        var addModal = bootstrap.Modal.getOrCreateInstance(colorModal)
+
+        var listColorHtml = document.querySelector("#colorListProductModal")
+        var listColorModal = bootstrap.Modal.getOrCreateInstance(listColorHtml)
+
+        if ($scope.name_color == "") {
+            toastr.error("Bạn phải nhập tên màu sắc !!!");
+        } else {
+            axios.post('http://localhost:8080/color/add?name=' + $scope.name_color
+            ).then(function (response) {
+                toastr.success("Bạn đã tạo màu sắc thành công !!!");
+                addModal.hide()
+                $scope.name_color = ""
+                listColorModal.show()
+                $scope.loadData()
+            }).catch(function (error) {
+                toastr.error("Tên màu sắc này đã tồn tại.Vui lòng nhập tên màu sắc khác!!!");
+            })
+        }
+    }
+
+    $scope.addSizeAddProduct = function () {
+        var sizeModal = document.querySelector("#sizeAddProductModal")
+        var addModal = bootstrap.Modal.getOrCreateInstance(sizeModal)
+
+        var listSizeHtml = document.querySelector("#sizeListProductModal")
+        var listSizeModal = bootstrap.Modal.getOrCreateInstance(listSizeHtml)
+
+        if ($scope.newSize == "") {
+            toastr.error("Bạn phải nhập kích cỡ giày !!!");
+            return;
+        }
+
+        if (isNaN($scope.newSize)) {
+            toastr.error("Kích cỡ phải là số !!!");
+            return;
+        }
+
+        if (Number($scope.newSize) < 0) {
+            toastr.error("Kích cỡ phải là số nguyên dương !!!");
+            return;
+        }
+
+        axios.post('http://localhost:8080/size/add?size=' + $scope.newSize
+        ).then(function (response) {
+            toastr.success("Bạn đã tạo kích cỡ thành công !!!");
+            addModal.hide()
+            $scope.newSize = ""
+            listSizeModal.show()
+            $scope.loadData()
+        }).catch(function (error) {
+            console.log(error)
+            toastr.error("Kích cỡ này đã tồn tại.Vui lòng nhập tên thương hiệu khác!!!");
+        })
     }
 
 })
