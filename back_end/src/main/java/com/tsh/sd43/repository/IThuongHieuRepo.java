@@ -31,4 +31,6 @@ public interface IThuongHieuRepo extends JpaRepository<ThuongHieu, Long> {
     """, nativeQuery = true)
     ArrayList<ThuongHieu> findBrandsByName(@Param("ten") String ten);
 
+    ArrayList<ThuongHieu> findByOrderByNgayTaoDesc();
+
 }

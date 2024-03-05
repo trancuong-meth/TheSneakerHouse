@@ -30,7 +30,7 @@ public class TheLoaiSerImpl implements ITheLoaiSer {
 
     public ArrayList<TheLoai> getAll(){
 //        get all voucher
-        return (ArrayList<TheLoai>) theLoaiRepo.findAll();
+        return (ArrayList<TheLoai>) theLoaiRepo.findByOrderByNgayTaoDesc();
     }
 
     public TheLoai getById(Long id){

@@ -32,4 +32,6 @@ public interface ITheLoaiRepo extends JpaRepository<TheLoai, Long> {
     """, nativeQuery = true)
     ArrayList<TheLoai> findTypeByName(@Param("ten") String ten);
 
+    ArrayList<TheLoai> findByOrderByNgayTaoDesc();
+
 }

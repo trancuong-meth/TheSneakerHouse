@@ -32,7 +32,7 @@ public class ThuongHieuSerImpl implements IThuongHieuSer {
 
     public ArrayList<ThuongHieu> getAllBrands(){
 //        get all voucher
-        return (ArrayList<ThuongHieu>) thuongHieuRepo.findAll();
+        return (ArrayList<ThuongHieu>) thuongHieuRepo.findByOrderByNgayTaoDesc();
     }
 
     public ThuongHieu getBrandById(Long id){

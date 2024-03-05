@@ -1,12 +1,8 @@
 package com.tsh.sd43.controller;
 
 import com.tsh.sd43.entity.ThuongHieu;
-import com.tsh.sd43.entity.Voucher;
-import com.tsh.sd43.entity.request.VoucherAddRequest;
 import com.tsh.sd43.service.impl.ThuongHieuSerImpl;
-import com.tsh.sd43.service.impl.VoucherSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

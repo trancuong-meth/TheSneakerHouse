@@ -11,22 +11,61 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     // product
     $scope.product = {
-        'ten' : '',
-        'moTa' : '',
-        'thuongHieu' : '',
-        'theLoai' : ''
+        'ten': '',
+        'moTa': '',
+        'thuongHieu': '',
+        'theLoai': ''
     }
 
     // colors
     $scope.colors = [
-        { 'id': 1, 'name': 'Đen' }, 
-        { 'id': 2, 'name': 'Trắng' }, 
-        { 'id': 3, 'name': 'ghi' }]
-    
+        { 'id': 1, 'ten': 'Đen' },
+        { 'id': 2, 'ten': 'Trắng' },
+        { 'id': 3, 'ten': 'ghi' }]
+
     // sizes
+    $scope.sizes = []
+
+    // brandsF
+    $scope.brands = []
+    $scope.name_brand = ""
+
+    // types
+    $scope.types = []
+    $scope.name_type = ""
 
     // product details
     $scope.productDetails = []
+
+    // load data
+    $scope.loadData = function () {
+        $http.get('http://localhost:8080/brand/get-all')
+            .then(function (response) {
+                console.log(response.data)
+                $scope.brands = response.data
+            });
+
+        $http.get('http://localhost:8080/type/get-all')
+            .then(function (response) {
+                console.log(response.data)
+                $scope.types = response.data
+            });
+
+        $http.get('http://localhost:8080/color/get-all')
+            .then(function (response) {
+                console.log(response.data)
+                $scope.colors = response.data
+            });
+
+        $http.get('http://localhost:8080/size/get-all')
+            .then(function (response) {
+                console.log(response.data)
+                $scope.sizes = response.data
+            });
+
+    }
+
+    $scope.loadData()
 
     $scope.resetProductDetails = function () {
         $scope.productDetails = []
@@ -99,11 +138,11 @@ main_app.controller("addProductController", function ($scope, $http) {
     $scope.removeChooseColor = function (color) {
         for (var i = $scope.listChooseColor.length; i--;) {
 
-            if ($scope.listChooseColor[i].id === color.id){
+            if ($scope.listChooseColor[i].id === color.id) {
                 $scope.listChooseColor.splice(i, 1);
             }
 
-            if ($scope.listChooseColorId[i] === color.id){
+            if ($scope.listChooseColorId[i] === color.id) {
                 $scope.listChooseColorId.splice(i, 1);
             }
         }
@@ -156,7 +195,54 @@ main_app.controller("addProductController", function ($scope, $http) {
     }
 
     $scope.addProduct = function () {
-        
+
+    }
+
+    $scope.addProductDetail = function () {
+        $scope.resetProductDetails()
+
+        // add list of product detail
+
+    }
+
+    $scope.addBrandAddProduct = function () {
+        var brandModal = document.querySelector("#brandAddProductModal")
+        var addModal = bootstrap.Modal.getOrCreateInstance(brandModal)
+
+        if ($scope.name_brand == "") {
+            toastr.error("Bạn phải nhập tên thương hiệu !!!");
+        } else {
+            axios.post('http://localhost:8080/brand/add?name=' + $scope.name_brand
+            ).then(function (response) {
+                toastr.success("Bạn đã tạo thương hiệu thành công !!!");
+                addModal.hide()
+                $scope.loadData()
+                $scope.name_brand = ""
+            }).catch(function (error) {
+                console.log(error)
+                toastr.error("Tên thương hiệu này đã tồn tại.Vui lòng nhập tên thương hiệu khác!!!");
+            })
+        }
+    }
+
+    $scope.addTypeAddProduct = function () {
+        var typeModal = document.querySelector("#typeAddProductModal")
+        var addModal = bootstrap.Modal.getOrCreateInstance(typeModal)
+
+        if ($scope.name_type == "") {
+            toastr.error("Bạn phải nhập tên thể loại !!!");
+        } else {
+            axios.post('http://localhost:8080/type/add?name=' + $scope.name_type
+            ).then(function (response) {
+                toastr.success("Bạn đã tạo thể loại thành công !!!");
+                addModal.hide()
+                $scope.loadData()
+                $scope.name_type = ""
+            }).catch(function (error) {
+                console.log(error)
+                toastr.error("Tên thể loại này đã tồn tại.Vui lòng nhập tên thể loại khác!!!");
+            })
+        }
     }
 
 })
