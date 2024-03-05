@@ -456,8 +456,8 @@
                         <div class="card text-center" style="margin-top: 25px;">
                             <div class="card-header">
                                 Cập nhật chi tiết sản phẩm màu
-                                    {{color.name}}
-                                 
+                                {{color.name}}
+
                             </div>
                             <div class="card-body">
 
@@ -488,7 +488,7 @@
                                                         Giá
                                                         bán</h6>
                                                 </th>
-                                                <th class="border-bottom-0" >
+                                                <th class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0"
                                                         style="border-right: 1px solid #b1acac;">
                                                         Hành động</h6>
@@ -501,16 +501,16 @@
                                             </tr>
                                         </thead>
                                         <tbody ng-repeat="size in listChooseSize">
-                                            <tr>
+                                            <tr id="color-size-{{color.id}}-{{size}}" class="listProductDetail">
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{$index + 1}} </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    {{product.ten}} 
+                                                    {{product.ten}}
                                                     <span style="display: inline-block;color: black;">
                                                         [{{size}} - {{color.name}}]
                                                     </span>
-                                                    
+
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <input type="number" class="form-control">
@@ -519,7 +519,9 @@
                                                     <input type="number" class="form-control">
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <i class="ti ti-trash-x-filled" style="    
+                                                    <i class="ti ti-trash-x-filled"
+                                                        ng-click="removeChooseByColorAndSize(color.id, size)"
+                                                    style="    
                                                    font-size: 23px;
                                                    color: #d11a2a;"></i>
                                                 </td>
@@ -534,15 +536,7 @@
                                             color: #d4d42e;" class="ti ti-edit"></i>
                                                         </a>
 
-                                                        <!-- <a ng-click="changeStatus(customer.id, customer.trangThai)">
-                                            <i id="change_status"
-                                            style="
-                                            display: inline-block;
-                                            font-size: 23px;
-                                            color: #f05119;
-                                            margin-left: 10px;"
-                                            class="ti ti-calendar-off"></i>
-                                        </a> -->
+
                                                     </h6>
                                                 </td>
                                             </tr>
@@ -556,7 +550,7 @@
                     </span>
 
                     <div style="margin-top: 15px; float: right;">
-                        <button type="submit" class="btn btn-primary" ng-click="addVoucher()">
+                        <button type="submit" class="btn btn-primary" ng-click="addProduct()">
                             <i class="ti ti-plus" style="
                               display: inline-block;
                               font-size: 18px;

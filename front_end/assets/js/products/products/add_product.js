@@ -17,10 +17,20 @@ main_app.controller("addProductController", function ($scope, $http) {
         'theLoai' : ''
     }
 
+    // colors
     $scope.colors = [
         { 'id': 1, 'name': 'Đen' }, 
         { 'id': 2, 'name': 'Trắng' }, 
         { 'id': 3, 'name': 'ghi' }]
+    
+    // sizes
+
+    // product details
+    $scope.productDetails = []
+
+    $scope.resetProductDetails = function () {
+        $scope.productDetails = []
+    }
 
     $scope.chooseSize = function (size) {
 
@@ -69,12 +79,9 @@ main_app.controller("addProductController", function ($scope, $http) {
         var e = document.getElementById("colorListProductModal")
         var modal = bootstrap.Modal.getOrCreateInstance(e)
         modal.hide()
-        console.log($scope.listChooseColorId)
 
         for (var i = 0; i < $scope.listChooseColorId.length; i++) {
-            console.log(i)
             var result = $scope.colors.find(x => x.id == $scope.listChooseColorId[i])
-            console.log(result)
             if (result) {
                 $scope.listChooseColor.push(result)
             }
@@ -139,6 +146,17 @@ main_app.controller("addProductController", function ($scope, $http) {
             html.classList.add('btn-primary')
             html.classList.remove('btn-outline-primary')
         }
+    }
+
+    $scope.removeChooseByColorAndSize = function (colorId, size) {
+        console.log(colorId + "-" + size)
+        var productDetailHtml = document.getElementById("color-size-" + colorId + "-" + size)
+
+        productDetailHtml.remove()
+    }
+
+    $scope.addProduct = function () {
+        
     }
 
 })
