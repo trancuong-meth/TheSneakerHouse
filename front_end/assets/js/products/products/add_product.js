@@ -204,8 +204,6 @@ main_app.controller("addProductController", function ($scope, $http) {
         }
         var productByColor = $scope.productDetails.find(x => x.color.id == colorId)
         var productBySize = $scope.productDetails.find(x => x.size == size)
-        console.log(productByColor)
-        console.log(productBySize)
 
         if(productByColor === undefined){
             productDetailTabColor.remove()

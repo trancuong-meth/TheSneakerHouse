@@ -17,8 +17,8 @@ public class SanPham extends PrimaryEntity {
     private ThuongHieu idThuongHieu;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_dot_giam_gia")
-    private DotGiamGia idDotGiamGia;
+    @JoinColumn(name = "id_the_loai")
+    private TheLoai idTheLoai;
 
     @Column(name = "ma")
     private String ma;
@@ -26,11 +26,8 @@ public class SanPham extends PrimaryEntity {
     @Column(name = "ten")
     private String ten;
 
-    @Column(name = "don_gia")
-    private BigDecimal donGia;
-
-    @Column(name = "gia_tri_giam")
-    private BigDecimal giaTriGiam;
+    @Column(name = "mo_ta")
+    private String moTa;
 
     @Column(name = "trang_thai")
     private Boolean trangThai;

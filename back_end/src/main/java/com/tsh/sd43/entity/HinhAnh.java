@@ -1,12 +1,7 @@
 package com.tsh.sd43.entity;
 
 import com.tsh.sd43.entity.base.PrimaryEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -16,8 +11,9 @@ import java.sql.Timestamp;
 @Table(name = "hinh_anh")
 public class HinhAnh extends PrimaryEntity {
 
-    @Column(name = "id_san_pham_chi_tiet")
-    private Long idSanPhamChiTiet;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_san_pham_chi_tiet")
+    private SanPhamChiTiet idSanPhamChiTiet;
 
     @Column(name = "duong_dan")
     private String duongDan;
