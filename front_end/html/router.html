@@ -56,11 +56,20 @@
             </li>
 
             <li class="sidebar-item" onclick="removeOption()">
-              <a class="sidebar-link" aria-expanded="false">
+              <a class="sidebar-link" aria-expanded="false" href="#!ban-hang">
                 <span>
                   <i class="ti ti-garden-cart"></i>
                 </span>
-                <span class="hide-menu">Bán hàng</span>
+                <span class="hide-menu">Bán hàng tại quầy</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item" onclick="removeOption()">
+              <a class="sidebar-link" aria-expanded="false" href="#!hoa-don">
+                <span>
+                  <i class="ti ti-receipt-2"></i>
+                </span>
+                <span class="hide-menu">Quản lí đơn hàng</span>
               </a>
             </li>
 
@@ -345,8 +354,15 @@
         .when("/them-san-pham", { templateUrl: "products/products/add_product.html", controller: "addProductController" })
         .when("/sua-san-pham/:id", { templateUrl: "products/products/edit_product.html", controller: "editProductController" })
 
+      // Hóa đơn
+        .when("/hoa-don", { templateUrl: "bills/bill.html", controller: "billController" })
+        .when("/chi-tiet-hoa-don", { templateUrl: "bills/bill_detail.html", controller: "billDetailController" })
+
+        // point of sale
+        .when("/ban-hang", { templateUrl: "bills/point_of_sale.html", controller: "pointOfSaleController" })
+
       // mặc định 
-        .otherwise({ redirectTo: "/san-pham" })
+        .otherwise({ redirectTo: "/chi-tiet-hoa-don" })
     })
 
     function ToggleOption(element) {

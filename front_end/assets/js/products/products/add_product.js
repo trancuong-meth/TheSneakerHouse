@@ -13,8 +13,8 @@ main_app.controller("addProductController", function ($scope, $http) {
     $scope.product = {
         'ten': '',
         'moTa': '',
-        'thuongHieu': '',
-        'theLoai': ''
+        'idThuongHieu': '',
+        'idTheLoai': ''
     }
 
     // colors
@@ -216,10 +216,6 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     }
 
-    $scope.addProduct = function () {
-
-    }
-
     $scope.addProductDetail = function () {
         $scope.resetProductDetails()
 
@@ -333,6 +329,67 @@ main_app.controller("addProductController", function ($scope, $http) {
             console.log(error)
             toastr.error("Kích cỡ này đã tồn tại.Vui lòng nhập tên thương hiệu khác!!!");
         })
+    }
+
+    var readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile_pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $scope.changeImage = function (element) {
+
+        // if (element.files && element.files[0]) {
+        //     const formData = new FormData();
+        //     formData.append('file', element.files[0]);
+        //     file = formData
+        //     console.log(formData)
+        // }
+
+        // readURL(element)
+        // var icon = document.getElementsByClassName('icon-upload-button')[0]
+        // icon.classList.add('icon-upload-button-close')
+
+        console.log($scope.product)
+    }
+
+    $scope.addProduct = function () {
+
+        if($scope.product.ten === ""){
+            toastr.error("Bạn phải nhập tên sản phẩm.")
+            return;
+        }
+
+        if($scope.product.idThuongHieu === ""){
+            toastr.error("Bạn phải chọn thương hiệu.")
+            return;
+        }
+
+        if($scope.product.idTheLoai === ""){
+            toastr.error("Bạn phải chọn thể loại.")
+            return;
+        }
+
+        if($scope.product.moTa === ""){
+            toastr.error("Bạn phải nhập mô tả.")
+            return;
+        }
+
+        if($scope.listChooseColor.length === 0 || $scope.listChooseColorId.length === 0){
+            toastr.error("Bạn phải chọn màu sắc.")
+            return;
+        }
+
+        if($scope.listChooseSize.length === 0 ){
+            toastr.error("Bạn phải chọn kích cỡ.")
+            return;
+        }
     }
 
 })

@@ -296,3 +296,401 @@
   color: #fff!important;
 }
 
+.img svg {
+  width: 100%;
+}
+.st0 {
+  fill: none;
+  stroke: url(#longPath_1_);
+  stroke-width: 2.7079;
+}
+
+.st1 {
+  fill: none;
+  stroke: #fba440;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st2 {
+  fill: #fba440;
+}
+
+.st3 {
+  fill: #f6fbff;
+  stroke: #fba440;
+  stroke-width: 1.8052;
+}
+
+.st4 {
+  fill: url(#SVGID_1_);
+}
+
+.st5 {
+  fill: #ffffff;
+}
+
+.st6 {
+  fill: #847c7c;
+}
+
+.st7 {
+  fill: #f85e3a;
+}
+
+.st8 {
+  fill: #f6fbff;
+  stroke: #f85e3a;
+  stroke-width: 1.8052;
+}
+
+.st9 {
+  fill: url(#SVGID_2_);
+}
+
+.st10 {
+  fill: none;
+  stroke: #f85e3a;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st11 {
+  fill: #ea2f64;
+}
+
+.st12 {
+  fill: #f6fbff;
+  stroke: #ea2f64;
+  stroke-width: 1.8052;
+}
+
+.st13 {
+  fill: url(#SVGID_3_);
+}
+
+.st14 {
+  fill: none;
+  stroke: #ea2f64;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st15 {
+  fill: #2d81c0;
+}
+
+.st16 {
+  fill: #f6fbff;
+  stroke: #2d81c0;
+  stroke-width: 1.8052;
+}
+
+.st17 {
+  fill: url(#SVGID_4_);
+}
+
+.st18 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #847c7c;
+}
+
+.st19 {
+  fill: none;
+  stroke: #2d81c0;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st20 {
+  fill: #76c04f;
+}
+
+.st21 {
+  fill: #f6fbff;
+  stroke: #76c04f;
+  stroke-width: 1.8052;
+}
+
+.st22 {
+  fill: url(#SVGID_5_);
+}
+
+.st23 {
+  fill: none;
+  stroke: #76c04f;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st24 {
+  fill: #21cdc2;
+}
+
+.st25 {
+  fill: #f6fbff;
+  stroke: #21cdc2;
+  stroke-width: 1.8052;
+}
+
+.st26 {
+  fill: url(#SVGID_6_);
+}
+
+.st27 {
+  fill: none;
+  stroke: #847c7c;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.st28 {
+  fill: none;
+  stroke: #847c7c;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st29 {
+  fill: none;
+  stroke: #21cdc2;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st30 {
+  fill: url(#SVGID_7_);
+}
+
+.st31 {
+  fill: #b92fea;
+}
+
+.st32 {
+  fill: #f6fbff;
+  stroke: #b92fea;
+  stroke-width: 2;
+}
+
+.st33 {
+  fill: url(#SVGID_8_);
+}
+
+.st34 {
+  fill: none;
+  stroke: #b92fea;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.st35 {
+  fill: none;
+  stroke: url(#dottedPath_1_);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 6, 6;
+}
+g[id^="group"] {
+  -webkit-transition: all 1.3s ease-in-out;
+  -moz-transition: all 1.3s ease-in-out;
+  -o-transition: all 1.3s ease-in-out;
+  transition: all 1.3s ease-in-out;
+  opacity: 0;
+  transform: translate(-20px, -100px) rotate(100deg);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+g[id^="point"]:hover {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+g[id^="point"]:hover g[id^="no"] * {
+  cursor: pointer;
+  transform: scale(1.7) !important;
+  transform-origin: center;
+}
+g[id^="no"] {
+  transition: all 0.3s ease-in-out;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: zoomIn 0.6s ease-in forwards;
+  transform: scale(0);
+  animation-delay: 1.5s;
+}
+
+@keyframes zoomIn {
+  70% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+g[id^="point"] {
+  transition: all 0.3s ease-in-out !important;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+g[id^="point"]:hover g[id^="group"] * {
+  transform: translateY(-15px) !important;
+  transform-origin: center;
+}
+
+#group1 {
+  animation: fadeDown 0.3s ease-in forwards;
+  animation-delay: 0.3s;
+}
+#group2 {
+  animation: fadeDown 0.5s ease-in forwards;
+  animation-delay: 0.6s;
+}
+#group3 {
+  animation: fadeDown 0.5s ease-in forwards;
+  animation-delay: 0.7s;
+}
+
+#group4 {
+  animation: fadeDown 0.5s ease-in forwards;
+  animation-delay: 0.8s;
+}
+#group5 {
+  animation: fadeDown 0.5s ease-in forwards;
+  animation-delay: 0.9s;
+}
+#group6 {
+  animation: fadeDown 0.5s ease-in forwards;
+  animation-delay: 1s;
+}
+#group7 {
+  animation: fadeDown 0.5s ease-in forwards;
+  animation-delay: 1.1s;
+}
+#group8 {
+  animation: fadeDown 0.5s ease-in forwards;
+  animation-delay: 1.2s;
+}
+
+@keyframes fadeDown {
+  60% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+path#longPath {
+  stroke-width: 3px;
+  stroke-dasharray: 90;
+  animation: DrawLine 2s ease-in-out forwards;
+}
+@keyframes DrawLine {
+  100% {
+    stroke-dasharray: 1200px;
+    stroke-width: 10px;
+    transform: translateY(0px);
+  }
+}
+
+g[id^="group"] + path[class^="st"] {
+  animation: DrawLineV 3s linear forwards;
+  stroke-width: 0px;
+  stroke-dasharray: 10px;
+  animation-delay: 0.5s;
+}
+@keyframes DrawLineV {
+  100% {
+    stroke-dasharray: 120px;
+    stroke-width: 5px;
+    stroke-dasharray: 100px !important;
+  }
+}
+
+[id^="text"] {
+  transform: translateY(20px);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+}
+#text1 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 0.5s;
+}
+
+#text2 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 0.6s;
+}
+#text3 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 2.7s;
+}
+#text3 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 0.8s;
+}
+#text4 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 0.9s;
+}
+
+#text5 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 1s;
+}
+#text6 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 1.1s;
+}
+
+#text7 {
+  animation: showText 0.6s ease forwards;
+  animation-delay: 1.2s;
+}
+
+#text8 {
+  animation: showText 0.6s ease-in-out forwards;
+  animation-delay: 1.3s;
+}
+
+@keyframes showText {
+  50% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+svg * {
+  transform-box: fill-box;
+  transition: all 0.3s ease-in-out;
+}
+
+#dottedPath {
+  animation: otherTasks 2s linear forwards;
+  animation-delay: 2s;
+  opacity: 0;
+
+  stroke-width: 7px;
+  stroke-dasharray: 10px;
+  stroke-dashoffset: 100;
+}
+@keyframes otherTasks {
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 40px;
+    stroke-dasharray: 20px;
+  }
+}
+
