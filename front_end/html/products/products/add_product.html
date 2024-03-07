@@ -467,7 +467,7 @@
                             <div class="card-body">
 
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table ">
                                         <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%);
                                                   
                                             ">
@@ -498,15 +498,15 @@
                                                         style="border-right: 1px solid #b1acac;">
                                                         Hành động</h6>
                                                 </th>
-                                                <th class="border-bottom-0">
+                                                <th class="border-bottom-0" style="width: 20%;" >
                                                     <h6 class="fw-semibold mb-0">
                                                         Upload ảnh</h6>
                                                 </th>
 
                                             </tr>
                                         </thead>
-                                        <tbody ng-repeat="size in listChooseSize">
-                                            <tr id="color-size-{{color.id}}-{{size}}" class="listProductDetail">
+                                        <tbody >
+                                            <tr ng-repeat="size in listChooseSize" id="color-size-{{color.id}}-{{size}}" class="listProductDetail">
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{$index + 1}} </h6>
                                                 </td>
@@ -529,21 +529,30 @@
                                                    font-size: 23px;
                                                    color: #d11a2a;"></i>
                                                 </td>
+                                                <td class="border-bottom-0" rowspan="{{listChooseSize.length}}" ng-if="$index == 0">
+                                                    <div id="image-{{color.id}}-{{size}}"
+                                                        style="
+                                                        display: flex;
+                                                        justify-content: space-around;
+                                                        flex-wrap: wrap;"
+                                                    >
+                                                       
 
-                                                </td>
-                                                <td class="border-bottom-0">
+                                                    </div>
+
                                                     <h6 class="fw-semibold mb-0 fs-4" style="position: relative;">
-                                                        <a ng-href="#!sua-nhan-vien/{{employee.id}}">
+                                                        <a >
                                                             <i style="
                                                             display: inline-block;
                                                             font-size: 23px;  
                                                             color: #d4d42e;" class="ti ti-photo-plus"></i>
                                                         </a>
-                                                        <input type="file" accept="image/*" style="position: absolute;
+                                                        <input type="file"  multiple accept="image/*" style="position: absolute;
                                                         top: 1px;
                                                         left: 24px;
                                                         width: 37%;
                                                         opacity: 0;"
+                                                            ng-click="getColorSelected(color, size)"
                                                             onchange="angular.element(this).scope().changeImage(this)" />
                                                     </h6>
                                                 </td>
@@ -596,7 +605,7 @@
                         <div style="display: block; margin-top: 20px;clear: all">
                             <button ng-repeat="color in colors" class="btn btn-outline-primary btn-list-color"
                                 id="color-{{color.id}}" ng-click="chooseColor(color.id)"
-                                style="width: 15%; margin-bottom: 10px; display: inline-block;margin-right: 5px;margin-bottom:10px;">
+                                style=" margin-bottom: 10px; display: inline-block;margin-right: 5px;margin-bottom:10px;">
                                 {{color.ten}}</button>
                         </div>
                     </div>
@@ -647,7 +656,7 @@
                         <div style="display: block; margin-top: 20px;clear: all">
                             <button ng-repeat="size in sizes" class="btn btn-outline-primary btn-list-size"
                                 ng-click="chooseSize(size.kichCo)" id="size-{{size.kichCo}}"
-                                style="width: 15%; margin-bottom: 10px; display: inline-block;margin-right: 5px;margin-bottom:10px;">
+                                style=" margin-bottom: 10px; display: inline-block;margin-right: 5px;margin-bottom:10px;">
                                 {{size.kichCo}}</button>
 
                         </div>

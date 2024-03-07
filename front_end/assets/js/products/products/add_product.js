@@ -23,10 +23,12 @@ main_app.controller("addProductController", function ($scope, $http) {
         { 'id': 2, 'ten': 'Trắng' },
         { 'id': 3, 'ten': 'ghi' }]
     $scope.name_color = ''
+    $scope.colorSelected = {}
 
     // sizes
     $scope.sizes = []
     $scope.newSize = ''
+    $scope.sizeSelected = ""
 
     // brandsF
     $scope.brands = []
@@ -38,6 +40,9 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     // product details
     $scope.productDetails = []
+
+    // images
+    $scope.images = new Map();
 
     // load data
     $scope.loadData = function () {
@@ -127,7 +132,7 @@ main_app.controller("addProductController", function ($scope, $http) {
                 $scope.listChooseColor.push(result)
             }
         }
-        
+
         $scope.addProductDetail()
     }
 
@@ -197,20 +202,20 @@ main_app.controller("addProductController", function ($scope, $http) {
 
         productDetailHtml.remove()
         console.log(colorId)
-        for(var i = 0 ; i < $scope.productDetails.length; i++){
-            if($scope.productDetails[i].color.id == colorId && $scope.productDetails[i].size == size){
+        for (var i = 0; i < $scope.productDetails.length; i++) {
+            if ($scope.productDetails[i].color.id == colorId && $scope.productDetails[i].size == size) {
                 $scope.productDetails.splice(i, 1)
             }
         }
         var productByColor = $scope.productDetails.find(x => x.color.id == colorId)
         var productBySize = $scope.productDetails.find(x => x.size == size)
 
-        if(productByColor === undefined){
+        if (productByColor === undefined) {
             productDetailTabColor.remove()
             $scope.removeChooseColor($scope.colors.find(x => x.id == colorId))
         }
 
-        if(productBySize === undefined){
+        if (productBySize === undefined) {
             $scope.removeChooseSize(size)
         }
 
@@ -219,13 +224,17 @@ main_app.controller("addProductController", function ($scope, $http) {
     $scope.addProductDetail = function () {
         $scope.resetProductDetails()
 
-        if($scope.listChooseColor.length > 0 && $scope.listChooseSize.length > 0){
-            for(var i = 0; i < $scope.listChooseColor.length; i++){
-                for(var j = 0; j < $scope.listChooseSize.length; j++){
+        if ($scope.listChooseColor.length > 0 && $scope.listChooseSize.length > 0) {
+            var id = 0;
+            for (var i = 0; i < $scope.listChooseColor.length; i++) {
+                for (var j = 0; j < $scope.listChooseSize.length; j++) {
                     $scope.productDetails.push({
+                        'id': id,
                         'color': $scope.listChooseColor[i],
                         'size': $scope.listChooseSize[j]
                     })
+
+                    id++;
                 }
             }
             console.log($scope.productDetails)
@@ -332,64 +341,113 @@ main_app.controller("addProductController", function ($scope, $http) {
     }
 
     var readURL = function (input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+        if (input.files) {
+            if ($scope.images.get($scope.colorSelected.id)) {
+                var oldFiles = $scope.images.get($scope.colorSelected.id)
+                oldFiles = $scope.addFileList(oldFiles, input.files)
 
-            reader.onload = function (e) {
-                $('.profile_pic').attr('src', e.target.result);
+                $scope.images.set($scope.colorSelected.id, oldFiles);
+            } else {
+                var list = [];
+                list = $scope.addFileList(list, input.files);
+                $scope.images.set($scope.colorSelected.id, list)
             }
 
-            reader.readAsDataURL(input.files[0]);
+            console.log($scope.images.get($scope.colorSelected.id))
+
+            var imageZone = document.querySelector("#image-" + $scope.colorSelected.id + "-" + $scope.sizeSelected)
+
+            for (var i = 0; i < input.files.length; i++) {
+                var e = input.files[i]
+                var temp = input.files[i]
+                // const img = document.createElement("img");
+                // img.style.width = '50px';
+                // img.style.height = '50px';
+                // img.style.marginRight = "5px"
+                // img.style.marginBottom = "5px"
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    console.log(temp)
+                    var html = imageZone.innerHTML +  `
+                    <div style="position: relative;width:50px;height: 50px;margin-bottom:10px" id="image-${$scope.colorSelected.id}-${temp.lastModified}">
+                    <img src="${e.target.result}" style="width: 50px; height: 50px; margin-right: 5px; margin-bottom: 5px;">
+                    <i class="ti ti-x" style="
+                        font-size: 12px;
+                        position: absolute;
+                        top: -8px;
+                        right: -7px;
+                        background: #d11a2a;
+                        color: white;
+                        border-radius: 50%;
+                        padding: 4px;" ng-click="removeImage(${$scope.colorSelected.id}, ${input.files[i]})"></i>
+                     </div>
+                    `
+                    imageZone.innerHTML = html
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+
         }
     }
 
     $scope.changeImage = function (element) {
+        readURL(element)
+    }
 
-        // if (element.files && element.files[0]) {
-        //     const formData = new FormData();
-        //     formData.append('file', element.files[0]);
-        //     file = formData
-        //     console.log(formData)
-        // }
-
-        // readURL(element)
-        // var icon = document.getElementsByClassName('icon-upload-button')[0]
-        // icon.classList.add('icon-upload-button-close')
-
-        console.log($scope.product)
+    $scope.getColorSelected = function (color, size) {
+        $scope.colorSelected = color;
+        $scope.sizeSelected = size
     }
 
     $scope.addProduct = function () {
 
-        if($scope.product.ten === ""){
+        if ($scope.product.ten === "") {
             toastr.error("Bạn phải nhập tên sản phẩm.")
             return;
         }
 
-        if($scope.product.idThuongHieu === ""){
+        if ($scope.product.idThuongHieu === "") {
             toastr.error("Bạn phải chọn thương hiệu.")
             return;
         }
 
-        if($scope.product.idTheLoai === ""){
+        if ($scope.product.idTheLoai === "") {
             toastr.error("Bạn phải chọn thể loại.")
             return;
         }
 
-        if($scope.product.moTa === ""){
+        if ($scope.product.moTa === "") {
             toastr.error("Bạn phải nhập mô tả.")
             return;
         }
 
-        if($scope.listChooseColor.length === 0 || $scope.listChooseColorId.length === 0){
+        if ($scope.listChooseColor.length === 0 || $scope.listChooseColorId.length === 0) {
             toastr.error("Bạn phải chọn màu sắc.")
             return;
         }
 
-        if($scope.listChooseSize.length === 0 ){
+        if ($scope.listChooseSize.length === 0) {
             toastr.error("Bạn phải chọn kích cỡ.")
             return;
         }
+    }
+
+    $scope.findProductDetailByColorIdAndSize = function (colorId, size) {
+        return $scope.productDetails.find(x => x.color.id == colorId && x.size == size)
+    }
+
+    $scope.addFileList = function (newList, items) {
+        for (var i = 0; i < items.length; i++) {
+            newList.push(items[i])
+        }
+
+        return newList;
+    }
+
+    $scope.removeImage = function(colorId, image) {
+        $scope.images.get(colorId).splice($scope.images.get(colorId).indexOf(image), 1)
     }
 
 })
