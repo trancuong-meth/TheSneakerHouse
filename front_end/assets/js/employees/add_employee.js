@@ -36,8 +36,6 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
 
     $scope.addEmployee = function () {
 
-        console.log($scope.employee)
-
         axios.post("http://localhost:8080/cloudinary/upload",
             file,
             {
