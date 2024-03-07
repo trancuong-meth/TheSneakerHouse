@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public interface ITheLoaiRepo extends JpaRepository<TheLoai, Long> {
 
-
     @Query( value = """
         select * from the_loai v
         WHERE ten like :key

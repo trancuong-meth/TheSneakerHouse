@@ -27,9 +27,6 @@ public class SanPhamChiTiet extends PrimaryEntity {
     @Column(name = "trong_luong")
     private Float trongLuong;
 
-    @Column(name = "mo_ta")
-    private String moTa;
-
     @Column(name = "trang_thai")
     private Boolean trangThai;
 

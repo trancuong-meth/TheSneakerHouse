@@ -231,7 +231,10 @@ main_app.controller("addProductController", function ($scope, $http) {
                     $scope.productDetails.push({
                         'id': id,
                         'color': $scope.listChooseColor[i],
-                        'size': $scope.listChooseSize[j]
+                        'size': $scope.listChooseSize[j],
+                        'quantity': 0,
+                        'price': 0,
+                        'product': {}
                     })
 
                     id++;
@@ -364,7 +367,7 @@ main_app.controller("addProductController", function ($scope, $http) {
 
                 reader.onload = function (e) {
 
-                    var html = imageZone.innerHTML +  `
+                    var html = imageZone.innerHTML + `
                     <div style="position: relative;width:50px;height: 50px;margin-bottom:10px" id="image-${$scope.colorSelected.id}-${e.total}"
                          
                     >
@@ -400,6 +403,72 @@ main_app.controller("addProductController", function ($scope, $http) {
         $scope.sizeSelected = size
     }
 
+    $scope.findProductDetailByColorIdAndSize = function (colorId, size) {
+        return $scope.productDetails.find(x => x.color.id == colorId && x.size == size)
+    }
+
+    $scope.addFileList = function (newList, items) {
+        for (var i = 0; i < items.length; i++) {
+            newList.push(items[i])
+        }
+
+        return newList;
+    }
+
+    $scope.removeImage = function (colorId, image) {
+        var listImage = $scope.images.get(colorId);
+        for (var i = 0; i < listImage.length; i++) {
+            if (listImage[i].size === image) {
+                var imageZone = document.querySelector("#image-" + colorId + "-" + image)
+                imageZone.remove()
+                listImage.splice(i, 1);
+            }
+        }
+        $scope.images.set(colorId, listImage);
+    }
+
+    $scope.changeQuantity = function (color, size) {
+        var quantityHtml = document.querySelector("#quantity-" + color.id + "-" + size)
+
+        if (isNaN(quantityHtml.value)) {
+            toastr.error("Số lượng phải là số")
+            return;
+        }
+
+        if (Number(quantityHtml.value) < 0) {
+            toastr.error("Số lượng phải lớn hơn 0")
+            return;
+        }
+
+        for (var i = 0; i < $scope.productDetails.length; i++) {
+            if ($scope.productDetails[i].color.id === color.id && $scope.productDetails[i].size === size) {
+                $scope.productDetails[i].quantity = Number(quantityHtml.value)
+            }
+        }
+
+    }
+
+    $scope.changePrice = function (color, size) {
+        var quantityHtml = document.querySelector("#price-" + color.id + "-" + size)
+
+        if (isNaN(quantityHtml.value)) {
+            toastr.error("Giá tiền phải là số")
+            return;
+        }
+
+        if (Number(quantityHtml.value) < 0) {
+            toastr.error("Giá tiền phải lớn hơn 0")
+            return;
+        }
+
+        for (var i = 0; i < $scope.productDetails.length; i++) {
+            if ($scope.productDetails[i].color.id === color.id && $scope.productDetails[i].size === size) {
+                $scope.productDetails[i].price = Number(quantityHtml.value)
+            }
+        }
+
+    }
+
     $scope.addProduct = function () {
 
         if ($scope.product.ten === "") {
@@ -431,30 +500,43 @@ main_app.controller("addProductController", function ($scope, $http) {
             toastr.error("Bạn phải chọn kích cỡ.")
             return;
         }
-    }
 
-    $scope.findProductDetailByColorIdAndSize = function (colorId, size) {
-        return $scope.productDetails.find(x => x.color.id == colorId && x.size == size)
-    }
+        $scope.product.idThuongHieu = $scope.brands.find(x => x.id == $scope.product.idThuongHieu)
+        $scope.product.idTheLoai = $scope.types.find(x => x.id == $scope.product.idTheLoai)
 
-    $scope.addFileList = function (newList, items) {
-        for (var i = 0; i < items.length; i++) {
-            newList.push(items[i])
+        if ($scope.product.idThuongHieu === undefined) {
+            toastr.error("Bạn phải chọn thương hiệu.")
+            return;
         }
 
-        return newList;
-    }
+        if ($scope.product.idTheLoai === undefined) {
+            toastr.error("Bạn phải chọn thể loại.")
+            return;
+        }
 
-    $scope.removeImage = function(colorId, image) {
-       var listImage = $scope.images.get(colorId);
-       for(var i = 0; i < listImage.length; i++) {
-           if(listImage[i].size === image) {
-            var imageZone = document.querySelector("#image-" + colorId + "-" + image)
-            imageZone.remove()
-            listImage.splice(i, 1);
-           }
-       }
-       $scope.images.set(colorId, listImage);
+        axios.post('http://localhost:8080/product/add', $scope.product)
+        .then(function (response) {
+            for(var i = 0; i < $scope.productDetails.length; i++) {
+                $scope.productDetails[i].product = response.data
+                axios.post('http://localhost:8080/product-detail/add', {
+                    "soLuongTon": $scope.productDetails[i].quantity,
+                    "donGia": $scope.productDetails[i].price,
+                    "idMauSac": $scope.productDetails[i].color,
+                    "idKichCo": $scope.sizes.find(x => x.kichCo == $scope.productDetails[i].size),
+                    "idSanPham": response.data
+                })
+                .then(function (response) {
+
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+            toastr.success("Thêm sản phẩm mới thành công")
+        }).catch(function (error) {
+            console.log(error)
+            toastr.error("Tên sản phẩm đã có trong hệ thống.Vui lòng nhập sản phẩm khác")
+        })
+
     }
 
 })

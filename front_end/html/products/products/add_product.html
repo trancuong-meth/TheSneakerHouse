@@ -339,9 +339,7 @@
                             <div class="select-wrap"
                                 style="display: flex; justify-content: space-between; align-items: center;">
                                 <select class="form-select" style="width: 88%;" id="city" name="city"
-                                    onchange="angular.element(this).scope().getAllDistrict()"
-                                    ng-model="product.idThuongHieu"
-                                    placeholder="Chọn trạng thái">
+                                    ng-model="product.idThuongHieu" placeholder="Chọn trạng thái">
                                     <option value="" selected> -- Chọn thương hiệu --</option>
                                     <option ng-repeat="brand in brands" value="{{brand.id}}">{{brand.ten}}</option>
                                 </select>
@@ -362,9 +360,7 @@
                             <div class="select-wrap"
                                 style="display: flex; justify-content: space-between; align-items: center;">
                                 <select class="form-select" style="width: 88%;" id="city" name="city"
-                                    onchange="angular.element(this).scope().getAllDistrict()"
-                                    ng-model="product.idTheLoai"
-                                    placeholder="Chọn trạng thái">
+                                    ng-model="product.idTheLoai" placeholder="Chọn trạng thái">
                                     <option value="" selected> -- Chọn thể loại --</option>
                                     <option ng-repeat="type in types" value="{{type.id}}">{{type.ten}}</option>
                                 </select>
@@ -482,7 +478,7 @@
                                                         style="border-right: 1px solid #b1acac;">
                                                         Tên sản phẩm</h6>
                                                 </th>
-                                                <th class="border-bottom-0">
+                                                <th class="border-bottom-0" style="width: 15%;">
                                                     <h6 class="fw-semibold mb-0"
                                                         style="border-right: 1px solid #b1acac;">Số
                                                         lượng</h6>
@@ -498,15 +494,16 @@
                                                         style="border-right: 1px solid #b1acac;">
                                                         Hành động</h6>
                                                 </th>
-                                                <th class="border-bottom-0" style="width: 20%;" >
+                                                <th class="border-bottom-0" style="width: 17%;">
                                                     <h6 class="fw-semibold mb-0">
                                                         Upload ảnh</h6>
                                                 </th>
 
                                             </tr>
                                         </thead>
-                                        <tbody >
-                                            <tr ng-repeat="size in listChooseSize" id="color-size-{{color.id}}-{{size}}" class="listProductDetail">
+                                        <tbody>
+                                            <tr ng-repeat="size in listChooseSize" id="color-size-{{color.id}}-{{size}}"
+                                                class="listProductDetail">
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{$index + 1}} </h6>
                                                 </td>
@@ -518,10 +515,10 @@
 
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" id="quantity-{{color.id}}-{{size}}" class="form-control" ng-keyup="changeQuantity(color,size)">
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" id="price-{{color.id}}-{{size}}" class="form-control" ng-keyup="changePrice(color, size)">
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <i class="ti ti-trash-x-filled"
@@ -529,30 +526,28 @@
                                                    font-size: 23px;
                                                    color: #d11a2a;"></i>
                                                 </td>
-                                                <td class="border-bottom-0" rowspan="{{listChooseSize.length}}" ng-if="$index == 0">
-                                                    <div id="image-{{color.id}}-{{size}}"
-                                                        style="
+                                                <td class="border-bottom-0" rowspan="{{listChooseSize.length}}"
+                                                    ng-if="$index == 0">
+                                                    <div id="image-{{color.id}}-{{size}}" style="
                                                         display: flex;
                                                         justify-content: space-around;
-                                                        flex-wrap: wrap;"
-                                                    >
-                                                       
+                                                        flex-wrap: wrap;">
+
 
                                                     </div>
 
                                                     <h6 class="fw-semibold mb-0 fs-4" style="position: relative;">
-                                                        <a >
+                                                        <a>
                                                             <i style="
                                                             display: inline-block;
                                                             font-size: 23px;  
                                                             color: #d4d42e;" class="ti ti-photo-plus"></i>
                                                         </a>
-                                                        <input type="file"  multiple accept="image/*" style="position: absolute;
+                                                        <input type="file" multiple accept="image/*" style="position: absolute;
                                                         top: 1px;
                                                         left: 24px;
                                                         width: 37%;
-                                                        opacity: 0;"
-                                                            ng-click="getColorSelected(color, size)"
+                                                        opacity: 0;" ng-click="getColorSelected(color, size)"
                                                             onchange="angular.element(this).scope().changeImage(this)" />
                                                     </h6>
                                                 </td>
