@@ -12,9 +12,8 @@ import lombok.Setter;
 @Setter
 public class ImageAddRequest {
 
-    private SanPhamChiTiet idSanPhamChiTiet;
+    private Long idSanPhamChiTiet;
 
     private String duongDan;
 
-    private Boolean trangThai;
 }

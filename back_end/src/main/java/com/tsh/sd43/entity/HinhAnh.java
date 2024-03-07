@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Table(name = "hinh_anh")
 public class HinhAnh extends PrimaryEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_san_pham_chi_tiet")
     private SanPhamChiTiet idSanPhamChiTiet;
 
