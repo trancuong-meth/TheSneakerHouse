@@ -359,18 +359,15 @@ main_app.controller("addProductController", function ($scope, $http) {
 
             for (var i = 0; i < input.files.length; i++) {
                 var e = input.files[i]
-                var temp = input.files[i]
-                // const img = document.createElement("img");
-                // img.style.width = '50px';
-                // img.style.height = '50px';
-                // img.style.marginRight = "5px"
-                // img.style.marginBottom = "5px"
+
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    console.log(temp)
+
                     var html = imageZone.innerHTML +  `
-                    <div style="position: relative;width:50px;height: 50px;margin-bottom:10px" id="image-${$scope.colorSelected.id}-${temp.lastModified}">
+                    <div style="position: relative;width:50px;height: 50px;margin-bottom:10px" id="image-${$scope.colorSelected.id}-${e.total}"
+                         
+                    >
                     <img src="${e.target.result}" style="width: 50px; height: 50px; margin-right: 5px; margin-bottom: 5px;">
                     <i class="ti ti-x" style="
                         font-size: 12px;
@@ -380,7 +377,9 @@ main_app.controller("addProductController", function ($scope, $http) {
                         background: #d11a2a;
                         color: white;
                         border-radius: 50%;
-                        padding: 4px;" ng-click="removeImage(${$scope.colorSelected.id}, ${input.files[i]})"></i>
+                        padding: 4px;" 
+                        onclick="angular.element(this).scope().removeImage(${$scope.colorSelected.id},${e.total})"
+                        ></i>
                      </div>
                     `
                     imageZone.innerHTML = html
@@ -447,7 +446,15 @@ main_app.controller("addProductController", function ($scope, $http) {
     }
 
     $scope.removeImage = function(colorId, image) {
-        $scope.images.get(colorId).splice($scope.images.get(colorId).indexOf(image), 1)
+       var listImage = $scope.images.get(colorId);
+       for(var i = 0; i < listImage.length; i++) {
+           if(listImage[i].size === image) {
+            var imageZone = document.querySelector("#image-" + colorId + "-" + image)
+            imageZone.remove()
+            listImage.splice(i, 1);
+           }
+       }
+       $scope.images.set(colorId, listImage);
     }
 
 })
