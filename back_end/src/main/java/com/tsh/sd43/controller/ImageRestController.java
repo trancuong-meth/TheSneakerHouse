@@ -19,18 +19,19 @@ public class ImageRestController {
     public ResponseEntity<?> getImages(@RequestParam("page")Integer pageNo,
                                          @RequestParam("size")Integer pageSize,
                                          @RequestParam("key")String key,
-                                         @RequestParam("trang_thai")String trangThai){
+                                         @RequestParam("trang_thai")String trangThai,
+                                         @RequestParam("id")Long id){
         try{
-            return new ResponseEntity<>(hinhAnhService.getImages(pageNo, pageSize, key), HttpStatus.OK);
+            return new ResponseEntity<>(hinhAnhService.getImages(pageNo, pageSize, key, id), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/get-all")
-    public ResponseEntity<?> getImages(){
+    @GetMapping("/get-all/{id}")
+    public ResponseEntity<?> getImages(@PathVariable("id")Long id){
         try{
-            return new ResponseEntity<>(hinhAnhService.getAll(), HttpStatus.OK);
+            return new ResponseEntity<>(hinhAnhService.getAll(id), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

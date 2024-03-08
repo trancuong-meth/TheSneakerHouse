@@ -26,14 +26,14 @@ public class HinhAnhSerImpl implements IHinhAnhSer {
     @Autowired
     private ISanPhamChiTietRepo sanPhamChiTietRepo;
 
-    public Page<HinhAnh> getImages(int pageNo, int pageSize, String key){
+    public Page<HinhAnh> getImages(int pageNo, int pageSize, String key, Long id){
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return hinhAnhRepo.findPanigation(pageable);
+        return hinhAnhRepo.findPanigation(pageable, id);
     }
 
-    public ArrayList<HinhAnh> getAll(){
+    public ArrayList<HinhAnh> getAll(Long id){
 //        get all voucher
-        return (ArrayList<HinhAnh>) hinhAnhRepo.findByOrderByNgayTaoDesc();
+        return (ArrayList<HinhAnh>) hinhAnhRepo.findByOrderByNgayTaoDesc(id);
     }
 
     public HinhAnh getById(Long id){

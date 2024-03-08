@@ -14,9 +14,10 @@ public interface IHinhAnhRepo extends JpaRepository<HinhAnh, Long> {
 
     @Query( value = """
         select * from hinh_anh v
+        where id_san_pham_chi_tiet = :id
         ORDER BY ngay_tao DESC
     """, nativeQuery = true)
-    Page<HinhAnh> findPanigation(Pageable pageable);
+    Page<HinhAnh> findPanigation(Pageable pageable, Long id);
 
     @Query(value = """
         select * from hinh_anh v
@@ -24,5 +25,9 @@ public interface IHinhAnhRepo extends JpaRepository<HinhAnh, Long> {
     """, nativeQuery = true)
     ArrayList<HinhAnh> findImageById(@Param("id") Long id);
 
-    ArrayList<HinhAnh> findByOrderByNgayTaoDesc();
+    @Query(value = """
+        select * from hinh_anh v
+        where v.id_san_pham_chi_tiet = :id
+    """, nativeQuery = true)
+    ArrayList<HinhAnh> findByOrderByNgayTaoDesc(@Param("id") Long id);
 }

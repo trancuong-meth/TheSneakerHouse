@@ -3,6 +3,7 @@ package com.tsh.sd43.service.impl;
 import com.tsh.sd43.entity.SanPham;
 import com.tsh.sd43.entity.TheLoai;
 import com.tsh.sd43.entity.request.ProductAddRequest;
+import com.tsh.sd43.entity.responce.ProductResponce;
 import com.tsh.sd43.repository.ISanPhamRepo;
 import com.tsh.sd43.repository.ITheLoaiRepo;
 import com.tsh.sd43.service.ISanPhamSer;
@@ -21,7 +22,7 @@ public class SanPhamSerImpl implements ISanPhamSer {
     @Autowired
     private ISanPhamRepo sanPhamRepo;
 
-    public Page<SanPham> getProducts(int pageNo, int pageSize, String key){
+    public Page<ProductResponce> getProducts(int pageNo, int pageSize, String key){
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return sanPhamRepo.findPanigation(pageable,

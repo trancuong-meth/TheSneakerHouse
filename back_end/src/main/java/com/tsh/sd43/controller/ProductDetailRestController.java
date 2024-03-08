@@ -1,6 +1,6 @@
 package com.tsh.sd43.controller;
 
-    import com.tsh.sd43.entity.request.ProductDetailAddRequest;
+import com.tsh.sd43.entity.request.ProductDetailAddRequest;
 import com.tsh.sd43.service.impl.SanPhamChiTietSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +19,10 @@ public class ProductDetailRestController {
     public ResponseEntity<?> getVouchers(@RequestParam("page")Integer pageNo,
                                          @RequestParam("size")Integer pageSize,
                                          @RequestParam("key")String key,
-                                         @RequestParam("trang_thai")String trangThai){
+                                         @RequestParam("trang_thai")String trangThai,
+                                         @RequestParam("id")Long id){
         try{
-            return new ResponseEntity<>(sanPhamChiTietService.getProducts(pageNo, pageSize, key), HttpStatus.OK);
+            return new ResponseEntity<>(sanPhamChiTietService.getProducts(pageNo, pageSize, key, id), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

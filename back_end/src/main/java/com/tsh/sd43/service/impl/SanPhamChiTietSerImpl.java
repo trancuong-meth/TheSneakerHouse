@@ -21,10 +21,10 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
     @Autowired
     private ISanPhamChiTietRepo sanPhamChiTietRepo;
 
-    public Page<SanPhamChiTiet> getProducts(int pageNo, int pageSize, String key){
+    public Page<SanPhamChiTiet> getProducts(int pageNo, int pageSize, String key, Long id){
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return sanPhamChiTietRepo.findPanigation(pageable);
+        return sanPhamChiTietRepo.findPanigation(pageable, id);
     }
 
     public ArrayList<SanPhamChiTiet> getAll(){

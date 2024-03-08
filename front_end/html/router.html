@@ -353,6 +353,7 @@
         .when("/san-pham", { templateUrl: "products/products/product.html", controller: "productController" })
         .when("/them-san-pham", { templateUrl: "products/products/add_product.html", controller: "addProductController" })
         .when("/sua-san-pham/:id", { templateUrl: "products/products/edit_product.html", controller: "editProductController" })
+        .when("/chi-tiet-san-pham/:id", { templateUrl: "products/products/product_detail.html", controller: "productDetailController" })
 
       // Hóa đơn
         .when("/hoa-don", { templateUrl: "bills/bill.html", controller: "billController" })
@@ -448,6 +449,8 @@
    <!-- SAN PHAM -->
    <script src="../assets/js/products/products/product.js"></script>
    <script src="../assets/js/products/products/add_product.js"></script>
+   <script src="../assets/js/products/products/product_detail.js"></script>
+
 
 </body>
 
