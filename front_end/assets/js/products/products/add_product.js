@@ -117,6 +117,7 @@ main_app.controller("addProductController", function ($scope, $http) {
         modal.hide()
         toastr.success(`Bạn đã thêm kích cỡ thành công  !!!`);
         $scope.addProductDetail()
+
     }
 
     $scope.chooseColorAddProduct = function () {
@@ -302,6 +303,14 @@ main_app.controller("addProductController", function ($scope, $http) {
                 $scope.name_color = ""
                 listColorModal.show()
                 $scope.loadData()
+                setTimeout(function () {
+                    for(var i = 0; i < $scope.listChooseColor.length; i++) {
+                
+                        var html = document.getElementById("color-" + $scope.listChooseColor[i].id)
+                        html.classList.add('btn-primary')
+                        html.classList.remove('btn-outline-primary')
+                    }
+                }, 400)
             }).catch(function (error) {
                 toastr.error("Tên màu sắc này đã tồn tại.Vui lòng nhập tên màu sắc khác!!!");
             })
@@ -337,10 +346,21 @@ main_app.controller("addProductController", function ($scope, $http) {
             $scope.newSize = ""
             listSizeModal.show()
             $scope.loadData()
+            setTimeout(function () {
+                for(var i = 0; i < $scope.listChooseSize.length; i++) {
+            
+                    var html = document.getElementById("size-" + $scope.listChooseSize[i])
+                    html.classList.add('btn-primary')
+                    html.classList.remove('btn-outline-primary')
+                }
+            }, 400)
+           
         }).catch(function (error) {
             console.log(error)
             toastr.error("Kích cỡ này đã tồn tại.Vui lòng nhập tên thương hiệu khác!!!");
         })
+
+       
     }
 
     var readURL = function (input) {
@@ -525,42 +545,43 @@ main_app.controller("addProductController", function ($scope, $http) {
                         "idKichCo": $scope.sizes.find(x => x.kichCo == $scope.productDetails[i].size),
                         "idSanPham": response.data
                     })
-                        .then(function (resOfProductDetail) {
-                            var imageOfProductDetails = $scope.images.get(resOfProductDetail.data.idMauSac.id)
-                            for (var j = 0; j < imageOfProductDetails.length; j++) {
-                                const formData = new FormData();
-                                formData.append('file', imageOfProductDetails[j]);
-                                axios.post("http://localhost:8080/cloudinary/upload",
-                                    formData,
-                                    {
-                                        headers: {
-                                            'Content-Type': 'multipart/form-data',
-                                        }
+                    .then(function (resOfProductDetail) {
+                        console.log($scope.images)
+                        var imageOfProductDetails = $scope.images.get(resOfProductDetail.data.idMauSac.id)
+                        for (var j = 0; j < imageOfProductDetails.length; j++) {
+                            const formData = new FormData();
+                            formData.append('file', imageOfProductDetails[j]);
+                            axios.post("http://localhost:8080/cloudinary/upload",
+                                formData,
+                                {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data',
+                                    }
+                                })
+                                .then((res) => {
+                                    var imageUrl = res.data.secure_url;
+                                    axios.post('http://localhost:8080/image/add', {
+                                        "duongDan": imageUrl,
+                                        "idSanPhamChiTiet": resOfProductDetail.data.id
+                                    }).then(function (res) {
+                                        
+                                    }).catch(function (error) {
+                                        console.log(error)
                                     })
-                                    .then((res) => {
-                                        var imageUrl = res.data.secure_url;
-                                        axios.post('http://localhost:8080/image/add', {
-                                            "duongDan": imageUrl,
-                                            "idSanPhamChiTiet": resOfProductDetail.data.id
-                                        }).then(function (res) {
-                                            
-                                        }).catch(function (error) {
-                                            console.log(error)
-                                        })
-                                    }).catch((error) => {
+                                }).catch((error) => {
+                                    console.log(error)
+                                })
+                        }
 
-                                    })
-                            }
-
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
                 }
                 toastr.success("Thêm sản phẩm mới thành công")
 
                 setTimeout(() => {
                     location.href = "/html/router.html#!/san-pham"
-                }, 1000)
+                }, 2000)
             }).catch(function (error) {
                 console.log(error)
                 toastr.error("Tên sản phẩm đã có trong hệ thống.Vui lòng nhập sản phẩm khác")
