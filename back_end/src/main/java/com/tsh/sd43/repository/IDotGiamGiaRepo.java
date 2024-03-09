@@ -29,7 +29,7 @@ public interface IDotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
     ArrayList<DotGiamGia> findSalesByIdAndState(@Param("id") Long id);
 
     @Query(value = """
-        select top 1 ma from dot_giam_gia order by ma desc
+        select top 1 ma from dot_giam_gia order by ngay_tao desc
     """, nativeQuery = true)
     String generateNewestCode();
 }

@@ -42,7 +42,7 @@ public interface ISanPhamRepo extends JpaRepository<SanPham, Long> {
     ArrayList<SanPham> findByOrderByNgayTaoDesc();
 
     @Query(value = """
-        select top 1 ma from san_pham order by ma desc
+        select top 1 ma from san_pham order by ngay_tao desc
     """, nativeQuery = true)
     String generateNewestCode();
 }

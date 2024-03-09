@@ -28,7 +28,7 @@ public interface IKhachHangRepo extends JpaRepository<KhachHang, Long> {
     ArrayList<KhachHang> findKhachHangById(@Param("id") Long id);
 
     @Query(value = """
-        select top 1 ma from khach_hang order by ma desc
+        select top 1 ma from khach_hang order by ngay_tao desc
     """, nativeQuery = true)
     String generateNewestCode();
 }
