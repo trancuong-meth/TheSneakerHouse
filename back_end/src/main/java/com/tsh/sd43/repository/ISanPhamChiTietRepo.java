@@ -26,4 +26,10 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
 
     ArrayList<SanPhamChiTiet> findByOrderByNgayTaoDesc();
 
+    @Query( value = """
+        select * from san_pham_chi_tiet v
+        ORDER BY ngay_tao DESC
+    """, nativeQuery = true)
+    Page<SanPhamChiTiet> findAllAndPanigation(Pageable pageable);
+
 }

@@ -16,32 +16,34 @@ public class ProductDetailRestController {
     private SanPhamChiTietSerImpl sanPhamChiTietService;
 
     @GetMapping("/find-all-panigation")
-    public ResponseEntity<?> getVouchers(@RequestParam("page")Integer pageNo,
-                                         @RequestParam("size")Integer pageSize,
-                                         @RequestParam("key")String key,
-                                         @RequestParam("trang_thai")String trangThai,
-                                         @RequestParam("id")Long id){
-        try{
+    public ResponseEntity<?> getVouchers(@RequestParam("page") Integer pageNo,
+                                         @RequestParam("size") Integer pageSize,
+                                         @RequestParam("key") String key,
+                                         @RequestParam("trang_thai") String trangThai,
+                                         @RequestParam("id") Long id) {
+        try {
             return new ResponseEntity<>(sanPhamChiTietService.getProducts(pageNo, pageSize, key, id), HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping("/get-all")
-    public ResponseEntity<?> getProductDetails(){
-        try{
-            return new ResponseEntity<>(sanPhamChiTietService.getAll(), HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addVoucher(@RequestBody ProductDetailAddRequest req){
-        try{
+    public ResponseEntity<?> addVoucher(@RequestBody ProductDetailAddRequest req) {
+        try {
             return new ResponseEntity<>(sanPhamChiTietService.add(req), HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAll(@RequestParam("page") Integer pageNo,
+                                    @RequestParam("size") Integer pageSize
+                                    ) {
+        try {
+            return new ResponseEntity<>(sanPhamChiTietService.findAllAndPanigation(pageNo, pageSize), HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

@@ -47,4 +47,9 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
     public TheLoai update(TheLoai req){
         return null;
     }
+
+    public Page<SanPhamChiTiet> findAllAndPanigation(int pageNo, int pageSize){
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return sanPhamChiTietRepo.findAllAndPanigation(pageable);
+    }
 }
