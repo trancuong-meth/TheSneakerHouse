@@ -1,0 +1,180 @@
+<div class="card p-3 shadow">
+    <!-- bread crumbs -->
+    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+        <div class="mb-3 mb-sm-0">
+            <i class="ti ti-home-2"></i> / <span style="color: black;display: inline-block;">Quản lí đơn hàng</span>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                type="button" role="tab" aria-controls="nav-home" aria-selected="true">Tất cả</button>
+
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Chờ xác nhận</button>
+
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Xác nhận</button>
+
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Chờ vận chuyển</button>
+
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Vận chuyển</button>
+
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Thanh toán</button>
+
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Hoàn thành</button>
+
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Hủy</button>
+        </div>
+    </nav>
+    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+        <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <table class="table">
+                <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%)">
+                  <tr>
+                    <th style="width: 7%;">
+                      <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;" >#</h6>
+                    </th>
+                    <th class="border-bottom-0"
+                        style="width: 25%;"
+                    >
+                      <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Mã hóa đơn</h6>
+                    </th>
+                    <th class="border-bottom-0" style="width: 18%;">
+                      <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Tên khách hàng</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Loại</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Ngày tạo</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Tổng tiền</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0" >Thao tác</h6>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="employee in employees.content">
+                    <td class="border-bottom-0"><h6 class="fw-semibold mb-0"> {{$index + 1}}</h6></td>
+                    <td class="border-bottom-0">
+                        <img 
+                          style="
+                            width: 80%;
+                            border-radius: 10px;"
+                          src="{{employee.avatar}}" 
+                          alt="">                          
+                    </td>
+                    <td class="border-bottom-0">
+                        <span class="fw-normal">{{employee.ten}}</span>                          
+                    </td>
+                    <td class="border-bottom-0">
+                        <span class="fw-normal">{{employee.soDienThoai}}</span>                          
+                    </td>
+                    <td class="border-bottom-0" >
+
+                      <div class="d-flex align-items-center gap-2" ng-if="employee.chucVu.ma == 0">
+                          <span class="badge bg-warning rounded-3 fw-semibold"
+                              style="    
+                              padding: 11px;
+                              font-size: 11px;"
+                           >Nhân viên</span>
+                      </div>
+
+                      <div class="d-flex align-items-center gap-2" ng-if="employee.chucVu.ma == 1">
+                        <span class="badge bg-primary rounded-3 fw-semibold"
+                            style="    
+                            padding: 11px;
+                            font-size: 11px;"
+                         >Quản trị viên</span>
+                      </div>
+
+                    </td>
+                    <td class="border-bottom-0" >
+
+                      <div class="d-flex align-items-center gap-2" ng-if="employee.trangThai == 0">
+                          <span class="badge bg-danger rounded-3 fw-semibold"
+                              style="    
+                              padding: 11px;
+                              font-size: 11px;"
+                           >Ngừng kích hoạt</span>
+                      </div>
+
+                      <div class="d-flex align-items-center gap-2" ng-if="employee.trangThai == 1">
+                        <span class="badge bg-primary rounded-3 fw-semibold"
+                            style="    
+                            padding: 11px;
+                            font-size: 11px;"
+                         >Kích hoạt</span>
+                      </div>
+
+                    </td>
+                    <td class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 fs-4">
+                        <a ng-href="#!sua-nhan-vien/{{employee.id}}" >
+                          <i   
+                          style="
+                          display: inline-block;
+                          font-size: 23px;  
+                          color: #d4d42e;"
+                          class="ti ti-edit"></i>
+                        </a>
+                        
+                        <!-- <a ng-click="changeStatus(customer.id, customer.trangThai)">
+                          <i id="change_status"
+                          style="
+                          display: inline-block;
+                          font-size: 23px;
+                          color: #f05119;
+                          margin-left: 10px;"
+                          class="ti ti-calendar-off"></i>
+                      </a> -->
+                      </h6>
+                    </td>
+                  </tr> 
+                
+                </tbody>
+              </table>
+
+              <!-- Pagination -->
+              <span  ng-show="numPages!=0">
+                <uib-pagination items-per-page="itemsPerPage" 
+                total-items="totalItems" 
+                ng-model="currentPage" 
+                class="pagination-sm" 
+                previous-text="‹" 
+                next-text="›" first-text="«" last-text="»" 
+                style="
+                width: 16%;
+                margin-left: auto;
+                margin-right: auto;
+                " 
+                max-size="3"
+                ng-change="pageChanged()"></uib-pagination>
+              </span>
+        </div>
+
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <p><strong>This is some placeholder content the Profile tab's associated content.</strong>
+                Clicking another tab will toggle the visibility of this one for the next.
+                The tab JavaScript swaps classes to control the content visibility and styling. You can use it with
+                tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+        </div>
+
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <p><strong>This is some placeholder content the Contact tab's associated content.</strong>
+                Clicking another tab will toggle the visibility of this one for the next.
+                The tab JavaScript swaps classes to control the content visibility and styling. You can use it with
+                tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+        </div>
+    </div>
+</div>

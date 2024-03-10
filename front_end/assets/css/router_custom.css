@@ -716,3 +716,99 @@ svg * {
       transform : rotate(360deg);
     }
   }
+
+  
+.paper {
+  appearance: none;
+  position: absolute;;
+  width: 164px;
+  height: 23px;
+  background: 
+    linear-gradient(#0003, #0000 10%) 0 0 / 50% 100% no-repeat,
+    linear-gradient(90deg, #0000 40%, #0001 50%, #0000 0),
+    linear-gradient(90deg, #15c 50%, #0000 0),
+    repeating-linear-gradient(#0000 0 10%, #0003 0 30%) 0 0 / 51% 100% no-repeat
+    ;
+  font-size: 25px;
+  border-radius: 2em;
+  transform-style: preserve-3d;
+  
+  &::before {
+    content: " Giao hàng         Tại quầy";
+    font-size: 0.35em;
+    font-family: Arial, verdana, sans-serif;
+    display: grid;
+    place-items: center;
+    white-space: pre;
+    inset: 0;
+    height: 100%;
+    color: #fff0;
+    background: purple;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: linear-gradient(90deg, #ddd 50%, #333 0);
+    font-weight: bold;
+  }
+  
+  &::after {
+    content: "";
+    position: absolute;
+    width: 49%;
+    height: 95%;
+    left: 50%;
+    top: 50%;
+    border-radius: 3em 0 0 3em;
+    transform: perspective(2000px) translate(-100%, -50%) rotate3d(0,1,0,1deg);
+    transform-origin: 100% 50%;
+    background-image: 
+      linear-gradient(to bottom right, #0001, #fff1);
+    background-color: #ccc;
+    transition: transform 0.25s linear, background-color 0s, box-shadow 0.25s;
+    transition-delay: 0s,0.125s, 0s;
+    box-shadow: -0.1em 0 0.1em -0.02em #0003
+  }
+  
+  &:hover {
+    &::after {
+       transform: perspective(2000px) translate(-100%, -50%) rotate3d(0,1,0,25deg);
+      box-shadow: -0.125em 0 0.1em -0.02em #0002
+    }
+  }
+  
+  &:checked {
+    &::after {
+      transform: perspective(2000px) translate(-100%, -50%) rotate3d(0,1,0,179deg);
+      background-color: #15c;
+      box-shadow: -0.05em 0 0.1em -0.01em #0003
+    }
+    
+    &:hover {
+      &::after {
+        transform: perspective(2000px) translate(-100%, -50%) rotate3d(0,1,0,165deg);
+        box-shadow: -0.1em 0 0.1em -0.01em #0002
+      }
+    }
+  }
+  
+  &[disabled] {
+    opacity: 0.25;
+  }
+}
+
+@media print {
+  .paper {
+    &, &::before, &::after {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .paper {
+    &, &::before, &::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}

@@ -3,6 +3,7 @@ package com.tsh.sd43.entity;
 import com.tsh.sd43.entity.base.PrimaryEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Nationalized;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -72,4 +73,30 @@ public class HoaDon extends PrimaryEntity {
 
     @Column(name = "trang_thai")
     private Integer trangThai;
+
+    @Column(name = "xa")
+    @Nationalized
+    private String xa;
+
+    @Column(name = "phuong")
+    @Nationalized
+    private String phuong;
+
+    @Column(name = "tinh")
+    @Nationalized
+    private String tinh;
+
+    @Column(name = "dia_chi")
+    @Nationalized
+    private String diaChi;
+
+    @Column(name = "ma_xa")
+    private String maXa;
+
+    @Column(name = "ma_phuong")
+    private String maPhuong;
+
+    @Column(name = "ma_tinh")
+    private String maTinh;
+
 }
