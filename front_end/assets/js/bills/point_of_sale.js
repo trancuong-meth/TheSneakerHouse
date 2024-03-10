@@ -360,7 +360,6 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
         axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
             $scope.loadBills()
-            toastr.success("Thêm khách hàng thành công.");
             addModal.hide()
         }).catch(function (response) {
             $scope.loadBills()
@@ -368,6 +367,17 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.changeMethodBill = function () {
+    }
+
+    $scope.changeToOneCustomer = function () {
+        $scope.getActiveBill();
+
+        $scope.bill.idKhachHang = null;
+        axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+            $scope.loadBills()
+        }).catch(function (response) {
+            $scope.loadBills()
+        })
     }
 
 })

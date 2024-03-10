@@ -231,10 +231,15 @@
             </label>
             <span style=" font-size: 11px;">{{bill.idKhachHang.soDienThoai}}</span>
           </div>
-          <div style="margin-top: 10px;">
+          <div style="margin-top: 10px;margin-bottom: 20px;">
             <label for="exampleInputEmail1" style="width: 150px;font-size: 12px;font-weight: 600;">Email : </label>
             <span style=" font-size: 11px;">{{bill.idKhachHang.email}}</span>
           </div>
+          <button class="btn btn-outline-warning btn-sm" ng-click="changeToOneCustomer()" 
+               style="height: 40px;">
+              <i class="ti ti-a-b-2"></i>
+              Chuyển về khách lẻ
+            </button>
         </div>
 
       </div>
@@ -330,8 +335,8 @@
           </div>
 
           <div style="width: 48%;">
-            <input type="checkbox" role="switch" class="paper" ng-change="changeMethodBill()" ng-model="state" />
-
+            <input type="checkbox" ng-if="bill.idKhachHang != null" role="switch" class="paper" ng-change="changeMethodBill()" ng-model="state" />
+            
             <div class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#voucherModal"
               ng-click="openVoucherModal()"
               style="width: 100%; height: 40px;margin-top: 29px; display: flex; justify-content: space-between;font-size: 12px;">
