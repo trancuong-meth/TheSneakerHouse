@@ -7,6 +7,9 @@ import com.tsh.sd43.entity.request.ProductDetailRequest;
 import com.tsh.sd43.repository.IHoaDonChiTietRepo;
 import com.tsh.sd43.service.IHoaDonChiTietSer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,9 +20,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
     @Autowired
     private IHoaDonChiTietRepo hoaDonChiTietRepo;
 
-    public ArrayList<HoaDonChiTiet> findProductDetailsByIdProduct(Long id) {
+    public Page<HoaDonChiTiet> findProductDetailsByIdProduct(Integer pageNo, Integer pageSize, Long id) {
         try {
-            return hoaDonChiTietRepo.findBillDetailByIdBill(id);
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            return hoaDonChiTietRepo.findBillDetailByIdBill(pageable, id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -27,7 +31,7 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
 
     public HoaDonChiTiet addProductToBill(ProductDetailRequest req) {
         try {
-            ArrayList<HoaDonChiTiet> productDetails = hoaDonChiTietRepo.findBillDetailByIdBill(req.getHoaDon().getId());
+            ArrayList<HoaDonChiTiet> productDetails = hoaDonChiTietRepo.findBillDetailsByIdBill(req.getHoaDon().getId());
 
             if(productDetails.size() == 0) {
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();

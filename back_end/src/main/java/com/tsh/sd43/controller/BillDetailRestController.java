@@ -15,10 +15,12 @@ public class BillDetailRestController {
     @Autowired
     private HoaDonChiTietSerImpl hoaDonChiTietService;
 
-    @GetMapping("/get-by-bill/{id}")
-    public ResponseEntity<?> getByProduct(@PathVariable("id") Long id) {
+    @GetMapping("/get-by-bill")
+    public ResponseEntity<?> getByProduct(@RequestParam("id") Long id,
+                                          @RequestParam("page")Integer pageNo,
+                                          @RequestParam("size")Integer pageSize) {
         try {
-            return new ResponseEntity<>(hoaDonChiTietService.findProductDetailsByIdProduct(id), HttpStatus.OK);
+            return new ResponseEntity<>(hoaDonChiTietService.findProductDetailsByIdProduct(pageNo, pageSize,id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
