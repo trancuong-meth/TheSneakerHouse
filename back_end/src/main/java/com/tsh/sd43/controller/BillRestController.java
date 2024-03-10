@@ -1,6 +1,7 @@
 package com.tsh.sd43.controller;
 
 import com.tsh.sd43.entity.HoaDon;
+import com.tsh.sd43.entity.request.ProductVoucherUpdateRequest;
 import com.tsh.sd43.service.impl.HoaDonSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,24 @@ public class BillRestController {
     public ResponseEntity<?> deleteHoaDon(@PathVariable("id") Long id) {
         try{
             return new ResponseEntity<>(hoaDonService.deleteBillById(id), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/add-voucher-to-bill")
+    public ResponseEntity<?> addVoucherToBill(@RequestBody ProductVoucherUpdateRequest req) {
+        try{
+            return new ResponseEntity<>(hoaDonService.addVoucherToBill(req), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-bill")
+    public ResponseEntity<?> updateHoaDon(@RequestBody HoaDon hoaDon) {
+        try{
+            return new ResponseEntity<>(hoaDonService.updateHoaDon(hoaDon), HttpStatus.OK);
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

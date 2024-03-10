@@ -29,9 +29,9 @@ public class VoucherController {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<?> getVouchers(){
+    public ResponseEntity<?> getVouchers(@RequestParam("key")String key){
         try{
-            return new ResponseEntity<>(voucherService.getAllVoucher(), HttpStatus.OK);
+            return new ResponseEntity<>(voucherService.getAllVoucher(key), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

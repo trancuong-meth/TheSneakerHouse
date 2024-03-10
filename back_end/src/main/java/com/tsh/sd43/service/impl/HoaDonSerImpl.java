@@ -1,6 +1,7 @@
 package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.HoaDon;
+import com.tsh.sd43.entity.request.ProductVoucherUpdateRequest;
 import com.tsh.sd43.enums.StatusHoaDon;
 import com.tsh.sd43.repository.IHoaDonRepo;
 import com.tsh.sd43.service.IHoaDonChiTietSer;
@@ -45,6 +46,16 @@ public class HoaDonSerImpl implements IHoaDonChiTietSer {
     public String deleteBillById(Long id){
         hoaDonRepo.deleteBillByIdBill(id);
         return "success";
+    }
+
+    public HoaDon addVoucherToBill(ProductVoucherUpdateRequest req) {
+        HoaDon hoaDon = req.getHoaDon();
+        hoaDon.setIdVoucher(req.getVoucher());
+        return hoaDonRepo.save(hoaDon);
+    }
+
+    public HoaDon updateHoaDon(HoaDon hoaDon) {
+        return hoaDonRepo.save(hoaDon);
     }
 
 }

@@ -28,9 +28,9 @@ public class VoucherSerImpl {
                                             "%" + key + "%");
     }
 
-    public ArrayList<Voucher> getAllVoucher(){
+    public ArrayList<Voucher> getAllVoucher(String key){
 //        get all voucher
-        return (ArrayList<Voucher>) voucherRepo.findAll();
+        return (ArrayList<Voucher>) voucherRepo.getVouchersByKey("%" + key + "%");
     }
 
     public Voucher getVoucherById(Long id){
