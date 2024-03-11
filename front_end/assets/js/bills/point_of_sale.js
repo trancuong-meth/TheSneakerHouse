@@ -96,6 +96,10 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             $scope.voucher = response.data
             if ($scope.voucher === "") {
                 $scope.voucher = null;
+                var phiVanChuyen = $scope.bill.phiVanChuyen == null ? 0 : $scope.bill.phiVanChuyen
+                $scope.totalAllPrice = $scope.totalPrice + phiVanChuyen
+            }else{
+                $scope.totalAllPrice = (100 - $scope.voucher.phanTramGiam) * $scope.totalPrice / 100
             }
         }).catch(function (error) {
             console.log(error)
@@ -329,6 +333,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             return;
         }
 
+        if($scope.voucher != null ){
+            toastr.error('Bạn chỉ có thể chọn một voucher.Vui lòng xóa voucher cũ và thêm lại.');
+            return;
+        }
+
         axios.put('http://localhost:8080/bill/add-voucher-to-bill', {
             'voucher': voucher,
             'hoaDon': $scope.getActiveBill()
@@ -361,6 +370,10 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 $scope.bill.trangThai = 1
                 if($scope.bill.loaiHoaDon == null){
                     $scope.bill.loaiHoaDon = 0;
+                }
+
+                if($scope.bill.loaiHoaDon == 0){
+                    $scope.bill.trangThai = 4;
                 }
         
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
