@@ -158,8 +158,6 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 })
             }
         });
-
-
     }
 
     $scope.pageChanged = function () {
@@ -344,20 +342,37 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.createNewBill = function () {
-        $scope.getActiveBill();
+        Swal.fire({
+            title: "Xác nhận thanh toán hóa đơn này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $scope.getActiveBill();
 
-        //create bill
-        $scope.bill.phuongThucThanhToan = $scope.paymentMethod
-        $scope.bill.tongTien = $scope.totalPrice
-        $scope.bill.tongTienSauGiam = $scope.totalAllPrice
-        $scope.bill.trangThai = 1
-
-        axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
-            $scope.loadBills()
-            toastr.success("Tạo hóa đơn thành công.");
-        }).catch(function (response) {
-            $scope.loadBills()
-        })
+                //create bill
+                $scope.bill.phuongThucThanhToan = $scope.paymentMethod
+                $scope.bill.tongTien = $scope.totalPrice
+                $scope.bill.tongTienSauGiam = $scope.totalAllPrice
+                $scope.bill.trangThai = 1
+                if($scope.bill.loaiHoaDon == null){
+                    $scope.bill.loaiHoaDon = 0;
+                }
+        
+                axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+                    $scope.loadBills()
+                    toastr.success("Tạo hóa đơn thành công.");
+                    location.href = "/html/router.html#!/hoa-don"
+                }).catch(function (response) {
+                    $scope.loadBills()
+                })
+            }
+        });
+       
     }
 
     $scope.removeVoucher = function () {
