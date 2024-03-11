@@ -73,4 +73,17 @@ public class BillRestController {
         }
     }
 
+    @GetMapping("/get-bill-panigation")
+    public ResponseEntity<?> getBillById(
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size,
+            @RequestParam("state") Integer trangThai
+    ) {
+        try{
+            return new ResponseEntity<>(hoaDonService.getBillAndPanigation(page, size, trangThai), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

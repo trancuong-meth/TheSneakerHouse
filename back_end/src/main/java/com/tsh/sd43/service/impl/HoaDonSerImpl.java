@@ -8,6 +8,9 @@ import com.tsh.sd43.enums.StatusHoaDon;
 import com.tsh.sd43.repository.IHoaDonRepo;
 import com.tsh.sd43.service.IHoaDonChiTietSer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -80,4 +83,11 @@ public class HoaDonSerImpl implements IHoaDonChiTietSer {
         return null;
     }
 
+    public Page<HoaDon> getBillAndPanigation(Integer pageNo, Integer pageSize, Integer state) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        if(state == -1){
+            return hoaDonRepo.getAllBillPanigation(pageable);
+        }
+        return hoaDonRepo.getBillPanigationByState(pageable, state);
+    }
 }
