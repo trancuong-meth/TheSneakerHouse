@@ -21,14 +21,25 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     // voucher
     $scope.code_voucher = ""
     $scope.vouchers = ""
+    $scope.voucher = null
 
     // customer
     $scope.customers = []
+    $scope.customer = null
     $scope.currentPageCustomer = 1;
     $scope.itemsPerPageCustomer = 5;
     $scope.totalItemCustomers = 1;
     $scope.keyCustomer = ""
 
+    // FAST DELIVERY
+    const token = "2b4b5f3e-ac78-11ee-a6e6-e60958111f48";
+    const serviceID = 53320;
+    const shopDistrictId = 1482;
+    const shopWardCode = 11007;
+
+    var selectCityCustomer = document.querySelector("#city");
+    var selectDistrict = document.querySelector("#district");
+    var selectWardCodeCustomer = document.querySelector("#ward");
 
 
     $scope.getActiveBill = function () {
@@ -37,7 +48,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             return null
         }
         $scope.bill = $scope.bills.find(x => x.ma == a)
-        if($scope.bill.idKhachHang !== null){
+        if ($scope.bill.idKhachHang !== null) {
             $scope.bill.tenNguoiNhan = $scope.bill.idKhachHang.ten
             $scope.bill.sdtNguoiNhan = $scope.bill.idKhachHang.soDienThoai
         }
@@ -53,7 +64,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 $scope.totalPrice += Number($scope.billDetails.content[i].idSanPhamChiTiet.donGia) * Number($scope.billDetails.content[i].soLuong)
             }
             $scope.totalAllPrice = $scope.totalPrice
-            if ($scope.bill != null) {
+            if ($scope.bill.idVoucher != null) {
                 $scope.totalAllPrice = (100 - $scope.bill.idVoucher.phanTramGiam) * $scope.totalAllPrice / 100
             }
         }).catch(function (error) {
@@ -62,22 +73,46 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.loadBills = function () {
-
         $http.get('http://localhost:8080/bill/get-bill-by-state/' + 0).then(function (response) {
             $scope.bills = response.data
-            var navlinks = document.getElementsByClassName("button-tab-bill");
             setTimeout(function () {
-                console.log(navlinks.item[response.data.length - 1])
+                var navlinks = document.getElementsByClassName("button-tab-bill");
                 navlinks[response.data.length - 1].classList.add("active");
             }, 200)
-
         }).catch(function (error) {
             console.log(error)
         })
 
         setTimeout(function () {
             $scope.loadProductDetailByBillId($scope.getActiveBill())
-        }, 300)
+            $scope.loadVoucher()
+            $scope.loadCustomer()
+        }, 500)
+    }
+
+    $scope.loadVoucher = function () {
+        $scope.getActiveBill()
+        $http.get('http://localhost:8080/bill/get-voucher-by-id/' + $scope.bill.id).then(function (response) {
+            $scope.voucher = response.data
+            if ($scope.voucher === "") {
+                $scope.voucher = null;
+            }
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
+
+    $scope.loadCustomer = function () {
+        $scope.getActiveBill()
+
+        $http.get('http://localhost:8080/bill/get-customer-by-id/' + $scope.bill.id).then(function (response) {
+            $scope.customer = response.data
+            if ($scope.customer === "") {
+                $scope.customer = null;
+            }
+        }).catch(function (error) {
+            console.log(error)
+        })
     }
 
     $scope.loadProductList = function () {
@@ -205,6 +240,8 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
     $scope.chooseBill = function (bill) {
         $scope.loadProductDetailByBillId(bill)
+        $scope.loadCustomer()
+        $scope.loadVoucher()
     }
 
     $scope.addProductToBill = function (productDetail) {
@@ -300,7 +337,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         }).then(function (response) {
             modal.hide()
             toastr.success("Áp dụng voucher thành công.");
-            $scope.loadBills()
+            $scope.loadVoucher()
         }).catch(function (response) {
             $scope.getActiveBill()
         })
@@ -329,7 +366,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             'hoaDon': $scope.getActiveBill()
         }).then(function (response) {
             toastr.success("Xóa voucher thành công.");
-            $scope.loadBills()
+            $scope.loadVoucher()
         }).catch(function (response) {
             $scope.getActiveBill()
         })
@@ -359,7 +396,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         $scope.bill.idKhachHang = customer
 
         axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
-            $scope.loadBills()
+            $scope.loadCustomer()
             addModal.hide()
         }).catch(function (response) {
             $scope.loadBills()
@@ -367,17 +404,271 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.changeMethodBill = function () {
+        if ($scope.state === false) {
+            $scope.state = true
+            $scope.bill.maPhuong = $scope.bill.idKhachHang.maPhuong
+            $scope.bill.maXa = $scope.bill.idKhachHang.maXa
+            $scope.bill.maTinh = $scope.bill.idKhachHang.maTinh
+            $scope.bill.xa = $scope.bill.idKhachHang.xa
+            $scope.bill.phuong = $scope.bill.idKhachHang.phuong
+            $scope.bill.tinh = $scope.bill.idKhachHang.tinh
+            $scope.bill.diaChi = $scope.bill.idKhachHang.diaChi
+            $scope.bill.phiVanChuyen = 0
+            $scope.bill.loaiHoaDon = 1;
+            setTimeout(() => {
+                $scope.getAllprovideByCode($scope.bill.maPhuong, $scope.bill.maXa, $scope.bill.maTinh)
+                selectCityCustomer = document.getElementById("city");
+                selectDistrict = document.getElementById("district");
+                selectWardCodeCustomer = document.getElementById("ward");
+            }, 200)
+        } else {
+            $scope.state = false
+            $scope.bill.maPhuong = null
+            $scope.bill.maXa = null
+            $scope.bill.maTinh = null
+            $scope.bill.xa = null
+            $scope.bill.phuong = null
+            $scope.bill.tinh = null
+            $scope.bill.diaChi = null
+            $scope.totalAllPrice -= $scope.bill.phiVanChuyen
+            $scope.bill.phiVanChuyen = 0
+            $scope.bill.loaiHoaDon = 0;
+        }
     }
 
     $scope.changeToOneCustomer = function () {
         $scope.getActiveBill();
 
         $scope.bill.idKhachHang = null;
+        console.log($scope.bill)
         axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
-            $scope.loadBills()
+            $scope.loadCustomer()
         }).catch(function (response) {
-            $scope.loadBills()
+            $scope.loadCustomer()
         })
+    }
+
+    $scope.getAllprovideByCode = function (district_code, ward_code, province_code) {
+        console.log(selectCityCustomer)
+        // const thisOrder = document.getElementById(`hoaDon${orderId}`);
+        fetch(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                const defaultOption = document.createElement("option");
+                defaultOption.value = -1; // Set the value as needed
+                defaultOption.textContent = "Chọn Tỉnh"; // Set the text content
+                // Set the 'disabled' and 'selected' attributes to make it the default option
+                defaultOption.disabled = true;
+                selectCityCustomer.appendChild(defaultOption);
+                const options = data.data;
+                for (let i = 0; i < options.length; i++) {
+                    const option = document.createElement("option");
+                    // option.value = options[i].ProvinceID; // Set the value of the option (you can change this to any value you want)
+                    option.text = options[i].ProvinceName; // Set the text of the option
+                    option.setAttribute("providecode", options[i].ProvinceID);
+                    if (province_code === String(options[i].ProvinceID)) {
+                        option.selected = true;
+                    }
+                    selectCityCustomer.appendChild(option); // Add the option to the select element
+                }
+                $scope.getAllDistrictByCode(ward_code, district_code, province_code)
+            })
+            .catch((error) => console.error("Error:", error));
+    }
+
+    $scope.getAllDistrictByCode = function (ward_code, district_code, provinceCode) {
+
+        console.log(ward_code, district_code, provinceCode)
+        axios
+            .get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district`, {
+                params: {
+                    province_id: provinceCode,
+                },
+                headers: {
+                    Accept: "application/json",
+                    token: token,
+                },
+
+            })
+            .then((res) => {
+                const options = res.data.data;
+                console.log(options)
+
+                for (let i = 0; i < options.length; i++) {
+                    const option = document.createElement("option");
+                    option.value = options[i].DistrictID; // Set the value of the option (you can change this to any value you want)
+                    option.text = options[i].DistrictName; // Set the text of the option
+                    option.setAttribute("districtcode", options[i].DistrictID);
+                    if (district_code === String(options[i].DistrictID)) {
+                        option.selected = true;
+                    }
+                    selectDistrict.appendChild(option); // Add the option to the select element
+                }
+                $scope.getFullWardCodeByCode(ward_code, district_code)
+            })
+            .catch((error) => console.error("Error:", error));
+    }
+
+    $scope.getFullWardCodeByCode = function (ward_code, district_code) {
+
+        axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
+            headers: {
+                Accept: "application/json",
+                token: token,
+            },
+            params: {
+                district_id: district_code,
+            }
+        })
+            .then((res) => {
+                //remove all child
+                const options = res.data.data;
+                for (let i = 0; i < options.length; i++) {
+                    const option = document.createElement("option");
+                    option.value = options[i].WardCode; // Set the value of the option (you can change this to any value you want)
+                    option.text = options[i].WardName; // Set the text of the option
+                    option.setAttribute("WardCode", options[i].WardCode);
+                    if (ward_code === String(options[i].WardCode)) {
+                        option.selected = true;
+                    }
+                    selectWardCodeCustomer.appendChild(option); // Add the option to the select element
+                }
+                $scope.getFeeShipping()
+            })
+            .catch((error) => console.error("Error:", error));
+
+    }
+
+    $scope.getAllDistrict = function () {
+        const selectedOption = selectCityCustomer.options[selectCityCustomer.selectedIndex];
+        const customAttribute = selectedOption.getAttribute("providecode");
+        const provinceid = customAttribute;
+        const selectDistrict = document.querySelector(` #district`);
+
+        // remove child districts
+        var old_options = selectDistrict.querySelectorAll("option");
+        for (var i = 1; i < old_options.length; i++) {
+            selectDistrict.removeChild(old_options[i]);
+        }
+
+        // remove child wards
+        var old_options = selectWardCodeCustomer.querySelectorAll("option");
+        for (var i = 1; i < old_options.length; i++) {
+            selectWardCodeCustomer.removeChild(old_options[i]);
+        }
+
+        $scope.bill.maTinh = provinceid
+        $scope.bill.tinh = selectedOption.textContent
+
+        axios
+            .get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district`, {
+                params: {
+                    province_id: provinceid,
+                },
+                headers: {
+                    Accept: "application/json",
+                    token: token,
+                },
+
+            })
+            .then((res) => {
+                const options = res.data.data;
+
+                for (let i = 0; i < options.length; i++) {
+                    const option = document.createElement("option");
+                    option.value = options[i].DistrictID; // Set the value of the option (you can change this to any value you want)
+                    option.text = options[i].DistrictName; // Set the text of the option
+                    option.setAttribute("districtcode", options[i].DistrictID);
+                    selectDistrict.appendChild(option); // Add the option to the select element
+                }
+
+                // remove shipp fee old
+                $scope.totalAllPrice -= $scope.bill.phiVanChuyen;
+                $scope.bill.phiVanChuyen = 0
+                $scope.loadCustomer()
+            })
+            .catch((error) => console.error("Error:", error));
+    }
+
+    $scope.getFullWardCode = function () {
+        const selectedOption = selectDistrict.options[selectDistrict.selectedIndex];
+        const customAttribute = selectedOption.getAttribute("districtcode");
+        const districtid = customAttribute;
+
+        // remove child
+        var old_options = selectWardCodeCustomer.querySelectorAll("option");
+        for (var i = 1; i < old_options.length; i++) {
+            selectWardCodeCustomer.removeChild(old_options[i]);
+        }
+
+        $scope.bill.maPhuong = districtid;
+        $scope.bill.phuong = selectedOption.textContent
+
+        axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
+            headers: {
+                Accept: "application/json",
+                token: token,
+            },
+            params: {
+                district_id: districtid,
+            }
+        })
+            .then((res) => {
+                //remove all child
+                const options = res.data.data;
+                for (let i = 0; i < options.length; i++) {
+                    const option = document.createElement("option");
+                    option.value = options[i].WardCode; // Set the value of the option (you can change this to any value you want)
+                    option.text = options[i].WardName; // Set the text of the option
+                    option.setAttribute("WardCode", options[i].WardCode);
+                    selectWardCodeCustomer.appendChild(option); // Add the option to the select element
+                }
+            })
+            .catch((error) => console.error("Error:", error));
+    }
+
+    // GET FEE SHIPPING
+    $scope.getFeeShipping = () => {
+        const district_selected = selectDistrict.options[selectDistrict.selectedIndex];
+        const district_attribute = district_selected.getAttribute("districtcode");
+        const id_district = district_attribute;
+
+        const ward_selected = selectWardCodeCustomer.options[selectWardCodeCustomer.selectedIndex];
+        const ward_attribute = ward_selected.getAttribute("WardCode");
+        const code_ward = ward_attribute;
+
+        $scope.bill.maXa = code_ward
+        $scope.bill.xa = ward_selected.textContent
+
+        axios.get(
+            "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+            {
+                params: {
+                    from_district_id: shopDistrictId,
+                    from_ward_code: shopWardCode,
+                    service_id: serviceID,
+                    to_district_id: id_district,
+                    to_ward_code: code_ward,
+                    weight: 240,
+                },
+                headers: {
+                    token: token,
+                    Accept: "application/json",
+                },
+            }
+        )
+            .then((res) => {
+                $scope.bill.phiVanChuyen = res.data.data.total
+                $scope.totalAllPrice += $scope.bill.phiVanChuyen;
+                $scope.loadCustomer()
+            })
+            .catch((error) => console.error("Error:", error));
     }
 
 })

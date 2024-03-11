@@ -55,4 +55,22 @@ public class BillRestController {
         }
     }
 
+    @GetMapping("/get-voucher-by-id/{id}")
+    public ResponseEntity<?> getVoucherById(@PathVariable("id") Long id) {
+        try{
+            return new ResponseEntity<>(hoaDonService.getVoucherByIdBill(id), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get-customer-by-id/{id}")
+    public ResponseEntity<?> getCustomerById(@PathVariable("id") Long id) {
+        try{
+            return new ResponseEntity<>(hoaDonService.getCustomerByIdBill(id), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

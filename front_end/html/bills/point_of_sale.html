@@ -18,7 +18,7 @@
 
   <nav>
     <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-      <button ng-repeat="bill in bills" class="nav-link button-tab-bill" id="nav-home-tab" data-bs-toggle="tab"
+      <button  ng-repeat="bill in bills" class="nav-link button-tab-bill  tab-{{bill.id}}" id="nav-home-tab" data-bs-toggle="tab"
         data-bs-target="#nav-home" type="button" role="tab"
         style="height: 40px;margin-right: 5px;margin-bottom:10px; position: relative;" aria-controls="nav-home"
         aria-selected="true" ng-click="chooseBill(bill)">{{bill.ma}}
@@ -139,7 +139,7 @@
                       <span style="
                       display: inline-block;
                       color: red;
-                      font-size: 14px;
+                      font-size: 12px;
                       font-weight: 800;
                       ">{{formatToVND(billDetail.idSanPhamChiTiet.donGia)}}</span>
 
@@ -164,7 +164,7 @@
                 </td>
                 <td style="
                       color: red;
-                      font-size: 16px;
+                      font-size: 14px;
                       font-weight: 800;
                       text-align: center;
                       " class="border-bottom-0">
@@ -213,27 +213,27 @@
           </div>
         </div>
 
-        <div ng-if="bill.idKhachHang == null">
+        <div ng-if="customer == null">
           <label for="exampleInputEmail1" class="form-label" style="width: 150px;">Tên khách hàng : </label>
           <span class="badge bg-info rounded-3 fw-semibold" style="    
                                 padding: 11px;
                                 font-size: 11px;">Khách lẻ</span>
         </div>
 
-        <div ng-if="bill.idKhachHang != null">
+        <div ng-if="customer != null">
           <div style="margin-top: 10px;">
             <label for="exampleInputEmail1" style="width: 150px;font-size: 12px;font-weight: 600;">Tên khách hàng :
             </label>
-            <span style=" font-size: 11px;">{{bill.idKhachHang.ten}}</span>
+            <span style=" font-size: 11px;">{{customer.ten}}</span>
           </div>
           <div style="margin-top: 10px;">
             <label for="exampleInputEmail1" style="width: 150px;font-size: 12px;font-weight: 600;">Số điện thoại :
             </label>
-            <span style=" font-size: 11px;">{{bill.idKhachHang.soDienThoai}}</span>
+            <span style=" font-size: 11px;">{{customer.soDienThoai}}</span>
           </div>
           <div style="margin-top: 10px;margin-bottom: 20px;">
             <label for="exampleInputEmail1" style="width: 150px;font-size: 12px;font-weight: 600;">Email : </label>
-            <span style=" font-size: 11px;">{{bill.idKhachHang.email}}</span>
+            <span style=" font-size: 11px;">{{customer.email}}</span>
           </div>
           <button class="btn btn-outline-warning btn-sm" ng-click="changeToOneCustomer()" 
                style="height: 40px;">
@@ -281,7 +281,7 @@
                 <label for="exampleInputEmail1" class="form-label">Tỉnh/Thành phố <sup
                     style="color: #fa0000a8;">*</sup></label>
                 <div class="select-wrap">
-                  <select class="form-select" id="city" name="city"
+                  <select class="form-select " id="city" name="city"
                     onchange="angular.element(this).scope().getAllDistrict()" placeholder="Chọn trạng thái">
                   </select>
                 </div>
@@ -306,7 +306,7 @@
                     style="color: #fa0000a8;">*</sup></label>
                 <div class="select-wrap">
                   <select class="form-select" id="ward" name="select" placeholder="Chọn trạng thái"
-                    onchange="angular.element(this).scope().selectWard()">
+                    onchange="angular.element(this).scope().getFeeShipping()">
                     >
                     <option value="">--Chọn Xã/Phường--</option>
                   </select>
@@ -317,17 +317,12 @@
                 <label for="exampleInputEmail1" class="form-label">Số nhà/Ngõ/Đường <sup
                     style="color: #fa0000a8;">*</sup> </label>
                 <input placeholder="Nhập địa chỉ..." style="height: 40px;" type="text" class="form-control"
-                  id="exampleInputEmail1" ng-model="employee.diaChi" aria-describedby="emailHelp">
+                  id="exampleInputEmail1" ng-model="bill.diaChi" aria-describedby="emailHelp">
               </div>
 
             </div>
 
-            <div style="margin-bottom: 15px; margin-top: 20px;">
-              <label for="exampleInputEmail1" class="form-label">Mô tả: <sup style="color: #fa0000a8;">*</sup></label>
-
-              <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="product.moTa"
-                id="exampleInputEmail1" rows="5" aria-describedby="emailHelp"></textarea>
-            </div>
+           
 
           </div>
 
@@ -366,12 +361,12 @@
               <span style="color: #333; font-weight: bold;">{{formatToVND(totalPrice)}}</span>
             </div>
 
-            <div style="margin-top: 10px;" hidden>
+            <div style="margin-top: 10px;font-size: 12px;" >
               <span style="display: inline-block; width: 334px; ">Phí vận chuyển(tạm tính):</span>
-              <span style="color: #333; font-weight: 600;">200,000 đ</span>
+              <span style="color: #333; font-weight: 600;">{{formatToVND(bill.phiVanChuyen)}}</span>
             </div>
 
-            <div ng-if="bill.idVoucher != null" style="margin-top: 10px;">
+            <div ng-if="voucher != null" style="margin-top: 10px;">
               <div class="card"
                 style="justify-content: space-between;display: flex;padding: 15px;position: relative;margin-bottom: 10px;">
 
@@ -391,7 +386,7 @@
                         transform: translateY(-7px);
                         ">
 
-                    {{bill.idVoucher.ten}}
+                    {{voucher.ten}}
                   </span>
                   <div style="
                   font-size: 10px;
@@ -402,14 +397,14 @@
                     color: red;
                     font-size: 10px;
                     font-weight: 600;
-                    ">{{bill.idVoucher.phanTramGiam}}%</span>
+                    ">{{voucher.phanTramGiam}}%</span>
                     đơn tối thiểu
                     <span style="
                     display: inline-block;
                     color: red;
                     font-size: 10px;
                     font-weight: 600;
-                    ">{{formatToVND(bill.idVoucher.giaTriToiThieu)}}</span>
+                    ">{{formatToVND(voucher.giaTriToiThieu)}}</span>
                   </div>
 
                 </div>
@@ -466,6 +461,13 @@
 
               </button>
 
+            </div>
+
+            <div style="margin-bottom: 15px; margin-top: 20px;">
+              <label for="exampleInputEmail1" class="form-label">Ghi chú: <sup style="color: #fa0000a8;">*</sup></label>
+
+              <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="bill.ghiChu"
+                id="exampleInputEmail1" rows="2" aria-describedby="emailHelp"></textarea>
             </div>
 
             <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">

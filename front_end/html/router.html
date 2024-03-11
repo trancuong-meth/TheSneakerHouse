@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" >
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -10,7 +10,7 @@
   <!-- CSS Custom Files -->
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
   <link rel="stylesheet" href="../assets/css/router_custom.css" />
-  <link rel="stylesheet" href="../assets/css/customers/add_customer.css"/>
+  <link rel="stylesheet" href="../assets/css/customers/add_customer.css" />
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
 
   <!-- FONT Awesome -->
@@ -94,41 +94,36 @@
                   </i></div>
               </a>
               <div class="OptionBody sidebar-item">
-                <a href="#!san-pham"
-                class="sidebar-link OptionContainer"
-                style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                <a href="#!san-pham" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                  onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Sản phẩm
                   </span>
                 </a>
 
-                <a href="#!the-loai"
-                  class="sidebar-link OptionContainer"
-                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                <a href="#!the-loai" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                  onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Thể loại
                   </span>
                 </a>
 
-                <a href="#!mau-sac"
-                  class="sidebar-link OptionContainer"
-                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                <a href="#!mau-sac" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                  onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Màu sắc
                   </span>
                 </a>
 
-                <a href="#!kich-co"
-                  class="sidebar-link OptionContainer"
-                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                <a href="#!kich-co" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                  onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Kích cỡ
                   </span>
                 </a>
 
-                <a href="#!thuong-hieu"
-                  class="sidebar-link OptionContainer"
-                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                <a href="#!thuong-hieu" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                  onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Thương hiệu
                   </span>
@@ -158,17 +153,15 @@
                   </i></div>
               </a>
               <div class="OptionBody sidebar-item">
-                <a href="#!nhan-vien"
-                class="sidebar-link OptionContainer"
-                style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                <a href="#!nhan-vien" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                  onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Nhân viên
                   </span>
                 </a>
 
-                <a href="#!khach-hang"
-                  class="sidebar-link OptionContainer"
-                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
+                <a href="#!khach-hang" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                  onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Khách hàng
                   </span>
@@ -316,53 +309,53 @@
     main_app.config(function ($routeProvider) {
       $routeProvider
         .when("/thong-ke", { templateUrl: "index.html" })
-       
-      // Phiếu giảm giá
+
+        // Phiếu giảm giá
         .when("/phieu-giam-gia", { templateUrl: "vouchers/voucher.html", controller: "voucherController as list" })
         .when("/them-phieu-giam-gia", { templateUrl: "vouchers/add_voucher.html", controller: "addVoucherController" })
         .when("/sua-phieu-giam-gia/:id", { templateUrl: "vouchers/edit_voucher.html", controller: "editVoucherController" })
-        
-      // Đợt giảm giá 
+
+        // Đợt giảm giá 
         .when("/dot-giam-gia", { templateUrl: "sales/sale.html", controller: "saleController" })
         .when("/them-dot-giam-gia", { templateUrl: "sales/add_sale.html", controller: "addSaleController" })
         .when("/sua-dot-giam-gia/:id", { templateUrl: "sales/edit_sale.html", controller: "editSaleController" })
-        
-      // Nhân viên
+
+        // Nhân viên
         .when("/nhan-vien", { templateUrl: "employees/employee.html", controller: "employeeController" })
         .when("/them-nhan-vien", { templateUrl: "employees/add_employee.html", controller: "addEmployeeController" })
         .when("/sua-nhan-vien/:id", { templateUrl: "employees/edit_employee.html", controller: "editEmployeeController" })
-       
-      // Khách hàng 
+
+        // Khách hàng 
         .when("/khach-hang", { templateUrl: "customers/customer.html", controller: "customerController" })
         .when("/them-khach-hang", { templateUrl: "customers/add_customer.html", controller: "addCustomerController" })
         .when("/sua-khach-hang/:id", { templateUrl: "customers/edit_customer.html", controller: "editCustomerController" })
 
-      // Thương hiệu
+        // Thương hiệu
         .when("/thuong-hieu", { templateUrl: "products/brands/brand.html", controller: "brandController" })
 
-      // Kích cỡ
+        // Kích cỡ
         .when("/kich-co", { templateUrl: "products/sizes/size.html", controller: "sizeController" })
 
-      // Màu sắc
+        // Màu sắc
         .when("/mau-sac", { templateUrl: "products/colors/color.html", controller: "colorController" })
 
-      // Thể loại
+        // Thể loại
         .when("/the-loai", { templateUrl: "products/types/type.html", controller: "typeController" })
 
-      // Sản phẩm
+        // Sản phẩm
         .when("/san-pham", { templateUrl: "products/products/product.html", controller: "productController" })
         .when("/them-san-pham", { templateUrl: "products/products/add_product.html", controller: "addProductController" })
         .when("/sua-san-pham/:id", { templateUrl: "products/products/edit_product.html", controller: "editProductController" })
         .when("/chi-tiet-san-pham/:id", { templateUrl: "products/products/product_detail.html", controller: "productDetailController" })
 
-      // Hóa đơn
+        // Hóa đơn
         .when("/hoa-don", { templateUrl: "bills/bill.html", controller: "billController" })
         .when("/chi-tiet-hoa-don", { templateUrl: "bills/bill_detail.html", controller: "billDetailController" })
 
         // point of sale
         .when("/ban-hang", { templateUrl: "bills/point_of_sale.html", controller: "pointOfSaleController" })
 
-      // mặc định 
+        // mặc định 
         .otherwise({ redirectTo: "/chi-tiet-hoa-don" })
     })
 
@@ -380,13 +373,13 @@
     }
 
     function removeOption() {
-      
-      if(sub_menu_actives.length > 0){
+
+      if (sub_menu_actives.length > 0) {
         for (var i = 0; i < sub_menu_actives.length; i++) {
-        if (sub_menu_actives[i].classList.contains("sub_menu_active")) {
-          sub_menu_actives[i].classList.remove("sub_menu_active");
+          if (sub_menu_actives[i].classList.contains("sub_menu_active")) {
+            sub_menu_actives[i].classList.remove("sub_menu_active");
+          }
         }
-      }
       }
 
       for (var i = 0; i < sub_menus.length; i++) {
@@ -396,25 +389,25 @@
       }
     }
 
-    function selectSubMenu(element){
-      if(menu_active.classList.contains("active")){
+    function selectSubMenu(element) {
+      if (menu_active.classList.contains("active")) {
         menu_active.classList.remove("active");
       }
 
-      if(sub_menu_actives.length > 0){
+      if (sub_menu_actives.length > 0) {
         for (var i = 0; i < sub_menu_actives.length; i++) {
-        if (sub_menu_actives[i].classList.contains("sub_menu_active")) {
-          sub_menu_actives[i].classList.remove("sub_menu_active");
+          if (sub_menu_actives[i].classList.contains("sub_menu_active")) {
+            sub_menu_actives[i].classList.remove("sub_menu_active");
+          }
         }
-      }
       }
 
       sub_menu_actives.push(element)
       element.classList.add("sub_menu_active");
     }
 
- </script>
- <!-- VOUCHER -->
+  </script>
+  <!-- VOUCHER -->
   <script src="../assets/js/vouchers/voucher.js"></script>
   <script src="../assets/js/vouchers/add_voucher.js"></script>
   <script src="../assets/js/vouchers/edit_voucher.js"></script>
@@ -426,7 +419,7 @@
 
   <!-- KHACH HANG -->
   <script src="../assets/js/cutomers/customer.js"></script>
-  <script src="../assets/js/cutomers/add_customer.js"></script> 
+  <script src="../assets/js/cutomers/add_customer.js"></script>
   <script src="../assets/js/cutomers/edit_customer.js"></script>
 
   <!-- NHAN VIEN -->
@@ -446,13 +439,13 @@
   <!-- THE LOAI -->
   <script src="../assets/js/products/types/type.js"></script>
 
-   <!-- SAN PHAM -->
-   <script src="../assets/js/products/products/product.js"></script>
-   <script src="../assets/js/products/products/add_product.js"></script>
-   <script src="../assets/js/products/products/product_detail.js"></script>
+  <!-- SAN PHAM -->
+  <script src="../assets/js/products/products/product.js"></script>
+  <script src="../assets/js/products/products/add_product.js"></script>
+  <script src="../assets/js/products/products/product_detail.js"></script>
 
-   <!-- BAN HANG -->
-   <script src="../assets/js/bills/point_of_sale.js"></script>
+  <!-- BAN HANG -->
+  <script src="../assets/js/bills/point_of_sale.js"></script>
 
 </body>
 

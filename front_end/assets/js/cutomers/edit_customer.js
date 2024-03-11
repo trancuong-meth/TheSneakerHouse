@@ -16,7 +16,6 @@ main_app.controller("editCustomerController", function($scope, $http, $routePara
     $http.get('http://localhost:8080/customer/get-customer/' + id).then(
         function(res) {
             $scope.customer = res.data;
-            console.log($scope.customer)
             $scope.getAllprovideByCode($scope.customer.maPhuong, $scope.customer.maXa, $scope.customer.maTinh)
         },function(error) {
             console.log('Không tìm thấy khách hàng này.Vui lòng nhập lại id!')
@@ -144,8 +143,7 @@ main_app.controller("editCustomerController", function($scope, $http, $routePara
             })
             .catch((error) => console.error("Error:", error));
     }
-
-
+    
     $scope.getAllDistrict = function () {
         const selectedOption = selectCityCustomer.options[selectCityCustomer.selectedIndex];
         const customAttribute = selectedOption.getAttribute("providecode");

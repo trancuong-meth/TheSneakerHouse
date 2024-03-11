@@ -735,8 +735,7 @@ svg * {
   
   &::before {
     content: " Giao hàng         Tại quầy";
-    font-size: 0.35em;
-    font-family: Arial, verdana, sans-serif;
+    font-size: 10px;
     display: grid;
     place-items: center;
     white-space: pre;
