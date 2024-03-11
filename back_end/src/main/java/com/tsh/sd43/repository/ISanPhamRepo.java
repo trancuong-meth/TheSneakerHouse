@@ -22,7 +22,7 @@ public interface ISanPhamRepo extends JpaRepository<SanPham, Long> {
           join the_loai tl on tl.id = sp.id_the_loai
           join thuong_hieu th on th.id = sp.id_thuong_hieu
           join san_pham_chi_tiet spct on spct.id_san_pham = sp.id
-          WHERE sp.ten like '%%'
+          WHERE sp.ten like :key
           group by sp.id,sp.id, sp.ten, sp.mo_ta, tl.ten, th.ten, sp.trang_thai
     """, nativeQuery = true)
     Page<ProductResponce> findPanigation(Pageable pageable, @Param("key") String key);
