@@ -54,8 +54,23 @@ main_app.controller("addSaleController", function ($scope, $http) {
         $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + keyProduct + '&trang_thai=' + trang_thai,)
             .then(function (response) {
                 $scope.products = response.data
-                console.log($scope.products)
                 $scope.totalItems = response.data.totalElements
+                setTimeout(function () {
+                    for (var i = 0; i < $scope.productChooses.length; i++) {
+                        if ($scope.products.content.find(x => x.id == $scope.productChooses[i].id) == undefined) {
+                            $scope.productChooses.splice(i, 1)
+                        } else {
+                            var e = document.getElementById("product-" + $scope.productChooses[i].id)
+                            e.checked = true
+                        }
+                    }
+
+                    var ids = $scope.productChooses.map(x => x.id).join(",")
+                    $scope.key.ids = ids
+                    $scope.loadProductDetails()
+                }, 100)
+
+
             });
     }
 
@@ -133,7 +148,6 @@ main_app.controller("addSaleController", function ($scope, $http) {
             var ids = $scope.productChooses.map(x => x.id).join(",")
             $scope.key.ids = ids
             $scope.loadProductDetails()
-
         } else {
             $scope.key.ids = ""
             $scope.productDetails = []
@@ -294,6 +308,11 @@ main_app.controller("addSaleController", function ($scope, $http) {
 
         if ($scope.sale.ngayBatDau < today) {
             toastr.error('Ngày bắt đầu phải lớn hơn ngày hôm nay')
+            return;
+        }
+
+        if ($scope.productDetailChooses.length === 0) {
+            toastr.error('Vui lòng chọn một sản phẩm.')
             return;
         }
 

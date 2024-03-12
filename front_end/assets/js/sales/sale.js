@@ -28,7 +28,7 @@ main_app.controller("saleController", function($scope, $http){
   
     loadData()
     
-    $scope.changeStatus = function(id, state){
+    $scope.changeStatusSale = function(id, state){
   
       if(state === 2){
         Swal.fire({
