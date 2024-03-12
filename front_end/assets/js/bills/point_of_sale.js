@@ -99,7 +99,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 var phiVanChuyen = $scope.bill.phiVanChuyen == null ? 0 : $scope.bill.phiVanChuyen
                 $scope.totalAllPrice = $scope.totalPrice + phiVanChuyen
             }else{
-                $scope.totalAllPrice = (100 - $scope.voucher.phanTramGiam) * $scope.totalPrice / 100
+                var phiVanChuyen = $scope.bill.phiVanChuyen == null ? 0 : $scope.bill.phiVanChuyen
+                console.log(phiVanChuyen)
+                $scope.totalAllPrice = ((100 - $scope.voucher.phanTramGiam) * $scope.totalPrice / 100 ) + phiVanChuyen
             }
         }).catch(function (error) {
             console.log(error)
@@ -117,6 +119,10 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         }).catch(function (error) {
             console.log(error)
         })
+
+        if($scope.state == false){
+            $scope.bill.phiVanChuyen = 0;
+        }
     }
 
     $scope.loadProductList = function () {
