@@ -3,7 +3,7 @@ main_app.controller("saleController", function($scope, $http){
     $scope.currentPage = 1;
     $scope.itemsPerPage = 10;
     $scope.totalItems = 1;
-    $scope.key = ""
+    $scope.keySale = ""
     $scope.trang_thai = ""
     $scope.sales = []
   
@@ -17,8 +17,8 @@ main_app.controller("saleController", function($scope, $http){
     });
     }
   
-    const fillter = function(key, trang_thai) {
-      $http.get('http://localhost:8080/dot-giam-gia/find-all-panigation?page='+ ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + key + '&trang_thai=' + trang_thai,)
+    const fillter = function(keySale, trang_thai) {
+      $http.get('http://localhost:8080/dot-giam-gia/find-all-panigation?page='+ ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + keySale + '&trang_thai=' + trang_thai,)
       .then(function(response) {
         $scope.sales = response.data
         $scope.totalItems = response.data.totalElements
@@ -96,19 +96,21 @@ main_app.controller("saleController", function($scope, $http){
     }
   
     $scope.pageChanged = function() {
-      $http.get('http://localhost:8080/dot-giam-gia/find-all-panigation?page='+ ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.key + '&trang_thai=' + $scope.trang_thai,)
+      $http.get('http://localhost:8080/dot-giam-gia/find-all-panigation?page='+ ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.keySale + '&trang_thai=' + $scope.trang_thai,)
       .then(function(response) {
         $scope.sales = response.data
     });
     };
     
-    $scope.fillterByTrangThai = function(trang_thai){
+    $scope.fillterByStateSale = function(trang_thai){
+      console.log(trang_thai)
       $scope.trang_thai = trang_thai;
-      fillter($scope.key, $scope.trang_thai)
+      fillter($scope.keySale, $scope.trang_thai)
     }
     
-    $scope.fillterByKey = function(){
-      fillter($scope.key, $scope.trang_thai)
+    $scope.fillterBySearchKey = function(){
+      var e = document.getElementById("keySearchSale").value
+      fillter(e, $scope.trang_thai)
     }
   
   })

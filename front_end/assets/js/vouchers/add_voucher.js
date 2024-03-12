@@ -1,5 +1,4 @@
-// add voucher  
-
+// add voucher
 main_app.controller("addVoucherController", function($scope, $http){
 
     var today = new Date();

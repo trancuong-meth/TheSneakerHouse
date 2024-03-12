@@ -1,6 +1,7 @@
 package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.SanPham;
+import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.TheLoai;
 import com.tsh.sd43.entity.request.ProductAddRequest;
 import com.tsh.sd43.entity.responce.ProductResponce;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SanPhamSerImpl implements ISanPhamSer {
@@ -66,4 +68,5 @@ public class SanPhamSerImpl implements ISanPhamSer {
         }
         return "PRODUCT_" + (Integer.parseInt(newestCode.substring(8)) + 1);
     }
-}
+
+ }

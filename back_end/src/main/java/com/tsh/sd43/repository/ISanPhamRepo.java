@@ -1,6 +1,7 @@
 package com.tsh.sd43.repository;
 
 import com.tsh.sd43.entity.SanPham;
+import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.TheLoai;
 import com.tsh.sd43.entity.responce.ProductResponce;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ISanPhamRepo extends JpaRepository<SanPham, Long> {
 
@@ -45,4 +47,5 @@ public interface ISanPhamRepo extends JpaRepository<SanPham, Long> {
         select top 1 ma from san_pham order by ngay_tao desc
     """, nativeQuery = true)
     String generateNewestCode();
+
 }

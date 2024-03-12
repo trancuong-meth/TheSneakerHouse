@@ -23,7 +23,7 @@ public class DotGiamGiaSerImpl implements IDotGiamGiaSer {
     private IDotGiamGiaRepo dotGiamGiaRepo;
 
 
-    public Page<Voucher> getSales(int pageNo, int pageSize, String key, String trangThai){
+    public Page<DotGiamGia> getSales(int pageNo, int pageSize, String key, String trangThai){
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return dotGiamGiaRepo.findSalesByState(pageable,

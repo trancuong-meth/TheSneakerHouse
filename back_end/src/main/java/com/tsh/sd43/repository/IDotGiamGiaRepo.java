@@ -20,7 +20,7 @@ public interface IDotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
         OR ten like :key)
         ORDER BY ngay_tao DESC
     """, nativeQuery = true)
-    Page<Voucher> findSalesByState(Pageable pageable, @Param("trangThai") String trangThai, @Param("key") String key);
+    Page<DotGiamGia> findSalesByState(Pageable pageable, @Param("trangThai") String trangThai, @Param("key") String key);
 
     @Query(value = """
         select * from dot_giam_gia v

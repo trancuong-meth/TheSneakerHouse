@@ -18,8 +18,8 @@
 
   <nav>
     <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-      <button  ng-repeat="bill in bills" class="nav-link button-tab-bill  tab-{{bill.id}}" id="nav-home-tab" data-bs-toggle="tab"
-        data-bs-target="#nav-home" type="button" role="tab"
+      <button ng-repeat="bill in bills" class="nav-link button-tab-bill  tab-{{bill.id}}" id="nav-home-tab"
+        data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab"
         style="height: 40px;margin-right: 5px;margin-bottom:10px; position: relative;" aria-controls="nav-home"
         aria-selected="true" ng-click="chooseBill(bill)">{{bill.ma}}
         <i class="ti ti-x" style="
@@ -111,7 +111,7 @@
                 </td>
                 <td class="border-bottom-0">
                   <img ng-repeat="image in getAllImagesByIDProductDetail(billDetail.idSanPhamChiTiet.id,'product')"
-                    src="{{image.duongDan}}" style="width: 100px;height: 100px;">
+                    style="width: 100px;height: 100px;">
                   <div style="justify-content: space-between;display: flex;">
                     <div id="image-product-{{billDetail.idSanPhamChiTiet.id}}" style="width: 40%;">
                     </div>
@@ -235,11 +235,10 @@
             <label for="exampleInputEmail1" style="width: 150px;font-size: 12px;font-weight: 600;">Email : </label>
             <span style=" font-size: 11px;">{{customer.email}}</span>
           </div>
-          <button class="btn btn-outline-warning btn-sm" ng-click="changeToOneCustomer()" 
-               style="height: 40px;">
-              <i class="ti ti-a-b-2"></i>
-              Chuyển về khách lẻ
-            </button>
+          <button class="btn btn-outline-warning btn-sm" ng-click="changeToOneCustomer()" style="height: 40px;">
+            <i class="ti ti-a-b-2"></i>
+            Chuyển về khách lẻ
+          </button>
         </div>
 
       </div>
@@ -322,7 +321,7 @@
 
             </div>
 
-           
+
 
           </div>
 
@@ -330,8 +329,9 @@
           </div>
 
           <div style="width: 48%;">
-            <input type="checkbox" ng-if="bill.idKhachHang != null" role="switch" class="paper" ng-change="changeMethodBill()" ng-model="state" />
-            
+            <input type="checkbox" ng-if="bill.idKhachHang != null" role="switch" class="paper"
+              ng-change="changeMethodBill()" ng-model="state" />
+
             <div class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#voucherModal"
               ng-click="openVoucherModal()"
               style="width: 100%; height: 40px;margin-top: 29px; display: flex; justify-content: space-between;font-size: 12px;">
@@ -361,7 +361,7 @@
               <span style="color: #333; font-weight: bold;">{{formatToVND(totalPrice)}}</span>
             </div>
 
-            <div style="margin-top: 10px;font-size: 12px;" >
+            <div style="margin-top: 10px;font-size: 12px;">
               <span style="display: inline-block; width: 334px; ">Phí vận chuyển(tạm tính):</span>
               <span style="color: #333; font-weight: 600;">{{formatToVND(bill.phiVanChuyen)}}</span>
             </div>
@@ -593,7 +593,7 @@
                 margin-left: auto;
                 margin-right: auto;
                 " max-size="3" ng-change="pageChanged()"></uib-pagination>
-
+        </span>
       </div>
 
     </div>
