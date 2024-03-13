@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class HoaDonSerImpl implements IHoaDonChiTietSer {
@@ -89,5 +90,13 @@ public class HoaDonSerImpl implements IHoaDonChiTietSer {
             return hoaDonRepo.getAllBillPanigation(pageable);
         }
         return hoaDonRepo.getBillPanigationByState(pageable, state);
+    }
+
+    public HoaDon getBillById(Long id){
+        HoaDon hoaDon =  hoaDonRepo.findById(id).get();
+        if(hoaDon == null){
+            throw new RuntimeException("Không tìm tấy hóa đơn này.");
+        }
+        return hoaDon;
     }
 }

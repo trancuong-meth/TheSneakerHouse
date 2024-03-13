@@ -86,4 +86,13 @@ public class BillRestController {
         }
     }
 
+    @GetMapping("/get-bill/{id}")
+    public ResponseEntity<?> getBillById(@PathVariable("id") Long id) {
+        try{
+            return new ResponseEntity<>(hoaDonService.getBillById(id), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

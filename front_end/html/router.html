@@ -350,7 +350,7 @@
 
         // Hóa đơn
         .when("/hoa-don", { templateUrl: "bills/bill.html", controller: "billController" })
-        .when("/chi-tiet-hoa-don", { templateUrl: "bills/bill_detail.html", controller: "billDetailController" })
+        .when("/chi-tiet-hoa-don/:id", { templateUrl: "bills/bill_detail.html", controller: "billDetailController" })
 
         // point of sale
         .when("/ban-hang", { templateUrl: "bills/point_of_sale.html", controller: "pointOfSaleController" })
@@ -447,6 +447,7 @@
   <!-- BAN HANG -->
   <script src="../assets/js/bills/point_of_sale.js"></script>
   <script src="../assets/js/bills/bill.js"></script>  
+  <script src="../assets/js/bills/bill_detail.js"></script>
 
 </body>
 
