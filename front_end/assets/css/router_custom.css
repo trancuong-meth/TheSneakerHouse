@@ -811,3 +811,238 @@ svg * {
     }
   }
 }
+
+.sch-style-2 {
+}
+.sch-style-2 h1 {
+    margin: 70px 0;
+}
+.sch-style-2 .btn-right {
+    background: none;
+    border: 0;
+    font-size: 22px;
+    line-height: 2em;
+    position: relative;
+    width: 98%;
+    height: 20px;
+}
+.sch-style-2 .btn-right a {
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    z-index: 10;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background: #fff;
+    border-radius: 100%;
+    top: -15px;
+}
+.sch-style-2 h1 {
+    margin-bottom: 70px;
+    margin-top: 0;
+}
+.sch-style-2 .sch-down {
+    margin-top: -20px;
+}
+.sch-style-2 .btn-right::before,
+.sch-style-2 .btn-right::after {
+    background: #aaa;
+    border-radius: 2px;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    transition: all 1s;
+    height: 10px;
+}
+.sch-style-2 .btn-right::before {
+    transform: skew(45deg);
+    top: 0;
+}
+.sch-style-2 .btn-right::after {
+    transform: skew(-45deg);
+    bottom: 0;
+}
+.sch-style-2 .btn-right:hover::before,
+.sch-style-2 .btn-right:hover::after {
+    background: #68d3e2;
+}
+.sch-style-2 .btn-right:focus {
+    outline: 0;
+}
+.sch-style-2 .btn-right:focus::before,
+.sch-style-2 .btn-right:focus::after {
+    background: #68d3e2;
+}
+.sch-style-2 .sch-timeline-content {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+.sch-style-2 .sch-content {
+    float: left;
+    width: 16%;
+    text-align: center;
+}
+.sch-style-2 .sch-text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    height: auto;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    color: #aaa;
+    font-size: 14px;
+}
+.sch-style-2 .sch-year {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.sch-style-2 .sch-icon i {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    line-height: 50px;
+    border-radius: 100%;
+    background: #000;
+    color: #fff;
+    transform: translateY(-97px);
+}
+.sch-style-2 .sch-option {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+.sch-style-2 .sch-content:nth-child(n) .sch-icon {
+    padding-top: 50px;
+    position: relative;
+    text-align: center;
+    top: 60px;
+}
+.sch-style-2 .sch-content:nth-child(n) .sch-icon::before {
+    content: "";
+    width: 2px;
+    height: 50px;
+    background: #5D87FF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.sch-style-2 .sch-content:nth-child(1) .sch-year,
+.sch-style-2 .sch-content:nth-child(1) .sch-option {
+    color: #6f7b8d;
+}
+.sch-style-2 .sch-content:nth-child(1) .sch-icon i,
+.sch-style-2 .sch-content:nth-child(1) .btn-right::before,
+.sch-style-2 .sch-content:nth-child(1) .btn-right::after,
+.sch-style-2 .sch-content:nth-child(1) .sch-icon::before {
+    background: #5D87FF;
+}
+.sch-style-2 .sch-content:nth-child(2) .sch-year,
+.sch-style-2 .sch-content:nth-child(2) .sch-option {
+    color: #8dc9ce;
+}
+.sch-style-2 .sch-content:nth-child(2) .sch-icon i,
+.sch-style-2 .sch-content:nth-child(2) .btn-right::before,
+.sch-style-2 .sch-content:nth-child(2) .btn-right::after,
+.sch-style-2 .sch-content:nth-child(2) .sch-icon::before {
+    background: #8dc9ce;
+}
+.sch-style-2 .sch-content:nth-child(3) .sch-year,
+.sch-style-2 .sch-content:nth-child(3) .sch-option {
+    color: #f2c439;
+}
+.sch-style-2 .sch-content:nth-child(3) .sch-icon i,
+.sch-style-2 .sch-content:nth-child(3) .btn-right::before,
+.sch-style-2 .sch-content:nth-child(3) .btn-right::after,
+.sch-style-2 .sch-content:nth-child(3) .sch-icon::before {
+    background: #f2c439;
+}
+.sch-style-2 .sch-content:nth-child(4) .sch-year,
+.sch-style-2 .sch-content:nth-child(4) .sch-option {
+    color: #ee6b5b;
+}
+.sch-style-2 .sch-content:nth-child(4) .sch-icon i,
+.sch-style-2 .sch-content:nth-child(4) .btn-right::before,
+.sch-style-2 .sch-content:nth-child(4) .btn-right::after,
+.sch-style-2 .sch-content:nth-child(4) .sch-icon::before {
+    background: #ee6b5b;
+}
+.sch-style-2 .sch-content:nth-child(5) .sch-year,
+.sch-style-2 .sch-content:nth-child(5) .sch-option {
+    color: #a2c7a2;
+}
+.sch-style-2 .sch-content:nth-child(5) .sch-icon i,
+.sch-style-2 .sch-content:nth-child(5) .btn-right::before,
+.sch-style-2 .sch-content:nth-child(5) .btn-right::after,
+.sch-style-2 .sch-content:nth-child(5) .sch-icon::before {
+    background: #a2c7a2;
+}
+@-webkit-keyframes zoom {
+    25% {
+        transform: scale3d(1.5, 1.5, 0);
+    }
+    50% {
+        transform: scale3d(1, 1, 0);
+    }
+    75% {
+        transform: scale3d(1.25, 1.25, 0);
+    }
+}
+
+@keyframes zoom {
+    25% {
+        transform: scale3d(1.5, 1.5, 0);
+    }
+    50% {
+        transform: scale3d(1, 1, 0);
+    }
+    75% {
+        transform: scale3d(1.25, 1.25, 0);
+    }
+}
+@-webkit-keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .sch-style-2 .sch-content {
+        width: 100%;
+    }
+}
+@media (min-width: 401px) and (max-width: 640px) {
+    .sch-style-2 .sch-content {
+        width: 50%;
+    }
+}
+@media (min-width: 641px) and (max-width: 767px) {
+    .sch-style-2 .sch-content {
+        width: 20%;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sch-style-2 .sch-content {
+        width: 20%;
+    }
+}
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .sch-style-2 .sch-content {
+        width: 20%;
+    }
+}
