@@ -1,0 +1,195 @@
+<div class="col-lg-12 d-flex align-items-strech">
+  <div class="card w-100">
+    <div class="card-body">
+
+      <!-- bread crumbs -->
+      <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+        <div class="mb-3 mb-sm-0">
+          <i class="ti ti-home-2"></i> / <span style="color: black;display: inline-block;">Thống kê
+            </span>
+        </div>
+      </div>
+
+      <!--  Row 1 -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- Yearly Breakup -->
+              <div class="card overflow-hidden">
+                <div class="card-body p-4">
+                  <h5 class="card-title mb-9 fw-semibold">Doanh số tháng này</h5>
+                  <div class="row align-items-center">
+                    <div class="col-8">
+                      <h4 style="color: #57c06d;" class="fw-semibold mb-3">+  {{formatToVND(revenueMonth.tongTien)}}</h4>
+                      <div class="d-flex align-items-center">
+                        <div class="me-4">
+                          <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                          <span style="color: #5d87ff;display: inline-block;" class="fs-2">{{revenueMonth.soLuong}} hóa đơn</span>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex justify-content-center">
+                        <div id="breakup"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- Yearly Breakup -->
+              <div class="card overflow-hidden">
+                <div class="card-body p-4">
+                  <h5 class="card-title mb-9 fw-semibold">Doanh số hôm nay</h5>
+                  <div class="row align-items-center">
+                    <div class="col-8">
+                      <h4 style="color: #57c06d;" class="fw-semibold mb-3"> + {{formatToVND(revenueDay.tongTien)}}</h4>
+                      <div class="d-flex align-items-center">
+                        <div class="me-4">
+                          <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                          <span style="color: #5d87ff;display: inline-block;"  class="fs-2">{{revenueDay.soLuong}} hóa đơn</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex justify-content-center">
+                        <div id="breakup"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- Yearly Breakup -->
+              <div class="card overflow-hidden">
+                <div class="card-body p-4">
+                  <h5 class="card-title mb-9 fw-semibold">Hàng bán được tháng này</h5>
+                  <div class="row align-items-center">
+                    <div class="col-8">
+                      <h4 style="color: #57c06d;" class="fw-semibold mb-3"> + {{quantityProduct}} sản phẩm</h4>
+                      <div class="d-flex align-items-center">
+                        <div class="me-4">
+                          <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                          <span style="color: #5d87ff;display: inline-block;" class="fs-2">{{revenueMonth.soLuong}} hóa đơn</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex justify-content-center">
+                        <div id="breakup"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body p-4">
+              <div style="display: flex;justify-content: space-between;">
+                <h5 class="card-title fw-semibold mb-4">Biểu đồ</h5>
+                <div style="width: 24%;">
+                  <input class="form-control" type="text" name="dates" value="01/01/2024 - 10/04/2024" />
+                </div>
+              </div>
+
+              <div>
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- Yearly Breakup -->
+              <div class="card overflow-hidden">
+                <div class="card-body p-4">
+                  <h5 class="card-title mb-9 fw-semibold">Top 5 sản phẩm bán chạy</h5>
+                  <table class="table">
+                    <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%)">
+                      <tr>
+                        <th>
+                          <h6 class="fw-semibold mb-0" >#</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0" >Tên</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0" >Số lượng</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0" >Thành tiền</h6>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="product in top5Product">
+                        <td >
+                          <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
+                        </td>
+                        <td >
+                          <span class="fw-normal">{{product.ten}}</span>
+                        </td>
+                        <td >
+                          <span class="fw-normal">{{product.soLuong}}</span>
+                        </td>
+                        <td >
+                          <span class="fw-normal">{{formatToVND(product.tongTien)}}</span>
+                        </td>
+                      </tr>
+          
+                    </tbody>
+                  </table>
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- Yearly Breakup -->
+              <div class="card overflow-hidden">
+                <div class="card-body p-4">
+                  <h5 class="card-title mb-9 fw-semibold">Trạng thái đơn hàng</h5>
+                  <canvas id="pieChart"></canvas>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

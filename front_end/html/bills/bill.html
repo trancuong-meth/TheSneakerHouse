@@ -11,7 +11,7 @@
       <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
         role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(-1)">Tất cả</button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(1)">Tạo đơn hàng</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(1)">Xác nhận đơn hàng</button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
         role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(2)">Chờ giao</button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
@@ -40,7 +40,7 @@
               <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Loại</h6>
             </th>
             <th class="border-bottom-0">
-              <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Ngày tạo</h6>
+              <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Trạng thái</h6>
             </th>
             <th class="border-bottom-0">
               <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Tổng tiền</h6>
@@ -89,7 +89,32 @@
 
             </td>
             <td class="border-bottom-0">
-              <span class="fw-normal">{{bill.ngayTao | date : " HH:mm dd/MM/yyyy"}}</span>
+              <div class="d-flex align-items-center gap-2" ng-if="bill.trangThai === 1">
+                <span class="badge bg-primary rounded-3 fw-semibold" style="    
+                            padding: 11px;
+                            font-size: 11px;">Xác nhận đơn hàng</span>
+              </div>
+              <div class="d-flex align-items-center gap-2" ng-if="bill.trangThai === 2">
+                <span class="badge bg-info rounded-3 fw-semibold" style="    
+                            padding: 11px;
+                            font-size: 11px;">Chờ giao</span>
+              </div>
+              <div class="d-flex align-items-center gap-2" ng-if="bill.trangThai === 3">
+                <span class="badge bg-warning rounded-3 fw-semibold" style="    
+                            padding: 11px;
+                            font-size: 11px;">Đang giao</span>
+              </div>
+              <div class="d-flex align-items-center gap-2" ng-if="bill.trangThai === 4">
+                <span class="badge bg-success rounded-3 fw-semibold" style="    
+                            padding: 11px;
+                            font-size: 11px;">Thành công</span>
+              </div>
+              <div class="d-flex align-items-center gap-2" ng-if="bill.trangThai === 5">
+                <span class="badge bg-danger rounded-3 fw-semibold" style="    
+                            padding: 11px;
+                            font-size: 11px;">Bị hủy</span>
+              </div>
+              
             </td>
             <td class="border-bottom-0" style="color: red;font-weight: 700;">
               <span class="fw-normal">{{formatToVND(bill.tongTienSauGiam)}}</span>
