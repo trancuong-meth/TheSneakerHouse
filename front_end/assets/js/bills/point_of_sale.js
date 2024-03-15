@@ -62,7 +62,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 $scope.totalItemBillDetails = response.data.totalElements
                 $scope.totalPrice = 0
                 for (var i = 0; i < $scope.billDetails.content.length; i++) {
-                    $scope.totalPrice += Number($scope.billDetails.content[i].idSanPhamChiTiet.donGia) * Number($scope.billDetails.content[i].soLuong)
+                    if($scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia == null){
+                        $scope.totalPrice += Number($scope.billDetails.content[i].idSanPhamChiTiet.donGia) * Number($scope.billDetails.content[i].soLuong)
+                    }else{
+                        $scope.totalPrice += Number( (100 - $scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * $scope.billDetails.content[i].idSanPhamChiTiet.donGia /100) * Number($scope.billDetails.content[i].soLuong)
+                    }
                 }
                 $scope.totalAllPrice = $scope.totalPrice
                 if ($scope.bill.idVoucher != null) {
@@ -426,7 +430,8 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                    
                     toastr.success("Tạo hóa đơn thành công.");
                     setTimeout(function () {
-                        location.href = "/html/router.html#!/hoa-don"
+                        location.href = "/html/router.html#!/chi-tiet-hoa-don/" + response.data.id
+                        window.scrollTo(0, 0);
                     }, 200)
                 })
                     .catch(function (response) {

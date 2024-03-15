@@ -50,7 +50,7 @@
                   <th class="border-bottom-0" style="width: 18%;">
                     <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Ảnh</h6>
                   </th>
-                  <th class="border-bottom-0" >
+                  <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Tên sản phẩm</h6>
                   </th>
                   <th class="border-bottom-0">
@@ -79,12 +79,20 @@
                   <td class="border-bottom-0">
                     <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
                   </td>
-                  <td class="border-bottom-0">
-                    <img ng-repeat="image in getAllImagesByIDProductDetail(product.id)" src="{{image.duongDan}}" style="width: 100px;height: 100px;">
+                  <td class="border-bottom-0" style="position: relative;">
+                    <img ng-repeat="image in getAllImagesByIDProductDetail(product.id)" src="{{image.duongDan}}"
+                      style="width: 100px;height: 100px;">
                     <div id="image-{{product.id}}">
-                     
+
                     </div>
-                    
+                    <div class="ribbon" ng-if="product.idDotGiamGia !== null">
+                      <span>- {{product.idDotGiamGia.phanTramGiam}}%</span>
+                    </div>
+
+                    <div class="bagde-flag-wrap" ng-if="product.idDotGiamGia !== null" hidden>
+                      <a href="#" class="bagde-flag"> - {{product.idDotGiamGia.phanTramGiam}} % </a>
+                    </div>
+
                   </td>
                   <td class="border-bottom-0">
                     {{product.idSanPham.ten}}
