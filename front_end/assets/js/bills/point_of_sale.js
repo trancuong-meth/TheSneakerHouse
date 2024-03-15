@@ -382,7 +382,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 $scope.bill.phuongThucThanhToan = $scope.paymentMethod
                 $scope.bill.tongTien = $scope.totalPrice
                 $scope.bill.tongTienSauGiam = $scope.totalAllPrice
-                $scope.bill.trangThai = 1
+                $scope.bill.trangThai = 2
                 if ($scope.bill.loaiHoaDon == null) {
                     $scope.bill.loaiHoaDon = 0;
                 }
