@@ -11,6 +11,18 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.itemsPerPageBillDetails = 10;
     $scope.totalItemBillDetails = 0;
 
+    // history
+    $scope.billState1 = {}
+    $scope.billState2 = {}
+    $scope.billState3 = {}
+    $scope.billState4 = {}
+
+    // note
+    $scope.noteState1 = ""
+    $scope.noteState2 = ""
+    $scope.noteState3 = ""
+
+
     // REGEX
     var phone_regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
     var email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,6 +53,17 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
 
         $http.get("http://localhost:8080/history/get-all-by-id/" + id).then(function (response) {
             $scope.history = response.data
+            for (var i = 0; i < $scope.history.length; i++) {
+                if ($scope.history[i].trangThai == 1) {
+                    $scope.billState1 = $scope.history[i]
+                } else if ($scope.history[i].trangThai == 2) {
+                    $scope.billState2 = $scope.history[i]
+                } else if ($scope.history[i].trangThai == 3) {
+                    $scope.billState3 = $scope.history[i]
+                } else if ($scope.history[i].trangThai == 4) {
+                    $scope.billState4 = $scope.history[i]
+                }
+            }
             console.log($scope.history)
         })
             .catch(function (error) {
@@ -563,5 +586,78 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
         w.document.write(e.innerHTML);
         w.print();
         w.close();
+    }
+
+    $scope.confirmBill = () => {
+        if ($scope.bill === null) {
+            toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
+        } else {
+            var brandUpdateModal = document.querySelector("#confirmModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+
+            modal.hide()
+            $scope.bill.trangThai = 2;
+            $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState1)
+            toastr.success("Xác nhận hóa đơn thành công")
+            setTimeout(() => {
+                $scope.loadBill()
+            }, 100)
+        }
+
+    }
+
+
+    $scope.shippBill = function () {
+        if ($scope.bill === null) {
+            toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
+        } else {
+            var brandUpdateModal = document.querySelector("#shipModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+
+            modal.hide()
+            $scope.bill.trangThai = 3;
+            $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState2)
+            toastr.success("Xác nhận hóa đơn thành công")
+            setTimeout(() => {
+                $scope.loadBill()
+            }, 100)
+        }
+
+    }
+
+    $scope.successBill = function () {
+        if ($scope.bill === null) {
+            toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
+        } else {
+            var brandUpdateModal = document.querySelector("#successModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+
+            modal.hide()
+            $scope.bill.trangThai = 4;
+            $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState3)
+            toastr.success("Xác nhận hóa đơn thành công")
+            setTimeout(() => {
+                $scope.loadBill()
+            }, 100)
+        }
+    }
+
+    $scope.updateStateOfBill = (trangThai, ghiChu) => {
+        axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+            axios.post('http://localhost:8080/history/add', {
+                'trangThai': trangThai,
+                'ghiChu': ghiChu,
+                'hoaDon': response.data
+            }).then(function (response) {
+
+            }).catch(function (error) {
+                console.log(error);
+            })
+
+        })
+            .catch(function (response) {
+                $scope.loadBill()
+                console.log(response.data)
+            })
     }
 })

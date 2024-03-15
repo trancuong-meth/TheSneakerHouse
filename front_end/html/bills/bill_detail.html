@@ -8,9 +8,9 @@
     </div>
   </div>
 
-  <div class="sch-style-2" ng-if="bill.trangThai == 5 && history.length == 1">
+  <div class="sch-style-2" ng-if="bill.trangThai == 4 && history.length == 1">
     <div class="sch-timeline-content">
-      <div class="sch-content" style="margin-left: 85px;">
+      <div class="sch-content" style="    margin-left: 136px;">
         <div class="sch-up">
           <div class="sch-icon">
             <i class="ti ti-circle-check" style="font-size: 20px;"></i>
@@ -96,7 +96,7 @@
 
   <div class="sch-style-2" ng-if="bill.trangThai == 1 && history.length >= 1">
     <div class="sch-timeline-content">
-      <div class="sch-content" style="margin-left: 85px;">
+      <div class="sch-content" style="    margin-left: 136px;">
         <div class="sch-up">
           <div class="sch-icon">
             <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -106,7 +106,8 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState1.ngayTao | date
+              : " HH:mmdd/MM/yyyy "}}</span>
           </div>
         </div>
       </div>
@@ -143,7 +144,7 @@
         </div>
       </div>
 
-      <div class="sch-content">
+      <!-- <div class="sch-content">
         <div class="sch-up">
 
           <div class="sch-icon btn-disaled">
@@ -158,7 +159,7 @@
             <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="sch-content">
         <div class="sch-up">
@@ -181,7 +182,7 @@
 
   <div class="sch-style-2" ng-if="bill.trangThai == 2 && history.length >= 1">
     <div class="sch-timeline-content">
-      <div class="sch-content" style="margin-left: 85px;">
+      <div class="sch-content" style="    margin-left: 136px;">
         <div class="sch-up">
           <div class="sch-icon">
             <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -191,7 +192,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState1.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -199,7 +200,7 @@
       <div class="sch-content">
         <div class="sch-up ">
 
-          <div class="sch-icon">
+          <div class="sch-icon ">
             <i class="ti ti-truck " style="font-size: 20px;"></i>
           </div>
         </div>
@@ -207,7 +208,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState2.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -220,26 +221,9 @@
           </div>
         </div>
         <button class="btn-right btn-disaled"><a href="#"></a></button>
-        <div class="sch-down btn-disaled">
+        <div class="sch-down btn-disaled" >
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sch-content">
-        <div class="sch-up">
-
-          <div class="sch-icon btn-disaled">
-            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right btn-disaled"><a href="#"></a></button>
-        <div class="sch-down btn-disaled">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
-              toán</span>
             <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
           </div>
         </div>
@@ -266,7 +250,7 @@
 
   <div class="sch-style-2" ng-if="bill.trangThai == 3 && history.length > 1">
     <div class="sch-timeline-content">
-      <div class="sch-content" style="margin-left: 85px;">
+      <div class="sch-content" style="    margin-left: 136px;">
         <div class="sch-up">
           <div class="sch-icon">
             <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -276,7 +260,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState1.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -292,7 +276,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState2.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -308,24 +292,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sch-content">
-        <div class="sch-up">
-
-          <div class="sch-icon btn-disaled">
-            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right btn-disaled"><a href="#"></a></button>
-        <div class="sch-down btn-disaled">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
-              toán</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState3.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -351,7 +318,7 @@
 
   <div class="sch-style-2" ng-if="bill.trangThai == 4 && history.length > 1">
     <div class="sch-timeline-content">
-      <div class="sch-content" style="margin-left: 85px;">
+      <div class="sch-content" style="    margin-left: 136px;">
         <div class="sch-up">
           <div class="sch-icon">
             <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -361,92 +328,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sch-content">
-        <div class="sch-up ">
-
-          <div class="sch-icon ">
-            <i class="ti ti-truck " style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right "><a href="#"></a></button>
-        <div class="sch-down">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sch-content">
-        <div class="sch-up">
-
-          <div class="sch-icon ">
-            <i class="ti ti-truck-delivery" style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right"><a href="#"></a></button>
-        <div class="sch-down">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sch-content">
-        <div class="sch-up">
-
-          <div class="sch-icon ">
-            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right "><a href="#"></a></button>
-        <div class="sch-down">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
-              toán</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sch-content">
-        <div class="sch-up">
-
-          <div class="sch-icon btn-disaled">
-            <i class="ti ti-circle-check" style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right btn-disaled"><a href="#"></a></button>
-        <div class="sch-down btn-disaled">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="sch-style-2" ng-if="bill.trangThai == 5 && history.length > 1">
-    <div class="sch-timeline-content">
-      <div class="sch-content" style="margin-left: 85px;">
-        <div class="sch-up">
-          <div class="sch-icon">
-            <i class="ti ti-checklist" style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right"><a href="#"></a></button>
-        <div class="sch-down">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState1.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -462,7 +344,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState2.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -478,24 +360,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sch-content">
-        <div class="sch-up">
-
-          <div class="sch-icon">
-            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
-          </div>
-        </div>
-        <button class="btn-right"><a href="#"></a></button>
-        <div class="sch-down">
-          <div class="sch-text">
-            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
-              toán</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState3.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -511,7 +376,7 @@
         <div class="sch-down">
           <div class="sch-text">
             <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
-            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">{{billState4.ngayTao | date : "HH:mm dd/MM/yyyy"}}</span>
           </div>
         </div>
       </div>
@@ -520,7 +385,7 @@
   </div>
 
   <!-- button -->
-  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 5 && history.length == 1">
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 4 && history.length == 1">
     <div style="display: flex;justify-content: space-between;width: 33%;">
       <button class="btn btn-primary" ng-click="print()">
         Xuất hóa đơn
@@ -533,6 +398,75 @@
       </button>
     </div>
   </div>
+
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 1 && history.length >= 1">
+    <div style="display: flex;width: 33%;">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+        Xác nhận
+      </button>
+      <button class="btn btn-danger" ng-click="print()" style="margin-left: 10px;">
+        Hủy
+      </button>
+    </div>
+
+    <div style="display: flex;justify-content: space-between;">
+      <button class="btn btn-danger" ng-click="goBack()">
+        Chi tiết
+      </button>
+    </div>
+  </div>
+
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 2 && history.length > 1">
+    <div style="display: flex;width: 33%;">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shipModal">
+        Vận chuyển
+      </button>
+      <button class="btn btn-warning" ng-click="print()"  style="margin-left: 10px;">
+        Xuất hóa đơn
+      </button>
+      <button class="btn btn-danger" ng-click="print()" style="margin-left: 10px;">
+        Hủy
+      </button>
+    </div>
+
+    <div style="display: flex;justify-content: space-between;">
+      <button class="btn btn-danger" ng-click="goBack()">
+        Chi tiết
+      </button>
+    </div>
+  </div>
+
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 3 && history.length > 1">
+    <div style="display: flex;width: 33%;">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successModal">
+        Hoàn thành
+      </button>
+      <button class="btn btn-warning" ng-click="print()"  style="margin-left: 10px;">
+        Xuất hóa đơn
+      </button>
+    </div>
+
+    <div style="display: flex;justify-content: space-between;">
+      <button class="btn btn-danger" ng-click="goBack()">
+        Chi tiết
+      </button>
+    </div>
+  </div>
+
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 4 && history.length > 1">
+    <div style="display: flex;width: 33%;">
+      <button class="btn btn-warning" ng-click="print()" >
+        Xuất hóa đơn
+      </button>
+    </div>
+
+    <div style="display: flex;justify-content: space-between;">
+      <button class="btn btn-danger" ng-click="goBack()">
+        Chi tiết
+      </button>
+    </div>
+  </div>
+
 
 </div>
 
@@ -580,17 +514,11 @@
           Đang giao
         </span>
 
-        <span style="
-        display: inline-block;
-        font-size: 14px;
-        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 4">
-          Xác nhận thanh toán
-        </span>
 
         <span style="
         display: inline-block;
         font-size: 14px;
-        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 5">
+        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 4">
           Thành công
         </span>
       </div>
@@ -1020,7 +948,7 @@
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000;  line-height: 18px;  vertical-align: top; padding:10px 0;"
                               class="article">
                               {{billDetail.idSanPhamChiTiet.idSanPham.ten}}[{{billDetail.idSanPhamChiTiet.idMauSac.ten}}
-                                            - {{billDetail.idSanPhamChiTiet.idKichCo.kichCo}}]
+                              - {{billDetail.idSanPhamChiTiet.idKichCo.kichCo}}]
                             </td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;">
@@ -1083,7 +1011,8 @@
                             </td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              <small>{{formatToVND(bill.idVoucher === null ? 0 : bill.idVoucher.phanTramGiam * bill.tongTien/100)}}</small>
+                              <small>{{formatToVND(bill.idVoucher === null ? 0 : bill.idVoucher.phanTramGiam *
+                                bill.tongTien/100)}}</small>
                             </td>
                           </tr>
                           <tr>
@@ -1093,7 +1022,8 @@
                             </td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              {{formatToVND(bill.phiVanChuyen === null || bill.phiVanChuyen === 0 ? 0 : bill.phiVanChuyen)}}
+                              {{formatToVND(bill.phiVanChuyen === null || bill.phiVanChuyen === 0 ? 0 :
+                              bill.phiVanChuyen)}}
                             </td>
                           </tr>
                           <tr>
@@ -1106,7 +1036,7 @@
                               <strong>{{formatToVND(bill.tongTienSauGiam)}}</strong>
                             </td>
                           </tr>
-                         
+
                         </tbody>
                       </table>
                       <!-- /Table Total -->
@@ -1121,6 +1051,93 @@
       </table>
       <!-- /Total -->
 
+    </div>
+  </div>
+</div>
+
+<!-- Modal state 1 -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Ghi chú đơn hàng </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <label for="exampleInputEmail1" class="form-label">Ghi chú: </label>
+        <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="noteState1"
+          id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-primary" ng-click="confirmBill()">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal state 2 -->
+<div class="modal fade" id="shipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Ghi chú đơn hàng </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <label for="exampleInputEmail1" class="form-label">Ghi chú: </label>
+        <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="noteState2"
+          id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-primary" ng-click="shippBill()">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal state 3 -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Ghi chú đơn hàng </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <label for="exampleInputEmail1" class="form-label">Ghi chú: </label>
+        <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="noteState3"
+          id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-primary" ng-click="successBill()">
+          Xác nhận
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -388,7 +388,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 }
 
                 if ($scope.bill.loaiHoaDon == 0) {
-                    $scope.bill.trangThai = 5;
+                    $scope.bill.trangThai = 4;
                 }
 
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {

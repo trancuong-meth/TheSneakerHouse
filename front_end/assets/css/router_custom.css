@@ -969,22 +969,12 @@ svg * {
 }
 .sch-style-2 .sch-content:nth-child(4) .sch-year,
 .sch-style-2 .sch-content:nth-child(4) .sch-option {
-    color: #ee6b5b;
+    color: #a2c7a2;
 }
 .sch-style-2 .sch-content:nth-child(4) .sch-icon i,
 .sch-style-2 .sch-content:nth-child(4) .btn-right::before,
 .sch-style-2 .sch-content:nth-child(4) .btn-right::after,
 .sch-style-2 .sch-content:nth-child(4) .sch-icon::before {
-    background: #ee6b5b;
-}
-.sch-style-2 .sch-content:nth-child(5) .sch-year,
-.sch-style-2 .sch-content:nth-child(5) .sch-option {
-    color: #a2c7a2;
-}
-.sch-style-2 .sch-content:nth-child(5) .sch-icon i,
-.sch-style-2 .sch-content:nth-child(5) .btn-right::before,
-.sch-style-2 .sch-content:nth-child(5) .btn-right::after,
-.sch-style-2 .sch-content:nth-child(5) .sch-icon::before {
     background: #a2c7a2;
 }
 @-webkit-keyframes zoom {
