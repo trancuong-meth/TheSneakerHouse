@@ -14,10 +14,10 @@ public class HistoryRestController {
 
     @Autowired
     private LichSuSerImpl lichSuService;
-    @GetMapping("/get-all")
-    public ResponseEntity<?> getAllHistory(){
+    @GetMapping("/get-all-by-id/{id}")
+    public ResponseEntity<?> getAllHistory(@PathVariable("id")Long id){
         try{
-            return new ResponseEntity<>(lichSuService.getAllLichSu(), HttpStatus.OK);
+            return new ResponseEntity<>(lichSuService.getAllLichSu(id), HttpStatus.OK);
         }catch (Exception ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
         }

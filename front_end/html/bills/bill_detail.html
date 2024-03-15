@@ -8,11 +8,434 @@
     </div>
   </div>
 
-  <div class="sch-style-2">
+  <div class="sch-style-2" ng-if="bill.trangThai == 5 && history.length == 1">
     <div class="sch-timeline-content">
+      <div class="sch-content" style="margin-left: 85px;">
+        <div class="sch-up">
+          <div class="sch-icon">
+            <i class="ti ti-circle-check" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
+            <span style="display: block;font-size: 10px;transform: translateY(-7px);">{{bill.ngayTao | date : 'hh:MM
+              dd/MM/yyyy'}}</span>
+          </div>
+        </div>
+      </div>
 
-        
+      <div class="sch-content">
+        <div class="sch-up ">
 
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-truck " style="font-size: 0px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-truck-delivery" style="font-size: 0px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-credit-card-pay" style="font-size: 0px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
+              toán</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-circle-check" style="font-size: 0px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sch-style-2" ng-if="bill.trangThai == 1 && history.length >= 1">
+    <div class="sch-timeline-content">
+      <div class="sch-content" style="margin-left: 85px;">
+        <div class="sch-up">
+          <div class="sch-icon">
+            <i class="ti ti-checklist" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up ">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-truck " style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-truck-delivery" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
+              toán</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-circle-check" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sch-style-2" ng-if="bill.trangThai == 2 && history.length >= 1">
+    <div class="sch-timeline-content">
+      <div class="sch-content" style="margin-left: 85px;">
+        <div class="sch-up">
+          <div class="sch-icon">
+            <i class="ti ti-checklist" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up ">
+
+          <div class="sch-icon">
+            <i class="ti ti-truck " style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right "><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-truck-delivery" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
+              toán</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-circle-check" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sch-style-2" ng-if="bill.trangThai == 3 && history.length > 1">
+    <div class="sch-timeline-content">
+      <div class="sch-content" style="margin-left: 85px;">
+        <div class="sch-up">
+          <div class="sch-icon">
+            <i class="ti ti-checklist" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up ">
+
+          <div class="sch-icon ">
+            <i class="ti ti-truck " style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right "><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon ">
+            <i class="ti ti-truck-delivery" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
+              toán</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-circle-check" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sch-style-2" ng-if="bill.trangThai == 4 && history.length > 1">
+    <div class="sch-timeline-content">
+      <div class="sch-content" style="margin-left: 85px;">
+        <div class="sch-up">
+          <div class="sch-icon">
+            <i class="ti ti-checklist" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up ">
+
+          <div class="sch-icon ">
+            <i class="ti ti-truck " style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right "><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon ">
+            <i class="ti ti-truck-delivery" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon ">
+            <i class="ti ti-credit-card-pay" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right "><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Xác nhận thanh
+              toán</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon btn-disaled">
+            <i class="ti ti-circle-check" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right btn-disaled"><a href="#"></a></button>
+        <div class="sch-down btn-disaled">
+          <div class="sch-text">
+            <span style="display: inline-block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
+            <span style="display: inline-block;font-size: 10px;transform: translateY(-7px);">1/1/2020 - 2/2/2020</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sch-style-2" ng-if="bill.trangThai == 5 && history.length > 1">
+    <div class="sch-timeline-content">
       <div class="sch-content" style="margin-left: 85px;">
         <div class="sch-up">
           <div class="sch-icon">
@@ -96,28 +519,21 @@
     </div>
   </div>
 
-<!-- button -->
-<div style="display: flex;justify-content: space-between;">
-  <div style="display: flex;justify-content: space-between;width: 33%;">
-    <button class="btn btn-danger" ng-click="goBack()">
-      Hủy
-    </button>
+  <!-- button -->
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 5 && history.length == 1">
+    <div style="display: flex;justify-content: space-between;width: 33%;">
+      <button class="btn btn-primary" ng-click="print()">
+        Xuất hóa đơn
+      </button>
+    </div>
 
-    <button class="btn btn-primary">
-      Giao hàng
-    </button>
-
-    <button class="btn btn-primary">
-      Xuất hóa đơn
-    </button>
+    <div style="display: flex;justify-content: space-between;">
+      <button class="btn btn-danger" ng-click="goBack()">
+        Chi tiết
+      </button>
+    </div>
   </div>
 
-  <div style="display: flex;justify-content: space-between;">
-    <button class="btn btn-danger" ng-click="goBack()">
-      Chi tiết
-    </button>
-  </div>
-</div>
 </div>
 
 <div class="card p-3 shadow">
@@ -145,9 +561,37 @@
         </span>
         <span style="
         display: inline-block;
-       font-size: 14px;
-       font-weight: 600; color: #FA896B">
-          {{bill.trangThai == 1 ? "Chờ giao" : "Đang chờ giao"}}
+        font-size: 14px;
+        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 1">
+          Tạo đơn hàng
+        </span>
+
+        <span style="
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 2">
+          Chờ giao
+        </span>
+
+        <span style="
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 3">
+          Đang giao
+        </span>
+
+        <span style="
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 4">
+          Xác nhận thanh toán
+        </span>
+
+        <span style="
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 5">
+          Thành công
         </span>
       </div>
 
@@ -179,7 +623,7 @@
         display: inline-block;
        font-size: 14px;
        font-weight: 600; color: #FA896B">
-          {{bill.loaiDonHang ==0 ? "Tại quầy" : "Giao hàng"}}
+          {{bill.loaiHoaDon == 0 || bill.loaiHoaDon == null ? "Tại quầy" : "Giao hàng"}}
         </span>
       </div>
 
@@ -421,20 +865,27 @@
             </div>
           </td>
           <td class="border-bottom-0" style="display: flex;justify-content: space-between;">
-            <button class="btn btn-sm btn-outline-muted"
-              style="width: 33.3%;border-radius: 0px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;"
-              ng-click="minusQuantity(billDetail)">
-              <i class="ti ti-minus" style="font-size: 14px;"></i>
-            </button>
-            <input type="number" class="btn btn-sm btn-outline-muted text-center"
-              style="width: 33%;height: 40px;border-radius: 0;border-left: 0px;border-right: 0px;font-size: 14px;"
-              ng-model="billDetail.soLuong" ng-change="changeQuantity(billDetail)" disabled
-              id="bill-detail-quantity-{{billDetail.id}}">
-            <button class="btn btn-sm btn-outline-muted"
-              style="width: 33%;border-radius: 0px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
-              ng-click="plusQuantity(billDetail)">
-              <i class="ti ti-plus" style="font-size: 14px;"></i>
-            </button>
+            <div ng-if="bill.trangThai == 1">
+              <button class="btn btn-sm btn-outline-muted"
+                style="width: 33.3%;border-radius: 0px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;"
+                ng-click="minusQuantity(billDetail)">
+                <i class="ti ti-minus" style="font-size: 14px;"></i>
+              </button>
+              <input type="number" class="btn btn-sm btn-outline-muted text-center"
+                style="width: 33%;height: 40px;border-radius: 0;border-left: 0px;border-right: 0px;font-size: 14px;"
+                ng-model="billDetail.soLuong" ng-change="changeQuantity(billDetail)" disabled
+                id="bill-detail-quantity-{{billDetail.id}}">
+              <button class="btn btn-sm btn-outline-muted"
+                style="width: 33%;border-radius: 0px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
+                ng-click="plusQuantity(billDetail)">
+                <i class="ti ti-plus" style="font-size: 14px;"></i>
+              </button>
+            </div>
+
+            <div ng-if="bill.trangThai == 4" style="text-align: center;margin-left: 54px;">
+              <button class="btn btn-outline-muted" disabled>{{billDetail.soLuong}}</button>
+            </div>
+
           </td>
           <td style="
                 color: #FA896B;
@@ -464,5 +915,212 @@
               margin-right: auto;
               " max-size="3" ng-change="pageChangedBillDetails()"></uib-pagination>
     </span>
+
+    <div id="invoice" hidden>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+        <tr>
+          <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+              bgcolor="#ffffff" style="border-radius: 10px 10px 0 0;">
+              <tr class="hiddenMobile">
+                <td height="40"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                            <tbody>
+                              <tr>
+                                <td
+                                  style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                                  <div height="40" style="color: #5D87FF; font-weight: 700;">THE SNEAKER HOUSE</div>
+                                  <br />
+                                  Xin chào, {{bill.tenNguoiNhan == null || bill.tenNguoiNhan == "" ? 'khách hàng' :
+                                  bill.tenNguoiNhan}}.
+                                  <br> Cảm ơn bạn đã ủng hộ shop.
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                            <tbody>
+
+                              <tr style=" transform: translateY(19px);">
+                                <td
+                                  style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
+                                  <div height="40" style="color: #5D87FF; font-weight: 700;"></div>
+                                  <br />
+                                  <small>Mã hóa đơn:</small> {{bill.ma}}<br />
+                                  <small>{{bill.ngayTao | date : 'HH:mm dd/MM/yyyy'}}</small>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <!-- /Header -->
+      <!-- Order Details -->
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+        <tbody>
+          <tr>
+            <td>
+              <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+                bgcolor="#ffffff">
+                <tbody>
+                  <tr>
+                  <tr class="visibleMobile">
+                    <td height="40"></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                        <tbody>
+                          <tr>
+                            <th
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;"
+                              width="52%" align="left">
+                              Sản phẩm
+                            </th>
+                            <th
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
+                              align="center">
+                              Đơn giá
+                            </th>
+                            <th
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
+                              align="center">
+                              Số lượng
+                            </th>
+                            <th
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
+                              align="right">
+                              Thành tiền
+                            </th>
+                          </tr>
+                          <tr>
+                            <td height="1" style="background: #bebebe;" colspan="4"></td>
+                          </tr>
+                          <tr>
+                            <td height="10" colspan="4"></td>
+                          </tr>
+                          <tr ng-repeat="billDetail in billDetails.content">
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000;  line-height: 18px;  vertical-align: top; padding:10px 0;"
+                              class="article">
+                              {{billDetail.idSanPhamChiTiet.idSanPham.ten}}[{{billDetail.idSanPhamChiTiet.idMauSac.ten}}
+                                            - {{billDetail.idSanPhamChiTiet.idKichCo.kichCo}}]
+                            </td>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;">
+                              <small>{{formatToVND(billDetail.donGia)}}</small>
+                            </td>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"
+                              align="center">{{billDetail.soLuong}}</td>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33;  line-height: 18px;  vertical-align: top; padding:10px 0;"
+                              align="right">{{formatToVND(billDetail.donGia * billDetail.soLuong)}}</td>
+                          </tr>
+
+                          <tr>
+                            <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="20"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- /Order Details -->
+      <!-- Total -->
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+        <tbody>
+          <tr>
+            <td>
+              <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+                bgcolor="#ffffff">
+                <tbody>
+                  <tr>
+                    <td>
+
+                      <!-- Table Total -->
+                      <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                        <tbody>
+                          <tr>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                              Tạm tính
+                            </td>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;"
+                              width="80">
+                              {{formatToVND(bill.tongTien)}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                              <small>Phiếu giảm giá</small>
+                            </td>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                              <small>{{formatToVND(bill.idVoucher === null ? 0 : bill.idVoucher.phanTramGiam * bill.tongTien/100)}}</small>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                              Phí vận chuyển
+                            </td>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                              {{formatToVND(bill.phiVanChuyen === null || bill.phiVanChuyen === 0 ? 0 : bill.phiVanChuyen)}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                              <strong>Tổng tiền</strong>
+                            </td>
+                            <td
+                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                              <strong>{{formatToVND(bill.tongTienSauGiam)}}</strong>
+                            </td>
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+                      <!-- /Table Total -->
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- /Total -->
+
+    </div>
   </div>
 </div>

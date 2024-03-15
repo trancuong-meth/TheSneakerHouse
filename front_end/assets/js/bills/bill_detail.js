@@ -4,6 +4,9 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     var file = "";
     $scope.bill = {}
     $scope.billDetails = []
+    $scope.history = []
+
+    // pagination
     $scope.currentPageBillDetails = 1;
     $scope.itemsPerPageBillDetails = 10;
     $scope.totalItemBillDetails = 0;
@@ -20,8 +23,8 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.loadBill = () => {
         $http.get('http://localhost:8080/bill/get-bill/' + id).then(
             function (res) {
+                console.log(res.data)
                 $scope.bill = res.data;
-                console.log($scope.bill)
             }, function (error) {
                 console.log('Không tìm thấy hóa đơn này.Vui lòng nhập lại id!')
             }
@@ -31,11 +34,18 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             function (response) {
                 $scope.billDetails = response.data
                 $scope.totalItemBillDetails = response.data.totalElements
-                console.log($scope.billDetails)
             }
         ).catch(function (error) {
             console.log(error)
         })
+
+        $http.get("http://localhost:8080/history/get-all-by-id/" + id).then(function (response) {
+            $scope.history = response.data
+            console.log($scope.history)
+        })
+            .catch(function (error) {
+
+            })
     }
 
     $scope.getAllImagesByIDProductDetail = function (id, text) {
@@ -544,5 +554,14 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             minimumFractionDigits: 0, // Set to 0 to display whole numbers
         });
         return formatter.format(amount);
+    }
+
+    $scope.print = () => {
+        var e = document.getElementById("invoice")
+        console.log(e)
+        w = window.open();
+        w.document.write(e.innerHTML);
+        w.print();
+        w.close();
     }
 })

@@ -14,8 +14,8 @@ public class LichSuSerImpl {
     @Autowired
     private iLichSuRepo lichSuRepo;
 
-    public ArrayList<LichSu> getAllLichSu(){
-        return (ArrayList<LichSu>) lichSuRepo.findAll();
+    public ArrayList<LichSu> getAllLichSu(Long id){
+        return lichSuRepo.findAllByIdHoaDon(id);
     }
 
     public LichSu addHistory(HistoryRequest lichSu){
