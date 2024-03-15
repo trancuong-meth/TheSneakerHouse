@@ -51,6 +51,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         if ($scope.bill.idKhachHang !== null) {
             $scope.bill.tenNguoiNhan = $scope.bill.idKhachHang.ten
             $scope.bill.sdtNguoiNhan = $scope.bill.idKhachHang.soDienThoai
+            $scope.bill.email = $scope.bill.idKhachHang.email
         }
         return $scope.bill
     }

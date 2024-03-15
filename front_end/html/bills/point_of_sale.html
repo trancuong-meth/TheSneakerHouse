@@ -140,15 +140,18 @@
                       color: red;
                       font-size: 12px;
                       font-weight: 800;
-                      ">{{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ? billDetail.idSanPhamChiTiet.donGia : (100 - billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia / 100)}}</span>
+                      ">{{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
+                        billDetail.idSanPhamChiTiet.donGia : (100 -
+                        billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia /
+                        100)}}</span>
                       <span style="
                       display: inline-block;
                       color: rgb(150, 150, 150);
                       font-size: 10px;
                       font-weight: 800;
                       text-decoration: line-through;
-                      " ng-if="billDetail.idSanPhamChiTiet.idDotGiamGia != null"
-                      >{{formatToVND(billDetail.idSanPhamChiTiet.donGia)}}</span>
+                      "
+                        ng-if="billDetail.idSanPhamChiTiet.idDotGiamGia != null">{{formatToVND(billDetail.idSanPhamChiTiet.donGia)}}</span>
 
                     </div>
                   </div>
@@ -176,7 +179,9 @@
                       text-align: center;
                       " class="border-bottom-0">
                   {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-                    (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 - billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong / 100)}}
+                  (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
+                  billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia *
+                  billDetail.soLuong / 100)}}
                 </td>
                 <td class="border-bottom-0">
                   <i class="ti ti-trash-x-filled" ng-click="removeBillDetailByBillAndProductDetail(billDetail.id)"
@@ -274,12 +279,20 @@
                 ng-model="bill.tenNguoiNhan" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
 
-            <div style=" margin-top: 20px;">
+            <div style=" margin-top: 20px;display: flex;justify-content: space-between;">
+              <div style="width: 48%;">
+                <label for="exampleInputEmail1" class="form-label">Số điện thoại <sup style="color: #fa0000a8;">*</sup>
+                </label>
+                <input placeholder="Nhập số điện thoại..." style="height: 40px;" type="text m" class="form-control"
+                  id="exampleInputEmail1" ng-model="bill.sdtNguoiNhan" aria-describedby="emailHelp">
+              </div>
 
-              <label for="exampleInputEmail1" class="form-label">Số điện thoại <sup style="color: #fa0000a8;">*</sup>
-              </label>
-              <input placeholder="Nhập số điện thoại..." style="height: 40px;" type="text m" class="form-control"
-                id="exampleInputEmail1" ng-model="bill.sdtNguoiNhan" aria-describedby="emailHelp">
+              <div style="width: 48%;">
+                <label for="exampleInputEmail1" class="form-label">Email <sup style="color: #fa0000a8;">*</sup>
+                </label>
+                <input placeholder="Nhập email..." style="height: 40px;" type="text m" class="form-control"
+                  id="exampleInputEmail1" ng-model="bill.email" aria-describedby="emailHelp">
+              </div>
 
             </div>
 
@@ -506,7 +519,7 @@
       <div class="card p-3 shadow">
         <!-- bread crumbs -->
 
-        <div  style="   
+        <div style="   
              margin-left: auto;
              margin-right: auto;
              width: 40%;
@@ -522,8 +535,7 @@
           <button style="    
       position: relative;
       top: -25px;
-      font-size: 16px;" class="btn btn-primary" 
-            ng-click="createOrderWait()">
+      font-size: 16px;" class="btn btn-primary" ng-click="createOrderWait()">
             <i class="ti ti-plus"></i>
             Tạo hóa đơn
           </button>
@@ -618,7 +630,21 @@
                   {{product.soLuongTon}}
                 </td>
                 <td class="border-bottom-0">
-                  {{formatToVND(product.donGia)}}
+                  <span style="
+                      display: inline-block;
+                      color: red;
+                      font-size: 12px;
+                      font-weight: 800;
+                      ">{{formatToVND(product.idDotGiamGia == null ? product.donGia : (100 -
+                    product.idDotGiamGia.phanTramGiam) * product.donGia / 100)}}</span>
+                  <span style="
+                      display: inline-block;
+                      color: rgb(150, 150, 150);
+                      font-size: 10px;
+                      font-weight: 800;
+                      text-decoration: line-through;
+                      " ng-if="billDetail.idSanPhamChiTiet.idDotGiamGia != null">{{formatToVND(product.donGia)}}</span>
+
                 </td>
                 <td class="border-bottom-0">
                   <button class="btn btn-primary" ng-click="addProductToBill(product)">Chọn</button>
