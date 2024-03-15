@@ -393,15 +393,37 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
                     $scope.loadBills()
-                    axios.post('http://localhost:8080/history/add', {
-                        'trangThai': $scope.bill.trangThai,
-                        'ghiChu': $scope.bill.ghiChu,
-                        'hoaDon': response.data
-                    }).then(function (response) {
 
-                    }).catch(function (error) {
-                        console.log(error);
-                    })
+                    if($scope.bill.loaiHoaDon == 0){
+                        axios.post('http://localhost:8080/history/add', {
+                            'trangThai': 4,
+                            'ghiChu': $scope.bill.ghiChu,
+                            'hoaDon': response.data
+                        }).then(function (response) {
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                    }else{
+                        axios.post('http://localhost:8080/history/add', {
+                            'trangThai': 1,
+                            'ghiChu': $scope.bill.ghiChu,
+                            'hoaDon': response.data
+                        }).then(function (response) {
+                           
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                        axios.post('http://localhost:8080/history/add', {
+                            'trangThai': 2,
+                            'ghiChu': $scope.bill.ghiChu,
+                            'hoaDon': response.data
+                        }).then(function (response) {
+    
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                    }
+                   
                     toastr.success("Tạo hóa đơn thành công.");
                     setTimeout(function () {
                         location.href = "/html/router.html#!/hoa-don"
