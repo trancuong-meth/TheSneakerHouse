@@ -9,7 +9,7 @@ public interface BillStateResponce {
 
     @Value("#{target.trang_thai}")
     Integer getTrangThai();
-
-    @Value("#{target.so_luong}")
-    Integer getSoLuong();
+    
+        @Value("#{target.so_luong}")
+        Integer getSoLuong();
 }

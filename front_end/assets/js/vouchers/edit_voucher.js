@@ -75,8 +75,8 @@ main_app.controller("editVoucherController", function($scope, $http, $routeParam
             return; 
         }
 
-        if($scope.voucher.ngayBatDau < today){
-            toastr.error('Ngày bắt đầu phải lớn hơn ngày hôm nay')
+        if($scope.voucher.ngayKetThuc < today){
+            toastr.error('Ngày kết thúc phải lớn hơn ngày hôm nay')
             return;
         }
         

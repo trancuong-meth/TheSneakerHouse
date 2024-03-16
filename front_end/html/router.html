@@ -76,6 +76,15 @@
               </a>
             </li>
 
+            <li class="sidebar-item" onclick="removeOption()">
+              <a class="sidebar-link" aria-expanded="false" href="#!hoa-don">
+                <span>
+                  <i class="ti ti-truck-return"></i>
+                </span>
+                <span class="hide-menu">Trả hàng</span>
+              </a>
+            </li>
+
             <li class="OptionContainer sidebar-item">
               <a class="OptionHead sidebar-link" onclick="ToggleOption(this)" style="cursor: pointer;">
                 <div style="display: flex;">
@@ -364,6 +373,9 @@
 
         // point of sale
         .when("/ban-hang", { templateUrl: "bills/point_of_sale.html", controller: "pointOfSaleController" })
+
+        // refund
+        .when("/hoan-tien", { templateUrl: "refunds/refund.html", controller: "refundController" })
 
         // mặc định 
         .otherwise({ redirectTo: "/thong-ke" })

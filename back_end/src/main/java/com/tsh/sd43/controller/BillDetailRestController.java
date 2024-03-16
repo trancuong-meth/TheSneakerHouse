@@ -43,4 +43,5 @@ public class BillDetailRestController {
             throw new RuntimeException(e);
         }
     }
+
 }

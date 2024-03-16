@@ -67,4 +67,13 @@ public class ProductDetailRestController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/get-product-detail-by-id-sale/{id}")
+    public ResponseEntity<?> getProductDetalByIdSale(@PathVariable("id")Long id){
+        try{
+            return new ResponseEntity<>(sanPhamChiTietService.getProductDetailByIDSale(id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

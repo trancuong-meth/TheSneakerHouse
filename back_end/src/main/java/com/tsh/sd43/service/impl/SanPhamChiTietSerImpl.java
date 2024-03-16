@@ -1,5 +1,6 @@
 package com.tsh.sd43.service.impl;
 
+import com.tsh.sd43.entity.DotGiamGia;
 import com.tsh.sd43.entity.SanPham;
 import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.TheLoai;
@@ -71,4 +72,13 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
     public SanPhamChiTiet addSale(SanPhamChiTiet req){
         return sanPhamChiTietRepo.save(req);
     }
+
+    public ArrayList<SanPhamChiTiet> getProductDetailByIDSale(Long id){
+        try{
+            return sanPhamChiTietRepo.getProductDetailByIdSale(id);
+        }catch (Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
 }

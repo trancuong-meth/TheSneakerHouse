@@ -1,5 +1,6 @@
 package com.tsh.sd43.repository;
 
+import com.tsh.sd43.entity.DotGiamGia;
 import com.tsh.sd43.entity.SanPhamChiTiet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,5 +50,10 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
                                                @Param("idTheLoai") String idTheLoai,
                                                @Param("key") String key,
                                                Pageable pageable);
+
+    @Query(value = """
+        select * from san_pham_chi_tiet where deleted = 1 and id_dot_giam_gia    = :id
+        """, nativeQuery = true)
+    ArrayList<SanPhamChiTiet> getProductDetailByIdSale(@Param("id") Long id);
 
 }

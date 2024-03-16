@@ -32,4 +32,5 @@ public interface IDotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
         select top 1 ma from dot_giam_gia order by ngay_tao desc
     """, nativeQuery = true)
     String generateNewestCode();
+
 }
