@@ -806,11 +806,9 @@
             <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Số lượng</h6>
           </th>
           <th class="border-bottom-0 text-center" style="width: 17%;">
-            <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Tổng tiền</h6>
+            <h6 class="fw-semibold mb-0">Tổng tiền</h6>
           </th>
-          <th class="border-bottom-0 text-center">
-            <h6 class="fw-semibold mb-0">Thao tác</h6>
-          </th>
+          
         </tr>
       </thead>
       <tbody>
@@ -900,11 +898,6 @@
             (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
             billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia *
             billDetail.soLuong / 100)}}
-          </td>
-          <td class="border-bottom-0">
-            <i class="ti ti-trash-x-filled" ng-click="removeBillDetailByBillAndProductDetail(billDetail.id)" style="    
-              font-size: 23px;
-              color: #d11a2a;"></i>
           </td>
         </tr>
 
