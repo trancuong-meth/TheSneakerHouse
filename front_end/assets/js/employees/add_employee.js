@@ -36,64 +36,76 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
 
     $scope.addEmployee = function () {
 
-        axios.post("http://localhost:8080/cloudinary/upload",
-            file,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
-            })
-            .then((res) => {
-                $scope.employee.avatar = res.data.secure_url
+        if ($scope.employee.ten === "" ||
+            $scope.employee.ngaySinh === ""
+            || $scope.employee.cccd === ""
+            || $scope.employee.gioiTinh === ""
+            || $scope.employee.email === ""
+            || $scope.employee.soDienThoai === ""
+            || $scope.employee.maTinh === ""
+            || $scope.employee.maPhuong === ""
+            || $scope.employee.maXa === ""
+            || $scope.employee.diaChi === "") {
+            toastr.error('Bạn phải nhập đầy các trường có trên form ')
+            return;
+        }
 
-                if ($scope.employee.ten === "" ||
-                    $scope.employee.ngaySinh === ""
-                    || $scope.employee.cccd === ""
-                    || $scope.employee.gioiTinh === ""
-                    || $scope.employee.email === ""
-                    || $scope.employee.soDienThoai === ""
-                    || $scope.employee.maTinh === ""
-                    || $scope.employee.maPhuong === ""
-                    || $scope.employee.maXa === ""
-                    || $scope.employee.diaChi === ""
-                    || $scope.employee.avatar === "") {
-                    toastr.error('Bạn phải nhập đầy các trường có trên form ')
-                    return;
-                }
+        if ($scope.employee.ngaySinh > today) {
+            toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
+            return;
+        }
 
-                if ($scope.employee.ngaySinh > today) {
-                    toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
-                    return;
-                }
+        if ($scope.employee.cccd.length != 12) {
+            toastr.error('Nhập đủ 12 số căn cước công dân')
+            return;
+        }
 
-                if ($scope.employee.cccd.length != 12) {
-                    toastr.error('Nhập đủ 12 số căn cước công dân')
-                    return;
-                }
+        if (!email_regex.test($scope.employee.email)) {
+            toastr.error('Bạn phải nhập đúng định dạng email')
+            return;
+        }
 
-                if (!email_regex.test($scope.employee.email)) {
-                    toastr.error('Bạn phải nhập đúng định dạng email')
-                    return;
-                }
+        if (!phone_regex.test($scope.employee.soDienThoai)) {
+            toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
+            return;
+        }
 
-                if (!phone_regex.test($scope.employee.soDienThoai)) {
-                    toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
-                    return;
-                }
+        Swal.fire({
+            title: "Xác nhận tạo nhân viên này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post("http://localhost:8080/cloudinary/upload",
+                file,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
 
-                axios.post("http://localhost:8080/employee/add", $scope.employee)
-                    .then((res) => {
-                        toastr.success('Bạn tạo thành công nhân viên này!!!');
-                    })
-                    .catch((error) => console.error("Error:", error));
-
-                setTimeout(() => {
-                    location.href = "/html/router.html#!/nhan-vien"
-                }, 400)
-
-            })
-            .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
-
+                    $scope.employee.avatar = res.data.secure_url
+    
+                    axios.post("http://localhost:8080/employee/add", $scope.employee)
+                        .then((res) => {
+                            toastr.success('Bạn tạo thành công nhân viên này!!!');
+                        })
+                        .catch((error) => console.error("Error:", error));
+    
+                    setTimeout(() => {
+                        location.href = "/html/router.html#!/nhan-vien"
+                    }, 400)
+    
+                })
+                .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
+    
+            }
+        })       
     }
 
     // FAST DELIVERY
@@ -164,13 +176,13 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
 
         // remove child districts
         var old_options = selectDistrict.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectDistrict.removeChild(old_options[i]);
         }
 
         // remove child wards
         var old_options = selectWardCode.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectWardCode.removeChild(old_options[i]);
         }
 
@@ -209,7 +221,7 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
 
         // remove child
         var old_options = selectWardCode.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectWardCode.removeChild(old_options[i]);
         }
 

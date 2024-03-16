@@ -76,8 +76,8 @@ main_app.controller("addVoucherController", function($scope, $http){
             return; 
         }
 
-        if($scope.voucher.date_start < today){
-            toastr.error('Ngày bắt đầu phải lớn hơn ngày hôm nay')
+        if($scope.voucher.date_end < today){
+            toastr.error('Ngày kết thúc phải lớn hơn ngày hôm nay')
             return;
         }
         
@@ -91,17 +91,31 @@ main_app.controller("addVoucherController", function($scope, $http){
             ngayBatDau : $scope.voucher.date_start,
             ngayKetThuc : $scope.voucher.date_end
         }
-        axios.post('http://localhost:8080/voucher/add-voucher', data).then(
-            (response) => {
-                toastr.success('Bạn đã tạo voucher thành công')
-                setTimeout(() => {
-                    location.href = "/html/router.html#!/phieu-giam-gia"
-                }, 400)
+
+        Swal.fire({
+            title: "Xác nhận tạo phiếu giảm giá này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post('http://localhost:8080/voucher/add-voucher', data).then(
+                    (response) => {
+                        toastr.success('Bạn đã tạo voucher thành công')
+                        setTimeout(() => {
+                            location.href = "/html/router.html#!/phieu-giam-gia"
+                        }, 400)
+                    }
+                ).catch((error) => {
+                    console.log(error)
+                    toastr.error('Đã có lỗi xảy ra.Vui lòng liên hệ quản trị viên')
+                });
             }
-        ).catch((error) => {
-            console.log(error)
-            toastr.error('Đã có lỗi xảy ra.Vui lòng liên hệ quản trị viên')
         });
+       
         
     }
 

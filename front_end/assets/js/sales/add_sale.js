@@ -306,8 +306,8 @@ main_app.controller("addSaleController", function ($scope, $http) {
             return;
         }
 
-        if ($scope.sale.ngayBatDau < today) {
-            toastr.error('Ngày bắt đầu phải lớn hơn ngày hôm nay')
+        if ($scope.sale.ngayKetThuc < today) {
+            toastr.error('Ngày kết thúc phải lớn hơn ngày hôm nay')
             return;
         }
 
@@ -316,32 +316,44 @@ main_app.controller("addSaleController", function ($scope, $http) {
             return;
         }
 
-        axios.post('http://localhost:8080/dot-giam-gia/add-sale', $scope.sale).then(
-            (response) => {
-                for (var i = 0; i < $scope.productDetailChooses.length; i++) {
-                    $scope.productDetailChooses[i].idDotGiamGia = response.data
-                    $scope.productDetailChooses[i].giaTriGiam = (100 - $scope.sale.phanTramGiam) * $scope.productDetailChooses[i].donGia / 100
-                    axios.post("http://localhost:8080/product-detail/add-sale", $scope.productDetailChooses[i]).then(
-                        function (response) {
-
+        Swal.fire({
+            title: "Xác nhận tạo đợt giảm giá này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post('http://localhost:8080/dot-giam-gia/add-sale', $scope.sale).then(
+                    (response) => {
+                        for (var i = 0; i < $scope.productDetailChooses.length; i++) {
+                            $scope.productDetailChooses[i].idDotGiamGia = response.data
+                            $scope.productDetailChooses[i].giaTriGiam = (100 - $scope.sale.phanTramGiam) * $scope.productDetailChooses[i].donGia / 100
+                            axios.post("http://localhost:8080/product-detail/add-sale", $scope.productDetailChooses[i]).then(
+                                function (response) {
+        
+                                }
+                            ).catch((error) => {
+                                console.log(error)
+                            })
+        
+                            if (i === $scope.productDetailChooses.length - 1) {
+                                location.href = "/html/router.html#!/dot-giam-gia"
+                                toastr.success('Bạn đã tạo đợt giảm giá thành công')
+        
+                            }
+        
                         }
-                    ).catch((error) => {
-                        console.log(error)
-                    })
-
-                    if (i === $scope.productDetailChooses.length - 1) {
-                        location.href = "/html/router.html#!/dot-giam-gia"
-                        toastr.success('Bạn đã tạo đợt giảm giá thành công')
-
                     }
-
-                }
+                ).catch((error) => {
+                    console.log(error)
+                    toastr.error('Đã có lỗi xảy ra.Vui lòng liên hệ quản trị viên')
+                });         
             }
-        ).catch((error) => {
-            console.log(error)
-            toastr.error('Đã có lỗi xảy ra.Vui lòng liên hệ quản trị viên')
-        });
-
+        })
+       
     }
 
 })

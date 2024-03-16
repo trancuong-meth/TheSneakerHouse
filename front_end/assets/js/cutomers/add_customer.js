@@ -31,65 +31,78 @@ main_app.controller("addCustomerController", function ($scope, $http) {
 
     $scope.addCustomer = function () {
 
-        axios.post("http://localhost:8080/cloudinary/upload",
-            file,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
-            })
-            .then((res) => {
-                $scope.customer.avatar = res.data.secure_url
+        if ($scope.customer.ten === "" ||
+            $scope.customer.ngaySinh === ""
+            || $scope.customer.cccd === ""
+            || $scope.customer.gioiTinh === ""
+            || $scope.customer.email === ""
+            || $scope.customer.soDienThoai === ""
+            || $scope.customer.maTinh === ""
+            || $scope.customer.maPhuong === ""
+            || $scope.customer.maXa === ""
+            || $scope.customer.diaChi === "") {
+            toastr.error('Bạn phải nhập đầy các trường có trên form ')
+            return;
+        }
 
-                if ($scope.customer.ten === "" ||
-                    $scope.customer.ngaySinh === ""
-                    || $scope.customer.cccd === ""
-                    || $scope.customer.gioiTinh === ""
-                    || $scope.customer.email === ""
-                    || $scope.customer.soDienThoai === ""
-                    || $scope.customer.maTinh === ""
-                    || $scope.customer.maPhuong === ""
-                    || $scope.customer.maXa === ""
-                    || $scope.customer.diaChi === ""
-                    || $scope.customer.avatar === "") {
-                    toastr.error('Bạn phải nhập đầy các trường có trên form ')
-                    return;
-                }
+        if ($scope.customer.ngaySinh > today) {
+            toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
+            return;
+        }
 
-                if ($scope.customer.ngaySinh > today) {
-                    toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
-                    return;
-                }
+        if ($scope.customer.cccd.length != 12) {
+            toastr.error('Nhập đủ 12 số căn cước công dân')
+            return;
+        }
 
-                if ($scope.customer.cccd.length != 12) {
-                    toastr.error('Nhập đủ 12 số căn cước công dân')
-                    return;
-                }
+        if (!email_regex.test($scope.customer.email)) {
+            toastr.error('Bạn phải nhập đúng định dạng email')
+            return;
+        }
 
-                if (!email_regex.test($scope.customer.email)) {
-                    toastr.error('Bạn phải nhập đúng định dạng email')
-                    return;
-                }
+        if (!phone_regex.test($scope.customer.soDienThoai)) {
+            toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
+            return;
+        }
 
-                if (!phone_regex.test($scope.customer.soDienThoai)) {
-                    toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
-                    return;
-                }
-
-                axios.post("http://localhost:8080/customer/add", $scope.customer)
-                    .then((res) => {
-                        toastr.success('Bạn đã tạo thành công khách hàng');
-                    })
-                    .catch((error) => console.error("Error:", error));
-
-                setTimeout(() => {
-                    location.href = "/html/router.html#!/khach-hang"
-                }, 400)
-
-            })
-            .catch((error) => {
-                toastr.error('Bạn phải chọn ảnh đại diện');
-            });
+        Swal.fire({
+            title: "Xác nhận tạo khách hàng này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) { 
+                axios.post("http://localhost:8080/cloudinary/upload",
+                file,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
+                    $scope.customer.avatar = res.data.secure_url
+    
+    
+                    axios.post("http://localhost:8080/customer/add", $scope.customer)
+                        .then((res) => {
+                            toastr.success('Bạn đã tạo thành công khách hàng');
+                        })
+                        .catch((error) => console.error("Error:", error));
+    
+                    setTimeout(() => {
+                        location.href = "/html/router.html#!/khach-hang"
+                    }, 400)
+    
+                })
+                .catch((error) => {
+                    toastr.error('Bạn phải chọn ảnh đại diện');
+                });
+            }
+        })
+     
     }
 
     // FAST DELIVERY
@@ -160,13 +173,13 @@ main_app.controller("addCustomerController", function ($scope, $http) {
 
         // remove child districts
         var old_options = selectDistrict.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectDistrict.removeChild(old_options[i]);
         }
 
         // remove child wards
         var old_options = selectWardCode.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectWardCode.removeChild(old_options[i]);
         }
 
@@ -205,7 +218,7 @@ main_app.controller("addCustomerController", function ($scope, $http) {
 
         // remove child
         var old_options = selectWardCode.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectWardCode.removeChild(old_options[i]);
         }
 

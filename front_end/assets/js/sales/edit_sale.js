@@ -350,45 +350,56 @@ main_app.controller("editSaleController", function ($scope, $http, $routeParams)
             }
         })
 
-        axios.put('http://localhost:8080/dot-giam-gia/edit-sale', $scope.sale).then(
-            (response) => {
-                $scope.oldProductDetails.forEach(x => {
-                    x.idDotGiamGia = null
-                    x.giaTriGiam = 0
-                    axios.post("http://localhost:8080/product-detail/add-sale", x).then(
-                        function (response) {
+        Swal.fire({
+            title: "Xác nhận thay đổi đợt giảm giá này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.put('http://localhost:8080/dot-giam-gia/edit-sale', $scope.sale).then(
+                    (response) => {
+                        $scope.oldProductDetails.forEach(x => {
+                            x.idDotGiamGia = null
+                            x.giaTriGiam = 0
+                            axios.post("http://localhost:8080/product-detail/add-sale", x).then(
+                                function (response) {
+                                }
+                            ).catch((error) => {
+                                console.log(error)
+                            })
+                        })
+        
+                        $scope.oldProductDetails = [] // reset product and show notification
+        
+                        for (var i = 0; i < $scope.productDetailChooses.length; i++) {
+                            $scope.productDetailChooses[i].idDotGiamGia = response.data
+                            $scope.productDetailChooses[i].giaTriGiam = (100 - $scope.sale.phanTramGiam) * $scope.productDetailChooses[i].donGia / 100
+                            axios.post("http://localhost:8080/product-detail/add-sale", $scope.productDetailChooses[i]).then(
+                                function (response) {
+        
+                                }
+                            ).catch((error) => {
+                                console.log(error)
+                            })
                         }
-                    ).catch((error) => {
-                        console.log(error)
-                    })
-                })
-
-                $scope.oldProductDetails = [] // reset product and show notification
-
-                for (var i = 0; i < $scope.productDetailChooses.length; i++) {
-                    $scope.productDetailChooses[i].idDotGiamGia = response.data
-                    $scope.productDetailChooses[i].giaTriGiam = (100 - $scope.sale.phanTramGiam) * $scope.productDetailChooses[i].donGia / 100
-                    axios.post("http://localhost:8080/product-detail/add-sale", $scope.productDetailChooses[i]).then(
-                        function (response) {
-
+        
+                        $scope.productDetailChooses = [] // reset product detail and show notification
+        
+                        if($scope.oldProductDetails.length == 0 && $scope.productDetailChooses.length == 0){
+                            toastr.success('Thay đổi đợt giảm giá thành công')
+                            location.href = "/html/router.html#!/dot-giam-gia"
                         }
-                    ).catch((error) => {
-                        console.log(error)
-                    })
-                }
-
-                $scope.productDetailChooses = [] // reset product detail and show notification
-
-                if($scope.oldProductDetails.length == 0 && $scope.productDetailChooses.length == 0){
-                    toastr.success('Thay đổi đợt giảm giá thành công')
-                    location.href = "/html/router.html#!/dot-giam-gia"
-                }
+                    }
+                ).catch((error) => {
+                    console.log(error)
+                    toastr.error('Đã có lỗi xảy ra.Vui lòng liên hệ quản trị viên')
+                });
             }
-        ).catch((error) => {
-            console.log(error)
-            toastr.error('Đã có lỗi xảy ra.Vui lòng liên hệ quản trị viên')
-        });
-
+        })
     }
 
 })

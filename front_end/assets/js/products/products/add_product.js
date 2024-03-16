@@ -534,58 +534,71 @@ main_app.controller("addProductController", function ($scope, $http) {
             return;
         }
 
-        axios.post('http://localhost:8080/product/add', $scope.product)
-            .then(function (response) {
-                for (var i = 0; i < $scope.productDetails.length; i++) {
-                    $scope.productDetails[i].product = response.data
-                    axios.post('http://localhost:8080/product-detail/add', {
-                        "soLuongTon": $scope.productDetails[i].quantity,
-                        "donGia": $scope.productDetails[i].price,
-                        "idMauSac": $scope.productDetails[i].color,
-                        "idKichCo": $scope.sizes.find(x => x.kichCo == $scope.productDetails[i].size),
-                        "idSanPham": response.data
-                    })
-                        .then(function (resOfProductDetail) {
-                            console.log($scope.images)
-                            var imageOfProductDetails = $scope.images.get(resOfProductDetail.data.idMauSac.id)
-                            for (var j = 0; j < imageOfProductDetails.length; j++) {
-                                const formData = new FormData();
-                                formData.append('file', imageOfProductDetails[j]);
-                                axios.post("http://localhost:8080/cloudinary/upload",
-                                    formData,
-                                    {
-                                        headers: {
-                                            'Content-Type': 'multipart/form-data',
-                                        }
-                                    })
-                                    .then((res) => {
-                                        var imageUrl = res.data.secure_url;
-                                        axios.post('http://localhost:8080/image/add', {
-                                            "duongDan": imageUrl,
-                                            "idSanPhamChiTiet": resOfProductDetail.data.id
-                                        }).then(function (res) {
-
-                                        }).catch(function (error) {
+        Swal.fire({
+            title: "Xác nhận tạo sản phẩm này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post('http://localhost:8080/product/add', $scope.product)
+                .then(function (response) {
+                    for (var i = 0; i < $scope.productDetails.length; i++) {
+                        $scope.productDetails[i].product = response.data
+                        axios.post('http://localhost:8080/product-detail/add', {
+                            "soLuongTon": $scope.productDetails[i].quantity,
+                            "donGia": $scope.productDetails[i].price,
+                            "idMauSac": $scope.productDetails[i].color,
+                            "idKichCo": $scope.sizes.find(x => x.kichCo == $scope.productDetails[i].size),
+                            "idSanPham": response.data
+                        })
+                            .then(function (resOfProductDetail) {
+                                console.log($scope.images)
+                                var imageOfProductDetails = $scope.images.get(resOfProductDetail.data.idMauSac.id)
+                                for (var j = 0; j < imageOfProductDetails.length; j++) {
+                                    const formData = new FormData();
+                                    formData.append('file', imageOfProductDetails[j]);
+                                    axios.post("http://localhost:8080/cloudinary/upload",
+                                        formData,
+                                        {
+                                            headers: {
+                                                'Content-Type': 'multipart/form-data',
+                                            }
+                                        })
+                                        .then((res) => {
+                                            var imageUrl = res.data.secure_url;
+                                            axios.post('http://localhost:8080/image/add', {
+                                                "duongDan": imageUrl,
+                                                "idSanPhamChiTiet": resOfProductDetail.data.id
+                                            }).then(function (res) {
+    
+                                            }).catch(function (error) {
+                                                console.log(error)
+                                            })
+                                        }).catch((error) => {
                                             console.log(error)
                                         })
-                                    }).catch((error) => {
-                                        console.log(error)
-                                    })
-                            }
-
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
-                }
-                toastr.success("Thêm sản phẩm mới thành công")
-
-                setTimeout(() => {
-                    location.href = "/html/router.html#!/san-pham"
-                }, 2000)
-            }).catch(function (error) {
-                console.log(error)
-                toastr.error("Tên sản phẩm đã có trong hệ thống.Vui lòng nhập sản phẩm khác")
-            })
+                                }
+    
+                            }).catch(function (error) {
+                                console.log(error)
+                            })
+                    }
+                    toastr.success("Thêm sản phẩm mới thành công")
+    
+                    setTimeout(() => {
+                        location.href = "/html/router.html#!/san-pham"
+                    }, 2000)
+                }).catch(function (error) {
+                    console.log(error)
+                    toastr.error("Tên sản phẩm đã có trong hệ thống.Vui lòng nhập sản phẩm khác")
+                })
+            }
+        });
+     
 
     }
 

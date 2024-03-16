@@ -1,4 +1,4 @@
-main_app.controller("editEmployeeController", function($scope, $http, $routeParams){
+main_app.controller("editEmployeeController", function ($scope, $http, $routeParams) {
     var id = $routeParams.id
     var today = new Date();
     var file = "";
@@ -18,9 +18,9 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
     }
 
     $http.get('http://localhost:8080/employee/get-employee/' + id).then(
-        function(res) {
+        function (res) {
             var resp = res.data
-            $scope.employee =  {
+            $scope.employee = {
                 id: resp.id,
                 ten: resp.ten,
                 ngaySinh: resp.ngaySinh,
@@ -39,7 +39,7 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
                 chucVu: Number(resp.chucVu.ma)
             }
             $scope.getAllprovideByCode($scope.employee.maPhuong, $scope.employee.maXa, $scope.employee.maTinh)
-        },function(error) {
+        }, function (error) {
             console.log('Không tìm thấy khách hàng này.Vui lòng nhập lại id!')
         }
     )
@@ -92,13 +92,13 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
 
         // remove child districts
         var old_options = selectDistrict.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectDistrict.removeChild(old_options[i]);
         }
 
         // remove child wards
         var old_options = selectWardCodeCustomer.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectWardCodeCustomer.removeChild(old_options[i]);
         }
 
@@ -137,7 +137,7 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
 
         // remove child
         var old_options = selectWardCodeCustomer.querySelectorAll("option");
-        for(var i = 1; i < old_options.length; i++) {
+        for (var i = 1; i < old_options.length; i++) {
             selectWardCodeCustomer.removeChild(old_options[i]);
         }
 
@@ -179,9 +179,9 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
     }
 
     $scope.getAllprovideByCode = function (district_code, ward_code, province_code) {
-    
+
         // const thisOrder = document.getElementById(`hoaDon${orderId}`);
-        fetch( `https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
+        fetch(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -202,7 +202,7 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
                     // option.value = options[i].ProvinceID; // Set the value of the option (you can change this to any value you want)
                     option.text = options[i].ProvinceName; // Set the text of the option
                     option.setAttribute("providecode", options[i].ProvinceID);
-                    if(province_code === String(options[i].ProvinceID)){
+                    if (province_code === String(options[i].ProvinceID)) {
                         option.selected = true;
                     }
                     selectCityCustomer.appendChild(option); // Add the option to the select element
@@ -211,8 +211,8 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
             })
             .catch((error) => console.error("Error:", error));
     }
-    
-    $scope.getAllDistrictByCode = function(ward_code, district_code, provinceCode) {
+
+    $scope.getAllDistrictByCode = function (ward_code, district_code, provinceCode) {
 
         console.log(ward_code, district_code, provinceCode)
         axios
@@ -221,21 +221,21 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
                     province_id: provinceCode,
                 },
                 headers: {
-                    Accept:  "application/json",
+                    Accept: "application/json",
                     token: token,
                 },
-    
+
             })
             .then((res) => {
                 const options = res.data.data;
                 console.log(options)
-    
+
                 for (let i = 0; i < options.length; i++) {
                     const option = document.createElement("option");
                     option.value = options[i].DistrictID; // Set the value of the option (you can change this to any value you want)
                     option.text = options[i].DistrictName; // Set the text of the option
                     option.setAttribute("districtcode", options[i].DistrictID);
-                    if(district_code === String(options[i].DistrictID)){
+                    if (district_code === String(options[i].DistrictID)) {
                         option.selected = true;
                     }
                     selectDistrict.appendChild(option); // Add the option to the select element
@@ -244,10 +244,10 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
             })
             .catch((error) => console.error("Error:", error));
     }
-    
-    $scope.getFullWardCodeByCode = function(ward_code, district_code) {
 
-        axios.get( `https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
+    $scope.getFullWardCodeByCode = function (ward_code, district_code) {
+
+        axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
             headers: {
                 Accept: "application/json",
                 token: token,
@@ -264,7 +264,7 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
                     option.value = options[i].WardCode; // Set the value of the option (you can change this to any value you want)
                     option.text = options[i].WardName; // Set the text of the option
                     option.setAttribute("WardCode", options[i].WardCode);
-                    if(ward_code === String(options[i].WardCode)){
+                    if (ward_code === String(options[i].WardCode)) {
                         option.selected = true;
                     }
                     selectWardCodeCustomer.appendChild(option); // Add the option to the select element
@@ -273,7 +273,7 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
             })
             .catch((error) => console.error("Error:", error));
     }
-    
+
     var readURL = function (input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -302,113 +302,125 @@ main_app.controller("editEmployeeController", function($scope, $http, $routePara
     $scope.updateEmployee = function () {
         $scope.employee.gioiTinh = Number($scope.employee.gioiTinh)
 
-        if(file === ""){
+        Swal.fire({
+            title: "Xác nhận thay đổi nhân viên này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (file === "") {
 
-            if ($scope.employee.ten === "" ||
-            $scope.employee.ngaySinh === ""
-            || $scope.employee.cccd === ""
-            || $scope.employee.gioiTinh === ""
-            || $scope.employee.email === ""
-            || $scope.employee.soDienThoai === ""
-            || $scope.employee.maTinh === ""
-            || $scope.employee.maPhuong === ""
-            || $scope.employee.maXa === ""
-            || $scope.employee.diaChi === ""
-            || $scope.employee.avatar === "") {
-            toastr.error('Bạn phải nhập đầy các trường có trên form ')
-            return;
-        }
-
-        if ($scope.employee.ngaySinh > today) {
-            toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
-            return;
-        }
-
-        if ($scope.employee.cccd.length != 12) {
-            toastr.error('Nhập đủ 12 số căn cước công dân')
-            return;
-        }
-
-        if (!email_regex.test($scope.employee.email)) {
-            toastr.error('Bạn phải nhập đúng định dạng email')
-            return;
-        }
-
-        if (!phone_regex.test($scope.employee.soDienThoai)) {
-            toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
-            return;
-        }
-
-        axios.put("http://localhost:8080/employee/update", $scope.employee)
-            .then((res) => {
-                toastr.success('Bạn đã thay đổi thông tin thành công!!!');
-            })
-            .catch((error) => console.error("Error:", error));
-
-        setTimeout(() => {
-            location.href = "/html/router.html#!/nhan-vien"
-        }, 400)
-
-        }else{
-
-            axios.post("http://localhost:8080/cloudinary/upload",
-            file,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
+                    if ($scope.employee.ten === "" ||
+                        $scope.employee.ngaySinh === ""
+                        || $scope.employee.cccd === ""
+                        || $scope.employee.gioiTinh === ""
+                        || $scope.employee.email === ""
+                        || $scope.employee.soDienThoai === ""
+                        || $scope.employee.maTinh === ""
+                        || $scope.employee.maPhuong === ""
+                        || $scope.employee.maXa === ""
+                        || $scope.employee.diaChi === "") {
+                        toastr.error('Bạn phải nhập đầy các trường có trên form ')
+                        return;
+                    }
+        
+                    if ($scope.employee.ngaySinh > today) {
+                        toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
+                        return;
+                    }
+        
+                    if ($scope.employee.cccd.length != 12) {
+                        toastr.error('Nhập đủ 12 số căn cước công dân')
+                        return;
+                    }
+        
+                    if (!email_regex.test($scope.employee.email)) {
+                        toastr.error('Bạn phải nhập đúng định dạng email')
+                        return;
+                    }
+        
+                    if (!phone_regex.test($scope.employee.soDienThoai)) {
+                        toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
+                        return;
+                    }
+        
+                    axios.put("http://localhost:8080/employee/update", $scope.employee)
+                        .then((res) => {
+                            toastr.success('Bạn đã thay đổi thông tin thành công!!!');
+                        })
+                        .catch((error) => console.error("Error:", error));
+        
+                    setTimeout(() => {
+                        location.href = "/html/router.html#!/nhan-vien"
+                    }, 400)
+        
+                } else {
+        
+                    if ($scope.employee.ten === "" ||
+                        $scope.employee.ngaySinh === ""
+                        || $scope.employee.cccd === ""
+                        || $scope.employee.gioiTinh === ""
+                        || $scope.employee.email === ""
+                        || $scope.employee.soDienThoai === ""
+                        || $scope.employee.maTinh === ""
+                        || $scope.employee.maPhuong === ""
+                        || $scope.employee.maXa === ""
+                        || $scope.employee.diaChi === ""
+                        || $scope.employee.avatar === "") {
+                        toastr.error('Bạn phải nhập đầy các trường có trên form ')
+                        return;
+                    }
+        
+                    if ($scope.employee.ngaySinh > today) {
+                        toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
+                        return;
+                    }
+        
+                    if ($scope.employee.cccd.length != 12) {
+                        toastr.error('Nhập đủ 12 số căn cước công dân')
+                        return;
+                    }
+        
+                    if (!email_regex.test($scope.employee.email)) {
+                        toastr.error('Bạn phải nhập đúng định dạng email')
+                        return;
+                    }
+        
+                    if (!phone_regex.test($scope.employee.soDienThoai)) {
+                        toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
+                        return;
+                    }
+        
+                    axios.post("http://localhost:8080/cloudinary/upload",
+                        file,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                            }
+                        })
+                        .then((res) => {
+                            $scope.employee.avatar = res.data.secure_url
+        
+                            axios.put("http://localhost:8080/employee/update", $scope.employee)
+                                .then((res) => {
+                                    toastr.success('Bạn đã thay đổi thông tin thành công!!!');
+                                })
+                                .catch((error) => console.error("Error:", error));
+        
+                            setTimeout(() => {
+                                location.href = "/html/router.html#!/nhan-vien"
+                            }, 400)
+        
+                        })
+                        .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
+        
                 }
-            })
-            .then((res) => {
-                $scope.employee.avatar = res.data.secure_url
-
-                if ($scope.employee.ten === "" ||
-                    $scope.employee.ngaySinh === ""
-                    || $scope.employee.cccd === ""
-                    || $scope.employee.gioiTinh === ""
-                    || $scope.employee.email === ""
-                    || $scope.employee.soDienThoai === ""
-                    || $scope.employee.maTinh === ""
-                    || $scope.employee.maPhuong === ""
-                    || $scope.employee.maXa === ""
-                    || $scope.employee.diaChi === ""
-                    || $scope.employee.avatar === "") {
-                    toastr.error('Bạn phải nhập đầy các trường có trên form ')
-                    return;
-                }
-
-                if ($scope.employee.ngaySinh > today) {
-                    toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
-                    return;
-                }
-
-                if ($scope.employee.cccd.length != 12) {
-                    toastr.error('Nhập đủ 12 số căn cước công dân')
-                    return;
-                }
-
-                if (!email_regex.test($scope.employee.email)) {
-                    toastr.error('Bạn phải nhập đúng định dạng email')
-                    return;
-                }
-
-                if (!phone_regex.test($scope.employee.soDienThoai)) {
-                    toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
-                    return;
-                }
-
-                axios.put("http://localhost:8080/employee/update", $scope.employee)
-                    .then((res) => {
-                        toastr.success('Bạn đã thay đổi thông tin thành công!!!');
-                    })
-                    .catch((error) => console.error("Error:", error));
-
-                setTimeout(() => {
-                    location.href = "/html/router.html#!/nhan-vien"
-                }, 400)
-
-            })
-            .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
-
-        }
+            }
+        });
+       
     }
 })
