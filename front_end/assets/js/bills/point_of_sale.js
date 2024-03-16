@@ -135,6 +135,8 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             .then(function (response) {
                 $scope.productDetails = response.data
                 $scope.totalItems = response.data.totalElements
+            }).catch(function (error) {
+                console.log(error)
             });
     }
 

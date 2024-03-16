@@ -737,7 +737,12 @@
       </span>
     </div>
     <div>
-      <button class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1" ng-click="addBill()">
+      <button 
+      class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1"
+       data-bs-toggle="modal"
+        data-bs-target="#productListModal"
+        ng-click="loadProductList()"
+        >
         <i class="ti ti-plus" style="
                             display: inline-block;
                             font-size: 18px;
@@ -824,24 +829,24 @@
             </div>
           </td>
           <td class="border-bottom-0" style="display: flex;justify-content: space-between;">
-            <div ng-if="bill.trangThai == 1">
+            <div ng-if="bill.trangThai == 1 || bill.trangThai == 2">
               <button class="btn btn-sm btn-outline-muted"
-                style="width: 33.3%;border-radius: 0px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;"
+                style="width: 33.3%;border-radius: 0px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 40px;"
                 ng-click="minusQuantity(billDetail)">
-                <i class="ti ti-minus" style="font-size: 14px;"></i>
+                <i class="ti ti-minus" style="font-size: 12px;"></i>
               </button>
               <input type="number" class="btn btn-sm btn-outline-muted text-center"
-                style="width: 33%;height: 40px;border-radius: 0;border-left: 0px;border-right: 0px;font-size: 14px;"
+                style="width: 29.3%;height: 40px;border-radius: 0;border-left: 0px;border-right: 0px;font-size: 14px;"
                 ng-model="billDetail.soLuong" ng-change="changeQuantity(billDetail)" disabled
                 id="bill-detail-quantity-{{billDetail.id}}">
               <button class="btn btn-sm btn-outline-muted"
-                style="width: 33%;border-radius: 0px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
+                style="width: 33%;border-radius: 0px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;height: 40px;"
                 ng-click="plusQuantity(billDetail)">
-                <i class="ti ti-plus" style="font-size: 14px;"></i>
+                <i class="ti ti-plus" style="font-size: 12px;"></i>
               </button>
             </div>
 
-            <div ng-if="bill.trangThai == 4" style="text-align: center;margin-left: 54px;">
+            <div ng-if="bill.trangThai == 4 || bill.trangThai == 3" style="text-align: center;margin-left: 54px;">
               <button class="btn btn-outline-muted" disabled>{{billDetail.soLuong}}</button>
             </div>
 
@@ -1284,6 +1289,127 @@
           Xác nhận
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- list product -->
+<div class="modal fade" id="productListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 900px;
+             top: -4px;
+             left: -147px;">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Chọn sản phẩm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%)">
+              <tr>
+                <th style="width: 7%;">
+                  <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">#</h6>
+                </th>
+                <th class="border-bottom-0" style="width: 45%;">
+                  <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Sản phẩm</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Số lượng</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Giá bán</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Thao tác</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="product in listProducts.content">
+                <td class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
+                </td>
+                <td class="border-bottom-0">
+                  <img ng-repeat="image in getAllImagesByIDProductDetail(product.id)" src="{{image.duongDan}}"
+                    style="width: 100px;height: 100px;">
+                  <div style="justify-content: space-between;display: flex;">
+                    <div id="image-{{product.id}}" style="width: 40%;">
+                    </div>
+
+                    <div style="width: 58%;">
+                      <span style="
+                          display: inline-block;
+                          color: #333;
+                          font-size: 14px;
+                          font-weight: 600;
+                          transform: translateY(-7px);
+                          ">{{product.idSanPham.ten}}[{{product.idMauSac.ten}} - {{product.idKichCo.kichCo}}]</span>
+
+                      <div style="display: flex;font-size: 11px;transform: translateY(-4px);">
+                        <span>Màu: {{product.idMauSac.ten}}</span>
+                        <span style="margin-left: 10px;">Kích cỡ: {{product.idKichCo.kichCo}}</span>
+                      </div>
+
+                      <div style="display: flex;font-size: 11px;transform: translateY(-4px);">
+                        <span>Thương hiệu: {{product.idSanPham.idThuongHieu.ten}}</span>
+                      </div>
+
+                      <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 0">
+                        <span class="badge bg-danger rounded-3 fw-semibold" style="    
+                                  padding: 10px;
+                                  font-size: 8px;">Ngừng kinh doanh</span>
+                      </div>
+
+                      <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 1" "
+                      >
+                        <span class=" badge bg-primary rounded-3 fw-semibold" style="    
+                                padding: 10px;
+                                font-size: 8px;">Đang kinh doanh</span>
+                      </div>
+
+                    </div>
+                  </div>
+                </td>
+                <td class="border-bottom-0">
+                  {{product.soLuongTon}}
+                </td>
+                <td class="border-bottom-0">
+                  <span style="
+                      display: inline-block;
+                      color: red;
+                      font-size: 12px;
+                      font-weight: 800;
+                      ">{{formatToVND(product.idDotGiamGia == null ? product.donGia : (100 -
+                    product.idDotGiamGia.phanTramGiam) * product.donGia / 100)}}</span>
+                  <span style="
+                      display: inline-block;
+                      color: rgb(150, 150, 150);
+                      font-size: 10px;
+                      font-weight: 800;
+                      text-decoration: line-through;
+                      " ng-if="billDetail.idSanPhamChiTiet.idDotGiamGia != null">{{formatToVND(product.donGia)}}</span>
+
+                </td>
+                <td class="border-bottom-0">
+                  <button class="btn btn-primary" ng-click="addProductToBill(product)">Chọn</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <span ng-show="numPages!=0">
+          <uib-pagination items-per-page="itemsPerPage" total-items="totalItems" ng-model="currentPage"
+            class="pagination-sm" previous-text="‹" next-text="›" first-text="«" last-text="»" style="
+                width: 16%;
+                margin-left: auto;
+                margin-right: auto;
+                " max-size="3" ng-change="pageChanged()"></uib-pagination>
+        </span>
+      </div>
+
     </div>
   </div>
 </div>

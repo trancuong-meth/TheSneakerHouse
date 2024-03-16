@@ -2,14 +2,17 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     var id = $routeParams.id
     var today = new Date();
     var file = "";
+
+    // bill
     $scope.bill = {}
     $scope.billDetails = []
     $scope.history = []
+    $scope.listProducts = []
 
-    // pagination
-    $scope.currentPageBillDetails = 1;
-    $scope.itemsPerPageBillDetails = 10;
-    $scope.totalItemBillDetails = 0;
+    // panigation
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = 5;
+    $scope.totalItems = 0;
 
     // history
     $scope.billState1 = {}
@@ -46,6 +49,20 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             function (response) {
                 $scope.billDetails = response.data
                 $scope.totalItemBillDetails = response.data.totalElements
+                $scope.bill.tongTien = 0
+                for (var i = 0; i < $scope.billDetails.content.length; i++) {
+                    if ($scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia == null) {
+                        $scope.bill.tongTien += Number($scope.billDetails.content[i].idSanPhamChiTiet.donGia) * Number($scope.billDetails.content[i].soLuong)
+                    } else {
+                        $scope.bill.tongTien += Number((100 - $scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * $scope.billDetails.content[i].idSanPhamChiTiet.donGia / 100) * Number($scope.billDetails.content[i].soLuong)
+                    }
+                }
+                $scope.bill.tongTienSauGiam = Number($scope.bill.tongTien)
+                if ($scope.bill.idVoucher != null) {
+                    $scope.bill.tongTienSauGiam = Number(100 - $scope.bill.idVoucher.phanTramGiam) * $scope.bill.tongTienSauGiam / 100
+                }
+
+                $scope.bill.tongTienSauGiam = $scope.bill.tongTien + Number($scope.bill.phiVanChuyen == null || $scope.bill.phiVanChuyen == "" ? 0 : $scope.bill.phiVanChuyen)
             }
         ).catch(function (error) {
             console.log(error)
@@ -361,7 +378,6 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             })
             .catch((error) => console.error("Error:", error));
     }
-
 
     $scope.getAllprovideByCode = function (district_code, ward_code, province_code) {
 
@@ -704,10 +720,107 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             toastr.success("Thay đổi thông tin khách hàng thành công.");
             modal.hide()
         })
-        .catch(function (response) {
-            $scope.loadBills()
+            .catch(function (response) {
+                $scope.loadBills()
+            })
+
+    }
+
+    $scope.minusQuantity = function (billDetail) {
+        var quantityHtml = document.getElementById("bill-detail-quantity-" + billDetail.id)
+        quantityHtml.value = Number(quantityHtml.value) - 1
+        if (quantityHtml.value == 0) {
+            $scope.removeBillDetailByBillAndProductDetail(billDetail.id)
+        } else {
+            $scope.addProductToBillApi(billDetail.idSanPhamChiTiet, $scope.bill, quantityHtml.value)
+        }
+
+    }
+
+    $scope.plusQuantity = function (billDetail) {
+        var quantityHtml = document.getElementById("bill-detail-quantity-" + billDetail.id)
+        quantityHtml.value = Number(quantityHtml.value) + 1
+        $scope.addProductToBillApi(billDetail.idSanPhamChiTiet, $scope.bill, quantityHtml.value)
+    }
+
+    $scope.removeBillDetailByBillAndProductDetail = function (billDetailId) {
+        axios.delete('http://localhost:8080/bill-detail/remove-by-id/' + billDetailId).then(function (response) {
+            $scope.loadProductDetailByBillId($scope.bill)
+        }).catch(function (response) {
+            $scope.loadProductDetailByBillId($scope.bill)
+        })
+    }
+
+    $scope.loadBillDetail = () =>{
+        setTimeout(() => {
+            axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+            }).catch(function (response) {
+            })
+        }, 200)
+    }
+
+    $scope.addProductToBillApi = function (productDetail, bill, quantity) {
+
+        $http.post('http://localhost:8080/bill-detail/add-product-to-bill', {
+            'hoaDon': bill,
+            'sanPhamChiTiet': productDetail,
+            'soLuong': quantity
+        }).then(function (response) {
+            // check gia tri toi thieu voucher 
+            if ($scope.bill.idVoucher !== null) {
+                if (quantity * productDetail.donGia < $scope.bill.idVoucher.giaTriToiThieu) {
+                    $scope.removeVoucher();
+                }
+            }
+
+            setTimeout(() => {
+                $scope.loadBill()
+            }, 100)
+
+            $scope.loadBillDetail()
+
+        }).catch(function (error) {
+            console.log(error);
+            toastr.error(error);
         })
 
     }
+
+    $scope.removeVoucher = function () {
+        axios.put('http://localhost:8080/bill/add-voucher-to-bill', {
+            'voucher': null,
+            'hoaDon': $scope.bill
+        }).then(function (response) {
+            toastr.success("Xóa voucher thành công.");
+        }).catch(function (response) {
+            console.log(response.data)
+        })
+    }
+
+    $scope.loadProductList = function () {
+        $http.get('http://localhost:8080/product-detail/get-all?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage,)
+            .then(function (response) {
+                $scope.listProducts = response.data
+                $scope.totalItems = response.data.totalElements
+            }).catch(function (error) {
+                console.log(error)
+            });
+    }
+
+    $scope.pageChanged = function () {
+        $http.get('http://localhost:8080/product-detail/get-all?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage,)
+            .then(function (response) {
+                $scope.productDetails = response.data
+            });
+    };
+
+    $scope.addProductToBill = function (productDetail) {
+        var brandModal = document.querySelector("#productListModal")
+        var addModal = bootstrap.Modal.getOrCreateInstance(brandModal)
+        $scope.addProductToBillApi(productDetail, $scope.bill, -1)
+        $scope.loadBillDetail()
+        addModal.hide()
+    }
+
 
 })
