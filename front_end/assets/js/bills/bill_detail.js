@@ -260,8 +260,8 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             selectWardCodeCustomer.removeChild(old_options[i]);
         }
 
-        $scope.customer.maTinh = provinceid
-        $scope.customer.tinh = selectedOption.textContent
+        $scope.bill.maTinh = provinceid
+        $scope.bill.tinh = selectedOption.textContent
 
         axios
             .get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district`, {
@@ -299,8 +299,8 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             selectWardCodeCustomer.removeChild(old_options[i]);
         }
 
-        $scope.customer.maPhuong = districtid;
-        $scope.customer.phuong = selectedOption.textContent
+        $scope.bill.maPhuong = districtid;
+        $scope.bill.phuong = selectedOption.textContent
 
         axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
             headers: {
@@ -325,16 +325,43 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             .catch((error) => console.error("Error:", error));
     }
 
-    $scope.selectWard = function () {
+    // GET FEE SHIPPING
+    $scope.getFeeShipping = () => {
+        const district_selected = selectDistrict.options[selectDistrict.selectedIndex];
+        const district_attribute = district_selected.getAttribute("districtcode");
+        const id_district = district_attribute;
+
         const ward_selected = selectWardCodeCustomer.options[selectWardCodeCustomer.selectedIndex];
         const ward_attribute = ward_selected.getAttribute("WardCode");
         const code_ward = ward_attribute;
 
-        $scope.customer.maXa = code_ward
-        $scope.customer.xa = ward_selected.textContent
+        $scope.bill.maXa = code_ward
+        $scope.bill.xa = ward_selected.textContent
 
-        console.log($scope.customer)
+        axios.get(
+            "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+            {
+                params: {
+                    from_district_id: shopDistrictId,
+                    from_ward_code: shopWardCode,
+                    service_id: serviceID,
+                    to_district_id: id_district,
+                    to_ward_code: code_ward,
+                    weight: 240,
+                },
+                headers: {
+                    token: token,
+                    Accept: "application/json",
+                },
+            }
+        )
+            .then((res) => {
+                $scope.bill.tongTienSauGiam = $scope.bill.tongTien + res.data.data.total
+                $scope.bill.phiVanChuyen = res.data.data.total
+            })
+            .catch((error) => console.error("Error:", error));
     }
+
 
     $scope.getAllprovideByCode = function (district_code, ward_code, province_code) {
 
@@ -427,7 +454,6 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                     }
                     selectWardCodeCustomer.appendChild(option); // Add the option to the select element
                 }
-                validateAddress()
             })
             .catch((error) => console.error("Error:", error));
     }
@@ -606,7 +632,6 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
 
     }
 
-
     $scope.shippBill = function () {
         if ($scope.bill === null) {
             toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
@@ -660,4 +685,29 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 console.log(response.data)
             })
     }
+
+    $scope.editCustomer = () => {
+        setTimeout(() => {
+            $scope.getAllprovideByCode($scope.bill.maPhuong, $scope.bill.maXa, $scope.bill.maTinh)
+            selectCityCustomer = document.getElementById("city");
+            selectDistrict = document.getElementById("district");
+            selectWardCodeCustomer = document.getElementById("ward");
+        })
+
+    }
+
+    $scope.updateCustomer = function () {
+        var customerEditModal = document.querySelector("#customerEdit")
+        var modal = bootstrap.Modal.getOrCreateInstance(customerEditModal)
+
+        axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+            toastr.success("Thay đổi thông tin khách hàng thành công.");
+            modal.hide()
+        })
+        .catch(function (response) {
+            $scope.loadBills()
+        })
+
+    }
+
 })

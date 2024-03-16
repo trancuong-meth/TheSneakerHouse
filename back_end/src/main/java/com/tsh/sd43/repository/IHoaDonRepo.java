@@ -89,7 +89,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<ProductBestSellerResponce> getTop5ProductBestSeller();
 
     @Query(value = """
-         select hd.trang_thai,sum(hdct.so_luong) as so_luong
+         select hd.trang_thai,count(hd.id) as so_luong
     	 from hoa_don as hd
     	 join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
     	 where hd.deleted = 1 and not hd.trang_thai in (0, 5)

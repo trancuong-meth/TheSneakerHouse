@@ -609,6 +609,17 @@
       <span style="color: black;display: inline-block;font-size: 16px;color: #5D87FF;font-weight: 500;">Thông tin khách
         hàng</span>
     </div>
+
+    <div>
+      <button class="btn btn-primary" ng-if="(bill.trangThai == 2 || bill.trangThai == 1) && bill.idKhachHang != null"
+        data-bs-toggle="modal" data-bs-target="#customerEdit" ng-click="editCustomer()">
+        <i class="ti ti-edit" style="
+                            display: inline-block;
+                            font-size: 18px;
+                            transform: translateY(2px);
+                        "></i>
+        Sửa khách hàng</button>
+    </div>
   </div>
 
   <div style="display: flex;justify-content: space-between;" ng-if="bill.idKhachHang != null">
@@ -725,6 +736,15 @@
         phẩm
       </span>
     </div>
+    <div>
+      <button class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1" ng-click="addBill()">
+        <i class="ti ti-plus" style="
+                            display: inline-block;
+                            font-size: 18px;
+                            transform: translateY(2px);
+                        "></i>
+        Thêm sản phẩm</button>
+    </div>
   </div>
 
   <!-- body -->
@@ -832,10 +852,10 @@
                 font-weight: 800;
                 text-align: center;
                 " class="border-bottom-0">
-             {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-              (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
-              billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia *
-              billDetail.soLuong / 100)}}
+            {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
+            (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
+            billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia *
+            billDetail.soLuong / 100)}}
           </td>
           <td class="border-bottom-0">
             <i class="ti ti-trash-x-filled" ng-click="removeBillDetailByBillAndProductDetail(billDetail.id)" style="    
@@ -968,7 +988,8 @@
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;">
                               <small> {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
                                 billDetail.idSanPhamChiTiet.donGia : (100 -
-                                billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia / 100)}}</small>
+                                billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) *
+                                billDetail.idSanPhamChiTiet.donGia / 100)}}</small>
                             </td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"
@@ -976,9 +997,10 @@
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33;  line-height: 18px;  vertical-align: top; padding:10px 0;"
                               align="right"> {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-                                (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
-                                billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia *
-                                billDetail.soLuong / 100)}}</td>
+                              (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
+                              billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) *
+                              billDetail.idSanPhamChiTiet.donGia *
+                              billDetail.soLuong / 100)}}</td>
                           </tr>
 
                           <tr>
@@ -1154,6 +1176,111 @@
               "></i>
           Đóng</button>
         <button type="button" class="btn btn-primary" ng-click="successBill()">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- customer modal -->
+<div class="modal fade" id="customerEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Sửa khách hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <div >
+          <div>
+            <label for="exampleInputEmail1" class="form-label">Tên khách hàng <sup
+                style="color: #fa0000a8;">*</sup></label>
+            <input placeholder="Nhập tên khách hàng...." style="height: 40px;" type="text" class="form-control"
+              ng-model="bill.tenNguoiNhan" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+
+          <div style=" margin-top: 20px;display: flex;justify-content: space-between;">
+            <div style="width: 48%;">
+              <label for="exampleInputEmail1" class="form-label">Số điện thoại <sup style="color: #fa0000a8;">*</sup>
+              </label>
+              <input placeholder="Nhập số điện thoại..." style="height: 40px;" type="text m" class="form-control"
+                id="exampleInputEmail1" ng-model="bill.sdtNguoiNhan" aria-describedby="emailHelp">
+            </div>
+
+            <div style="width: 48%;">
+              <label for="exampleInputEmail1" class="form-label">Email <sup style="color: #fa0000a8;">*</sup>
+              </label>
+              <input placeholder="Nhập email..." style="height: 40px;" type="text m" class="form-control"
+                id="exampleInputEmail1" ng-model="bill.email" aria-describedby="emailHelp">
+            </div>
+
+          </div>
+
+          <div style="display: flex;justify-content: space-between;align-items: center; margin-top: 20px;">
+            <div style="width: 48%;">
+              <label for="exampleInputEmail1" class="form-label">Tỉnh/Thành phố <sup
+                  style="color: #fa0000a8;">*</sup></label>
+              <div class="select-wrap">
+                <select class="form-select " id="city" name="city"
+                  onchange="angular.element(this).scope().getAllDistrict()" placeholder="Chọn trạng thái">
+                </select>
+              </div>
+            </div>
+
+            <div style="width: 48%;">
+              <label for="exampleInputEmail1" class="form-label">Quận/huyện <sup style="color: #fa0000a8;">*</sup>
+              </label>
+              <div class="select-wrap">
+                <select class="form-select" id="district" name="district"
+                  onchange="angular.element(this).scope().getFullWardCode()" placeholder="Chọn trạng thái">
+                  <option value="">--Chọn Quận/Huyện--</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="display: flex;justify-content: space-between;align-items: center; margin-top: 20px;">
+            <div style="width: 48%;">
+              <label for="exampleInputEmail1" class="form-label">Xã/phường <sup
+                  style="color: #fa0000a8;">*</sup></label>
+              <div class="select-wrap">
+                <select class="form-select" id="ward" name="select" placeholder="Chọn trạng thái"
+                  onchange="angular.element(this).scope().getFeeShipping()">
+                  >
+                  <option value="">--Chọn Xã/Phường--</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="width: 48%;">
+              <label for="exampleInputEmail1" class="form-label">Số nhà/Ngõ/Đường <sup
+                  style="color: #fa0000a8;">*</sup> </label>
+              <input placeholder="Nhập địa chỉ..." style="height: 40px;" type="text" class="form-control"
+                id="exampleInputEmail1" ng-model="bill.diaChi" aria-describedby="emailHelp">
+            </div>
+
+          </div>
+
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                                         display: inline-block;
+                                         font-size: 18px;
+                                         transform: translateY(2px);
+                                     "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-primary" ng-click="updateCustomer()" style="margin-right: 15px;">
+          <i class="ti ti-edit" style="
+                             display: inline-block;
+                             font-size: 18px;
+                             transform: translateY(2px);
+                         "></i>
           Xác nhận
         </button>
       </div>
