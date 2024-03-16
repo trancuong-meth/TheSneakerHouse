@@ -58,11 +58,12 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                     }
                 }
                 $scope.bill.tongTienSauGiam = Number($scope.bill.tongTien)
+
                 if ($scope.bill.idVoucher != null) {
-                    $scope.bill.tongTienSauGiam = Number(100 - $scope.bill.idVoucher.phanTramGiam) * $scope.bill.tongTienSauGiam / 100
+                    $scope.bill.tongTienSauGiam = (100 - $scope.bill.idVoucher.phanTramGiam) * $scope.bill.tongTien / 100
                 }
 
-                $scope.bill.tongTienSauGiam = $scope.bill.tongTien + Number($scope.bill.phiVanChuyen == null || $scope.bill.phiVanChuyen == "" ? 0 : $scope.bill.phiVanChuyen)
+                $scope.bill.tongTienSauGiam += Number($scope.bill.phiVanChuyen == null || $scope.bill.phiVanChuyen == "" ? 0 : $scope.bill.phiVanChuyen)
             }
         ).catch(function (error) {
             console.log(error)

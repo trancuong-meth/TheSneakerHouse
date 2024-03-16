@@ -475,34 +475,34 @@
   <!-- body -->
   <div style="display: flex;justify-content: space-between;">
 
-    <div style="width: 50%;">
+    <div style="width: 40%;">
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           Trạng thái:
         </span>
         <span style="
         display: inline-block;
         font-size: 14px;
-        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 1">
+        font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 1">
           Tạo đơn hàng
         </span>
 
         <span style="
         display: inline-block;
         font-size: 14px;
-        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 2">
+        font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 2">
           Chờ giao
         </span>
 
         <span style="
         display: inline-block;
         font-size: 14px;
-        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 3">
+        font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 3">
           Đang giao
         </span>
 
@@ -510,89 +510,128 @@
         <span style="
         display: inline-block;
         font-size: 14px;
-        font-weight: 600; color: #FA896B" ng-if="bill.trangThai == 4">
+        font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 4">
           Thành công
         </span>
       </div>
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           Mã đơn hàng:
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           {{bill.ma}}
         </span>
       </div>
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           Loại đơn hàng:
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           {{bill.loaiHoaDon == 0 || bill.loaiHoaDon == null ? "Tại quầy" : "Giao hàng"}}
+        </span>
+      </div>
+
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;" ng-if="bill.idVoucher != null">
+        <span style="
+          display: inline-block;
+         font-size: 14px;
+         font-weight: 600;
+         color: #333">
+          Voucher:
+        </span>
+        <span style="
+        display: inline-block;
+       font-size: 14px;
+       font-weight: 600; color: #eb4528" ng-if="bill.idVoucher != null">
+        [{{bill.idVoucher.ma}}]  {{bill.idVoucher.ten}}
+        </span>
+
+        <span style="
+        display: inline-block;
+       font-size: 14px;
+       font-weight: 600; color: #eb4528" ng-if="bill.idVoucher == null">
+        không áp dụng
         </span>
       </div>
 
     </div>
     <div style="width: 50%;">
-      <div style="margin-bottom: 10px;">
+
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
+          Tổng tiền hàng 
+        </span>
+        <span style="
+        display: inline-block;
+       font-size: 14px;
+       font-weight: 600; color: #eb4528">
+          {{formatToVND(bill.tongTien)}}
+        </span>
+      </div>
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
+        <span style="
+          display: inline-block;
+         font-size: 14px;
+         font-weight: 600;
+          color: #333">
           Phí vận chuyển
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           {{bill.phiVanChuyen == null ? formatToVND(0) : formatToVND(bill.phiVanChuyen)}}
         </span>
       </div>
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;" ng-if="bill.idVoucher != null">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
-          Tổng tiền
+          color: #333">
+          Giảm giá
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
-          {{formatToVND(bill.tongTien)}}
+       font-weight: 600; color: #eb4528">
+          {{formatToVND(bill.idVoucher.phanTramGiam * bill.tongTien / 100)}}
         </span>
       </div>
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           {{ bill.phuongThucThanhToan !== null ? "Đã thanh toán :" : "Cần phải thanh toán :"}}
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           {{formatToVND(bill.tongTienSauGiam)}}
         </span>
       </div>
@@ -624,36 +663,36 @@
 
   <div style="display: flex;justify-content: space-between;" ng-if="bill.idKhachHang != null">
 
-    <div style="width: 50%;">
+    <div style="width: 45%;">
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           Tên khách hàng:
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           {{bill.tenNguoiNhan}}
         </span>
       </div>
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           Số điện thoại:
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           {{bill.sdtNguoiNhan}}
         </span>
       </div>
@@ -661,23 +700,23 @@
     </div>
     <div style="width: 50%;">
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           Email:
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           {{bill.email == null ?"Không có " : bill.email}}
         </span>
       </div>
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between  ;">
         <span style="
           display: inline-block;
          font-size: 14px;
@@ -688,13 +727,13 @@
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B" ng-if="bill.diaChi != null">
+       font-weight: 600; color: #eb4528" ng-if="bill.diaChi != null">
           {{ bill.diaChi + ", " + bill.xa + ", " + bill.phuong + ", " + bill.tinh }}
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B" ng-if="bill.diaChi == null">
+       font-weight: 600; color: #eb4528" ng-if="bill.diaChi == null">
           {{ bill.idKhachHang.diaChi + ", " + bill.idKhachHang.xa + ", " + bill.idKhachHang.phuong + ", " +
           bill.idKhachHang.tinh }}
         </span>
@@ -706,18 +745,18 @@
   <div style="display: flex;justify-content: space-between;" ng-if="bill.idKhachHang == null">
     <div style="width: 50%;">
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
         <span style="
           display: inline-block;
          font-size: 14px;
          font-weight: 600;
-         width: 260px; color: #333">
+          color: #333">
           Loại khách hàng:
         </span>
         <span style="
         display: inline-block;
        font-size: 14px;
-       font-weight: 600; color: #FA896B">
+       font-weight: 600; color: #eb4528">
           Khách lẻ
         </span>
       </div>
@@ -852,7 +891,7 @@
 
           </td>
           <td style="
-                color: #FA896B;
+                color: #eb4528;
                 font-size: 14px;
                 font-weight: 800;
                 text-align: center;
