@@ -582,6 +582,13 @@
         font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 4">
           Thành công
         </span>
+
+        <span style="
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 5">
+          Bị hủy
+        </span>
       </div>
 
       <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
@@ -952,7 +959,7 @@
               </button>
             </div>
 
-            <div ng-if="bill.trangThai == 4 || bill.trangThai == 3" style="text-align: center;margin-left: 54px;">
+            <div ng-if="bill.trangThai == 4 || bill.trangThai == 3 || bill.trangThai == 5" style="text-align: center;margin-left: 54px;">
               <button class="btn btn-outline-muted" disabled>{{billDetail.soLuong}}</button>
             </div>
 
