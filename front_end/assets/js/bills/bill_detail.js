@@ -823,5 +823,29 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
         addModal.hide()
     }
 
+    $scope.cancelBill = () => {
+        Swal.fire({
+            title: "Xác nhận hủy hóa đơn này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                
+                $scope.bill.trangThai = 5
+                axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+                    $scope.loadBills()
+                    toastr.success("Hủy hóa đơn thành công.")
+                })
+                .catch(function (response) {
+                    $scope.loadBills()
+                })
+            }
+        });
+    }
+
 
 })

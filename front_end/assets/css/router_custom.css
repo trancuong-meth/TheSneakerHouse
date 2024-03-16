@@ -1132,6 +1132,26 @@ svg * {
   opacity: 0;
 }
 
+.sch-style-2 .btn-cancel::before,
+.sch-style-2 .btn-cancel::after {
+  background-color: #fa0000a8 !important;
+}
+
+.sch-style-2 .btn-cancel:focus::before,
+.sch-style-2 .btn-cancel:focus::after {
+  background: #fa0000a8;
+}
+
+.btn-cancel i {
+  background-color: #fa0000a8 !important;
+}
+
+.btn-cancel .sch-text {
+  opacity: 0;
+}
+
+
+
 .ribbon {
   width: 110px;
   height: 110px;
