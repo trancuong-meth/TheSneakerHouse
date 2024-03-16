@@ -837,8 +837,32 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 
                 $scope.bill.trangThai = 5
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
-                    $scope.loadBills()
+                   
+                    $scope.billDetails.content.forEach((x) => {
+                        x.idSanPhamChiTiet.soLuongTon += x.soLuong
+                        axios.put('http://localhost:8080/product-detail/update-product-detail', x.idSanPhamChiTiet)
+                            .then((response) => {
+
+                            }).catch((error) => {
+                                console.log(error)
+                            })
+                    })
+
+                    if ($scope.bill.idVoucher != null) {
+                        var voucher = $scope.bill.idVoucher
+                        voucher.soLanDung += 1
+                        axios.put('http://localhost:8080/voucher/edit-voucher', voucher)
+                            .then((response) => {
+                            }).catch((error) => {
+                                console.log(error)
+                            })
+                    }
+
                     toastr.success("Hủy hóa đơn thành công.")
+
+                    setTimeout(() => {
+                        $scope.loadBill()
+                    }, 100)
                 })
                 .catch(function (response) {
                     $scope.loadBills()
