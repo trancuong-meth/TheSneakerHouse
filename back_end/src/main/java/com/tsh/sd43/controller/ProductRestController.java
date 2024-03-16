@@ -1,5 +1,6 @@
 package com.tsh.sd43.controller;
 
+import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.request.ProductAddRequest;
 import com.tsh.sd43.service.impl.SanPhamSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -56,8 +56,8 @@ public class SanPhamSerImpl implements ISanPhamSer {
         return sanPhamRepo.save(e);
     }
 
-    public TheLoai update(TheLoai req){
-        return null;
+    public SanPham update(SanPham req){
+        return sanPhamRepo.save(req);
     }
 
     public String generateCode(){

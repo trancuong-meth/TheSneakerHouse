@@ -76,4 +76,13 @@ public class ProductDetailRestController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/update-product-detail")
+    public ResponseEntity<?> updateVoucher(@RequestBody SanPhamChiTiet req){
+        try{
+            return new ResponseEntity<>(sanPhamChiTietService.update(req), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

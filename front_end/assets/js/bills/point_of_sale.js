@@ -63,10 +63,10 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 $scope.totalItemBillDetails = response.data.totalElements
                 $scope.totalPrice = 0
                 for (var i = 0; i < $scope.billDetails.content.length; i++) {
-                    if($scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia == null){
+                    if ($scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia == null) {
                         $scope.totalPrice += Number($scope.billDetails.content[i].idSanPhamChiTiet.donGia) * Number($scope.billDetails.content[i].soLuong)
-                    }else{
-                        $scope.totalPrice += Number( (100 - $scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * $scope.billDetails.content[i].idSanPhamChiTiet.donGia /100) * Number($scope.billDetails.content[i].soLuong)
+                    } else {
+                        $scope.totalPrice += Number((100 - $scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * $scope.billDetails.content[i].idSanPhamChiTiet.donGia / 100) * Number($scope.billDetails.content[i].soLuong)
                     }
                 }
                 $scope.totalAllPrice = $scope.totalPrice
@@ -398,10 +398,14 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     $scope.bill.trangThai = 4;
                 }
 
+                if ($scope.voucher != null) {
+                    $scope.bill.idVoucher = $scope.voucher
+                }
+
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
                     $scope.loadBills()
 
-                    if($scope.bill.loaiHoaDon == 0){
+                    if ($scope.bill.loaiHoaDon == 0) {
                         axios.post('http://localhost:8080/history/add', {
                             'trangThai': 4,
                             'ghiChu': $scope.bill.ghiChu,
@@ -410,13 +414,13 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                         }).catch(function (error) {
                             console.log(error);
                         })
-                    }else{
+                    } else {
                         axios.post('http://localhost:8080/history/add', {
                             'trangThai': 1,
                             'ghiChu': $scope.bill.ghiChu,
                             'hoaDon': response.data
                         }).then(function (response) {
-                           
+
                         }).catch(function (error) {
                             console.log(error);
                         })
@@ -425,17 +429,44 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                             'ghiChu': $scope.bill.ghiChu,
                             'hoaDon': response.data
                         }).then(function (response) {
-    
+
                         }).catch(function (error) {
                             console.log(error);
                         })
                     }
-                   
-                    toastr.success("Tạo hóa đơn thành công.");
-                    setTimeout(function () {
-                        location.href = "/html/router.html#!/chi-tiet-hoa-don/" + response.data.id
-                        window.scrollTo(0, 0);
-                    }, 200)
+
+                    $scope.billDetails.content.forEach((x) => {
+                        x.idSanPhamChiTiet.soLuongTon -= x.soLuong
+                        axios.put('http://localhost:8080/product-detail/update-product-detail', x.idSanPhamChiTiet)
+                            .then((response) => {
+
+                            }).catch((error) => {
+                                console.log(error)
+                            })
+                    })
+
+                    console.log($scope.voucher)
+                    if ($scope.voucher != null) {
+                        $scope.voucher.soLanDung -= 1
+                        axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
+                            .then((response) => {
+                                toastr.success("Tạo hóa đơn thành công.");
+                                setTimeout(function () {
+                                    location.href = "/html/router.html#!/chi-tiet-hoa-don/" + $scope.bill.id
+                                    window.scrollTo(0, 0);
+                                }, 200)
+                            }).catch((error) => {
+                                console.log(error)
+                            })
+                    } else {
+                        toastr.success("Tạo hóa đơn thành công.");
+                        setTimeout(function () {
+                            location.href = "/html/router.html#!/chi-tiet-hoa-don/" + response.data.id
+                            window.scrollTo(0, 0);
+                        }, 200)
+                    }
+
+
                 })
                     .catch(function (response) {
                         $scope.loadBills()

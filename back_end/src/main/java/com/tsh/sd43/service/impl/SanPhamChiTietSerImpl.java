@@ -48,8 +48,8 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
         return sanPhamChiTietRepo.save(e);
     }
 
-    public TheLoai update(TheLoai req){
-        return null;
+    public SanPhamChiTiet update(SanPhamChiTiet req){
+        return sanPhamChiTietRepo.save(req);
     }
 
     public Page<SanPhamChiTiet> findAllAndPanigation(int pageNo, int pageSize){

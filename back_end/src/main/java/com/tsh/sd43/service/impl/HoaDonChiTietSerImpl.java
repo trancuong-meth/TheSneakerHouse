@@ -5,6 +5,7 @@ import com.tsh.sd43.entity.HoaDonChiTiet;
 import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.request.ProductDetailRequest;
 import com.tsh.sd43.repository.IHoaDonChiTietRepo;
+import com.tsh.sd43.repository.ISanPhamChiTietRepo;
 import com.tsh.sd43.service.IHoaDonChiTietSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
