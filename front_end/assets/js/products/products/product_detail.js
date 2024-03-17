@@ -91,12 +91,12 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
                 if (i == 0) {
                     textCenter += `
                         <div class="carousel-item active">
-                            <img src="${response.data[0].duongDan}" class="d-block w-100" alt="...">
+                            <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
                 }else{
                     textCenter += `
                         <div class="carousel-item">
-                            <img src="${response.data[0].duongDan}" class="d-block w-100" alt="...">
+                            <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
                 }
                 

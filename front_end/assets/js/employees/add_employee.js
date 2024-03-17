@@ -286,7 +286,6 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
 
 })
 
-// Button upload image
 
 
 
