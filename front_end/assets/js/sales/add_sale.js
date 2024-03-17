@@ -157,7 +157,7 @@ main_app.controller("addSaleController", function ($scope, $http) {
 
     $scope.getAllImagesByIDProductDetail = function (id, text) {
         var textFist = `
-        <div id="carousel-${id}" class="carousel slide" data-bs-ride="carousel">
+        <div id="carousel-${id}" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             
         `
@@ -183,7 +183,7 @@ main_app.controller("addSaleController", function ($scope, $http) {
             for (var i = 0; i < response.data.length; i++) {
                 if (i == 0) {
                     textCenter += `
-                        <div class="carousel-item active">
+                        <div class="carousel-item active" data-bs-interval="100">
                             <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
                 } else {

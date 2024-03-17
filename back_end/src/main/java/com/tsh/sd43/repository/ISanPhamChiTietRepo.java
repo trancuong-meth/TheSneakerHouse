@@ -35,7 +35,20 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
     Page<SanPhamChiTiet> findAllAndPanigation(Pageable pageable);
 
     @Query(value = """  
-            select spct.* from san_pham_chi_tiet spct
+            select        spct.[deleted]
+                         ,spct.[don_gia]
+                         ,spct.[gia_tri_giam]
+                         ,spct.[so_luong_ton]
+                         ,spct.[trang_thai]
+                         ,spct.[trong_luong]
+                         ,spct.[id]
+                         ,spct.[id_dot_giam_gia]
+                         ,spct.[id_kich_co]
+                         ,spct.[id_mau_sac]
+                         ,spct.[id_san_pham]
+                         ,spct.[ngay_cap_nhat]
+                         ,spct.[ngay_tao]
+                         ,spct.[QRcode] from san_pham_chi_tiet spct
             join san_pham sp on sp.id = spct.id_san_pham
             where sp.id in :ids
             and id_mau_sac like :idMauSac

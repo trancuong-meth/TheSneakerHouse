@@ -1,5 +1,4 @@
-<div ng-app="voucher">
-  <div class="row" ng-controller="voucherController">
+  <div >
     <div class="col-lg-12 d-flex align-items-strech">
       <div class="card w-100">
         <div class="card-body">
@@ -141,16 +140,15 @@
           </div>
 
           <span ng-show="numPages!=0">
-            <uib-pagination items-per-page="itemsPerPage" total-items="totalItems" ng-model="currentPage"
+            <uib-pagination items-per-page="itemsPerPageProductDetail" total-items="totalItemsProductDetail" ng-model="currentPageProductDetail"
               class="pagination-sm" previous-text="‹" next-text="›" first-text="«" last-text="»" style="
                   width: 16%;
                   margin-left: auto;
                   margin-right: auto;
-                  " max-size="3" ng-change="pageChanged()"></uib-pagination>
+                  " max-size="3" ng-change="pageChangedProductDetail()"></uib-pagination>
           </span>
         </div>
       </div>
     </div>
 
   </div>
-</div>

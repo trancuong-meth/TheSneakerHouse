@@ -1,36 +1,39 @@
 main_app.controller("productDetailController", function ($scope, $http, $routeParams) {
 
-    $scope.currentPage = 1;
-    $scope.itemsPerPage = 10;
+    $scope.currentPageProductDetail = 1;
+    $scope.itemsPerPageProductDetail = 10;
     var idProduct = $routeParams.id
-    $scope.totalItems = 1;
+    $scope.totalItemsProductDetail = 1;
     $scope.keyProduct = ""
     $scope.trang_thai = ""
     $scope.productDetails = []
 
     const loadData = function () {
-        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + '&trang_thai=' + '&id=' + idProduct,)
+        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&key=' + '&trang_thai=' + '&id=' + idProduct,)
             .then(function (response) {
                 $scope.productDetails = response.data
                 console.log($scope.productDetails)
-                $scope.totalItems = response.data.totalElements
+                $scope.totalItemsProductDetail = response.data.totalElements
+
             });
     }
 
     const fillter = function (keyProduct, trang_thai) {
-        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + keyProduct + '&trang_thai=' + trang_thai + '&id=' + idProduct,)
+        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&key=' + keyProduct + '&trang_thai=' + trang_thai + '&id=' + idProduct,)
             .then(function (response) {
                 $scope.productDetails = response.data
-                $scope.totalItems = response.data.totalElements
+                $scope.totalItemsProductDetail = response.data.totalElements
             });
     }
 
     loadData()
 
-    $scope.pageChanged = function () {
-        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.keyProduct + '&trang_thai=' + $scope.trang_thai + '&id=' + idProduct,)
+    $scope.pageChangedProductDetail = function () {
+
+        console.log($scope.currentPageProductDetail)
+        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&key=' + $scope.keyProduct + '&trang_thai=' + $scope.trang_thai + '&id=' + idProduct,)
             .then(function (response) {
-                $scope.products = response.data
+                $scope.productDetails = response.data
             });
     };
 
@@ -66,7 +69,7 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
     $scope.getAllImagesByIDProductDetail = function (id) {
         var textFist = `
-        <div id="carousel-${id}" class="carousel slide" data-bs-ride="carousel">
+        <div id="carousel-${id}" class="carousel slide " data-bs-ride="carousel">
         <div class="carousel-inner">
             
         `
@@ -86,11 +89,10 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
         var html = document.getElementById("image-" + id)
         axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
-            console.log(response.data)
             for (var i = 0; i < response.data.length; i++) {
                 if (i == 0) {
                     textCenter += `
-                        <div class="carousel-item active">
+                        <div class="carousel-item active " data-bs-interval="100" >
                             <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
                 }else{

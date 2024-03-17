@@ -574,7 +574,6 @@ main_app.controller("addProductController", function ($scope, $http) {
                                             "duongDan": imageUrl,
                                             "idSanPhamChiTiet": resOfProductDetail.data.id
                                         }).then(function (res) {
-
                                         }).catch(function (error) {
                                             console.log(error)
                                         })
@@ -587,7 +586,9 @@ main_app.controller("addProductController", function ($scope, $http) {
 
                             if (i === $scope.productDetails.length - 1) {
                                 toastr.success("Thêm sản phẩm mới thành công")
-                                location.href = "/html/router.html#!/san-pham"
+                                setTimeout(function () {
+                                    location.href = "/html/router.html#!/san-pham"
+                                }, 200)
                             }
                         }
 
