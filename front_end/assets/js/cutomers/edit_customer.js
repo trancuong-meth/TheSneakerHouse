@@ -1,7 +1,7 @@
 main_app.controller("editCustomerController", function ($scope, $http, $routeParams) {
     var id = $routeParams.id
     var today = new Date();
-    var file = "";
+    $scope.avatar = "";
     $scope.customer = {}
 
     // REGEX
@@ -192,7 +192,6 @@ main_app.controller("editCustomerController", function ($scope, $http, $routePar
 
     $scope.getAllDistrictByCode = function (ward_code, district_code, provinceCode) {
 
-        console.log(ward_code, district_code, provinceCode)
         axios
             .get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district`, {
                 params: {
@@ -269,7 +268,16 @@ main_app.controller("editCustomerController", function ($scope, $http, $routePar
         if (element.files && element.files[0]) {
             const formData = new FormData();
             formData.append('file', element.files[0]);
-            file = formData
+            axios.post("http://localhost:8080/cloudinary/upload",
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
+                    $scope.avatar = res.data.secure_url;
+                }).catch((error) => console.error("Error:", error));
         }
 
         readURL(element)
@@ -315,6 +323,10 @@ main_app.controller("editCustomerController", function ($scope, $http, $routePar
             return;
         }
 
+        if ($scope.avatar != "") {
+            $scope.customer.avatar = $scope.avatar
+        }
+
         Swal.fire({
             title: "Xác nhận thay đổi khách hàng này?",
             icon: "warning",
@@ -325,80 +337,19 @@ main_app.controller("editCustomerController", function ($scope, $http, $routePar
             cancelButtonText: "Hủy"
         }).then((result) => {
             if (result.isConfirmed) {
-                if (file === "") {
-                    axios.put("http://localhost:8080/customer/update", $scope.customer)
-                        .then((res) => {
-                            toastr.success('Bạn đã thay đổi thông tin thành công!!!');
-                        })
-                        .catch((error) => console.error("Error:", error));
-        
-                    setTimeout(() => {
-                        location.href = "/html/router.html#!/khach-hang"
-                    }, 400)
-        
-                } else {
-        
-                    axios.post("http://localhost:8080/cloudinary/upload",
-                        file,
-                        {
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                            }
-                        })
-                        .then((res) => {
-                            $scope.customer.avatar = res.data.secure_url
-        
-                            if ($scope.customer.ten === "" ||
-                                $scope.customer.ngaySinh === ""
-                                || $scope.customer.cccd === ""
-                                || $scope.customer.gioiTinh === ""
-                                || $scope.customer.email === ""
-                                || $scope.customer.soDienThoai === ""
-                                || $scope.customer.maTinh === ""
-                                || $scope.customer.maPhuong === ""
-                                || $scope.customer.maXa === ""
-                                || $scope.customer.diaChi === ""
-                                || $scope.customer.avatar === "") {
-                                toastr.error('Bạn phải nhập đầy các trường có trên form ')
-                                return;
-                            }
-        
-                            if ($scope.customer.ngaySinh > today) {
-                                toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
-                                return;
-                            }
-        
-                            if ($scope.customer.cccd.length != 12) {
-                                toastr.error('Nhập đủ 12 số căn cước công dân')
-                                return;
-                            }
-        
-                            if (!email_regex.test($scope.customer.email)) {
-                                toastr.error('Bạn phải nhập đúng định dạng email')
-                                return;
-                            }
-        
-                            if (!phone_regex.test($scope.customer.soDienThoai)) {
-                                toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
-                                return;
-                            }
-        
-                            axios.put("http://localhost:8080/customer/update", $scope.customer)
-                                .then((res) => {
-                                    toastr.success('Bạn đã thay đổi thông tin thành công!!!');
-                                })
-                                .catch((error) => console.error("Error:", error));
-        
-                            setTimeout(() => {
-                                location.href = "/html/router.html#!/khach-hang"
-                            }, 400)
-        
-                        })
-                        .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
-        
-                }
+                axios.put("http://localhost:8080/customer/update", $scope.customer)
+                    .then((res) => {
+                        toastr.success('Bạn đã thay đổi thông tin thành công!!!');
+                    })
+                    .catch((error) => console.error("Error:", error));
+
+                setTimeout(() => {
+                    location.href = "/html/router.html#!/khach-hang"
+                }, 100)
+
             }
         });
-        
+
     }
+
 })

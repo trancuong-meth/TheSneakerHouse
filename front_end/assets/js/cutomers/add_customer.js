@@ -2,7 +2,7 @@
 main_app.controller("addCustomerController", function ($scope, $http) {
 
     var today = new Date();
-    var file = "";
+    var avatar = "";
     $scope.customer = {
         ten: '',
         ngaySinh: '',
@@ -65,6 +65,11 @@ main_app.controller("addCustomerController", function ($scope, $http) {
             return;
         }
 
+        if($scope.avatar === "" || $scope.avatar === null){
+            toastr.error('Bạn phải chọn ảnh đại diện');
+            return;
+        }
+
         Swal.fire({
             title: "Xác nhận tạo khách hàng này?",
             icon: "warning",
@@ -74,53 +79,30 @@ main_app.controller("addCustomerController", function ($scope, $http) {
             confirmButtonText: "Xác nhận",
             cancelButtonText: "Hủy"
         }).then((result) => {
-            if (result.isConfirmed) { 
-                axios.post("http://localhost:8080/cloudinary/upload",
-                file,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                .then((res) => {
-                    $scope.customer.avatar = res.data.secure_url
-    
-    
-                    axios.post("http://localhost:8080/customer/add", $scope.customer)
-                        .then((res) => {
-                            toastr.success('Bạn đã tạo thành công khách hàng');
-                        })
-                        .catch((error) => console.error("Error:", error));
-    
-                    setTimeout(() => {
-                        location.href = "/html/router.html#!/khach-hang"
-                    }, 400)
-    
-                })
-                .catch((error) => {
-                    toastr.error('Bạn phải chọn ảnh đại diện');
-                });
+            if (result.isConfirmed) {
+
+                $scope.customer.avatar = $scope.avatar
+
+                axios.post("http://localhost:8080/customer/add", $scope.customer)
+                    .then((res) => {
+                        toastr.success('Bạn đã tạo thành công khách hàng');
+                    })
+                    .catch((error) => console.error("Error:", error));
+
+                setTimeout(() => {
+                    location.href = "/html/router.html#!/khach-hang"
+                }, 100)
+
             }
         })
-     
+
     }
 
     // FAST DELIVERY
     const token = "2b4b5f3e-ac78-11ee-a6e6-e60958111f48";
-    const serviceID = 53320;
-    const shopDistrictId = 1482;
-    const shopWardCode = 11007;
-
     const selectCity = document.querySelector("#city");
     const districtSelect = document.querySelector("#district");
     const selectWardCode = document.querySelector("#ward");
-
-    const ERROR_BORDER = '1px solid #dd3333'
-    const SUCCESS_BORDER = '1px solid green'
-    var API_BASE_URL = "/test/api/cart";
-    var API_BASE_COOKIE_URL = "/test/api/cart/cookie";
-    var LIST_ADDRESS = [];
-    var ADDRESS_CURRENT = {}
 
     // FORMAT VND
     $scope.formatToVND = function (amount) {
@@ -274,7 +256,16 @@ main_app.controller("addCustomerController", function ($scope, $http) {
         if (element.files && element.files[0]) {
             const formData = new FormData();
             formData.append('file', element.files[0]);
-            file = formData
+            axios.post("http://localhost:8080/cloudinary/upload",
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
+                    $scope.avatar = res.data.secure_url;
+                }).catch((error) => console.error("Error:", error));
         }
 
         readURL(element)

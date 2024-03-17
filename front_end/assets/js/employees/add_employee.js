@@ -2,7 +2,7 @@
 main_app.controller("addEmployeeController", function ($scope, $http) {
 
     var today = new Date();
-    var file = "";
+    var avatar = "";
     $scope.employee = {
         ten: '',
         ngaySinh: '',
@@ -70,6 +70,11 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
             return;
         }
 
+        if ($scope.avatar == "" || $scope.avatar == null) {
+            toastr.error('Bạn phải chọn ảnh đại diện')
+            return;
+        }
+
         Swal.fire({
             title: "Xác nhận tạo nhân viên này?",
             icon: "warning",
@@ -80,32 +85,20 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
             cancelButtonText: "Hủy"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post("http://localhost:8080/cloudinary/upload",
-                file,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                .then((res) => {
+                $scope.employee.avatar = $scope.avatar
 
-                    $scope.employee.avatar = res.data.secure_url
-    
-                    axios.post("http://localhost:8080/employee/add", $scope.employee)
-                        .then((res) => {
-                            toastr.success('Bạn tạo thành công nhân viên này!!!');
-                        })
-                        .catch((error) => console.error("Error:", error));
-    
-                    setTimeout(() => {
-                        location.href = "/html/router.html#!/nhan-vien"
-                    }, 400)
-    
-                })
-                .catch((error) => toastr.error('Bạn phải chọn ảnh đại diện'));
-    
+                axios.post("http://localhost:8080/employee/add", $scope.employee)
+                    .then((res) => {
+                        toastr.success('Bạn tạo thành công nhân viên này!!!');
+                    })
+                    .catch((error) => console.error("Error:", error));
+
+                setTimeout(() => {
+                    location.href = "/html/router.html#!/nhan-vien"
+                }, 100)
+
             }
-        })       
+        })
     }
 
     // FAST DELIVERY
@@ -120,10 +113,6 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
 
     const ERROR_BORDER = '1px solid #dd3333'
     const SUCCESS_BORDER = '1px solid green'
-    var API_BASE_URL = "/test/api/cart";
-    var API_BASE_COOKIE_URL = "/test/api/cart/cookie";
-    var LIST_ADDRESS = [];
-    var ADDRESS_CURRENT = {}
 
     // FORMAT VND
     $scope.formatToVND = function (amount) {
@@ -277,7 +266,17 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
         if (element.files && element.files[0]) {
             const formData = new FormData();
             formData.append('file', element.files[0]);
-            file = formData
+
+            axios.post("http://localhost:8080/cloudinary/upload",
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
+                    $scope.avatar = res.data.secure_url;
+                }).catch((error) => console.error("Error:", error));
         }
 
         readURL(element)
