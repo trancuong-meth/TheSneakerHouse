@@ -1,10 +1,7 @@
 package com.tsh.sd43.repository;
 
 import com.tsh.sd43.entity.HoaDon;
-import com.tsh.sd43.entity.responce.BillStateResponce;
-import com.tsh.sd43.entity.responce.ProductBestSellerResponce;
-import com.tsh.sd43.entity.responce.RevenueRangeDateResponce;
-import com.tsh.sd43.entity.responce.RevenueResponce;
+import com.tsh.sd43.entity.responce.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -77,6 +74,30 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
                                                               @Param("end_date")Date endDate);
 
     @Query(value = """
+     select CAST( hd.ngay_tao AS Date ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
+     from hoa_don as hd
+     where deleted = 1 and not trang_thai in (0, 5)
+     group by CAST( hd.ngay_tao AS Date )
+    """, nativeQuery = true)
+    ArrayList<RevenueFillterResponce> getRevenueRangeDay();
+
+    @Query(value = """
+     select MONTH( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
+     from hoa_don as hd
+     where deleted = 1 and not trang_thai in (0, 5)
+     group by MONTH( hd.ngay_tao  )
+    """, nativeQuery = true)
+    ArrayList<RevenueFillterResponce> getRevenueRangeMonth();
+
+    @Query(value = """
+     select YEAR( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
+     from hoa_don as hd
+     where deleted = 1 and not trang_thai in (0, 5)
+     group by YEAR( hd.ngay_tao  )
+    """, nativeQuery = true)
+    ArrayList<RevenueFillterResponce> getRevenueRangeYear();
+
+    @Query(value = """
      select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
      from hoa_don as hd
      join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
@@ -97,4 +118,43 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     	 order by so_luong desc
     """, nativeQuery = true)
     ArrayList<BillStateResponce> getBillState();
+
+    @Query(value = """
+         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+         from hoa_don as hd
+         join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
+         join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
+         join san_pham sp on sp.id = spct.id_san_pham
+         where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+    	 and CAST( hd.ngay_tao AS Date ) = CAST( getdate() AS Date )
+         group by sp.ten
+         order by so_luong desc
+    """, nativeQuery = true)
+    ArrayList<ProductBestSellerResponce> getTop5ProductBestSellerDay();
+
+    @Query(value = """
+         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+         from hoa_don as hd
+         join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
+         join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
+         join san_pham sp on sp.id = spct.id_san_pham
+         where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+    	 and MONTH( hd.ngay_tao ) = MONTH( getdate())
+         group by sp.ten
+         order by so_luong desc
+    """, nativeQuery = true)
+    ArrayList<ProductBestSellerResponce> getTop5ProductBestSellerMonth();
+
+    @Query(value = """
+         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+         from hoa_don as hd
+         join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
+         join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
+         join san_pham sp on sp.id = spct.id_san_pham
+         where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+    	 and YEAR( hd.ngay_tao ) = YEAR( getdate())
+         group by sp.ten
+         order by so_luong desc
+    """, nativeQuery = true)
+    ArrayList<ProductBestSellerResponce> getTop5ProductBestSellerYear();
 }

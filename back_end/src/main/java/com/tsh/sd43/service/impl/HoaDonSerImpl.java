@@ -4,10 +4,7 @@ import com.tsh.sd43.entity.HoaDon;
 import com.tsh.sd43.entity.KhachHang;
 import com.tsh.sd43.entity.Voucher;
 import com.tsh.sd43.entity.request.ProductVoucherUpdateRequest;
-import com.tsh.sd43.entity.responce.BillStateResponce;
-import com.tsh.sd43.entity.responce.ProductBestSellerResponce;
-import com.tsh.sd43.entity.responce.RevenueRangeDateResponce;
-import com.tsh.sd43.entity.responce.RevenueResponce;
+import com.tsh.sd43.entity.responce.*;
 import com.tsh.sd43.enums.StatusHoaDon;
 import com.tsh.sd43.repository.IHoaDonRepo;
 import com.tsh.sd43.service.IHoaDonChiTietSer;
@@ -128,5 +125,35 @@ public class HoaDonSerImpl implements IHoaDonChiTietSer {
 
     public ArrayList<BillStateResponce> getBillState() {
         return hoaDonRepo.getBillState();
+    }
+
+    public ArrayList<ProductBestSellerResponce> getTop5ProductBestSellerFillter(Integer state) {
+        try{
+            if(state == 0){
+                return hoaDonRepo.getTop5ProductBestSellerDay();
+            }else if(state == 1){
+                return hoaDonRepo.getTop5ProductBestSellerMonth();
+            }else if(state == 2){
+                return hoaDonRepo.getTop5ProductBestSellerYear();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<RevenueFillterResponce> getRevenueFillter(Integer state) {
+        try{
+            if(state == 0){
+                return hoaDonRepo.getRevenueRangeDay();
+            }else if(state == 1){
+                return hoaDonRepo.getRevenueRangeMonth();
+            }else if(state == 2){
+                return hoaDonRepo.getRevenueRangeYear();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

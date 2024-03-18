@@ -142,4 +142,22 @@ public class BillRestController {
         }
     }
 
+    @GetMapping("/get-top5-product-best-seller")
+    public ResponseEntity<?> getTop5ProductBestSeller(@RequestParam("state") Integer state) {
+        try{
+             return new ResponseEntity<>(hoaDonService.getTop5ProductBestSellerFillter(state), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get-revenue-fillter")
+    public ResponseEntity<?> getRevenueFillter(@RequestParam("state") Integer state) {
+        try{
+             return new ResponseEntity<>(hoaDonService.getRevenueFillter(state), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }
