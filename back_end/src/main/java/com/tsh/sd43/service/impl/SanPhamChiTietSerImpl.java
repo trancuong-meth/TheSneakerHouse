@@ -44,6 +44,7 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
         e.setSoLuongTon(req.getSoLuongTon());
         e.setIdKichCo(req.getIdKichCo());
         e.setIdMauSac(req.getIdMauSac());
+//        e.setQRcode(req.getQRcode());
 
         return sanPhamChiTietRepo.save(e);
     }

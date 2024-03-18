@@ -468,6 +468,7 @@ main_app.controller("addProductController", function ($scope, $http) {
 
         if (Number(quantityHtml.value) < 0) {
             toastr.error("Số lượng phải lớn hơn 0")
+            quantityHtml.value = 0;
             return;
         }
 
@@ -489,6 +490,7 @@ main_app.controller("addProductController", function ($scope, $http) {
 
         if (Number(quantityHtml.value) < 0) {
             toastr.error("Giá tiền phải lớn hơn 0")
+            quantityHtml.value = 0;
             return;
         }
 

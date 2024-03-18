@@ -12,7 +12,7 @@ main_app.controller("addSaleController", function ($scope, $http) {
 
     // product details
     $scope.currentPageDetail = 1
-    $scope.itemsPerPageDetail = 10
+    $scope.itemsPerPageDetail = 50
     $scope.totalItemsDetail = 1
     $scope.productDetails = []
     $scope.productDetailChooses = []
@@ -215,6 +215,10 @@ main_app.controller("addSaleController", function ($scope, $http) {
         $scope.loadProductDetails()
     }
 
+    $scope.pageChangedPageDetail = function () {
+        $scope.loadProductDetails()
+    }
+
     $scope.loadProductDetails = async () => {
         await axios.post('http://localhost:8080/product-detail/get-product-detail-sale', $scope.key).then(
             function (response) {
@@ -232,7 +236,6 @@ main_app.controller("addSaleController", function ($scope, $http) {
                     $scope.productDetailChooses = $scope.productDetailChooses.filter(x => x.id != $scope.productDetailChooses[i].id)
                 } else {
                     var e = document.getElementById("product-detail-" + $scope.productDetailChooses[i].id)
-                    console.log(e.checked)
                     e.checked = true;
                 }
             }
