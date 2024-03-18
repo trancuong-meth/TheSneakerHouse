@@ -445,6 +445,95 @@
     </div>
   </div>
 
+  <div class="sch-style-2" ng-if="bill.trangThai == 6 && history.length > 1">
+    <div class="sch-timeline-content">
+      <div class="sch-content" style="    margin-left: 80px;">
+        <div class="sch-up">
+          <div class="sch-icon">
+            <i class="ti ti-checklist" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
+            <span style="display: block;font-size: 10px;transform: translateY(-7px);">{{billState1.ngayTao | date
+              : "HH:mm dd/MM/yyyy"}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon">
+            <i class="ti ti-truck" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: block;margin-top: 10px;font-weight: 600; color: #000000cc;">Chờ giao</span>
+            <span style="display: block;font-size: 10px;transform: translateY(-7px);">{{billState2.ngayTao | date
+              : "HH:mm dd/MM/yyyy"}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon">
+            <i class="ti ti-truck-delivery" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: block;margin-top: 10px;font-weight: 600; color: #000000cc;">Đang giao</span>
+            <span style="display: block;font-size: 10px;transform: translateY(-7px);">{{billState3.ngayTao | date
+              : "HH:mm dd/MM/yyyy"}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon">
+            <i class="ti ti-circle-check" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: block;margin-top: 10px;font-weight: 600; color: #000000cc;">Thành công</span>
+            <span style="display: block;font-size: 10px;transform: translateY(-7px);">{{billState4.ngayTao | date
+              : "HH:mm dd/MM/yyyy"}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sch-content">
+        <div class="sch-up">
+
+          <div class="sch-icon">
+            <i class="ti  ti-a-b-2" style="font-size: 20px;"></i>
+          </div>
+        </div>
+        <button class="btn-right"><a href="#"></a></button>
+        <div class="sch-down">
+          <div class="sch-text">
+            <span style="display: block;margin-top: 10px;font-weight: 600; color: #000000cc;">Trả hàng</span>
+            <span style="display: block;font-size: 10px;transform: translateY(-7px);">{{billState6.ngayTao | date
+              : "HH:mm dd/MM/yyyy"}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- button -->
   <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 4 && history.length == 1">
     <div style="display: flex;justify-content: space-between;width: 33%;">
@@ -589,6 +678,13 @@
         font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 5">
           Bị hủy
         </span>
+
+        <span style="
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 6">
+          Trả hàng
+        </span>
       </div>
 
       <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
@@ -635,14 +731,14 @@
         display: inline-block;
        font-size: 14px;
        font-weight: 600; color: #eb4528" ng-if="bill.idVoucher != null">
-        [{{bill.idVoucher.ma}}]  {{bill.idVoucher.ten}}
+          [{{bill.idVoucher.ma}}] {{bill.idVoucher.ten}}
         </span>
 
         <span style="
         display: inline-block;
        font-size: 14px;
        font-weight: 600; color: #eb4528" ng-if="bill.idVoucher == null">
-        không áp dụng
+          không áp dụng
         </span>
       </div>
 
@@ -655,7 +751,7 @@
          font-size: 14px;
          font-weight: 600;
           color: #333">
-          Tổng tiền hàng 
+          Tổng tiền hàng
         </span>
         <span style="
         display: inline-block;
@@ -852,18 +948,22 @@
       </span>
     </div>
     <div>
-      <button 
-      class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1"
-       data-bs-toggle="modal"
-        data-bs-target="#productListModal"
-        ng-click="loadProductList()"
-        >
+      <button class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1" data-bs-toggle="modal"
+        data-bs-target="#productListModal" ng-click="loadProductList()">
         <i class="ti ti-plus" style="
                             display: inline-block;
                             font-size: 18px;
                             transform: translateY(2px);
                         "></i>
         Thêm sản phẩm</button>
+
+      <button class="btn btn-danger" ng-if="bill.trangThai == 4" data-bs-toggle="modal" data-bs-target="#refundModal">
+        <i class="ti ti-credit-card-refund" style="
+                              display: inline-block;
+                              font-size: 18px;
+                              transform: translateY(2px);
+                          "></i>
+        Trả hàng toàn bộ</button>
     </div>
   </div>
 
@@ -884,7 +984,10 @@
           <th class="border-bottom-0 text-center" style="width: 17%;">
             <h6 class="fw-semibold mb-0">Tổng tiền</h6>
           </th>
-          
+          <th class="border-bottom-0 text-center" style="width: 17%;" ng-if="bill.trangThai == 4">
+            <h6 class="fw-semibold mb-0">Thao tác</h6>
+          </th>
+
         </tr>
       </thead>
       <tbody>
@@ -959,7 +1062,8 @@
               </button>
             </div>
 
-            <div ng-if="bill.trangThai == 4 || bill.trangThai == 3 || bill.trangThai == 5" style="text-align: center;margin-left: 54px;">
+            <div ng-if="bill.trangThai == 4 || bill.trangThai == 3 || bill.trangThai == 5 || bill.trangThai == 6"
+              style="text-align: center;margin-left: 54px;">
               <button class="btn btn-outline-muted" disabled>{{billDetail.soLuong}}</button>
             </div>
 
@@ -974,6 +1078,16 @@
             (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
             billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia *
             billDetail.soLuong / 100)}}
+          </td>
+          <td ng-if="bill.trangThai == 4">
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#billDetailSingleRefund"
+              ng-click="loadProductRefund(billDetail)()">
+              <i class="ti  ti-a-b-2" style="
+                              display: inline-block;
+                              font-size: 18px;
+                              transform: translateY(2px);
+                          "></i>
+            </button>
           </td>
         </tr>
 
@@ -1296,6 +1410,74 @@
   </div>
 </div>
 
+<!-- Modal state 3 -->
+<div class="modal fade" id="refundModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Trả toàn bộ hàng </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <label for="exampleInputEmail1" class="form-label">Lý do: </label>
+        <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="noteState4"
+          id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-primary" ng-click="refundBill()">
+          Xác nhận hoàn tiền
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal state 3 -->
+<div class="modal fade" id="billDetailSingleRefund" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Trả hàng một phần </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label for="exampleInputEmail1" class="form-label">Số lượng: </label>
+          <input placeholder="Nhập số lượng...." type="number" class="form-control" ng-model="quantityRefund"
+            id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+        </div>
+
+        <div>
+          <label for="exampleInputEmail1" class="form-label">Lý do: </label>
+          <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="noteState4"
+            id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-primary" ng-click="refundSingleBill()">
+          Xác nhận hoàn tiền
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- customer modal -->
 <div class="modal fade" id="customerEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -1305,7 +1487,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
       </div>
       <div class="modal-body">
-        <div >
+        <div>
           <div>
             <label for="exampleInputEmail1" class="form-label">Tên khách hàng <sup
                 style="color: #fa0000a8;">*</sup></label>
@@ -1368,8 +1550,8 @@
             </div>
 
             <div style="width: 48%;">
-              <label for="exampleInputEmail1" class="form-label">Số nhà/Ngõ/Đường <sup
-                  style="color: #fa0000a8;">*</sup> </label>
+              <label for="exampleInputEmail1" class="form-label">Số nhà/Ngõ/Đường <sup style="color: #fa0000a8;">*</sup>
+              </label>
               <input placeholder="Nhập địa chỉ..." style="height: 40px;" type="text" class="form-control"
                 id="exampleInputEmail1" ng-model="bill.diaChi" aria-describedby="emailHelp">
             </div>

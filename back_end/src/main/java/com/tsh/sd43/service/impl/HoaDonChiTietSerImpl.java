@@ -97,4 +97,8 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
             throw new RuntimeException(e);
         }
     }
+
+    public HoaDonChiTiet updateBillDetail(HoaDonChiTiet req) {
+        return hoaDonChiTietRepo.save(req);
+    }
 }

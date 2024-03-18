@@ -1,5 +1,6 @@
 package com.tsh.sd43.controller;
 
+import com.tsh.sd43.entity.HoaDonChiTiet;
 import com.tsh.sd43.entity.request.ProductDetailRequest;
 import com.tsh.sd43.service.impl.HoaDonChiTietSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,15 @@ public class BillDetailRestController {
     public void deleteProductDetailByID(@PathVariable("id")Long id){
         try{
             hoaDonChiTietService.removeBillDetailById(id);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PutMapping("/refund-single")
+    public void deleteProductDetailByID(@RequestBody HoaDonChiTiet req){
+        try{
+            hoaDonChiTietService.updateBillDetail(req);
         }catch (Exception e){
             throw new RuntimeException(e);
         }

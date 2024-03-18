@@ -19,12 +19,17 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.billState2 = {}
     $scope.billState3 = {}
     $scope.billState4 = {}
+    $scope.billState6 = {}
 
     // note
     $scope.noteState1 = ""
     $scope.noteState2 = ""
     $scope.noteState3 = ""
+    $scope.noteState4 = ""
 
+    // product refund
+    $scope.billDetailRefund = {}
+    $scope.quantityRefund = 0;
 
     // REGEX
     var phone_regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
@@ -80,6 +85,8 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                     $scope.billState3 = $scope.history[i]
                 } else if ($scope.history[i].trangThai == 4) {
                     $scope.billState4 = $scope.history[i]
+                }else if($scope.history[i].trangThai == 6){
+                    $scope.billState6 = $scope.history[i]
                 }
             }
             console.log($scope.history)
@@ -871,5 +878,63 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
         });
     }
 
+    $scope.refundBill = () => {
+
+        if($scope.noteState4 == ""){
+            toastr.error('Vui lòng nhập lý do')
+            return;
+        }
+
+        if ($scope.bill === null) {
+            toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
+        } else {
+            var brandUpdateModal = document.querySelector("#refundModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+
+            modal.hide()
+            $scope.bill.trangThai = 6;
+            $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState4)
+            toastr.success("Trả hàng thành công.")
+            setTimeout(() => {
+                $scope.loadBill()
+            }, 100)
+        }
+    }
+
+    $scope.refundSingleBill = () => {
+        if($scope.noteState4 == ""){
+            toastr.error('Vui lòng nhập lý do')
+            return;
+        }
+
+        if (isNaN($scope.quantityRefund)) {
+            toastr.error("Số lượng phải là số")
+            return;
+        }
+
+        if (Number($scope.quantityRefund) < 0) {
+            toastr.error("Số lượng phải lớn hơn 0")
+            quantityHtml.value = 0;
+            return;
+        }
+
+        if ($scope.bill === null) {
+            toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
+        } else {
+            var brandUpdateModal = document.querySelector("#billDetailSingleRefund")
+            var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+
+            modal.hide()
+            $scope.bill.trangThai = 6;
+            $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState4)
+            toastr.success("Trả hàng thành công.")
+
+            // $scope.addProductToBillApi($scope.billDetailRefund.idSanPhamChiTiet, $scope.bill, $scope.billDetailRefund.soLuong - $scope.quantityRefund)
+
+            setTimeout(() => {
+                $scope.loadBill()
+            }, 100)
+        }
+    }
 
 })

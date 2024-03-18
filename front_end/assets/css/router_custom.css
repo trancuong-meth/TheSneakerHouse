@@ -1044,6 +1044,18 @@ svg * {
   background: #a2c7a2;
 }
 
+.sch-style-2 .sch-content:nth-child(5) .sch-year,
+.sch-style-2 .sch-content:nth-child(5) .sch-option {
+  color: #f1721d;
+}
+
+.sch-style-2 .sch-content:nth-child(5) .sch-icon i,
+.sch-style-2 .sch-content:nth-child(5) .btn-right::before,
+.sch-style-2 .sch-content:nth-child(5) .btn-right::after,
+.sch-style-2 .sch-content:nth-child(5) .sch-icon::before {
+  background: #f1721d;
+}
+
 @-webkit-keyframes zoom {
   25% {
     transform: scale3d(1.5, 1.5, 0);
