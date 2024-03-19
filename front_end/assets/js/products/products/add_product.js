@@ -137,15 +137,24 @@ main_app.controller("addProductController", function ($scope, $http) {
         $scope.addProductDetail()
     }
 
-    $scope.removeChooseSize = function (size) {
+    $scope.removeChooseSize = function (size, state) {
         for (var i = $scope.listChooseSize.length; i--;) {
             if ($scope.listChooseSize[i] === size)
                 $scope.listChooseSize.splice(i, 1);
         }
+
+        if(state != 1){
+            for (var i = 0; i < $scope.productDetails.length; i++) {
+                if ($scope.productDetails[i].size == size) {
+                    $scope.productDetails.splice(i, 1)
+                }
+            }
+        }
+
         $scope.addProductDetail()
     }
 
-    $scope.removeChooseColor = function (color) {
+    $scope.removeChooseColor = function (color, state) {
         for (var i = $scope.listChooseColor.length; i--;) {
 
             if ($scope.listChooseColor[i].id === color.id) {
@@ -156,6 +165,15 @@ main_app.controller("addProductController", function ($scope, $http) {
                 $scope.listChooseColorId.splice(i, 1);
             }
         }
+
+        if(state != 1){
+            for (var i = 0; i < $scope.productDetails.length; i++) {
+                if ($scope.productDetails[i].color.id == color.id) {
+                    $scope.productDetails.splice(i, 1)
+                }
+            }
+        }
+
         $scope.addProductDetail()
     }
 
@@ -208,35 +226,42 @@ main_app.controller("addProductController", function ($scope, $http) {
                 $scope.productDetails.splice(i, 1)
             }
         }
+        console.log($scope.productDetails)
         var productByColor = $scope.productDetails.find(x => x.color.id == colorId)
         var productBySize = $scope.productDetails.find(x => x.size == size)
 
         if (productByColor === undefined) {
             productDetailTabColor.remove()
-            $scope.removeChooseColor($scope.colors.find(x => x.id == colorId))
+            $scope.removeChooseColor($scope.colors.find(x => x.id == colorId), 1)
         }
 
         if (productBySize === undefined) {
-            $scope.removeChooseSize(size)
+            $scope.removeChooseSize(size, 1)
         }
 
     }
 
     $scope.addProductDetail = function () {
-        $scope.resetProductDetails()
+        // $scope.resetProductDetails()
 
         if ($scope.listChooseColor.length > 0 && $scope.listChooseSize.length > 0) {
             var id = 0;
             for (var i = 0; i < $scope.listChooseColor.length; i++) {
                 for (var j = 0; j < $scope.listChooseSize.length; j++) {
-                    $scope.productDetails.push({
-                        'id': id,
-                        'color': $scope.listChooseColor[i],
-                        'size': $scope.listChooseSize[j],
-                        'quantity': 0,
-                        'price': 0,
-                        'product': {}
-                    })
+                    var productDetail = $scope.productDetails.find(x => x.color.id == $scope.listChooseColor[i].id && x.size == $scope.listChooseSize[j]);
+                    if(productDetail != undefined){ 
+                        productDetail.id = id;
+                    }else{
+                        $scope.productDetails.push({
+                            'id': id,
+                            'color': $scope.listChooseColor[i],
+                            'size': $scope.listChooseSize[j],
+                            'quantity': 0,
+                            'price': 0,
+                            'product': {}
+                        })
+                    }
+                    
 
                     id++;
                 }
@@ -359,8 +384,6 @@ main_app.controller("addProductController", function ($scope, $http) {
             console.log(error)
             toastr.error("Kích cỡ này đã tồn tại.Vui lòng nhập tên thương hiệu khác!!!");
         })
-
-
     }
 
     var readURL = function (input) {

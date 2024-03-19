@@ -4,22 +4,58 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
     $scope.itemsPerPageProductDetail = 10;
     var idProduct = $routeParams.id
     $scope.totalItemsProductDetail = 1;
-    $scope.keyProduct = ""
     $scope.trang_thai = ""
     $scope.productDetails = []
 
+    // color and size
+    $scope.colors = []
+    $scope.sizes = []
+
+    // filter
+    $scope.idSize = ""
+    $scope.idColor = ""
+    $scope.maxPrice = 0;
+    $scope.minPrice = 0;
+    $scope.valuePrice = 0;
+
+    //product detail
+    $scope.product_detail = {}
+
+    //images
+    $scope.images = []
+
+    // load data
+    $scope.idColorProductDetail = ""
+    $scope.idSizeProductDetail = ""
+
     const loadData = function () {
-        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&key=' + '&trang_thai=' + '&id=' + idProduct,)
+        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&trang_thai=' + '&idSize=' + '&idColor=' + '&id=' + idProduct,)
             .then(function (response) {
                 $scope.productDetails = response.data
                 console.log($scope.productDetails)
                 $scope.totalItemsProductDetail = response.data.totalElements
 
             });
+
+        $http.get('http://localhost:8080/color/get-all')
+            .then(function (response) {
+                $scope.colors = response.data
+            });
+
+        $http.get('http://localhost:8080/size/get-all')
+            .then(function (response) {
+                $scope.sizes = response.data
+            });
+
+        $http.get('http://localhost:8080/product/get-max-don-gia')
+            .then(function (response) {
+                $scope.maxPrice = response.data
+            });
+
     }
 
-    const fillter = function (keyProduct, trang_thai) {
-        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&key=' + keyProduct + '&trang_thai=' + trang_thai + '&id=' + idProduct,)
+    const fillter = function (trang_thai) {
+        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&trang_thai=' + trang_thai + '&id=' + idProduct + '&idSize=' + $scope.idSize + '&idColor=' + $scope.idColor,)
             .then(function (response) {
                 $scope.productDetails = response.data
                 $scope.totalItemsProductDetail = response.data.totalElements
@@ -30,16 +66,14 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
     $scope.pageChangedProductDetail = function () {
 
-        console.log($scope.currentPageProductDetail)
-        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&key=' + $scope.keyProduct + '&trang_thai=' + $scope.trang_thai + '&id=' + idProduct,)
+        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&trang_thai=' + $scope.trang_thai + '&id=' + idProduct,)
             .then(function (response) {
                 $scope.productDetails = response.data
             });
     };
 
     $scope.fillterByProductKey = function () {
-        var key = document.getElementById("searchKey").value
-        fillter(key, $scope.trang_thai)
+        fillter($scope.trang_thai)
     }
 
 
@@ -95,13 +129,13 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
                         <div class="carousel-item active "  >
                             <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
-                }else{
+                } else {
                     textCenter += `
                         <div class="carousel-item">
                             <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
                 }
-                
+
             }
 
             html.innerHTML = textFist + textCenter + textLast
@@ -111,5 +145,77 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
         })
     }
 
+    $scope.searchProductDetail = () => {
+        fillter($scope.trang_thai)
+    }
+
+    $scope.setProductDetail = (product) => {
+        $scope.product_detail = product
+        $scope.idColorProductDetail = product.idMauSac.id
+        $scope.idSizeProductDetail = product.idKichCo.id
+
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: product.id,
+            width: 128,
+            height: 128
+        });
+
+        //size
+        var sizeHeader = `
+        <select class="form-select" style="width: 100%;" id="size" name="size" ng-change="searchProductDetail()"
+                ng-model="idSizeProductDetail">
+        `
+        var sizeMiddler = ""
+        var sizeFooter = `
+        </select>
+        `
+        $scope.sizes.forEach(size => {
+            if (size.id == $scope.idSizeProductDetail) {
+                sizeMiddler += `
+                <option selected value=${ size.id } >${ size.kichCo }</option>
+                `
+            } else {
+                sizeMiddler += `
+                <option value=${ size.id } >${ size.kichCo }</option>
+                `
+            }
+
+        })
+
+        document.getElementById("sizeProductDetail").innerHTML = sizeHeader + sizeMiddler + sizeFooter
+
+        // color
+        var colorHeader = `
+        <select class="form-select" style="width: 100%;" id="color" name="color" ng-change="searchProductDetail()"
+                ng-model="idColorProductDetail">
+        `
+        var colorMiddler = ""
+        var colorFooter = `
+        </select>
+        `
+        $scope.colors.forEach(color => {
+            if (color.id == $scope.idColorProductDetail) {
+                colorMiddler += `
+                <option selected value=${ color.id } >${ color.ten }</option>
+                `
+            } else {
+                colorMiddler += `
+                <option value=${ color.id } >${ color.ten }</option>
+                `
+            }
+
+        })
+
+        document.getElementById("colorProductDetail").innerHTML = colorHeader + colorMiddler + colorFooter
+
+        // load image
+        axios.get('http://localhost:8080/image/get-all/' + product.id).then(function (response) {
+            $scope.images = response.data
+            loadData()
+        }).catch(function (error) {
+            console.log(error)
+        })
+
+    }
 
 })

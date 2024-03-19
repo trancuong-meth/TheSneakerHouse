@@ -20,9 +20,11 @@ public class ProductRestController {
     public ResponseEntity<?> getVouchers(@RequestParam("page")Integer pageNo,
                                          @RequestParam("size")Integer pageSize,
                                          @RequestParam("key")String key,
+                                         @RequestParam("id_type")String idType,
+                                         @RequestParam("id_brand")String idBrand,
                                          @RequestParam("trang_thai")String trangThai){
         try{
-            return new ResponseEntity<>(sanPhamService.getProducts(pageNo, pageSize, key), HttpStatus.OK);
+            return new ResponseEntity<>(sanPhamService.getProducts(pageNo, pageSize, key, idBrand, idType), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -50,6 +52,15 @@ public class ProductRestController {
     public ResponseEntity<?> getVoucherById(@PathVariable("id")Long id){
         try{
             return new ResponseEntity<>(sanPhamService.getById(id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-max-don-gia")
+    public ResponseEntity<?> getMaxDonGia(){
+        try{
+            return new ResponseEntity<>(sanPhamService.getMaxDonGia(), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

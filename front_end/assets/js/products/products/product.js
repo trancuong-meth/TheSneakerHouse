@@ -7,17 +7,35 @@ main_app.controller("productController", function ($scope, $http) {
     $scope.trang_thai = ""
     $scope.products = []
 
+    //brands
+    $scope.brands = []
+    $scope.idBrand = ""
+
+    //types
+    $scope.types = []
+    $scope.idType = ""
+
     const loadData = function () {
-        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + '&trang_thai=',)
+        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + '&id_type=' + '&id_brand=' + '&trang_thai=',)
             .then(function (response) {
                 $scope.products = response.data
                 console.log($scope.products)
                 $scope.totalItems = response.data.totalElements
             });
+
+        $http.get('http://localhost:8080/brand/get-all')
+            .then(function (response) {
+                $scope.brands = response.data
+            });
+
+        $http.get('http://localhost:8080/type/get-all')
+            .then(function (response) {
+                $scope.types = response.data
+            });
     }
 
     const fillter = function (keyProduct, trang_thai) {
-        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + keyProduct + '&trang_thai=' + trang_thai,)
+        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + keyProduct + '&id_type=' + $scope.idType + '&id_brand=' + $scope.idBrand + '&trang_thai=' + trang_thai,)
             .then(function (response) {
                 $scope.products = response.data
                 $scope.totalItems = response.data.totalElements
@@ -27,7 +45,7 @@ main_app.controller("productController", function ($scope, $http) {
     loadData()
 
     $scope.pageChanged = function () {
-        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.keyProduct + '&trang_thai=' + $scope.trang_thai,)
+        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.keyProduct + '&id_type=' + $scope.idType + '&id_brand=' + $scope.idBrand + '&trang_thai=' + $scope.trang_thai,)
             .then(function (response) {
                 $scope.products = response.data
             });
@@ -37,7 +55,6 @@ main_app.controller("productController", function ($scope, $http) {
         var key = document.getElementById("searchKey").value
         fillter(key, $scope.trang_thai)
     }
-
 
     $scope.loadproduct = function (id) {
         var productUpdateModal = document.querySelector("#productUpdateModal")
@@ -74,5 +91,9 @@ main_app.controller("productController", function ($scope, $http) {
         $scope.name_product = ""
     }
 
-  
+    $scope.searchProductDetail = () => {
+        var key = document.getElementById("searchKey").value
+        fillter(key, $scope.trang_thai)
+    }
+
 })

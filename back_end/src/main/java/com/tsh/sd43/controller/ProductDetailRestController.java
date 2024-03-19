@@ -20,11 +20,12 @@ public class ProductDetailRestController {
     @GetMapping("/find-all-panigation")
     public ResponseEntity<?> getVouchers(@RequestParam("page") Integer pageNo,
                                          @RequestParam("size") Integer pageSize,
-                                         @RequestParam("key") String key,
                                          @RequestParam("trang_thai") String trangThai,
-                                         @RequestParam("id") Long id) {
+                                         @RequestParam("id") Long id,
+                                         @RequestParam("idSize")String idSize,
+                                         @RequestParam("idColor")String idColor) {
         try {
-            return new ResponseEntity<>(sanPhamChiTietService.getProducts(pageNo, pageSize, key, id), HttpStatus.OK);
+            return new ResponseEntity<>(sanPhamChiTietService.getProducts(pageNo, pageSize, id, idSize, idColor), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

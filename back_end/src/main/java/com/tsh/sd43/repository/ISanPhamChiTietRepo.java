@@ -16,9 +16,14 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
     @Query( value = """
         select * from san_pham_chi_tiet v
         where id_san_pham = :id
+        and id_kich_co like :id_kich_co
+        and id_mau_sac like :id_mau_sac
         ORDER BY ngay_tao DESC
     """, nativeQuery = true)
-    Page<SanPhamChiTiet> findPanigation(Pageable pageable, @Param("id") Long id);
+    Page<SanPhamChiTiet> findPanigation(Pageable pageable,
+                                        @Param("id") Long id,
+                                        @Param("id_kich_co")String idKichCo,
+                                        @Param("id_mau_sac")String idMauSac);
 
     @Query(value = """
         select * from san_pham_chi_tiet v

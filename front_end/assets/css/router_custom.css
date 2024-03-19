@@ -1172,6 +1172,7 @@ svg * {
   overflow: hidden;
   top: 15px;
   left: 35px;
+  z-index: 3;
 }
 .ribbon span {
   width: 97px;
@@ -1228,4 +1229,6 @@ svg * {
 	display: block;
   text-decoration: none;
 }
+
+
 

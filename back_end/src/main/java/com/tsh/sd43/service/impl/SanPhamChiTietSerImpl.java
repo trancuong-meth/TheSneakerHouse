@@ -25,10 +25,14 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
     @Autowired
     private ISanPhamChiTietRepo sanPhamChiTietRepo;
 
-    public Page<SanPhamChiTiet> getProducts(int pageNo, int pageSize, String key, Long id){
+    public Page<SanPhamChiTiet> getProducts(int pageNo, int pageSize,
+                                            Long id,
+                                            String idKichCo, String idMauSac){
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return sanPhamChiTietRepo.findPanigation(pageable, id);
+        return sanPhamChiTietRepo.findPanigation(pageable, id,
+                                        "%" + idKichCo + "%",
+                                        "%" + idMauSac + "%");
     }
 
     public ArrayList<SanPhamChiTiet> getAll(){

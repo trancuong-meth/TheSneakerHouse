@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,11 +25,17 @@ public class SanPhamSerImpl implements ISanPhamSer {
     @Autowired
     private ISanPhamRepo sanPhamRepo;
 
-    public Page<ProductResponce> getProducts(int pageNo, int pageSize, String key){
+    public Page<ProductResponce> getProducts(int pageNo,
+                                             int pageSize,
+                                             String key,
+                                             String idBrand,
+                                             String idType){
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return sanPhamRepo.findPanigation(pageable,
-                "%" + key + "%");
+                "%" + key + "%",
+                "%" + idType + "%",
+                "%" + idBrand + "%");
     }
 
     public ArrayList<SanPham> getAll(){
@@ -67,6 +74,10 @@ public class SanPhamSerImpl implements ISanPhamSer {
             return "PRODUCT_" + 0;
         }
         return "PRODUCT_" + (Integer.parseInt(newestCode.substring(8)) + 1);
+    }
+
+    public BigDecimal getMaxDonGia(){
+        return sanPhamRepo.getMaxDonGia();
     }
 
  }
