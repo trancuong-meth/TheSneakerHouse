@@ -59,4 +59,8 @@ public class HinhAnhSerImpl implements IHinhAnhSer {
         return null;
     }
 
+    public void deleteImageById(Long id){
+        hinhAnhRepo.deleteImageById(id);
+    }
+
 }

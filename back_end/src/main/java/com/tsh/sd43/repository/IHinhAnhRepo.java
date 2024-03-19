@@ -1,10 +1,11 @@
 package com.tsh.sd43.repository;
 
 import com.tsh.sd43.entity.HinhAnh;
-import com.tsh.sd43.entity.TheLoai;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -30,4 +31,11 @@ public interface IHinhAnhRepo extends JpaRepository<HinhAnh, Long> {
         where v.id_san_pham_chi_tiet = :id
     """, nativeQuery = true)
     ArrayList<HinhAnh> findByOrderByNgayTaoDesc(@Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = """
+        DELETE FROM hinh_anh WHERE id = :id
+    """, nativeQuery = true)
+    void deleteImageById(@Param("id") Long id);
 }

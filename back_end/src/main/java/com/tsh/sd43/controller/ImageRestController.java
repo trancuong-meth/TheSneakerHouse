@@ -45,4 +45,14 @@ public class ImageRestController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteVoucher(@PathVariable("id")Long id){
+        try{
+            hinhAnhService.deleteImageById(id);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

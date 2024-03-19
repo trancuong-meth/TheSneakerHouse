@@ -154,6 +154,7 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
         $scope.idColorProductDetail = product.idMauSac.id
         $scope.idSizeProductDetail = product.idKichCo.id
 
+        document.getElementById("qrcode").innerHTML = ""
         var qrcode = new QRCode(document.getElementById("qrcode"), {
             text: product.id,
             width: 128,
@@ -162,7 +163,7 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
         //size
         var sizeHeader = `
-        <select class="form-select" style="width: 100%;" id="size" name="size" ng-change="searchProductDetail()"
+        <select class="form-select" style="width: 100%;" id="size" name="size"
                 ng-model="idSizeProductDetail">
         `
         var sizeMiddler = ""
@@ -172,11 +173,11 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
         $scope.sizes.forEach(size => {
             if (size.id == $scope.idSizeProductDetail) {
                 sizeMiddler += `
-                <option selected value=${ size.id } >${ size.kichCo }</option>
+                <option selected value=${size.id} >${size.kichCo}</option>
                 `
             } else {
                 sizeMiddler += `
-                <option value=${ size.id } >${ size.kichCo }</option>
+                <option value=${size.id} >${size.kichCo}</option>
                 `
             }
 
@@ -186,7 +187,7 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
         // color
         var colorHeader = `
-        <select class="form-select" style="width: 100%;" id="color" name="color" ng-change="searchProductDetail()"
+        <select class="form-select" style="width: 100%;" id="color" name="color"
                 ng-model="idColorProductDetail">
         `
         var colorMiddler = ""
@@ -196,11 +197,11 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
         $scope.colors.forEach(color => {
             if (color.id == $scope.idColorProductDetail) {
                 colorMiddler += `
-                <option selected value=${ color.id } >${ color.ten }</option>
+                <option selected value=${color.id} >${color.ten}</option>
                 `
             } else {
                 colorMiddler += `
-                <option value=${ color.id } >${ color.ten }</option>
+                <option value=${color.id} >${color.ten}</option>
                 `
             }
 
@@ -208,14 +209,115 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
         document.getElementById("colorProductDetail").innerHTML = colorHeader + colorMiddler + colorFooter
 
+        $scope.loadImageById($scope.product_detail.id);
+    }
+
+    $scope.updateProductDetail = () => {
+        var brandModal = document.querySelector("#editProductDetailModal")
+        var modal = bootstrap.Modal.getOrCreateInstance(brandModal)
+
+        if ($scope.product_detail.donGia == null || $scope.product_detail.donGia == "") {
+            toastr.error("Đơn giá không được trống")
+            return;
+        }
+
+        if (Number($scope.product_detail.donGia) < 0) {
+            toastr.error("Đơn giá phải lớn hơn 0")
+            return;
+        }
+
+        if ($scope.product_detail.soLuongTon == null || $scope.product_detail.soLuongTon == "") {
+            toastr.error("Số lượng không được trống")
+            return;
+        }
+
+        if (Number($scope.product_detail.soLuongTon) < 0) {
+            toastr.error("Số lượng phải lớn hơn 0")
+            return;
+        }
+
+        $scope.product_detail.idMauSac = $scope.colors.find(color => color.id == document.getElementById("color").value)
+        $scope.product_detail.idKichCo = $scope.sizes.find(size => size.id == document.getElementById("size").value)
+
+        Swal.fire({
+            title: "Xác nhận thay đổi sản phẩm này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post('http://localhost:8080/product-detail/add-sale', $scope.product_detail).then(function (response) {
+                    console.log(response.data)
+                    modal.hide()
+                    toastr.success("Thay đổi thành công")
+                    $scope.searchProductDetail()
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+        });
+
+    }
+
+    $scope.loadImageById = (id) => {
         // load image
-        axios.get('http://localhost:8080/image/get-all/' + product.id).then(function (response) {
+        axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
             $scope.images = response.data
             loadData()
         }).catch(function (error) {
             console.log(error)
         })
+    }
+
+    $scope.removeImage = function (image) {
+        axios.delete('http://localhost:8080/image/delete/' + image.id).then(function (response) {
+            $scope.images = response.data
+            console.log(response.data)
+            $scope.loadImageById($scope.product_detail.id)
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
+
+    $scope.changeImage = function (element) {
+        readURL(element)
+    }
+
+    var readURL = function (input) {
+        if (input.files) {
+            $scope.addFileList(input.files)
+        }
+    }
+
+    $scope.addFileList = function (items) {
+        for (var i = 0; i < items.length; i++) {
+            const formData = new FormData();
+            formData.append('file', items[i]);
+            axios.post("http://localhost:8080/cloudinary/upload",
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
+                    axios.post('http://localhost:8080/image/add', {
+                        "duongDan": res.data.secure_url,
+                        "idSanPhamChiTiet": $scope.product_detail.id
+                    }).then(function (res) {
+                        setTimeout(() => {
+                            $scope.loadImageById($scope.product_detail.id)
+                        }, 10)
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                }).catch((error) => console.error("Error:", error));
+        }
 
     }
+
 
 })
