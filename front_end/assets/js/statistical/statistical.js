@@ -211,6 +211,6 @@ main_app.controller("statisticalController", function ($scope, $http) {
 
   }
 
-  $scope.onLoadChart('2024-01-01', '2024-04-10')
+  $scope.changeFillterBill ()
 
 })
