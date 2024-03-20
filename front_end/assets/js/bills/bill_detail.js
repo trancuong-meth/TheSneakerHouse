@@ -76,6 +76,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
 
         $http.get("http://localhost:8080/history/get-all-by-id/" + id).then(function (response) {
             $scope.history = response.data
+            console.log($scope.history)
             for (var i = 0; i < $scope.history.length; i++) {
                 if ($scope.history[i].trangThai == 1) {
                     $scope.billState1 = $scope.history[i]
