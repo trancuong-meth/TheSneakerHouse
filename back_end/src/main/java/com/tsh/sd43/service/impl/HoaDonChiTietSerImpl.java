@@ -48,7 +48,7 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
 
                         if(req.getSoLuong() == -1) {
                             if(item.getSoLuong() + 1 > req.getSanPhamChiTiet().getSoLuongTon()) {
-                                throw new RuntimeException("Số lượng tồn không đủ");
+                                throw new RuntimeException("Số lượng còn lại không đủ");
                             }
 
                             item.setSoLuong(item.getSoLuong() + 1);

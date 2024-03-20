@@ -290,7 +290,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 $scope.loadProductDetailByBillId(bill)
             }, 100)
         }).catch(function (error) {
-            toastr.error(error.response.data);
+            toastr.error(error.data.message)
         })
 
     }
@@ -805,6 +805,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.openModalQrCode = () => {
+
         $http.get('http://localhost:8080/product-detail/get-all?page=' + ($scope.currentPage - 1) + '&size=' + 1000,)
             .then(function (response) {
                 domReady(function () {

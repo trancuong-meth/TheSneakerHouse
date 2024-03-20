@@ -32,7 +32,7 @@ public class BillDetailRestController {
         try {
             return new ResponseEntity<>(hoaDonChiTietService.addProductToBill(req), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getCause(), HttpStatus.BAD_REQUEST);
         }
     }
 
