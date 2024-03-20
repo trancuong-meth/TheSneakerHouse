@@ -156,4 +156,8 @@ public class HoaDonSerImpl implements IHoaDonChiTietSer {
         }
         return null;
     }
+
+    public ArrayList<BillRevenueResponse> getQuantityBillByState(){
+        return hoaDonRepo.getQuantityBillByStates();
+    }
 }

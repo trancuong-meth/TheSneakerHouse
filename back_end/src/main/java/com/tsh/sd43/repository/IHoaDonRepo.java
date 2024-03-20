@@ -157,4 +157,10 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
          order by so_luong desc
     """, nativeQuery = true)
     ArrayList<ProductBestSellerResponce> getTop5ProductBestSellerYear();
+
+    @Query(value = """
+            select hd.trang_thai, count(hd.id)as so_luong from hoa_don hd
+             group by hd.trang_thai
+    """, nativeQuery = true)
+    ArrayList<BillRevenueResponse> getQuantityBillByStates();
 }

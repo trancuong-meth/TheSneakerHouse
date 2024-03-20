@@ -160,4 +160,13 @@ public class BillRestController {
         }
     }
 
+    @GetMapping("/get-quantity-bills")
+    public ResponseEntity<?> getQuantityBill(){
+        try{
+            return new ResponseEntity<>(hoaDonService.getQuantityBillByState(), HttpStatus.OK);
+        }catch (Exception ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
 }

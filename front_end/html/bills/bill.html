@@ -9,19 +9,123 @@
   <nav>
     <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
       <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(-1)">Tất cả</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(-1)" style="position: relative;">
+        <div style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -7px;
+        right: -5px;
+        background-color: #e85557;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+        z-index: 5;
+        line-height: 20px;">{{quantityStateAll}}</div>
+        Tất cả
+      </button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(1)">Xác nhận đơn hàng</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(1)" style="position: relative;">Xác
+        nhận đơn hàng
+        <div style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -7px;
+        right: -5px;
+        background-color: #e85557;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+        z-index: 5;
+        line-height: 20px;">{{quantityState1}}</div>
+      </button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(2)">Chờ giao</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(2)" style="position: relative;">Chờ
+        giao
+        <div style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -7px;
+        right: -5px;
+        background-color: #e85557;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+        z-index: 5;
+        line-height: 20px;">{{quantityState2}}</div>
+      </button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(3)">Đang giao</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(3)"
+        style="position: relative;">Đang giao
+        <div style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -7px;
+        right: -5px;
+        background-color: #e85557;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+        z-index: 5;
+        line-height: 20px;">{{quantityState3}}</div>
+      </button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(4)">Hoàn thành</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(4)"
+        style="position: relative;">Hoàn thành
+        <div style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -7px;
+        right: -5px;
+        background-color: #e85557;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+        z-index: 5;
+        line-height: 20px;">{{quantityState4}}</div>
+      </button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(5)">Hủy</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(5)" style="position: relative;">Hủy
+        <div style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -7px;
+        right: -5px;
+        background-color: #e85557;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+        z-index: 5;
+        line-height: 20px;">{{quantityState5}}</div>
+      </button>
       <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(6)">Trả hàng</button>
+        role="tab" aria-controls="nav-home" aria-selected="true" ng-click="loadBills(6)" style="position: relative;">Trả
+        hàng
+        <div style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -7px;
+        right: -5px;
+        background-color: #e85557;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+        z-index: 5;
+        line-height: 20px;">{{quantityState6}}</div>
+      </button>
     </div>
   </nav>
   <div class="tab-content p-3 border" id="nav-tabContent">

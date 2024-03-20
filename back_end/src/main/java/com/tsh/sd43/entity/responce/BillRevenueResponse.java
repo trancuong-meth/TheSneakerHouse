@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 @Projection(types = {HoaDon.class})
-public interface BillStateResponce {
+public interface BillRevenueResponse {
 
     @Value("#{target.trang_thai}")
-    Integer getTrangThai();
-    
+    Long getTrangThai();
+
     @Value("#{target.so_luong}")
-    Integer getSoLuong();
+    Long getSoLuong();
+
 }

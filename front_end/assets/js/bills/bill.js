@@ -4,11 +4,47 @@ main_app.controller("billController", function ($scope, $http) {
     $scope.currentPage = 1;
     $scope.itemsPerPage = 10;
     $scope.totalItems = 1;
+
+    // quantity
+    $scope.quantityState1 = 0
+    $scope.quantityState2 = 0
+    $scope.quantityState3 = 0
+    $scope.quantityState4 = 0
+    $scope.quantityState5 = 0
+    $scope.quantityState6 = 0
+    $scope.quantityStateAll = 0
   
     $scope.loadBills = function (state) {
+      $scope.quantityStateAll = 0
+
+      // get bill
       $http.get('http://localhost:8080/bill/get-bill-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&state=' + state).then(function (response) {
         $scope.bills = response.data
-        console.log($scope.bills)
+      }).catch(function (error) {
+          console.log(error)
+      })
+
+      // get quantity bill
+      $http.get('http://localhost:8080/bill/get-quantity-bills').then(function (response) {
+        console.log(response.data)
+        response.data.forEach((bill) => {
+          $scope.quantityStateAll += bill.soLuong
+          if(bill.trangThai  == 1){
+            $scope.quantityState1 = bill.soLuong
+          }else if(bill.trangThai  == 2){
+            $scope.quantityState2 = bill.soLuong
+          }else if(bill.trangThai  == 3){
+            $scope.quantityState3 = bill.soLuong
+          }else if(bill.trangThai  == 4){
+            $scope.quantityState4 = bill.soLuong
+          }else if(bill.trangThai  == 5){
+            $scope.quantityState5 = bill.soLuong
+          }else if(bill.trangThai  == 6){
+            $scope.quantityState6 = bill.soLuong
+          }
+        })
+        
+
       }).catch(function (error) {
           console.log(error)
       })
