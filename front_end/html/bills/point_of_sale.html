@@ -46,7 +46,8 @@
             <span style="color: black;display: inline-block;">Giỏ hàng</span>
           </div>
           <div style="display: flex;justify-content: space-between;margin-right: 10px;">
-            <button class="btn btn-primary" style="margin-right: 10px;">
+            <button class="btn btn-primary" style="margin-right: 10px;" data-bs-toggle="modal"
+              data-bs-target="#qrCodeModal" ng-click="openModalQrCode()">
               <i class="ti ti-qrcode"></i>
               Quét QR Code
             </button>
@@ -717,7 +718,7 @@
                   right: 20px;
                   bottom: 32px;
                   " ng-click="addVoucherToBill(voucher)" ng-if="voucher.soLanDung != 0">Chọn</button>
-                  <button class="btn btn-danger" style="
+          <button class="btn btn-danger" style="
                   position: absolute;
                   right: 20px;
                   bottom: 32px;
@@ -816,6 +817,24 @@
             " max-size="3" ng-change="pageCustomerChanged()"></uib-pagination>
         </span>
 
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- qr code modal -->
+<div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Quét Qr</h5>
+        <button type="button" ng-click="closeQrCodeModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <div class="section">
+          <div id="my-qr-reader">
+          </div>
+        </div>
       </div>
     </div>
   </div>

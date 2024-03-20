@@ -2,82 +2,126 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* style.css file*/
+    body {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      box-sizing: border-box;
+      text-align: center;
+      background: rgb(128 0 0 / 66%);
+    }
 
-    <style>
-        #preview {
-            width: 400px;
-            height: 300px;
-            margin: 0px auto;
-        }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: 5px;
+    }
 
-        [type="radio"] {
-            margin-right: 4px;
+    .container h1 {
+      color: #ffffff;
+    }
 
-            &:not(:first-child) {
-                margin-left: 12px;
-            }
-        }
-    </style>
+    .section {
+      background-color: #ffffff;
+      padding: 50px 30px;
+      border: 1.5px solid #b2b2b2;
+      border-radius: 0.25em;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    #my-qr-reader {
+      padding: 20px !important;
+      border: 1.5px solid #b2b2b2 !important;
+      border-radius: 8px;
+    }
+
+    #my-qr-reader img[alt="Info icon"] {
+      display: none;
+    }
+
+    #my-qr-reader img[alt="Camera based scan"] {
+      width: 100px !important;
+      height: 100px !important;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: 1px solid #b2b2b2;
+      outline: none;
+      border-radius: 0.25em;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      background-color: #008000ad;
+      transition: 0.3s background-color;
+    }
+
+    button:hover {
+      background-color: #008000;
+    }
+
+    #html5-qrcode-anchor-scan-type-change {
+      text-decoration: none !important;
+      color: #1d9bf0;
+    }
+
+    video {
+      width: 100% !important;
+      border: 1px solid #b2b2b2 !important;
+      border-radius: 0.25em;
+    }
+  </style>
 </head>
 
 <body>
-    video#preview
-    .btb-group.btb-group-toggle.mb-5(data-toggle="buttons")
-    label.btn.btn-primary.active
-    input(type="radio", name="options", value="1", autocomplete="off", checked="checked")
-    | Front Camera
-    label.btn.btn-secondary
-    input(
-    type="radio",
-    name="options",
-    value="2",
-    autocomplete="off",
-    )
-    | Back Camera
 
-    <script>
-        var scanner = new Instascan.Scanner({
-  video: document.getElementById("preview"),
-  scanPeriod: 5,
-  mirror: false
-});
-scanner.addListener("scan", function (content) {
-  alert(content);
-  //window.location.href=content;
-});
-Instascan.Camera.getCameras()
-  .then(function (cameras) {
-    if (cameras.length > 0) {
-      scanner.start(cameras[0]);
-      $('[name="options"]').on("change", function () {
-        if ($(this).val() == 1) {
-          if (cameras[0] != "") {
-            scanner.start(cameras[0]);
-          } else {
-            alert("No Front camera found!");
-          }
-        } else if ($(this).val() == 2) {
-          if (cameras[1] != "") {
-            scanner.start(cameras[1]);
-          } else {
-            alert("No Back camera found!");
-          }
-        }
-      });
-    } else {
-      console.error("No cameras found.");
-      alert("No cameras found.");
+  <div class="container">
+    <h1>Scan QR Codes</h1>
+    <div class="section">
+      <div id="my-qr-reader">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script>
+    // script.js file
+
+    function domReady(fn) {
+      if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+      ) {
+        setTimeout(fn, 1000);
+      } else {
+        document.addEventListener("DOMContentLoaded", fn);
+      }
     }
-  })
-  .catch(function (e) {
-    console.error(e);
-    alert(e);
-  });
-  
-    </script>
+
+    domReady(function () {
+
+      // If found you qr code
+      function onScanSuccess(decodeText, decodeResult) {
+        alert("You Qr is : " + decodeText, decodeResult);
+      }
+
+      let htmlscanner = new Html5QrcodeScanner(
+        "my-qr-reader",
+        { fps: 10, qrbos: 250 }
+      );
+      htmlscanner.render(onScanSuccess);
+    });
+
+  </script>
 </body>
 
 </html>

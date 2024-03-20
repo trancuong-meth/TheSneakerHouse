@@ -31,6 +31,12 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     $scope.totalItemCustomers = 1;
     $scope.keyCustomer = ""
 
+    // scanner qr
+    let htmlscanner = new Html5QrcodeScanner(
+        "my-qr-reader",
+        { fps: 10, qrbos: 250 }
+    );
+
     // FAST DELIVERY
     const token = "2b4b5f3e-ac78-11ee-a6e6-e60958111f48";
     const serviceID = 53320;
@@ -781,6 +787,48 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 $scope.loadCustomer()
             })
             .catch((error) => console.error("Error:", error));
+    }
+
+    function domReady(fn) {
+        if (
+            document.readyState === "complete" ||
+            document.readyState === "interactive"
+        ) {
+            setTimeout(fn, 1000);
+        } else {
+            document.addEventListener("DOMContentLoaded", fn);
+        }
+    }
+
+    $scope.closeQrCodeModal = () => {
+        htmlscanner.clear();
+    }
+
+    $scope.openModalQrCode = () => {
+        $http.get('http://localhost:8080/product-detail/get-all?page=' + ($scope.currentPage - 1) + '&size=' + 1000,)
+            .then(function (response) {
+                domReady(function () {
+                    // If found you qr code
+                    function onScanSuccess(decodeText, decodeResult) {
+                        var qrModal = document.querySelector("#qrCodeModal")
+                        var modal = bootstrap.Modal.getOrCreateInstance(qrModal)
+        
+                        setTimeout(() => {
+                            var productDetail = response.data.content.find(productDetail => productDetail.id == Number(decodeText))
+                            $scope.addProductToBillApi(productDetail, $scope.getActiveBill(), -1)
+                            htmlscanner.clear();
+                            modal.hide()
+                        }, 50)
+        
+                    }
+        
+                    htmlscanner.render(onScanSuccess);
+                });
+            }).catch(function (error) {
+                console.log(error)
+            });
+
+       
     }
 
 })

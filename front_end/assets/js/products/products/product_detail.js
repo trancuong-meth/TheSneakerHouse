@@ -156,7 +156,7 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
         document.getElementById("qrcode").innerHTML = ""
         var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: product.id,
+            text: product.id + "",
             width: 128,
             height: 128
         });
