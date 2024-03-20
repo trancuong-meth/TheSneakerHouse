@@ -44,7 +44,7 @@ main_app.controller("editSaleController", function ($scope, $http, $routeParams)
     var today = new Date();
 
     const loadData = function () {
-        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + '&trang_thai=',)
+        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key='+ '&id_type=' + '&id_brand='  + '&trang_thai=',)
             .then(function (response) {
                 $scope.products = response.data
                 console.log($scope.products)
@@ -78,7 +78,7 @@ main_app.controller("editSaleController", function ($scope, $http, $routeParams)
     }
 
     const fillter = function (keyProduct, trang_thai) {
-        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + keyProduct + '&trang_thai=' + trang_thai,)
+        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + keyProduct+ '&id_type=' + '&id_brand='  + '&trang_thai=' + trang_thai,)
             .then(function (response) {
                 $scope.products = response.data
                 $scope.totalItems = response.data.totalElements
@@ -104,7 +104,7 @@ main_app.controller("editSaleController", function ($scope, $http, $routeParams)
     loadData()
 
     $scope.pageChanged = function () {
-        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.keyProduct + '&trang_thai=' + $scope.trang_thai,)
+        $http.get('http://localhost:8080/product/find-all-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&key=' + $scope.keyProduct + '&id_type=' + '&id_brand='  + '&trang_thai=' + $scope.trang_thai,)
             .then(function (response) {
                 $scope.products = response.data
             });
