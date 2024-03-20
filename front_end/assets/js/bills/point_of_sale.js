@@ -37,6 +37,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         { fps: 10, qrbos: 250 }
     );
 
+    // VietQr 
+    $scope.clientId = "cbc498b8-3a2c-4674-851f-9a3200afc09f"
+    $scope.apiKey = "f90afe4c-4822-443c-bbf3-87519243580e"
+    $scope.vietQrUrl = ""
+
     // FAST DELIVERY
     const token = "2b4b5f3e-ac78-11ee-a6e6-e60958111f48";
     const serviceID = 53320;
@@ -379,6 +384,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.createNewBill = function () {
+        var qrModal = document.querySelector("#vietQrModal")
+        var modal = bootstrap.Modal.getOrCreateInstance(qrModal)
+
         Swal.fire({
             title: "Xác nhận thanh toán hóa đơn này?",
             icon: "warning",
@@ -472,6 +480,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                         }, 200)
                     }
 
+                    modal.hide()
 
                 })
                     .catch(function (response) {
@@ -813,23 +822,51 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     function onScanSuccess(decodeText, decodeResult) {
                         var qrModal = document.querySelector("#qrCodeModal")
                         var modal = bootstrap.Modal.getOrCreateInstance(qrModal)
-        
+
                         setTimeout(() => {
                             var productDetail = response.data.content.find(productDetail => productDetail.id == Number(decodeText))
                             $scope.addProductToBillApi(productDetail, $scope.getActiveBill(), -1)
                             htmlscanner.clear();
                             modal.hide()
                         }, 50)
-        
+
                     }
-        
+
                     htmlscanner.render(onScanSuccess);
                 });
             }).catch(function (error) {
                 console.log(error)
             });
 
-       
+
+    }
+
+    $scope.openModalVietQr = () => {
+
+        $scope.choosePaymentMethod(1)
+        let config = {
+            headers: {
+                "x-client-id": $scope.clientId,
+                "x-api-key": $scope.apiKey,
+                "Content-Type": "application/json"
+            }
+        }
+
+        axios.post("https://api.vietqr.io/v2/generate", {
+            "accountNo": "6868686868", // tài khoản ngân hàng
+            "accountName": "THE SNEAKER HOUSE",
+            "acqId": "970415",
+            "addInfo": "[Xác nhận] Xác nhận thanh toán hóa đơn" + $scope.bill.ma,
+            "amount": Math.round($scope.totalAllPrice),
+            "template": "YmLunzw"
+        }, config).then(res => {
+            $scope.vietQrUrl = res.data.data.qrDataURL
+            $scope.loadCustomer()
+
+        }).catch(err => {
+            console.log(err)
+        })
+
     }
 
 })

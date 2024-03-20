@@ -61,8 +61,6 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                                 throw new RuntimeException("Số lượng tồn không đủ");
                             }
                         }
-
-
                     }
                 }
 

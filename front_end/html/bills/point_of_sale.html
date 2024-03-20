@@ -460,7 +460,7 @@
               </button>
 
               <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
-                ng-click="choosePaymentMethod(1)" id="payment-1">
+                data-bs-target="#vietQrModal" ng-click="openModalVietQr()" data-bs-toggle="modal" id="payment-1">
                 <img style="   
                  width: 29%;
                 transform: translateY(-2px);" src="https://i.gyazo.com/566d62fd25cf0867e0033fb1b9b47927.png">
@@ -828,13 +828,53 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-center" id="exampleModalLabel">Quét Qr</h5>
-        <button type="button" ng-click="closeQrCodeModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        <button type="button" ng-click="closeQrCodeModal()" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Đóng"></button>
       </div>
       <div class="modal-body">
         <div class="section">
           <div id="my-qr-reader">
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal create vietQr -->
+<div class="modal fade" id="vietQrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">qrcode</h5>
+        <button type="button" ng-click="closeQrCodeModal()" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Đóng"></button>
+      </div>
+
+      <!-- body -->
+      <div class="modal-body" style="padding: 0;">
+        <img src="{{vietQrUrl}}" style="
+         width: 78%;
+        margin-left: 62px;" alt="">
+      </div>
+
+      <!-- footer -->
+      <div class="modal-footer" style="display: flex;justify-content: space-evenly;">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-success" ng-click="createNewBill()">
+          <i class="ti ti-checks" style="
+                          display: inline-block;
+                          font-size: 18px;
+                          transform: translateY(2px);
+                      "></i>
+          Thành công
+        </button>
       </div>
     </div>
   </div>
