@@ -4,6 +4,7 @@ import com.tsh.sd43.entity.SanPham;
 import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.TheLoai;
 import com.tsh.sd43.entity.request.ProductAddRequest;
+import com.tsh.sd43.entity.request.ProductUpdateRequest;
 import com.tsh.sd43.entity.responce.ProductResponce;
 import com.tsh.sd43.repository.ISanPhamRepo;
 import com.tsh.sd43.repository.ITheLoaiRepo;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,6 +80,27 @@ public class SanPhamSerImpl implements ISanPhamSer {
 
     public BigDecimal getMaxDonGia(){
         return sanPhamRepo.getMaxDonGia();
+    }
+
+    public SanPham updateProduct(ProductUpdateRequest req){
+        SanPham e = sanPhamRepo.findProductById(req.getId()).get(0);
+
+        if(e == null){
+            throw  new RuntimeException("Product not found");
+        }
+
+        ArrayList<SanPham> products = sanPhamRepo.findProductByName(req.getTen());
+        if(!products.isEmpty()){
+            if(!Objects.equals(products.get(0).getId(), req.getId())){
+                throw new RuntimeException("The product is already exists");
+            }
+        }
+
+        e.setTen(req.getTen());
+        e.setIdTheLoai(req.getIdTheLoai());
+        e.setIdThuongHieu(req.getIdThuongHieu());
+        e.setTrangThai(req.getTrangThai());
+        return sanPhamRepo.save(e);
     }
 
  }

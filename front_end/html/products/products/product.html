@@ -73,7 +73,7 @@
                 <th class="border-bottom-0" style="width: 18%;">
                   <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Tên</h6>
                 </th>
-                <th class="border-bottom-0" style="width: 18%;">
+                <th class="border-bottom-0" style="width: 11%;">
                   <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Số lượng</h6>
                 </th>
                 <th class="border-bottom-0">
@@ -97,38 +97,73 @@
                   <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
                 </td>
                 <td class="border-bottom-0">
-                  {{product.ten}}
+                  <span id="name_{{product.id}}">
+                    {{product.ten}}
+                  </span>
+                  <span id="name_edit_{{product.id}}" style="display: none;">
+                    <input placeholder="Nhập tên sản phẩm" style="height: 40px;" type="text"
+                            class="form-control" ng-model="product.ten" id="exampleInputEmail1"
+                            aria-describedby="emailHelp">
+                  </span>
                 </td>
                 <td class="border-bottom-0">
                   {{product.soLuong}}
                 </td>
                 <td class="border-bottom-0">
-                  <span class="fw-normal">{{product.tenTheLoai}}</span>
+                  <span class="fw-normal" id="type_{{product.id}}">{{product.tenTheLoai}}</span>
+                  <span class="fw-normal" id="type_edit_{{product.id}}" style="display: none;">sửa nè</span>
                 </td>
                 <td class="border-bottom-0">
-                  <span class="fw-normal">{{product.tenThuongHieu}}</span>
+                  <span class="fw-normal"  id="brand_{{product.id}}">{{product.tenThuongHieu}}</span>
+                  <span class="fw-normal"  id="brand_edit_{{product.id}}" style="display: none;">sửa nè</span>
                 </td>
                 <td class="border-bottom-0">
-                  <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 0">
-                    <span class="badge bg-danger rounded-3 fw-semibold" style="    
+                  <span id="status_product_{{product.id}}">
+                    <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 0">
+                      <span class="badge bg-danger rounded-3 fw-semibold" style="    
+                                  padding: 11px;
+                                  font-size: 11px;">Ngừng kinh doanh</span>
+                    </div>
+  
+                    <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 1">
+                      <span class="badge bg-primary rounded-3 fw-semibold" style="    
                                 padding: 11px;
-                                font-size: 11px;">Ngừng kinh doanh</span>
-                  </div>
+                                font-size: 11px;">Đang kinh doanh</span>
+                    </div>
+                  </span>
 
-                  <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 1">
-                    <span class="badge bg-primary rounded-3 fw-semibold" style="    
-                              padding: 11px;
-                              font-size: 11px;">Đang kinh doanh</span>
-                  </div>
+                  <span id="status_product_edit_{{product.id}}" style="display: none;"></span>
+                  
 
                 </td>
-                <td class="border-bottom-0">
+                <td class="border-bottom-0" style="padding: 16px 6px;">
                   <h6 class="fw-semibold mb-0 fs-4">
                     <a ng-href="#!chi-tiet-san-pham/{{product.id}}">
                       <i style="
                               display: inline-block;
                               font-size: 23px;  
+                              color: #61cb85;" class="ti ti-eye"></i>
+                    </a>
+
+                    <a  style="margin-left: 5px;" ng-click="editProduct(product)" id="edit_button_{{product.id}}">
+                      <i style="
+                              display: inline-block;
+                              font-size: 23px;  
                               color: #d4d42e;" class="ti ti-edit"></i>
+                    </a>
+
+                    <a  ng-click="saveProduct(product)" id="save_button_{{product.id}}" style="display: none;">
+                      <i style="
+                              display: inline-block;
+                              font-size: 23px;  
+                              color: #d4d42e;" class="ti ti-device-floppy"></i>
+                    </a>
+
+                    <a   ng-click="editProduct(product)" id="cancel_button_{{product.id}}" style="display: none;">
+                      <i style="
+                              display: inline-block;
+                              font-size: 23px;  
+                              color: #ff0000;" class="ti ti-square-rounded-x"></i>
                     </a>
 
                   </h6>

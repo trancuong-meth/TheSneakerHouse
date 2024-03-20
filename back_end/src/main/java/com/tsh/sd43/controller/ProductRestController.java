@@ -2,6 +2,7 @@ package com.tsh.sd43.controller;
 
 import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.request.ProductAddRequest;
+import com.tsh.sd43.entity.request.ProductUpdateRequest;
 import com.tsh.sd43.service.impl.SanPhamSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,15 @@ public class ProductRestController {
     public ResponseEntity<?> getMaxDonGia(){
         try{
             return new ResponseEntity<>(sanPhamService.getMaxDonGia(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateProduct(@RequestBody ProductUpdateRequest req){
+        try{
+            return new ResponseEntity<>(sanPhamService.updateProduct(req), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
