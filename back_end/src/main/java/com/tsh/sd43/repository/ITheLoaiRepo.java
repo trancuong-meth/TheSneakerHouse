@@ -33,4 +33,11 @@ public interface ITheLoaiRepo extends JpaRepository<TheLoai, Long> {
 
     ArrayList<TheLoai> findByOrderByNgayTaoDesc();
 
+    @Query(value = """
+        select id_the_loai, tl.ten, count(sp.id) as so_luong from san_pham sp
+        join the_loai tl on tl.id = sp.id_the_loai
+        group by id_the_loai, tl.ten
+    """, nativeQuery = true)
+    ArrayList<Object> getQuantitysOfProductByType();
+
 }

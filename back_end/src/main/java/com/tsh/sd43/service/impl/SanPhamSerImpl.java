@@ -1,13 +1,10 @@
 package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.SanPham;
-import com.tsh.sd43.entity.SanPhamChiTiet;
-import com.tsh.sd43.entity.TheLoai;
 import com.tsh.sd43.entity.request.ProductAddRequest;
 import com.tsh.sd43.entity.request.ProductUpdateRequest;
 import com.tsh.sd43.entity.responce.ProductResponce;
-import com.tsh.sd43.repository.ISanPhamRepo;
-import com.tsh.sd43.repository.ITheLoaiRepo;
+import com.tsh.sd43.repository.*;
 import com.tsh.sd43.service.ISanPhamSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,9 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class SanPhamSerImpl implements ISanPhamSer {
@@ -27,12 +22,23 @@ public class SanPhamSerImpl implements ISanPhamSer {
     @Autowired
     private ISanPhamRepo sanPhamRepo;
 
+    @Autowired
+    private ITheLoaiRepo theLoaiRepo;
+
+    @Autowired
+    private IThuongHieuRepo thuongHieuRepo;
+
+    @Autowired
+    private IKichCoRepo kichCoRepo;
+
+    @Autowired
+    private IMauSacRepo mauSacRepo;
+
     public Page<ProductResponce> getProducts(int pageNo,
                                              int pageSize,
                                              String key,
                                              String idBrand,
                                              String idType){
-
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return sanPhamRepo.findPanigation(pageable,
                 "%" + key + "%",
@@ -103,4 +109,20 @@ public class SanPhamSerImpl implements ISanPhamSer {
         return sanPhamRepo.save(e);
     }
 
- }
+    public ArrayList<Object> getQuantitysByType(){
+        return theLoaiRepo.getQuantitysOfProductByType();
+    }
+
+    public ArrayList<Object> getQuantitysByBrand(){
+        return thuongHieuRepo.getQuantitysOfProductByBrand();
+    }
+
+    public ArrayList<Object> getQuantitysBySize(){
+        return kichCoRepo.getQuantitysOfProductBySize();
+    }
+
+    public ArrayList<Object> getQuantitysByColor(){
+        return mauSacRepo.getQuantitysOfProductByColor();
+    }
+
+}

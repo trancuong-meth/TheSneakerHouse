@@ -49,7 +49,6 @@ main_app.controller("billController", function ($scope, $http) {
         }
       })
 
-
     }).catch(function (error) {
       console.log(error)
     })

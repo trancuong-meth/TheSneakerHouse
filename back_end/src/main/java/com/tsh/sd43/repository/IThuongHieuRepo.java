@@ -33,4 +33,10 @@ public interface IThuongHieuRepo extends JpaRepository<ThuongHieu, Long> {
 
     ArrayList<ThuongHieu> findByOrderByNgayTaoDesc();
 
+    @Query(value = """
+        select id_thuong_hieu, th.ten, count(sp.id) as so_luong from san_pham sp
+        join thuong_hieu th on th.id = sp.id_thuong_hieu
+        group by id_thuong_hieu, th.ten
+    """, nativeQuery = true)
+    ArrayList<Object> getQuantitysOfProductByBrand();
 }

@@ -76,4 +76,40 @@ public class ProductRestController {
         }
     }
 
+    @GetMapping("/get-quantity-of-product-by-brand")
+    public ResponseEntity<?> getQuantitysOfProductByBrand(){
+        try{
+            return new ResponseEntity<>(sanPhamService.getQuantitysByBrand(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-quantity-of-product-by-type")
+    public ResponseEntity<?> getQuantitysOfProductByType(){
+        try{
+            return new ResponseEntity<>(sanPhamService.getQuantitysByType(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-quantity-of-product-by-size")
+    public ResponseEntity<?> getQuantitysOfProductBySize(){
+        try{
+            return new ResponseEntity<>(sanPhamService.getQuantitysBySize(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-quantity-of-product-by-color")
+    public ResponseEntity<?> getQuantitysOfProductByColor(){
+        try{
+            return new ResponseEntity<>(sanPhamService.getQuantitysByColor(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
