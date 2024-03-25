@@ -45,6 +45,10 @@ clientApp.controller('billDetailController',
         }
 
         $scope.loadBill = () => {
+            document.querySelector("body").classList.remove('fix');
+            document.querySelector(".offcanvas-search-inner").classList.remove('show')
+            document.querySelector(".minicart-inner").classList.remove('show')
+            
             $http.get('http://localhost:8080/bill/get-bill/' + id).then(
                 function (res) {
                     console.log(res.data)
