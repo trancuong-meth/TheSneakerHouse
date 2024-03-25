@@ -36,4 +36,10 @@ public interface IVoucherRepo extends JpaRepository<Voucher, Long> {
         where ma like :key
     """, nativeQuery = true)
     ArrayList<Voucher> getVouchersByKey(@Param("key") String key);
+
+    @Query(value = """
+        select * from Voucher v
+        where ma = :key
+    """, nativeQuery = true)
+    Voucher getVouchersByKeyAbsolute(@Param("key") String key);
 }

@@ -2,6 +2,7 @@ package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.KhachHang;
 import com.tsh.sd43.entity.request.CustomerAddRequest;
+import com.tsh.sd43.entity.request.CustomerRegisterRequest;
 import com.tsh.sd43.repository.IKhachHangRepo;
 import com.tsh.sd43.service.IKhachHangSer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,6 +94,27 @@ public class KhachHangSerImpl implements IKhachHangSer {
         customer.setNgayTao(khachHang.getNgayTao());
 
         return khachHangRepo.save(customer);
+    }
+
+    public KhachHang register(CustomerRegisterRequest req){
+        KhachHang customer = new KhachHang();
+        customer.setTen(req.getTen());
+        customer.setEmail(req.getEmail());
+        customer.setMatKhau(req.getMatKhau());
+        return khachHangRepo.save(customer);
+    }
+
+    public KhachHang login(String email, String matKhau){
+        KhachHang kh =  khachHangRepo.findKhachHangByEmailAndPass(email, matKhau);
+
+        if(kh == null){
+            throw new RuntimeException("Tài khoản hoặc mật khẩu không đúng");
+        }
+        return kh;
+    }
+
+    public void changePass(String matKhau, String id){
+        khachHangRepo.changePass(matKhau, id);
     }
 
 }

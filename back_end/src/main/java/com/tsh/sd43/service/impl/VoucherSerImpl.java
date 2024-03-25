@@ -140,4 +140,11 @@ public class VoucherSerImpl {
         return voucherRepo.save(voucher);
     }
 
+    public Voucher getVouchersByKeyAbsolute(String codeVoucher){
+        Voucher voucher = voucherRepo.getVouchersByKeyAbsolute(codeVoucher);
+        if(voucher == null){
+            throw new RuntimeException("Không tìm thấy voucher");
+        }
+        return voucher;
+    }
 }

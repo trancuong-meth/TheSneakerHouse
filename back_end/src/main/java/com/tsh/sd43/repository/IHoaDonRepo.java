@@ -38,9 +38,19 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     Page<HoaDon> getAllBillPanigation(Pageable pageable);
 
     @Query(value = """
+            select * from hoa_don where not trang_thai = 0 and deleted = 1 and id_khach_hang = :id order by ngay_tao desc
+    """, nativeQuery = true)
+    Page<HoaDon> getAllBillPanigationAllByIdCustomer(Pageable pageable, @Param("id") Long id);
+
+    @Query(value = """
             select * from hoa_don where trang_thai = :trangThai and deleted = 1 order by ngay_tao desc
     """, nativeQuery = true)
     Page<HoaDon> getBillPanigationByState(Pageable pageable, @Param("trangThai")Integer trangThai);
+
+    @Query(value = """
+            select * from hoa_don where trang_thai = :trangThai and deleted = 1 and id_khach_hang = :id order by ngay_tao desc
+    """, nativeQuery = true)
+    Page<HoaDon> getBillPanigationByStateByIdCustomer(Pageable pageable, @Param("trangThai")Integer trangThai, @Param("id") Long id);
 
     @Query(value = """
             select count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien from hoa_don as hd
@@ -151,7 +161,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
          join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
          join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
          join san_pham sp on sp.id = spct.id_san_pham
-         where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+         where hd.deleted = 1 and not hd.trang_thai in (0, 5, 6)
     	 and YEAR( hd.ngay_tao ) = YEAR( getdate())
          group by sp.ten
          order by so_luong desc
@@ -163,4 +173,29 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
              group by hd.trang_thai
     """, nativeQuery = true)
     ArrayList<BillRevenueResponse> getQuantityBillByStates();
+
+    @Query(value = """
+            select hd.trang_thai, count(hd.id)as so_luong from hoa_don hd
+            where id_khach_hang = :id_khach_hang
+            group by hd.trang_thai
+    """, nativeQuery = true)
+    ArrayList<BillRevenueResponse> getQuantityBillByStatesAndIDCustomer(@Param("id_khach_hang") Long id_khach_hang);
+
+    @Query(value = """
+        select sp.id ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+         from hoa_don as hd
+         join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
+         join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
+         join san_pham sp on sp.id = spct.id_san_pham
+         where hd.deleted = 1 and not hd.trang_thai in (0, 5, 6)
+    	 and YEAR( hd.ngay_tao ) = YEAR( getdate())
+         group by sp.id
+         order by so_luong desc
+    """, nativeQuery = true)
+    ArrayList<ProductBestSellerResponse> getTopProductBestSeller();
+
+    @Query(value = """
+    select * from hoa_don where ma = :ma
+    """, nativeQuery = true)
+    HoaDon getHoaDonByMa(@Param("ma") String ma);
 }

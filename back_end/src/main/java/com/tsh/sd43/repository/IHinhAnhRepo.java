@@ -38,4 +38,11 @@ public interface IHinhAnhRepo extends JpaRepository<HinhAnh, Long> {
         DELETE FROM hinh_anh WHERE id = :id
     """, nativeQuery = true)
     void deleteImageById(@Param("id") Long id);
+
+    @Query(value = """
+     select top 1 ha.duong_dan  from san_pham_chi_tiet spct
+         join hinh_anh ha on ha.id_san_pham_chi_tiet = spct.id
+         where spct.id_mau_sac = :id_mau_sac and spct.id_san_pham = :id_san_pham
+    """, nativeQuery = true)
+    String getPathImageByIdColorAndIdProduct(@Param("id_mau_sac") Long id_mau_sac, @Param("id_san_pham") Long id_san_pham);
 }

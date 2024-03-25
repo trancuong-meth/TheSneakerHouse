@@ -2,6 +2,7 @@ package com.tsh.sd43.repository;
 
 import com.tsh.sd43.entity.KichCo;
 import com.tsh.sd43.entity.ThuongHieu;
+import com.tsh.sd43.entity.responce.SizeIndetityResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,5 +31,14 @@ public interface IKichCoRepo extends JpaRepository<KichCo, Long> {
         where v.kich_co = :kich_co 
     """, nativeQuery = true)
     ArrayList<KichCo> findSizeBySize(@Param("kich_co") Integer kichCo);
+
+    @Query(value = """
+            select kc.id, kc.kich_co from san_pham_chi_tiet spct
+            join san_pham sp on sp.id = spct.id_san_pham
+            join kich_co kc on kc.id = spct.id_kich_co
+            where sp.id = :id_san_pham
+            group by kc.id, kc.kich_co
+    """, nativeQuery = true)
+    ArrayList<SizeIndetityResponse> getSizeIndetity(@Param("id_san_pham") Long id_san_pham);
 
 }

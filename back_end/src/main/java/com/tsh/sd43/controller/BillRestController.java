@@ -90,12 +90,35 @@ public class BillRestController {
         }
     }
 
+    @GetMapping("/get-bill-panigation-by-id-customer")
+    public ResponseEntity<?> getBillsByIdCustomer(
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size,
+            @RequestParam("state") Integer trangThai,
+            @RequestParam("id") Long id
+    ) {
+        try{
+            return new ResponseEntity<>(hoaDonService.getBillAndPanigationByIdCustomer(page, size, trangThai, id), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("/get-bill/{id}")
     public ResponseEntity<?> getBillById(@PathVariable("id") Long id) {
         try{
             return new ResponseEntity<>(hoaDonService.getBillById(id), HttpStatus.OK);
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-bill-by-code/{code}")
+    public ResponseEntity<?> getBillByCode(@PathVariable("code")String code) {
+        try{
+            return new ResponseEntity<>(hoaDonService.getBillByCode(code), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -164,6 +187,24 @@ public class BillRestController {
     public ResponseEntity<?> getQuantityBill(){
         try{
             return new ResponseEntity<>(hoaDonService.getQuantityBillByState(), HttpStatus.OK);
+        }catch (Exception ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
+    @GetMapping("/get-quantity-bills-by-id-customer/{id}")
+    public ResponseEntity<?> getQuantityBillAndIdCustomer(@PathVariable("id") Long id){
+        try{
+            return new ResponseEntity<>(hoaDonService.getQuantityBillByStateAndIdCustomer(id), HttpStatus.OK);
+        }catch (Exception ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
+    @GetMapping("/get-new-bill")
+    public ResponseEntity<?> getNewBill(){
+        try{
+            return new ResponseEntity<>(hoaDonService.getNewBill(), HttpStatus.OK);
         }catch (Exception ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
         }

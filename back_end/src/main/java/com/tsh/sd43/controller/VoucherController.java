@@ -72,4 +72,13 @@ public class VoucherController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/get-voucher-absolute")
+    public ResponseEntity<?> getVoucherAbsolute(@RequestParam("id_voucher")String key){
+        try{
+            return new ResponseEntity<>(voucherService.getVouchersByKeyAbsolute(key), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

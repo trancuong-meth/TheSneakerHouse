@@ -2,6 +2,7 @@ package com.tsh.sd43.repository;
 
 import com.tsh.sd43.entity.MauSac;
 import com.tsh.sd43.entity.ThuongHieu;
+import com.tsh.sd43.entity.responce.ColorIdentityResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,5 +32,14 @@ public interface IMauSacRepo extends JpaRepository<MauSac, Long> {
         where v.ten = :ten 
     """, nativeQuery = true)
     ArrayList<MauSac> findColorByName(@Param("ten") String ten);
+
+    @Query(value = """
+            select ms.id, ms.ten from san_pham_chi_tiet spct
+            join san_pham sp on sp.id = spct.id_san_pham
+            join mau_sac ms on ms.id = spct.id_mau_sac
+            where sp.id = :id_san_pham
+            group by ms.id, ms.ten
+    """, nativeQuery = true)
+    ArrayList<ColorIdentityResponse> getColorIdentity(@Param("id_san_pham") Long id_san_pham);
 
 }

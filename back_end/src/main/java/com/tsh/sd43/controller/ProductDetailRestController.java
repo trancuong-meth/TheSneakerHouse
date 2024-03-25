@@ -86,4 +86,31 @@ public class ProductDetailRestController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/get-product-newests")
+    public ResponseEntity<?> getProductNewests(){
+        try{
+            return new ResponseEntity<>(sanPhamChiTietService.getProductDetailNewest(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-top-product-best-seller")
+    public ResponseEntity<?> getTopProduct(){
+        try{
+            return new ResponseEntity<>(sanPhamChiTietService.getTopProductBestSeller(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+        @GetMapping("/get-color-identity/{id}")
+    public ResponseEntity<?> getColorIdentity(@PathVariable("id")Long id){
+        try{
+            return new ResponseEntity<>(sanPhamChiTietService.getProductDetailIdentity(id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

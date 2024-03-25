@@ -7,7 +7,10 @@ import com.tsh.sd43.entity.TheLoai;
 import com.tsh.sd43.entity.request.ProductAddRequest;
 import com.tsh.sd43.entity.request.ProductDetailAddRequest;
 import com.tsh.sd43.entity.request.ProductDetailSearchRequest;
-import com.tsh.sd43.repository.ISanPhamChiTietRepo;
+import com.tsh.sd43.entity.responce.ColorIdentityResponse;
+import com.tsh.sd43.entity.responce.ProductBestSellerResponse;
+import com.tsh.sd43.entity.responce.ProductDetailIdentityReponse;
+import com.tsh.sd43.repository.*;
 import com.tsh.sd43.service.ISanPhamChiTietSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,15 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
 
     @Autowired
     private ISanPhamChiTietRepo sanPhamChiTietRepo;
+
+    @Autowired
+    private IHoaDonRepo hoaDonRepo;
+
+    @Autowired
+    private IMauSacRepo mauSacRepo;
+
+    @Autowired
+    private IHinhAnhRepo hinhanhRepo;
 
     public Page<SanPhamChiTiet> getProducts(int pageNo, int pageSize,
                                             Long id,
@@ -84,6 +96,60 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
         }catch (Exception ex){
             throw new RuntimeException(ex);
         }
+    }
+
+    public ArrayList<SanPhamChiTiet> getProductDetailNewest(){
+        ArrayList<SanPhamChiTiet> productDetails = (ArrayList<SanPhamChiTiet>) sanPhamChiTietRepo.findAll();
+
+        ArrayList<SanPhamChiTiet> productDetailNewest = new ArrayList<>();
+        for (SanPhamChiTiet sp : productDetails) {
+            Boolean flag = false;
+            if(productDetailNewest.isEmpty()){
+                productDetailNewest.add(sp);
+                continue;
+            }
+            for(SanPhamChiTiet sp1 : productDetailNewest){
+                if(sp1.getIdSanPham().getMa().equals(sp.getIdSanPham().getMa())){
+                    flag = true;
+                    break;
+                }
+            }
+
+            if(!flag){
+                productDetailNewest.add(sp);
+            }
+        }
+        return productDetailNewest;
+    }
+
+    public ArrayList<SanPhamChiTiet> getTopProductBestSeller(){
+        ArrayList<ProductBestSellerResponse> resp = hoaDonRepo.getTopProductBestSeller();
+        ArrayList<SanPhamChiTiet> productDetails = (ArrayList<SanPhamChiTiet>) sanPhamChiTietRepo.findAll();
+
+        ArrayList<SanPhamChiTiet> productDetailNewest = new ArrayList<>();
+        for (ProductBestSellerResponse sp : resp) {
+            for(SanPhamChiTiet sp1 : productDetails){
+                if(sp1.getIdSanPham().getId().equals(sp.getId())){
+                    productDetailNewest.add(sp1);
+                    break;
+                }
+            }
+        }
+        return productDetailNewest;
+    }
+
+    public ArrayList<ProductDetailIdentityReponse> getProductDetailIdentity(Long id){
+        ArrayList<ColorIdentityResponse> colors = mauSacRepo.getColorIdentity(id);
+
+        ArrayList<ProductDetailIdentityReponse> resp = new ArrayList<>();
+        for (ColorIdentityResponse color : colors) {
+            ProductDetailIdentityReponse e = new ProductDetailIdentityReponse();
+            e.setId(color.getId());
+            e.setTen(color.getTen());
+            e.setDuongDan(hinhanhRepo.getPathImageByIdColorAndIdProduct(color.getId(), id));
+            resp.add(e);
+        }
+        return resp;
     }
 
 }
