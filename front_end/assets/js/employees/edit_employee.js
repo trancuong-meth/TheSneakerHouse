@@ -26,6 +26,7 @@ main_app.controller("editEmployeeController", function ($scope, $http, $routePar
                 ngaySinh: resp.ngaySinh,
                 cccd: resp.cccd,
                 gioiTinh: resp.gioiTinh,
+                matKhau: resp.matKhau,
                 email: resp.email,
                 soDienThoai: resp.soDienThoai,
                 maTinh: resp.maTinh,
