@@ -436,7 +436,7 @@ clientApp.controller('checkoutController',
                             console.log(error);
                         })
 
-                        $scope.cartDetails.forEach((x) => {
+                        $scope.cartDetails.forEach((x, index) => {
 
                             $scope.removeCartDetail(x)
                             $http.post('http://localhost:8080/bill-detail/add-product-to-bill', {
@@ -455,28 +455,32 @@ clientApp.controller('checkoutController',
                                 }).catch((error) => {
                                     console.log(error)
                                 })
-                        })
 
-                        if ($scope.voucher != null) {
-                            $scope.voucher.soLanDung -= 1
-                            axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
-                                .then((response) => {
+                            if(index == $scope.cartDetails.length - 1) {
+                                if ($scope.voucher != null) {
+                                    $scope.voucher.soLanDung -= 1
+                                    axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
+                                        .then((response) => {
+                                            toastr.success("Tạo đơn hàng thành công.");
+                                            setTimeout(function () {
+                                                $window.location.href= '#!chi-tiet-hoa-don/' + response.data.id;
+                                                $window.location.reload();
+                                                window.scrollTo(0, 0);
+                                            }, 200)
+                                        }).catch((error) => {
+                                            console.log(error)
+                                        })
+                                } else {
                                     toastr.success("Tạo đơn hàng thành công.");
                                     setTimeout(function () {
                                         $window.location.href= '#!chi-tiet-hoa-don/' + response.data.id;
                                         $window.location.reload();
-                                        window.scrollTo(0, 0);
                                     }, 200)
-                                }).catch((error) => {
-                                    console.log(error)
-                                })
-                        } else {
-                            toastr.success("Tạo đơn hàng thành công.");
-                            setTimeout(function () {
-                                $window.location.href= '#!chi-tiet-hoa-don/' + response.data.id;
-                                $window.location.reload();
-                            }, 200)
-                        }
+                                }
+                            }
+                        })
+
+                     
 
                     })
                     .catch(function (response) {
