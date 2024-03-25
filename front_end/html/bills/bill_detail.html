@@ -159,7 +159,7 @@
           <div class="sch-text">
             <span style="display: block;margin-top: 10px;font-weight: 600; color: #000000cc;">Tạo hóa đơn</span>
             <span style="display: block;font-size: 10px;transform: translateY(-7px);">{{billState1.ngayTao | date
-              : " HH:mmdd/MM/yyyy "}}</span>
+              : " HH:mm dd/MM/yyyy "}}</span>
           </div>
         </div>
       </div>
@@ -822,7 +822,7 @@
     </div>
 
     <div>
-      <button class="btn btn-primary" ng-if="(bill.trangThai == 2 || bill.trangThai == 1) && bill.idKhachHang != null"
+      <button class="btn btn-primary" ng-if="(bill.trangThai == 2 || bill.trangThai == 1) && bill.tenNguoiNhan != null"
         data-bs-toggle="modal" data-bs-target="#customerEdit" ng-click="editCustomer()">
         <i class="ti ti-edit" style="
                             display: inline-block;
@@ -833,7 +833,7 @@
     </div>
   </div>
 
-  <div style="display: flex;justify-content: space-between;" ng-if="bill.idKhachHang != null">
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.tenNguoiNhan != null">
 
     <div style="width: 45%;">
 
@@ -914,7 +914,7 @@
 
   </div>
 
-  <div style="display: flex;justify-content: space-between;" ng-if="bill.idKhachHang == null">
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.tenNguoiNhan == null">
     <div style="width: 50%;">
 
       <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
