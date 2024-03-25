@@ -1,4 +1,4 @@
-main_app.controller("editCustomerController", function ($scope, $http, $routeParams) {
+main_app.controller("editCustomerController", function ($scope, $http, $routeParams, $window) {
     var id = $routeParams.id
     var today = new Date();
     $scope.avatar = "";
@@ -358,6 +358,7 @@ main_app.controller("editCustomerController", function ($scope, $http, $routePar
 
                 setTimeout(() => {
                     location.href = "/html/router.html#!/khach-hang"
+                    $window.location.reload();
                 }, 100)
 
             }

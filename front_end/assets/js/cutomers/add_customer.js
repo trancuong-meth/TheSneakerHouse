@@ -1,5 +1,5 @@
 
-main_app.controller("addCustomerController", function ($scope, $http) {
+main_app.controller("addCustomerController", function ($scope, $http, $window) {
 
     var today = new Date();
     var avatar = "";
@@ -91,6 +91,7 @@ main_app.controller("addCustomerController", function ($scope, $http) {
 
                 setTimeout(() => {
                     location.href = "/html/router.html#!/khach-hang"
+                    $window.location.reload();
                 }, 100)
 
             }
