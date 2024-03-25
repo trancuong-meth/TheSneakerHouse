@@ -37,20 +37,22 @@ clientApp.controller('billControler',
           $http.get('http://localhost:8080/bill/get-quantity-bills-by-id-customer/' + $scope.customer.id   ).then(function (response) {
             console.log(response.data)
             response.data.forEach((bill) => {
-              $scope.quantityStateAll += bill.soLuong
               if (bill.trangThai == 1) {
                 $scope.quantityState1 = bill.soLuong
+                $scope.quantityStateAll += bill.soLuong
               } else if (bill.trangThai == 2) {
                 $scope.quantityState2 = bill.soLuong
+                $scope.quantityStateAll += bill.soLuong
               } else if (bill.trangThai == 3) {
                 $scope.quantityState3 = bill.soLuong
+                $scope.quantityStateAll += bill.soLuong
               } else if (bill.trangThai == 4) {
                 $scope.quantityState4 = bill.soLuong
+                $scope.quantityStateAll += bill.soLuong
               } else if (bill.trangThai == 5) {
                 $scope.quantityState5 = bill.soLuong
-              } else if (bill.trangThai == 6) {
-                $scope.quantityState6 = bill.soLuong
-              }
+                $scope.quantityStateAll += bill.soLuong
+              } 
             })
       
       

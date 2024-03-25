@@ -201,11 +201,11 @@
                                             ng-if="product.idDotGiamGia != null"><del>{{formatToVND(product.donGia)}}</del></span>
                                     </div>
                                     <div class="product-action-link">
-                                        <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
+                                        <a hidden href="#" data-bs-toggle="tooltip" title="Wishlist"><i
                                                 class="ion-android-favorite-outline"></i></a>
-                                        <a href="#" data-bs-toggle="tooltip" title="Add To Cart"><i
+                                        <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}" data-bs-toggle="tooltip" title="Add To Cart"><i
                                                 class="ion-bag"></i></a>
-                                        <a ng-click="quickView(product.idSanPham.id)" data-bs-toggle="modal"
+                                        <a hidden ng-click="quickView(product.idSanPham.id)" data-bs-toggle="modal"
                                             data-bs-target="#quick_view"> <span data-bs-toggle="tooltip"
                                                 title="Quick View"><i class="ion-ios-eye-outline"></i></span> </a>
                                     </div>
@@ -307,11 +307,11 @@
                                                 ng-if="product.idDotGiamGia != null"><del>{{formatToVND(product.donGia)}}</del></span>
                                         </div>
                                         <div class="product-action-link">
-                                            <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
+                                            <a hidden href="#" data-bs-toggle="tooltip" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" data-bs-toggle="tooltip" title="Add To Cart"><i
+                                            <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}" data-bs-toggle="tooltip" title="Add To Cart"><i
                                                     class="ion-bag"></i></a>
-                                            <a ng-click="quickView(product.idSanPham.id)" data-bs-toggle="modal"
+                                            <a hidden ng-click="quickView(product.idSanPham.id)" data-bs-toggle="modal"
                                                 data-bs-target="#quick_view"> <span data-bs-toggle="tooltip"
                                                     title="Quick View"><i class="ion-ios-eye-outline"></i></span> </a>
                                         </div>
