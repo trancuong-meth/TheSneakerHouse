@@ -19,6 +19,11 @@
     <!-- Modernizer JS -->
     <script src="assets/js/modernizr-2.8.3.min.js"></script>
 
+    <!-- notification -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
     <!--[if lt IE 9]>
 <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -227,7 +232,7 @@
             margin: 0 0 25px;
             text-align: center;">Giỏ hàng của bạn</h1>
         <!-- cart main wrapper start -->
-        <div class="cart-main-wrapper"  ng-init="loadDataProductDetail()">
+        <div class="cart-main-wrapper" ng-init="loadDataProductDetail()">
             <div class="container">
                 <div class="section-bg-color">
                     <div class="row">
@@ -243,17 +248,15 @@
                                 <div style="    
                                         padding-top: 10px;
                                         padding-bottom: 10px;
-                                        display: flex;    background: #fff;"
-                                        ng-repeat="cartDetail in cartDetails"
-                                        >
+                                        display: flex;    background: #fff;" ng-repeat="cartDetail in cartDetails">
                                     <div style="
                                         display: inline-flex;
                                         width: 13%;
                                         padding: 0 20px;">
                                         <a> <span
-                                            ng-repeat="img in getAllImagesByIDProductDetail(cartDetail.idSanPhamChiTiet.id)"></span>
-                                        <img src="assets/img/cart/cart-1.jpg" alt="product"
-                                            id="image-{{cartDetail.idSanPhamChiTiet.id}}">
+                                                ng-repeat="img in getAllImagesByIDProductDetail(cartDetail.idSanPhamChiTiet.id)"></span>
+                                            <img src="assets/img/cart/cart-1.jpg" alt="product"
+                                                id="image-{{cartDetail.idSanPhamChiTiet.id}}">
                                     </div>
 
                                     <!--right  -->
@@ -277,10 +280,13 @@
                                                 font-size: 12px;
                                                 color: #777;
                                                 margin-top: 3px;">
-                                                    <label style="font-weight: 600;font-size: 10px;color: #333;">Màu sắc:</label>
+                                                    <label style="font-weight: 600;font-size: 10px;color: #333;">Màu
+                                                        sắc:</label>
                                                     <span>{{cartDetail.idSanPhamChiTiet.idMauSac.ten}}</span>
 
-                                                    <label style="font-weight: 600;font-size: 10px;color: #333;margin-left: 10px;">Kích cỡ:</label>
+                                                    <label
+                                                        style="font-weight: 600;font-size: 10px;color: #333;margin-left: 10px;">Kích
+                                                        cỡ:</label>
                                                     <span>{{cartDetail.idSanPhamChiTiet.idKichCo.kichCo}}</span>
                                                 </div>
 
@@ -340,9 +346,11 @@ border-radius: 0;" ng-click="plusQuantity(cartDetail)" value="+">
                                         justify-content: center;
                                         align-items: center;">
                                             <span>{{formatToVND(cartDetail.idSanPhamChiTiet.idDotGiamGia == null
-                                            ? cartDetail.idSanPhamChiTiet.donGia : (100 - cartDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam)/100 * cartDetail.idSanPhamChiTiet.donGia)}}</span>
-                                            <del ng-if="cartDetail.idSanPhamChiTiet.idDotGiamGia != null"
-                                            >({{formatToVND(cartDetail.idSanPhamChiTiet.donGia)}})</del>
+                                                ? cartDetail.idSanPhamChiTiet.donGia : (100 -
+                                                cartDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam)/100 *
+                                                cartDetail.idSanPhamChiTiet.donGia)}}</span>
+                                            <del
+                                                ng-if="cartDetail.idSanPhamChiTiet.idDotGiamGia != null">({{formatToVND(cartDetail.idSanPhamChiTiet.donGia)}})</del>
                                         </div>
 
                                         <div style="
@@ -354,33 +362,35 @@ border-radius: 0;" ng-click="plusQuantity(cartDetail)" value="+">
                                         font-size: 15px;
                                         font-weight: bold;
                                         color: #a73340;">
-                                        <div>
-                                            <label style="font-size: 14px;color: #777;font-weight: 200;" >Thành tiền:</label>
-                                            <span style="font-size: 14px;">{{formatToVND( cartDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-                                                cartDetail.soLuong * cartDetail.idSanPhamChiTiet.donGia :
-                                                cartDetail.soLuong * cartDetail.idSanPhamChiTiet.donGia * (100 - cartDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) / 100) }}</span>
-                                        </div>
+                                            <div>
+                                                <label style="font-size: 14px;color: #777;font-weight: 200;">Thành
+                                                    tiền:</label>
+                                                <span style="font-size: 14px;">{{formatToVND(
+                                                    cartDetail.idSanPhamChiTiet.idDotGiamGia == null ?
+                                                    cartDetail.soLuong * cartDetail.idSanPhamChiTiet.donGia :
+                                                    cartDetail.soLuong * cartDetail.idSanPhamChiTiet.donGia * (100 -
+                                                    cartDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) / 100)
+                                                    }}</span>
+                                            </div>
 
-                                        <div ng-click="removeCartDetail(cartDetail)">
-                                            <i class="ti ti-trash-x"></i>
-                                        </div>
+                                            <div ng-click="removeCartDetail(cartDetail)">
+                                                <i class="ti ti-trash-x"></i>
+                                            </div>
 
                                         </div>
 
                                     </div>
                                 </div>
 
-                                
+
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <!-- Cart Calculation Area -->
                             <div class="cart-calculator-wrapper">
-                                <div class="cart-calculate-items" 
-                                style="    border: 1px solid #dfe0e1;padding: 15px;
+                                <div class="cart-calculate-items" style="    border: 1px solid #dfe0e1;padding: 15px;
                                 margin-bottom: 15px;background-color: #fff;">
-                                    <h2
-                                    style="font-size: 17px;
+                                    <h2 style="font-size: 17px;
                                     font-weight: bold;
                                     margin-top: 10px;
                                     margin-bottom: 15px;">Thông tin đơn hàng
@@ -392,8 +402,8 @@ border-radius: 0;" ng-click="plusQuantity(cartDetail)" value="+">
                                     padding-top: 15px;color:#333;display: flex;
                                     justify-content: space-between;font-size: 14px;
                                     font-weight: bold;">
-                                    <div>Tổng tiền:</div>
-                                    <div>{{formatToVND(subTotal)}}</div>
+                                        <div>Tổng tiền:</div>
+                                        <div>{{formatToVND(subTotal)}}</div>
                                     </div>
 
                                     <div style="   
@@ -401,11 +411,10 @@ border-radius: 0;" ng-click="plusQuantity(cartDetail)" value="+">
                                     font-size: 12px; font-weight: 400;
                                     padding-top: 10px;
                                     text-align: center;">
-                                    <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
+                                        <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
                                     </div>
                                 </div>
-                                <a 
-                                 style="
+                                <a style="
                                  display: block;
                                  background: #e3a51e;
                                  color: #fff;
@@ -415,8 +424,7 @@ border-radius: 0;" ng-click="plusQuantity(cartDetail)" value="+">
                                  text-align: center;
                                  font-size: 15px;
                                  font-weight: bold;
-                                 border-radius: 0;"
-                                href="#!thanh-toan" class="btn d-block">Thanh toán</a>
+                                 border-radius: 0;" href="#!thanh-toan" class="btn d-block">Thanh toán</a>
                             </div>
                         </div>
                     </div>
@@ -442,6 +450,11 @@ border-radius: 0;" ng-click="plusQuantity(cartDetail)" value="+">
     <script src="assets/js/plugins.js"></script>
     <!--=== Active Js ===-->
     <script src="assets/js/active.js"></script>
+
+    <!-- toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 
