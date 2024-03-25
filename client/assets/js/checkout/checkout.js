@@ -1,10 +1,13 @@
 clientApp.controller('checkoutController',
-    function ($scope, $http,  $window) {
+    function ($scope, $http, $window) {
         // id
         $scope.cartDetails = [];
 
         // scroll to 0 0
         window.scrollTo(0, 0)
+
+        // check out
+
 
         // total
         $scope.subTotal = 0;
@@ -37,6 +40,11 @@ clientApp.controller('checkoutController',
         var selectWardCodeCustomer = document.querySelector("#ward");
 
         $scope.loadDataProductDetail = () => {
+
+            document.querySelector("body").classList.remove('fix');
+            document.querySelector(".offcanvas-search-inner").classList.remove('show')
+            document.querySelector(".minicart-inner").classList.remove('show')
+
             var id = $scope.customer == null ? -1 : $scope.customer.id
             $http.get('http://localhost:8080/cart/get-cart-detail-by-id/' + id).then(function (response) {
                 $scope.cartDetails = response.data
@@ -54,6 +62,7 @@ clientApp.controller('checkoutController',
                 if ($scope.bill.idVoucher != null) {
                     $scope.total -= Number($scope.bill.idVoucher.phanTramGiam * $scope.subTotal / 100)
                 }
+
             }).catch(function (error) {
                 console.log(error)
             })
@@ -126,7 +135,7 @@ clientApp.controller('checkoutController',
         $scope.getNewBill = () => {
             $http.get('http://localhost:8080/bill/get-new-bill').then(function (response) {
                 $scope.bill = response.data
-                if($scope.customer != null){
+                if ($scope.customer != null) {
                     $scope.bill.idKhachHang = $scope.customer
                     $scope.bill.tenNguoiNhan = $scope.customer.ten
                     $scope.bill.email = $scope.customer.email
@@ -139,12 +148,12 @@ clientApp.controller('checkoutController',
                     $scope.bill.maPhuong = $scope.customer.maPhuong
                     $scope.bill.maTinh = $scope.customer.maTinh
 
-                    if($scope.customer.maXa == null && $scope.customer.maPhuong == null && $scope.customer.maTinh == null){
+                    if ($scope.customer.maXa == null && $scope.customer.maPhuong == null && $scope.customer.maTinh == null) {
                         $scope.getAllprovide()
-                    }else{
+                    } else {
                         $scope.getAllprovideByCode($scope.customer.maPhuong, $scope.customer.maXa, $scope.customer.maTinh)
                     }
-                }else {
+                } else {
                     $scope.getAllprovide()
                 }
             }).catch(function (error) {
@@ -272,9 +281,9 @@ clientApp.controller('checkoutController',
                 })
                 .catch((error) => console.error("Error:", error));
         }
-    
+
         $scope.getAllDistrictByCode = function (ward_code, district_code, provinceCode) {
-    
+
             axios
                 .get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district`, {
                     params: {
@@ -284,11 +293,11 @@ clientApp.controller('checkoutController',
                         Accept: "application/json",
                         token: token,
                     },
-    
+
                 })
                 .then((res) => {
                     const options = res.data.data;
-    
+
                     for (let i = 0; i < options.length; i++) {
                         const option = document.createElement("option");
                         option.value = options[i].DistrictID; // Set the value of the option (you can change this to any value you want)
@@ -303,9 +312,9 @@ clientApp.controller('checkoutController',
                 })
                 .catch((error) => console.error("Error:", error));
         }
-    
+
         $scope.getFullWardCodeByCode = function (ward_code, district_code) {
-    
+
             axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
                 headers: {
                     Accept: "application/json",
@@ -331,7 +340,7 @@ clientApp.controller('checkoutController',
                     $scope.getFeeShipping()
                 })
                 .catch((error) => console.error("Error:", error));
-    
+
         }
 
         // GET FEE SHIPPING
@@ -456,14 +465,14 @@ clientApp.controller('checkoutController',
                                     console.log(error)
                                 })
 
-                            if(index == $scope.cartDetails.length - 1) {
+                            if (index == $scope.cartDetails.length - 1) {
                                 if ($scope.voucher != null) {
                                     $scope.voucher.soLanDung -= 1
                                     axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
                                         .then((response) => {
                                             toastr.success("Tạo đơn hàng thành công.");
                                             setTimeout(function () {
-                                                $window.location.href= '#!chi-tiet-hoa-don/' + response.data.id;
+                                                $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
                                                 $window.location.reload();
                                                 window.scrollTo(0, 0);
                                             }, 200)
@@ -473,19 +482,19 @@ clientApp.controller('checkoutController',
                                 } else {
                                     toastr.success("Tạo đơn hàng thành công.");
                                     setTimeout(function () {
-                                        $window.location.href= '#!chi-tiet-hoa-don/' + response.data.id;
+                                        $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
                                         $window.location.reload();
                                     }, 200)
                                 }
                             }
                         })
 
-                     
+
 
                     })
-                    .catch(function (response) {
-                        console.log(response.data)
-                    })
+                        .catch(function (response) {
+                            console.log(response.data)
+                        })
                 }
             });
         }

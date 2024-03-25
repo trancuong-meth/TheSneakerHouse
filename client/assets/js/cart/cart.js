@@ -8,6 +8,10 @@ clientApp.controller('cartController',
         $scope.customer = JSON.parse(localStorage.getItem("user"));
 
         $scope.loadDataProductDetail = () => {
+            document.querySelector("body").classList.remove('fix');
+            document.querySelector(".offcanvas-search-inner").classList.remove('show')
+            document.querySelector(".minicart-inner").classList.remove('show')
+            
             var id = $scope.customer == null ? -1 : $scope.customer.id
             $http.get('http://localhost:8080/cart/get-cart-detail-by-id/' + id).then(function (response) {
                 $scope.cartDetails = response.data
