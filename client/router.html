@@ -79,10 +79,10 @@
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active"><a href="#!trang-chu" style="font-weight: 600;">Trang
+                                            <li class="active" id="home" ng-click="changeActive(0)"><a href="#!trang-chu" style="font-weight: 600;" >Trang
                                                     chủ</a>
                                             </li>
-                                            <li class="static" style="font-weight: 600;"><a href="#!danh-sach-san-pham"
+                                            <li class="static" id="men_shoes"  ng-click="changeActive(1)"  style="font-weight: 600;"><a href="#!danh-sach-san-pham"
                                                     style="font-weight: 600;">Giày nam
                                                     <!-- <i class="fa fa-angle-down"></i> -->
                                                 </a>
@@ -556,6 +556,20 @@
                             })
                         }
                     })
+                }
+
+                $scope.changeActive = (status) => {
+                    if(status == 0){
+                        document.getElementById("home").classList.add('active')
+                        document.getElementById("home").classList.remove('static')
+                        document.getElementById("men_shoes").classList.add('static')
+                        document.getElementById("men_shoes").classList.remove('active')
+                    }else{
+                        document.getElementById("home").classList.add('static')
+                        document.getElementById("home").classList.remove('active')
+                        document.getElementById("men_shoes").classList.add('active')
+                        document.getElementById("men_shoes").classList.remove('static')
+                    }
                 }
 
                 $scope.search = () => {
