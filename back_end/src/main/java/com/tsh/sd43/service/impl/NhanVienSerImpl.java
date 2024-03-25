@@ -60,6 +60,7 @@ public class NhanVienSerImpl implements INhanVienSer {
         employee.setTrangThai(true);
         employee.setTen(req.getTen());
         employee.setAvatar(req.getAvatar());
+        employee.setMatKhau("123");
 
         if(req.getChucVu() == 0){
             if(chucVuRepo.findByMa("0") != null){

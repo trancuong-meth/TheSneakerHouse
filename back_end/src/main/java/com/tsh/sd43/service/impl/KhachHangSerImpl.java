@@ -61,6 +61,7 @@ public class KhachHangSerImpl implements IKhachHangSer {
             khachHang.setMaPhuong(req.getMaPhuong());
             khachHang.setMaTinh(req.getMaTinh());
             khachHang.setTrangThai(true);
+            khachHang.setMatKhau("123");
 
             return khachHangRepo.save(khachHang);
         }
