@@ -95,6 +95,7 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
 
                 setTimeout(() => {
                     location.href = "/html/router.html#!/nhan-vien"
+                    $window.location.reload();
                 }, 100)
 
             }

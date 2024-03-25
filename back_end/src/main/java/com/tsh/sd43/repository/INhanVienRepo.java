@@ -31,4 +31,11 @@ public interface INhanVienRepo extends JpaRepository<NhanVien, Long> {
         select top 1 ma from nhan_vien order by ngay_tao desc
     """, nativeQuery = true)
     String generateNewestCode();
+
+    @Query(value = """
+        select * from nhan_vien
+        where email = :email and mat_khau = :matKhau
+    """, nativeQuery = true)
+    NhanVien findNhanVienByEmailAndPass(@Param("email") String email, @Param("matKhau") String pass);
+
 }

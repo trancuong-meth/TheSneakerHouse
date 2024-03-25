@@ -40,6 +40,12 @@ public interface IKhachHangRepo extends JpaRepository<KhachHang, Long> {
     """, nativeQuery = true)
     KhachHang findKhachHangByEmailAndPass(@Param("email") String email, @Param("matKhau") String pass);
 
+    @Query(value = """
+        select * from khach_hang
+        where email = :email 
+    """, nativeQuery = true)
+    KhachHang findKhachHangByEmail(@Param("email") String email);
+
     @Modifying
     @Transactional
     @Query(value = """

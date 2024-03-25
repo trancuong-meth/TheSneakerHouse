@@ -40,26 +40,30 @@ public class KhachHangSerImpl implements IKhachHangSer {
 
     public KhachHang addCustomer(CustomerAddRequest req){
         // add customer
-        KhachHang khachHang = new KhachHang();
+        if(khachHangRepo.findKhachHangByEmail(req.getEmail()) != null){
+            throw new RuntimeException("Email đã tồn tại");
+        }else {
+            KhachHang khachHang = new KhachHang();
 
-        khachHang.setMa(generateCode());
-        khachHang.setTen(req.getTen());
-        khachHang.setNgaySinh(req.getNgaySinh());
-        khachHang.setGioiTinh(req.getGioiTinh());
-        khachHang.setSoDienThoai(req.getSoDienThoai());
-        khachHang.setCccd(req.getCccd());
-        khachHang.setEmail(req.getEmail());
-        khachHang.setAvatar(req.getAvatar());
-        khachHang.setXa(req.getXa());
-        khachHang.setPhuong(req.getPhuong());
-        khachHang.setTinh(req.getTinh());
-        khachHang.setDiaChi(req.getDiaChi());
-        khachHang.setMaXa(req.getMaXa());
-        khachHang.setMaPhuong(req.getMaPhuong());
-        khachHang.setMaTinh(req.getMaTinh());
-        khachHang.setTrangThai(true);
+            khachHang.setMa(generateCode());
+            khachHang.setTen(req.getTen());
+            khachHang.setNgaySinh(req.getNgaySinh());
+            khachHang.setGioiTinh(req.getGioiTinh());
+            khachHang.setSoDienThoai(req.getSoDienThoai());
+            khachHang.setCccd(req.getCccd());
+            khachHang.setEmail(req.getEmail());
+            khachHang.setAvatar(req.getAvatar());
+            khachHang.setXa(req.getXa());
+            khachHang.setPhuong(req.getPhuong());
+            khachHang.setTinh(req.getTinh());
+            khachHang.setDiaChi(req.getDiaChi());
+            khachHang.setMaXa(req.getMaXa());
+            khachHang.setMaPhuong(req.getMaPhuong());
+            khachHang.setMaTinh(req.getMaTinh());
+            khachHang.setTrangThai(true);
 
-        return khachHangRepo.save(khachHang);
+            return khachHangRepo.save(khachHang);
+        }
     }
 
 
@@ -97,11 +101,16 @@ public class KhachHangSerImpl implements IKhachHangSer {
     }
 
     public KhachHang register(CustomerRegisterRequest req){
-        KhachHang customer = new KhachHang();
-        customer.setTen(req.getTen());
-        customer.setEmail(req.getEmail());
-        customer.setMatKhau(req.getMatKhau());
-        return khachHangRepo.save(customer);
+        if(khachHangRepo.findKhachHangByEmail(req.getEmail()) != null){
+            throw new RuntimeException("Email đã tồn tại");
+        }else {
+            KhachHang customer = new KhachHang();
+            customer.setTen(req.getTen());
+            customer.setEmail(req.getEmail());
+            customer.setMatKhau(req.getMatKhau());
+            customer.setTrangThai(true);
+            return khachHangRepo.save(customer);
+        }
     }
 
     public KhachHang login(String email, String matKhau){

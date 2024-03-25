@@ -10,8 +10,6 @@ clientApp.controller('registerController',
 
         $scope.register = () => {
 
-            console.log($scope.user)
-            console.log($scope.passAgain)
             if (
                 $scope.user.ten == ""
                 || $scope.user.ten == null

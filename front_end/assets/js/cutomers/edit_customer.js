@@ -288,7 +288,6 @@ main_app.controller("editCustomerController", function ($scope, $http, $routePar
     $scope.updateCustomer = function () {
         $scope.customer.gioiTinh = Number($scope.customer.gioiTinh)
 
-
         if ($scope.customer.ten === "" ||
             $scope.customer.ngaySinh === ""
             || $scope.customer.cccd === ""
@@ -299,6 +298,20 @@ main_app.controller("editCustomerController", function ($scope, $http, $routePar
             || $scope.customer.maPhuong === ""
             || $scope.customer.maXa === ""
             || $scope.customer.diaChi === "") {
+            toastr.error('Bạn phải nhập đầy các trường có trên form ')
+            return;
+        }
+
+        if ($scope.customer.ten === null ||
+            $scope.customer.ngaySinh === null
+            || $scope.customer.cccd === null
+            || $scope.customer.gioiTinh === null
+            || $scope.customer.email === null
+            || $scope.customer.soDienThoai === null
+            || $scope.customer.maTinh === null
+            || $scope.customer.maPhuong === null
+            || $scope.customer.maXa === null
+            || $scope.customer.diaChi === null) {
             toastr.error('Bạn phải nhập đầy các trường có trên form ')
             return;
         }

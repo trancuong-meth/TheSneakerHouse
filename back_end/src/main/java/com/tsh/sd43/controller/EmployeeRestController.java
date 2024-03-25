@@ -56,4 +56,13 @@ public class EmployeeRestController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestParam("user")String username, @RequestParam("pass")String password){
+        try{
+            return new ResponseEntity<>(employeeSer.login(username, password), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

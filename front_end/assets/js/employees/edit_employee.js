@@ -1,4 +1,4 @@
-main_app.controller("editEmployeeController", function ($scope, $http, $routeParams) {
+main_app.controller("editEmployeeController", function ($scope, $http, $routeParams, $window) {
     var id = $routeParams.id
     var today = new Date();
     $scope.avatar = "";
@@ -336,6 +336,20 @@ main_app.controller("editEmployeeController", function ($scope, $http, $routePar
                     return;
                 }
 
+                if ($scope.employee.ten === null ||
+                    $scope.employee.ngaySinh === null
+                    || $scope.employee.cccd === null
+                    || $scope.employee.gioiTinh === null
+                    || $scope.employee.email === null
+                    || $scope.employee.soDienThoai === null
+                    || $scope.employee.maTinh === null
+                    || $scope.employee.maPhuong === null
+                    || $scope.employee.maXa === null
+                    || $scope.employee.diaChi === null) {
+                    toastr.error('Bạn phải nhập đầy các trường có trên form ')
+                    return;
+                }
+
                 if ($scope.employee.ngaySinh > today) {
                     toastr.error('Ngày sinh phải nhỏ hơn ngày hôm nay')
                     return;
@@ -368,6 +382,7 @@ main_app.controller("editEmployeeController", function ($scope, $http, $routePar
 
                 setTimeout(() => {
                     location.href = "/html/router.html#!/nhan-vien"
+                    $window.location.reload();
                 }, 100)
 
             }
