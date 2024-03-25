@@ -96,6 +96,7 @@ public class KhachHangSerImpl implements IKhachHangSer {
         customer.setXa(khachHang.getXa());
         customer.setTrangThai(khachHang.getTrangThai());
         customer.setNgayTao(khachHang.getNgayTao());
+        customer.setMatKhau(khachHang.getMatKhau());
 
         return khachHangRepo.save(customer);
     }

@@ -115,6 +115,7 @@ public class NhanVienSerImpl implements INhanVienSer {
         employee.setTen(req.getTen());
         employee.setAvatar(req.getAvatar());
         employee.setId(req.getId());
+        employee.setMatKhau(req.getMatKhau());
 
         if(req.getChucVu() == 0){
             if(chucVuRepo.findByMa("0") != null){
