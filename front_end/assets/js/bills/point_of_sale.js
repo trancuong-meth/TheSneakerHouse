@@ -21,6 +21,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     // voucher
     $scope.code_voucher = ""
     $scope.vouchers = ""
+    $scope.voucherPublics = []
+    $scope.voucherPrivates = []
+    $scope.voucherDetails = []
     $scope.voucher = null
 
     // customer
@@ -350,6 +353,20 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     $scope.getVoucherByKey = function (key) {
         $http.get('http://localhost:8080/voucher/get-all?key=' + key).then(function (response) {
             $scope.vouchers = response.data
+            $scope.voucherPrivates = []
+            $scope.voucherPublics = []
+            response.data.forEach((voucher) => {
+                if (voucher.loaiVoucher == 0) {
+                    $scope.voucherPublics.push(voucher)
+                } else {
+                    if ($scope.bill.idKhachHang !== null) {
+                        $scope.voucherPrivates.push(voucher)
+                    }
+                }
+            })
+
+            console.log($scope.voucherPublics)
+            console.log($scope.voucherPrivates)
         })
     }
 
@@ -391,7 +408,6 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             toastr.error("Bạn phải chọn sản phẩm");
             return;
         }
-
 
         Swal.fire({
             title: "Xác nhận thanh toán hóa đơn này?",
@@ -498,9 +514,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     modal.hide()
 
                 })
-                .catch(function (response) {
-                    $scope.loadBills()
-                })
+                    .catch(function (response) {
+                        $scope.loadBills()
+                    })
             }
         });
 
@@ -544,8 +560,22 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
             $scope.loadCustomer()
             addModal.hide()
+            // get voucher
+           
         }).catch(function (response) {
             $scope.loadBills()
+        })
+
+        $http.get('http://localhost:8080/voucher-detail/get-by-id-customer/' + customer.id).then(function (response) {
+            $scope.voucherDetails = response.data
+            $scope.voucherDetails.forEach((e) => {
+                if (e.idPhieuGiamGia.giaTriToiThieu <=$scope.totalPrice) {
+                    $scope.addVoucherToBill(e.idPhieuGiamGia);
+                    return;
+                }
+            })
+        }).catch(function (error) {
+            console.log(error)
         })
     }
 

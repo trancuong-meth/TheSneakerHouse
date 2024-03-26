@@ -685,8 +685,51 @@
           class="form-control" ng-model="code_voucher" id="exampleInputEmail1" aria-describedby="emailHelp"
           ng-keyup="searchVoucher()">
 
+        <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher dành riêng cho bạn: </label>
         <div class="card" style="display: flex;justify-content: space-between;padding: 20px;position: relative;"
-          ng-repeat="voucher in vouchers">
+          ng-repeat="voucher in voucherPrivates">
+          <div style="width: 80%;font-size: 12px;">
+            <div>
+              <span style="color: #5D87FF;">[{{voucher.ma}}]</span>
+              <span style="
+                  display: inline-block;
+                  font-weight: 500;">
+                {{voucher.ten}}
+              </span>
+              <button class="btn btn-info" style="
+                  color: white;
+                  padding: 4px;
+                  font-size: 10px;">- {{voucher.phanTramGiam}}%</button>
+            </div>
+          </div>
+
+          <div>
+            <span style="display: inline-block;font-size: 10px;font-weight: 400; width: 100px;">Giá trị tối
+              thiểu:</span>
+            <span style="display: inline-block;font-size: 10px">{{formatToVND(voucher.giaTriToiThieu)}}</span>
+          </div>
+
+          <div>
+            <span style="display: inline-block;font-size: 10px;font-weight: 400; width: 100px;">Ngày kết thúc:</span>
+            <span style="display: inline-block;font-size: 10px">{{voucher.ngayKetThuc| date : 'HH:mm
+              dd/MM/yyyy'}}</span>
+          </div>
+
+          <button class="btn btn-primary" style="
+                    position: absolute;
+                    right: 20px;
+                    bottom: 32px;
+                    " ng-click="addVoucherToBill(voucher)" ng-if="voucher.soLanDung != 0">Chọn</button>
+          <button class="btn btn-danger" style="
+                    position: absolute;
+                    right: 20px;
+                    bottom: 32px;
+                    " disabled ng-if="voucher.soLanDung == 0">Hết voucher</button>
+        </div>
+
+        <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher khác: </label>
+        <div class="card" style="display: flex;justify-content: space-between;padding: 20px;position: relative;"
+          ng-repeat="voucher in voucherPublics">
           <div style="width: 80%;font-size: 12px;">
             <div>
               <span style="color: #5D87FF;">[{{voucher.ma}}]</span>

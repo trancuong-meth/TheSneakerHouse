@@ -33,6 +33,15 @@ public class VoucherDetailRestController {
         }
     }
 
+    @GetMapping("/get-by-id-customer/{id}")
+    public ResponseEntity<?> getAllVoucherDetailByIDCustomer(@PathVariable("id") Long idPhieuGiamGia){
+        try{
+            return new ResponseEntity<>(phieuGiamGiaChiTietSer.getAllVoucherDetailByIdCustomer(idPhieuGiamGia), HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @DeleteMapping("/delete-by-id/{id}")
     public ResponseEntity<?> deleteVoucherDetail(@PathVariable("id") Long id){
         try{

@@ -14,4 +14,10 @@ public interface PhieuGiamGiaChiTietRepo extends JpaRepository<PhieuGiamGiaChiTi
              where id_phieu_giam_gia = :idPhieuGiamGia
     """, nativeQuery = true)
     ArrayList<PhieuGiamGiaChiTiet> getChiTietByPhieuGiamGia(@RequestParam("idPhieuGiamGia") Long idPhieuGiamGia);
+
+    @Query(value = """
+        select * from phieu_giam_gia_chi_tiet
+         where id_khach_hang = :idKhachHang
+    """, nativeQuery = true)
+    ArrayList<PhieuGiamGiaChiTiet> getChiTietByPhieuGiamGiaByIdKhachHang(@RequestParam("idKhachHang") Long idKhachHang);
 }

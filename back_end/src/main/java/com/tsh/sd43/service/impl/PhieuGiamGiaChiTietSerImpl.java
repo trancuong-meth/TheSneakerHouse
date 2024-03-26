@@ -25,6 +25,10 @@ public class PhieuGiamGiaChiTietSerImpl {
         return (ArrayList<PhieuGiamGiaChiTiet>) phieuGiamGiaChiTietRepo.getChiTietByPhieuGiamGia(idPhieuGiamGia);
     }
 
+    public ArrayList<PhieuGiamGiaChiTiet> getAllVoucherDetailByIdCustomer(Long idKhachHang){
+        return phieuGiamGiaChiTietRepo.getChiTietByPhieuGiamGiaByIdKhachHang(idKhachHang);
+    }
+
     public void deleteVoucherDetail(Long id){
         phieuGiamGiaChiTietRepo.deleteById(id);
     }
