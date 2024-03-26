@@ -33,7 +33,6 @@ main_app.controller("billController", function ($scope, $http) {
     $http.get('http://localhost:8080/bill/get-quantity-bills').then(function (response) {
       console.log(response.data)
       response.data.forEach((bill) => {
-        $scope.quantityStateAll += bill.soLuong
         if (bill.trangThai == 1) {
           $scope.quantityState1 = bill.soLuong
         } else if (bill.trangThai == 2) {

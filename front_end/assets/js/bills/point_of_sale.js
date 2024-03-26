@@ -387,10 +387,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         var qrModal = document.querySelector("#vietQrModal")
         var modal = bootstrap.Modal.getOrCreateInstance(qrModal)
 
-        if($scope.billDetails.content.length == 0){
+        if ($scope.billDetails.content.length == 0) {
             toastr.error("Bạn phải chọn sản phẩm");
             return;
         }
+
 
         Swal.fire({
             title: "Xác nhận thanh toán hóa đơn này?",
@@ -423,6 +424,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
                     $scope.loadBills()
+                    $scope.bill = response.data
 
                     if ($scope.bill.loaiHoaDon == 0) {
                         axios.post('http://localhost:8080/history/add', {
@@ -470,7 +472,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                         axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
                             .then((response) => {
                                 toastr.success("Tạo hóa đơn thành công.");
+
                                 setTimeout(function () {
+                                    axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                                    }).catch(function (error) {
+                                    })
                                     location.href = "/html/router.html#!/chi-tiet-hoa-don/" + $scope.bill.id
                                     window.scrollTo(0, 0);
                                 }, 200)
@@ -479,7 +485,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                             })
                     } else {
                         toastr.success("Tạo hóa đơn thành công.");
+
                         setTimeout(function () {
+                            axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                            }).catch(function (error) {
+                            })
                             location.href = "/html/router.html#!/chi-tiet-hoa-don/" + response.data.id
                             window.scrollTo(0, 0);
                         }, 200)
@@ -488,9 +498,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     modal.hide()
 
                 })
-                    .catch(function (response) {
-                        $scope.loadBills()
-                    })
+                .catch(function (response) {
+                    $scope.loadBills()
+                })
             }
         });
 
