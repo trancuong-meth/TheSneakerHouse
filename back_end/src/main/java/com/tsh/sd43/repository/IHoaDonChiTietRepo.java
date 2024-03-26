@@ -23,6 +23,13 @@ public interface IHoaDonChiTietRepo extends JpaRepository<HoaDonChiTiet, Long> {
     """, nativeQuery = true)
     ArrayList<HoaDonChiTiet> findBillDetailsByIdBill(@Param("id")Long id);
 
+    @Query(value = """
+        select hdct.* from hoa_don_chi_tiet hdct
+         join hoa_don hd on hd.id = hdct.id_hoa_don
+         where hd.ma = :code_bill
+    """, nativeQuery = true)
+    ArrayList<HoaDonChiTiet> findBillDetailsByCodeBill(@Param("code_bill")String codeBill);
+
     @Modifying
     @Transactional
     @Query(value = """
