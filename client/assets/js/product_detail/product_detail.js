@@ -129,7 +129,12 @@ clientApp.controller('singleProductController',
             $scope.loadSizes()
 
             setTimeout(() => {
-                $scope.chooseSize($scope.productDetailChooses[0])
+                $scope.productDetailChooses.forEach((productDetail, index) => {
+                    if (productDetail.soLuongTon > 0) {
+                        $scope.chooseSize(productDetail)
+                        return
+                    }
+                })
             }, 10)
         }
 
@@ -160,7 +165,7 @@ clientApp.controller('singleProductController',
         $scope.addToCart = () => {
             console.log($scope.productChooseCurrent)
 
-            $http.post('http://localhost:8080/cart/add-to-cart', {
+            $http.post('http://localhost:8080/cart/add-to-cart-quantity', {
                 sanPhamChiTiet: $scope.productChooseCurrent,
                 soLuong: $scope.quantity_of_cart == 1 ? -1 : $scope.quantity_of_cart,
                 idKhachHang: $scope.customer == null ? -1 : $scope.customer.id

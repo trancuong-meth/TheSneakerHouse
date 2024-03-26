@@ -59,7 +59,10 @@ public class GioHangSerImpl implements IGioHangSer {
                 GioHangChiTiet cartDetail = new GioHangChiTiet();
                 cartDetail.setIdGioHang(cart);
                 cartDetail.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
-                cartDetail.setSoLuong(1);
+                if(req.getSoLuong() > req.getSanPhamChiTiet().getSoLuongTon()) {
+                    throw new RuntimeException("Số lượng còn lại không đủ");
+                }
+                cartDetail.setSoLuong(cartDetail.getSoLuong() == -1 ? 1 : cartDetail.getSoLuong());
                 return gioHangChiTietRepo.save(cartDetail);
             }else{
                 for(GioHangChiTiet item : productDetails) {
@@ -102,6 +105,63 @@ public class GioHangSerImpl implements IGioHangSer {
             throw new RuntimeException(e);
         }
     }
+
+    public GioHangChiTiet addProductToCartPlusQuantity(CartDetailRequest req) {
+        GioHang cart = getCartByIdCustomer(req.getIdKhachHang());
+        try {
+            ArrayList<GioHangChiTiet> productDetails = gioHangChiTietRepo.findCartDetailsByIdCart(cart.getId());
+
+            if(productDetails.size() == 0) {
+                GioHangChiTiet cartDetail = new GioHangChiTiet();
+                cartDetail.setIdGioHang(cart);
+                cartDetail.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
+                if(req.getSoLuong() > req.getSanPhamChiTiet().getSoLuongTon()) {
+                    throw new RuntimeException("Số lượng còn lại không đủ");
+                }
+                cartDetail.setSoLuong(cartDetail.getSoLuong() == -1 ? 1 : cartDetail.getSoLuong());
+                return gioHangChiTietRepo.save(cartDetail);
+            }else{
+                for(GioHangChiTiet item : productDetails) {
+                    if(item.getIdSanPhamChiTiet().getId().equals(req.getSanPhamChiTiet().getId())) {
+
+                        if(req.getSoLuong() == -1) {
+                            if(item.getSoLuong() + 1 > req.getSanPhamChiTiet().getSoLuongTon()) {
+                                throw new RuntimeException("Số lượng còn lại không đủ");
+                            }
+
+                            item.setSoLuong(item.getSoLuong() + 1);
+                            return gioHangChiTietRepo.save(item);
+                        }else{
+                            if(req.getSanPhamChiTiet().getSoLuongTon() + req.getSoLuong() >= req.getSoLuong()) {
+                                item.setSoLuong(req.getSoLuong() + item.getSoLuong());
+                                return gioHangChiTietRepo.save(item);
+                            }else{
+                                throw new RuntimeException("Số lượng tồn không đủ");
+                            }
+                        }
+                    }
+                }
+
+                if(req.getSoLuong() == -1) {
+                    GioHangChiTiet cartDetail = new GioHangChiTiet();
+                    cartDetail.setIdGioHang(cart);
+                    cartDetail.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
+                    cartDetail.setSoLuong(1);
+                    return gioHangChiTietRepo.save(cartDetail);
+                }else{
+                    GioHangChiTiet cartDetail = new GioHangChiTiet();
+                    cartDetail.setIdGioHang(cart);
+                    cartDetail.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
+                    cartDetail.setSoLuong(req.getSoLuong());
+                    return gioHangChiTietRepo.save(cartDetail);
+                }
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public ArrayList<GioHangChiTiet> findCartDetailsByIdCart(Long id) {
         GioHang cart = getCartByIdCustomer(id);

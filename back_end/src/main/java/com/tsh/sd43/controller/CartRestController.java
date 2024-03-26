@@ -29,6 +29,15 @@ public class CartRestController {
         }
     }
 
+    @PostMapping("/add-to-cart-quantity")
+    public ResponseEntity<?> addToCartQuantity(@RequestBody CartDetailRequest req) {
+        try{
+            return new ResponseEntity<>(cartService.addProductToCartPlusQuantity(req), HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/get-cart-detail-by-id/{id}")
     public ResponseEntity<?> findCartDetailsByIdCart(@PathVariable("id") Long id) {
         try{
