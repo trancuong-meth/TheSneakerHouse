@@ -435,6 +435,8 @@ clientApp.controller('checkoutController',
 
                     axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
 
+
+
                         axios.post('http://localhost:8080/history/add', {
                             'trangThai': 1,
                             'ghiChu': $scope.bill.ghiChu,
@@ -471,7 +473,13 @@ clientApp.controller('checkoutController',
                                     axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
                                         .then((response) => {
                                             toastr.success("Tạo đơn hàng thành công.");
+
                                             setTimeout(function () {
+                                                axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+
+                                                }).catch(function (error) {
+
+                                                })
                                                 $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
                                                 $window.location.reload();
                                                 window.scrollTo(0, 0);
@@ -481,7 +489,11 @@ clientApp.controller('checkoutController',
                                         })
                                 } else {
                                     toastr.success("Tạo đơn hàng thành công.");
+
                                     setTimeout(function () {
+                                        axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                                        }).catch(function (error) {
+                                        })
                                         $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
                                         $window.location.reload();
                                     }, 200)

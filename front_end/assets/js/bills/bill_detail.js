@@ -651,6 +651,9 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState1)
             toastr.success("Xác nhận hóa đơn thành công")
             setTimeout(() => {
+                axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                }).catch(function (error) {
+                })
                 $scope.loadBill()
             }, 100)
         }
@@ -669,6 +672,9 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState2)
             toastr.success("Xác nhận hóa đơn thành công")
             setTimeout(() => {
+                axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                }).catch(function (error) {
+                })
                 $scope.loadBill()
             }, 100)
         }
@@ -687,6 +693,9 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState3)
             toastr.success("Xác nhận hóa đơn thành công")
             setTimeout(() => {
+                axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                }).catch(function (error) {
+                })
                 $scope.loadBill()
             }, 100)
         }
@@ -869,6 +878,9 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                     toastr.success("Hủy hóa đơn thành công.")
 
                     setTimeout(() => {
+                        axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                        }).catch(function (error) {
+                        })
                         $scope.loadBill()
                     }, 100)
                 })
@@ -897,6 +909,9 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState4)
             toastr.success("Trả hàng thành công.")
             setTimeout(() => {
+                axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                }).catch(function (error) {
+                })
                 $scope.loadBill()
             }, 100)
         }
