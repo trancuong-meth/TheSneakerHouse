@@ -54,27 +54,27 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
 
     @Query(value = """
             select count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien from hoa_don as hd
-            where deleted = 1 and not trang_thai in (0, 5) and MONTH(hd.ngay_tao) = MONTH(GETDATE())
+            where deleted = 1 and not trang_thai in (0, 5, 6) and MONTH(hd.ngay_tao) = MONTH(GETDATE())
     """, nativeQuery = true)
     RevenueResponce getRevenueMonth();
 
     @Query(value = """
             select count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien from hoa_don as hd
-            where deleted = 1 and not trang_thai in (0, 5) and CAST( hd.ngay_tao AS Date ) = CAST( GETDATE() AS Date )
+            where deleted = 1 and not trang_thai in (0, 5, 6) and CAST( hd.ngay_tao AS Date ) = CAST( GETDATE() AS Date )
     """, nativeQuery = true)
     RevenueResponce getRevenueDay();
 
     @Query(value = """
             select sum(hdct.so_luong)  from hoa_don as hd
             join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
-            where hd.deleted = 1 and not hd.trang_thai in (0, 5) and MONTH(hd.ngay_tao) = MONTH(GETDATE())
+            where hd.deleted = 1 and not hd.trang_thai in (0, 5, 6) and MONTH(hd.ngay_tao) = MONTH(GETDATE())
     """, nativeQuery = true)
     Integer getQuantityOfProductWithMonth();
 
     @Query(value = """
      select CAST( hd.ngay_tao AS Date ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
      from hoa_don as hd
-     where deleted = 1 and not trang_thai in (0, 5)
+     where deleted = 1 and not trang_thai in (0, 5, 6)
      and( CAST( hd.ngay_tao AS Date ) > CAST( :start_date AS Date )
       and CAST( hd.ngay_tao AS Date ) <= CAST( :end_date AS Date )
       )
@@ -86,7 +86,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     @Query(value = """
      select CAST( hd.ngay_tao AS Date ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
      from hoa_don as hd
-     where deleted = 1 and not trang_thai in (0, 5)
+     where deleted = 1 and not trang_thai in (0, 5, 6)
      group by CAST( hd.ngay_tao AS Date )
     """, nativeQuery = true)
     ArrayList<RevenueFillterResponce> getRevenueRangeDay();
@@ -94,7 +94,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     @Query(value = """
      select MONTH( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
      from hoa_don as hd
-     where deleted = 1 and not trang_thai in (0, 5)
+     where deleted = 1 and not trang_thai in (0, 5, 6)
      group by MONTH( hd.ngay_tao  )
     """, nativeQuery = true)
     ArrayList<RevenueFillterResponce> getRevenueRangeMonth();
@@ -102,7 +102,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     @Query(value = """
      select YEAR( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
      from hoa_don as hd
-     where deleted = 1 and not trang_thai in (0, 5)
+     where deleted = 1 and not trang_thai in (0, 5, 6)
      group by YEAR( hd.ngay_tao  )
     """, nativeQuery = true)
     ArrayList<RevenueFillterResponce> getRevenueRangeYear();
@@ -113,7 +113,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
      join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
      join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
      join san_pham sp on sp.id = spct.id_san_pham
-     where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+     where hd.deleted = 1 and not hd.trang_thai in (0, 5, 6)
      group by sp.ten
      order by so_luong desc
     """, nativeQuery = true)
@@ -123,7 +123,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
          select hd.trang_thai,count(hd.id) as so_luong
     	 from hoa_don as hd
     	 join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
-    	 where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+    	 where hd.deleted = 1 and not hd.trang_thai in (0, 5, 6)
     	 group by hd.trang_thai
     	 order by so_luong desc
     """, nativeQuery = true)
@@ -135,7 +135,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
          join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
          join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
          join san_pham sp on sp.id = spct.id_san_pham
-         where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+         where hd.deleted = 1 and not hd.trang_thai in (0, 5, 6)
     	 and CAST( hd.ngay_tao AS Date ) = CAST( getdate() AS Date )
          group by sp.ten
          order by so_luong desc
@@ -148,7 +148,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
          join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
          join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
          join san_pham sp on sp.id = spct.id_san_pham
-         where hd.deleted = 1 and not hd.trang_thai in (0, 5)
+         where hd.deleted = 1 and not hd.trang_thai in (0, 5, 6)
     	 and MONTH( hd.ngay_tao ) = MONTH( getdate())
          group by sp.ten
          order by so_luong desc
