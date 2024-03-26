@@ -347,7 +347,19 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.openVoucherModal = function () {
-        $scope.getVoucherByKey("");
+
+        if ($scope.customer != null) {
+            $http.get('http://localhost:8080/voucher-detail/get-by-id-customer/' + $scope.customer.id).then(function (response) {
+                $scope.voucherDetails = response.data
+            }).catch(function (error) {
+                console.log(error)
+            })
+        }
+
+        setTimeout(() => {
+            $scope.getVoucherByKey("");
+        }, 50);
+
     }
 
     $scope.getVoucherByKey = function (key) {
@@ -360,13 +372,13 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     $scope.voucherPublics.push(voucher)
                 } else {
                     if ($scope.bill.idKhachHang !== null) {
-                        $scope.voucherPrivates.push(voucher)
+                        if ($scope.voucherDetails.find(e => e.idPhieuGiamGia.id == voucher.id) != undefined) {
+                            $scope.voucherPrivates.push(voucher)
+                        }
                     }
                 }
             })
 
-            console.log($scope.voucherPublics)
-            console.log($scope.voucherPrivates)
         })
     }
 
@@ -561,19 +573,24 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             $scope.loadCustomer()
             addModal.hide()
             // get voucher
-           
+
         }).catch(function (response) {
             $scope.loadBills()
         })
 
         $http.get('http://localhost:8080/voucher-detail/get-by-id-customer/' + customer.id).then(function (response) {
             $scope.voucherDetails = response.data
+            
+            var temp = $scope.voucherDetails[0]
             $scope.voucherDetails.forEach((e) => {
-                if (e.idPhieuGiamGia.giaTriToiThieu <=$scope.totalPrice) {
-                    $scope.addVoucherToBill(e.idPhieuGiamGia);
-                    return;
+                if (e.idPhieuGiamGia.giaTriToiThieu <= $scope.totalPrice) {
+                    if(temp.idPhieuGiamGia.phanTramGiam < e.idPhieuGiamGia.phanTramGiam){
+                        temp = e
+                    }
                 }
             })
+            $scope.addVoucherToBill(temp.idPhieuGiamGia);
+
         }).catch(function (error) {
             console.log(error)
         })
