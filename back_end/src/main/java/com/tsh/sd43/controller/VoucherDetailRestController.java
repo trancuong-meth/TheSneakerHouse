@@ -23,4 +23,23 @@ public class VoucherDetailRestController {
             return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/get-by-id-voucher/{id}")
+    public ResponseEntity<?> getAllVoucherDetail(@PathVariable("id") Long idPhieuGiamGia){
+        try{
+            return new ResponseEntity<>(phieuGiamGiaChiTietSer.getAllVoucherDetail(idPhieuGiamGia), HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete-by-id/{id}")
+    public ResponseEntity<?> deleteVoucherDetail(@PathVariable("id") Long id){
+        try{
+            phieuGiamGiaChiTietSer.deleteVoucherDetail(id);
+            return new ResponseEntity<>("Xóa thành cong", HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

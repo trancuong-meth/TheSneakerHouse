@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "hoa_don_chi_tiet")
+@Table(name = "phieu_giam_gia_chi_tiet")
 public class PhieuGiamGiaChiTiet extends PrimaryEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)

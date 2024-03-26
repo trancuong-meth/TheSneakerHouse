@@ -6,6 +6,8 @@ import com.tsh.sd43.repository.PhieuGiamGiaChiTietRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class PhieuGiamGiaChiTietSerImpl {
 
@@ -17,5 +19,13 @@ public class PhieuGiamGiaChiTietSerImpl {
         voucherDetail.setIdPhieuGiamGia(voucherDetailRequest.getVoucher());
         voucherDetail.setIdKhachHang(voucherDetailRequest.getKhachHang());
         return phieuGiamGiaChiTietRepo.save(voucherDetail);
+    }
+
+    public ArrayList<PhieuGiamGiaChiTiet> getAllVoucherDetail(Long idPhieuGiamGia){
+        return (ArrayList<PhieuGiamGiaChiTiet>) phieuGiamGiaChiTietRepo.getChiTietByPhieuGiamGia(idPhieuGiamGia);
+    }
+
+    public void deleteVoucherDetail(Long id){
+        phieuGiamGiaChiTietRepo.deleteById(id);
     }
 }

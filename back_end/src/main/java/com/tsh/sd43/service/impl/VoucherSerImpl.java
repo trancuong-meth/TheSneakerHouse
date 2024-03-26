@@ -52,6 +52,7 @@ public class VoucherSerImpl {
         voucher.setSoLanDung(req.getSoLanDung());
         voucher.setNgayBatDau(req.getNgayBatDau());
         voucher.setNgayKetThuc(req.getNgayKetThuc());
+        voucher.setLoaiVoucher(req.getLoaiVoucher());
 
         if(req.getNgayBatDau().after(today)){
             voucher.setTrangThai(StatusVoucher.CHUA_BAT_DAU.getTrangThai());
@@ -80,6 +81,7 @@ public class VoucherSerImpl {
         voucher.setNgayBatDau(req.getNgayBatDau());
         voucher.setNgayKetThuc(req.getNgayKetThuc());
         voucher.setTrangThai(req.getTrangThai());
+        voucher.setLoaiVoucher(req.getLoaiVoucher());
 
         return voucherRepo.save(voucher);
     }
