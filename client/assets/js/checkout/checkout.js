@@ -6,9 +6,6 @@ clientApp.controller('checkoutController',
         // scroll to 0 0
         window.scrollTo(0, 0)
 
-        // check out
-
-
         // total
         $scope.subTotal = 0;
         $scope.total = 0;
@@ -433,79 +430,87 @@ clientApp.controller('checkoutController',
                         $scope.bill.idVoucher = $scope.voucher
                     }
 
-                    axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+                    if ($scope.paymentMethod == 0) {
+                        axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
 
-                        axios.post('http://localhost:8080/history/add', {
-                            'trangThai': 1,
-                            'ghiChu': $scope.bill.ghiChu,
-                            'hoaDon': response.data
-                        }).then(function (response) {
-
-                        }).catch(function (error) {
-                            console.log(error);
-                        })
-
-                        $scope.cartDetails.forEach((x, index) => {
-
-                            $scope.removeCartDetail(x)
-                            $http.post('http://localhost:8080/bill-detail/add-bill-detail-client', {
-                                'hoaDon': response.data,
-                                'sanPhamChiTiet': x.idSanPhamChiTiet,
-                                'soLuong': x.soLuong
+                            axios.post('http://localhost:8080/history/add', {
+                                'trangThai': 1,
+                                'ghiChu': $scope.bill.ghiChu,
+                                'hoaDon': response.data
                             }).then(function (response) {
-                                console.log(response.data)
+
                             }).catch(function (error) {
-                                toastr.error(error.data.message)
+                                console.log(error);
                             })
 
-                            x.idSanPhamChiTiet.soLuongTon -= x.soLuong
-                            axios.put('http://localhost:8080/product-detail/update-product-detail', x.idSanPhamChiTiet)
-                                .then((response) => {
+                            $scope.cartDetails.forEach((x, index) => {
 
-                                }).catch((error) => {
-                                    console.log(error)
+                                $scope.removeCartDetail(x)
+                                $http.post('http://localhost:8080/bill-detail/add-bill-detail-client', {
+                                    'hoaDon': response.data,
+                                    'sanPhamChiTiet': x.idSanPhamChiTiet,
+                                    'soLuong': x.soLuong
+                                }).then(function (response) {
+                                    console.log(response.data)
+                                }).catch(function (error) {
+                                    toastr.error(error.data.message)
                                 })
 
-                            if (index == $scope.cartDetails.length - 1) {
-                                if ($scope.voucher != null) {
-                                    $scope.voucher.soLanDung -= 1
-                                    axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
-                                        .then((response) => {
-                                            toastr.success("Tạo đơn hàng thành công.");
+                                x.idSanPhamChiTiet.soLuongTon -= x.soLuong
+                                axios.put('http://localhost:8080/product-detail/update-product-detail', x.idSanPhamChiTiet)
+                                    .then((response) => {
 
-                                            setTimeout(function () {
-                                                axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                                    }).catch((error) => {
+                                        console.log(error)
+                                    })
 
-                                                }).catch(function (error) {
+                                if (index == $scope.cartDetails.length - 1) {
+                                    if ($scope.voucher != null) {
+                                        $scope.voucher.soLanDung -= 1
+                                        axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
+                                            .then((response) => {
+                                                toastr.success("Tạo đơn hàng thành công.");
 
-                                                })
-                                                $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
-                                                $window.location.reload();
-                                                window.scrollTo(0, 0);
-                                            }, 500)
-                                        }).catch((error) => {
-                                            console.log(error)
-                                        })
-                                } else {
-                                    toastr.success("Tạo đơn hàng thành công.");
+                                                setTimeout(function () {
+                                                    axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
 
-                                    setTimeout(function () {
-                                        axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
-                                        }).catch(function (error) {
-                                        })
-                                        $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
-                                        $window.location.reload();
-                                    }, 500)
+                                                    }).catch(function (error) {
+
+                                                    })
+                                                    $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
+                                                    $window.location.reload();
+                                                    window.scrollTo(0, 0);
+                                                }, 500)
+                                            }).catch((error) => {
+                                                console.log(error)
+                                            })
+                                    } else {
+                                        toastr.success("Tạo đơn hàng thành công.");
+
+                                        setTimeout(function () {
+                                            axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                                            }).catch(function (error) {
+                                            })
+                                            $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
+                                            $window.location.reload();
+                                        }, 500)
+                                    }
                                 }
-                            }
+                            })
                         })
-
-
-
-                    })
+                            .catch(function (response) {
+                                console.log(response.data)
+                            })
+                    } else {
+                        axios.post('http://localhost:8080/vnpay/payment?total=' + $scope.total + "&orderInfor=" + $scope.bill.ma + "&orderCode=" + $scope.bill.ma).then(function (response) {
+                            console.log(response.data)
+                            window.location.href = response.data
+                        })
                         .catch(function (response) {
                             console.log(response.data)
                         })
+                }
+
                 }
             });
         }

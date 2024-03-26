@@ -35,16 +35,22 @@ main_app.controller("billController", function ($scope, $http) {
       response.data.forEach((bill) => {
         if (bill.trangThai == 1) {
           $scope.quantityState1 = bill.soLuong
+          $scope.quantityStateAll += bill.soLuong
         } else if (bill.trangThai == 2) {
           $scope.quantityState2 = bill.soLuong
+          $scope.quantityStateAll += bill.soLuong
         } else if (bill.trangThai == 3) {
           $scope.quantityState3 = bill.soLuong
+          $scope.quantityStateAll += bill.soLuong
         } else if (bill.trangThai == 4) {
           $scope.quantityState4 = bill.soLuong
+          $scope.quantityStateAll += bill.soLuong
         } else if (bill.trangThai == 5) {
           $scope.quantityState5 = bill.soLuong
+          $scope.quantityStateAll += bill.soLuong
         } else if (bill.trangThai == 6) {
           $scope.quantityState6 = bill.soLuong
+          $scope.quantityStateAll += bill.soLuong
         }
       })
 
