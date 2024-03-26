@@ -197,7 +197,7 @@ background-color: #e1e1e1; color: black; text-align: center"  class="">Thành ti
                 <td class='' colSpan="3" style="text-align: end; font-weight: bold; border: 1px solid #d1d1d1; vertical-align: top">
                     Giảm giá:
                 </td>
-                <td class='' colSpan="1" style="text-align: center; border: 1px solid #d1d1d1; vertical-align: top" th:text="${bill.getIdVoucher() == null ? 0 : bill.getIdVoucher().getPhanTramGiam() * bill.getTongTien()}">
+                <td class='' colSpan="1" style="text-align: center; border: 1px solid #d1d1d1; vertical-align: top" th:text="${#numbers.formatDecimal((bill.getIdVoucher() == null ? 0 : bill.getIdVoucher().getPhanTramGiam() * bill.getTongTien() / 100), 0, 'COMMA', 0, 'POINT') + ' đ'}">
                     50,000
                 </td>
             </tr>
