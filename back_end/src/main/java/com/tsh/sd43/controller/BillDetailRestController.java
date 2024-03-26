@@ -36,6 +36,15 @@ public class BillDetailRestController {
         }
     }
 
+    @PostMapping("/add-bill-detail-client")
+    public ResponseEntity<?> addToBillClient(@RequestBody ProductDetailRequest req) {
+        try {
+            return new ResponseEntity<>(hoaDonChiTietService.addProductToBillClient(req), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getCause(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @DeleteMapping("/remove-by-id/{id}")
     public void deleteProductDetailByID(@PathVariable("id")Long id){
         try{

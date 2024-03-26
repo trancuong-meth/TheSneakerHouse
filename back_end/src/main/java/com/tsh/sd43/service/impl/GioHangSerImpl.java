@@ -118,7 +118,7 @@ public class GioHangSerImpl implements IGioHangSer {
                 if(req.getSoLuong() > req.getSanPhamChiTiet().getSoLuongTon()) {
                     throw new RuntimeException("Số lượng còn lại không đủ");
                 }
-                cartDetail.setSoLuong(cartDetail.getSoLuong() == -1 ? 1 : cartDetail.getSoLuong());
+                cartDetail.setSoLuong(req.getSoLuong() == -1 ? 1 : req.getSoLuong());
                 return gioHangChiTietRepo.save(cartDetail);
             }else{
                 for(GioHangChiTiet item : productDetails) {
@@ -129,11 +129,12 @@ public class GioHangSerImpl implements IGioHangSer {
                                 throw new RuntimeException("Số lượng còn lại không đủ");
                             }
 
-                            item.setSoLuong(item.getSoLuong() + 1);
+                            item.setSoLuong(item.getSoLuong() == null ? 0 : item.getSoLuong() + 1);
                             return gioHangChiTietRepo.save(item);
                         }else{
-                            if(req.getSanPhamChiTiet().getSoLuongTon() + req.getSoLuong() >= req.getSoLuong()) {
-                                item.setSoLuong(req.getSoLuong() + item.getSoLuong());
+                            Integer quantityCart = item.getSoLuong() == null ? 0 : item.getSoLuong();
+                            if( quantityCart + req.getSoLuong() >= req.getSanPhamChiTiet().getSoLuongTon()) {
+                                item.setSoLuong(req.getSoLuong() + quantityCart);
                                 return gioHangChiTietRepo.save(item);
                             }else{
                                 throw new RuntimeException("Số lượng tồn không đủ");

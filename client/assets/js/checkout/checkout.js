@@ -435,8 +435,6 @@ clientApp.controller('checkoutController',
 
                     axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
 
-
-
                         axios.post('http://localhost:8080/history/add', {
                             'trangThai': 1,
                             'ghiChu': $scope.bill.ghiChu,
@@ -450,11 +448,12 @@ clientApp.controller('checkoutController',
                         $scope.cartDetails.forEach((x, index) => {
 
                             $scope.removeCartDetail(x)
-                            $http.post('http://localhost:8080/bill-detail/add-product-to-bill', {
+                            $http.post('http://localhost:8080/bill-detail/add-bill-detail-client', {
                                 'hoaDon': response.data,
                                 'sanPhamChiTiet': x.idSanPhamChiTiet,
                                 'soLuong': x.soLuong
                             }).then(function (response) {
+                                console.log(response.data)
                             }).catch(function (error) {
                                 toastr.error(error.data.message)
                             })
@@ -483,7 +482,7 @@ clientApp.controller('checkoutController',
                                                 $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
                                                 $window.location.reload();
                                                 window.scrollTo(0, 0);
-                                            }, 200)
+                                            }, 500)
                                         }).catch((error) => {
                                             console.log(error)
                                         })
@@ -496,7 +495,7 @@ clientApp.controller('checkoutController',
                                         })
                                         $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
                                         $window.location.reload();
-                                    }, 200)
+                                    }, 500)
                                 }
                             }
                         })

@@ -88,6 +88,26 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
         }
     }
 
+    public HoaDonChiTiet addProductToBillClient(ProductDetailRequest req) {
+        try {
+            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+            hoaDonChiTiet.setIdHoaDon(req.getHoaDon());
+            hoaDonChiTiet.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
+
+            if(req.getSoLuong() > req.getSanPhamChiTiet().getSoLuongTon()) {
+                throw new RuntimeException("Số lượng còn lại không đủ");
+            }
+
+            hoaDonChiTiet.setSoLuong(req.getSoLuong());
+            hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
+            hoaDonChiTiet.setTrangThai(1);
+            return hoaDonChiTietRepo.save(hoaDonChiTiet);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void removeBillDetailById(Long id) {
         try {
             hoaDonChiTietRepo.deleteById(id);
