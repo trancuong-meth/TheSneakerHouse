@@ -409,6 +409,11 @@ clientApp.controller('checkoutController',
                 return;
             }
 
+            if($scope.cartDetails.length === 0){
+                toastr.error('Bạn phải chọn sản phẩm.Vui lòng quay lại giỏ hàng.')
+                return;
+            }
+
             Swal.fire({
                 title: "Xác nhận tạo đơn hàng này?",
                 icon: "warning",
