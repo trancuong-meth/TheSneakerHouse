@@ -387,6 +387,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         var qrModal = document.querySelector("#vietQrModal")
         var modal = bootstrap.Modal.getOrCreateInstance(qrModal)
 
+        if($scope.billDetails.content.length == 0){
+            toastr.error("Bạn phải chọn sản phẩm");
+            return;
+        }
+
         Swal.fire({
             title: "Xác nhận thanh toán hóa đơn này?",
             icon: "warning",
