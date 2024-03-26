@@ -88,7 +88,7 @@ clientApp.controller('cartController',
             $http.post('http://localhost:8080/cart/add-to-cart', {
                 sanPhamChiTiet: cartDetail.idSanPhamChiTiet,
                 soLuong: cartDetail.soLuong,
-                idKhachHang: -1
+                idKhachHang: $scope.customer == null ? -1 : $scope.customer.id
             }).then(function (response) {
                 $scope.loadDataProductDetail();
                 toastr.options = {
