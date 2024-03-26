@@ -2,6 +2,8 @@ package com.tsh.sd43.infrastructure.configs.mail;
 
 import com.tsh.sd43.entity.HoaDon;
 import com.tsh.sd43.entity.HoaDonChiTiet;
+import com.tsh.sd43.entity.KhachHang;
+import com.tsh.sd43.entity.request.VoucherDetailRequest;
 import com.tsh.sd43.repository.IHoaDonChiTietRepo;
 
 import java.text.SimpleDateFormat;
@@ -66,51 +68,35 @@ public class EmailController {
         return "Email sent successfully!";
     }
 
-//    @PostMapping("/send-bill-html-email")
-//    public String sendHtmlEmail(@RequestBody EmailRequest emailRequest) {
-//        List<Account> khachHang = accountRepository.sendMailAccount();
-//
-//        Context context = new Context();
-//        context.setVariable("message", emailRequest.getBody());
-//        for (Account account : khachHang) {
-//            emailService.sendEmailWithHtmlTemplate(account.getEmail(), "Phiếu giảm giá mới dành cho quý khách hàng của BeePhoneShop", "email-template", context);
-//        }
-//        return "HTML email sent successfully!";
-//    }
+    @PostMapping("/send-html-email-voucher")
+    public String sendHtmlEmailVoucher(@RequestBody VoucherDetailRequest request) {
+        Context context = new Context();
+        KhachHang khachHang = request.getKhachHang();
+        context.setVariable("fullNameCustomer", khachHang.getTen());
 
-//    @PostMapping("/send-html-email/voucher")
-//    public String sendHtmlEmailVoucher(@RequestBody SendVoucherEmailRequest request) {
-//        Context context = new Context();
-//        List<Account> khachHang = accountRepository.sendMailAccount();
-//        for (Account account1 : khachHang) {
-//            context.setVariable("fullNameCustomer", account1.getHoVaTen());
-//        }
-//        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-//        String formattedGiaTriVoucher = currencyFormatter.format(request.getGiaTriVoucher());
-//
-//        NumberFormat currencyFormatter1 = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-//        String formattedConditionVoucher = currencyFormatter1.format(request.getDieuKienApDung());
-//
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); // Định dạng mong muốn
-//        String formattedDate = dateFormat.format(request.getStartTime()); // Chuyển đổi Date thành chuỗi theo định dạng
-//
-//
-//        SimpleDateFormat dateFormat1 = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); // Định dạng mong muốn
-//        String formattedDate1 = dateFormat1.format(request.getEndTime()); // Chuyển đổi Date thành chuỗi theo định dạng
-//
-//
-//        context.setVariable("nameVoucher", request.getTen());
-//        context.setVariable("valueVoucher", formattedGiaTriVoucher);
-//        context.setVariable("conditionVoucher", formattedConditionVoucher);
-//        context.setVariable("codeVoucher", request.getMa());
-//        context.setVariable("startTime", formattedDate);
-//        context.setVariable("endTime", formattedDate1);
-//
-//        for (Account account : khachHang) {
-//            emailService.sendEmailWithHtmlTemplateVoucher(account.getEmail(), "Phiếu giảm giá mới dành cho quý khách hàng của BeePhoneShop", "template-voucher", context);
-//        }
-//        return "HTML email sent successfully!";
-//    }
+        String formattedGiaTriVoucher = String.valueOf(request.getVoucher().getPhanTramGiam());
+
+        NumberFormat currencyFormatter1 = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedConditionVoucher = currencyFormatter1.format(request.getVoucher().getGiaTriToiThieu());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); // Định dạng mong muốn
+        String formattedDate = dateFormat.format(request.getVoucher().getNgayBatDau()); // Chuyển đổi Date thành chuỗi theo định dạng
+
+
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); // Định dạng mong muốn
+        String formattedDate1 = dateFormat1.format(request.getVoucher().getNgayKetThuc()); // Chuyển đổi Date thành chuỗi theo định dạng
+
+
+        context.setVariable("nameVoucher", request.getVoucher().getTen());
+        context.setVariable("valueVoucher", formattedGiaTriVoucher);
+        context.setVariable("conditionVoucher", formattedConditionVoucher);
+        context.setVariable("codeVoucher", request.getVoucher().getMa());
+        context.setVariable("startTime", formattedDate);
+        context.setVariable("endTime", formattedDate1);
+
+        emailService.sendEmailWithHtmlTemplateVoucher(khachHang.getEmail(), "Phiếu giảm giá mới dành cho quý khách hàng của The sneaker house", "voucher-template", context);
+        return "HTML email sent successfully!";
+    }
 
 //    @PostMapping("/send-html-email-get-pass")
 //    public String sendHtmlEmailGetPass(@RequestBody ForgetPassRequest forgetPassRequest) {

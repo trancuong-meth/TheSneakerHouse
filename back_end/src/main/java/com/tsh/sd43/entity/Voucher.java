@@ -42,6 +42,9 @@ public class Voucher extends PrimaryEntity {
     @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;
 
+    @Column(name = "loai_voucher")
+    private Integer loaiVoucher;
+
     @Column(name = "trang_thai")
     private Integer trangThai;
 }

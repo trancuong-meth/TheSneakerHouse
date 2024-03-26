@@ -28,5 +28,7 @@ public class VoucherAddRequest {
 
     private Date ngayKetThuc;
 
+    private Integer loaiVoucher;
+
     private Integer trangThai;
 }
