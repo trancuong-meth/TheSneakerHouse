@@ -121,6 +121,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
             hoaDonChiTiet.setSoLuong(req.getSoLuong());
             hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
             hoaDonChiTiet.setTrangThai(1);
+            if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
+                hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                        * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+            }
             return hoaDonChiTietRepo.save(hoaDonChiTiet);
 
         } catch (Exception e) {
