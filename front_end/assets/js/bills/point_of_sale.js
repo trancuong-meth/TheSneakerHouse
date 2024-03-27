@@ -413,8 +413,27 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.createNewBill = function () {
+        if ($scope.billDetails.content.length == 0) {
+            toastr.error("Bạn phải chọn sản phẩm");
+            return;
+        }
+        
+        if ($scope.paymentMethod == 0) {
+            $scope.createOrder()
+        } else if ($scope.paymentMethod == 1) {
+            $scope.openModalVietQr()
+            var voucherModal = document.querySelector("#vietQrModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
+            modal.show()
+        } else if ($scope.paymentMethod == 2) {
+
+        }
+    }
+
+    $scope.createOrder = () => {
         var qrModal = document.querySelector("#vietQrModal")
         var modal = bootstrap.Modal.getOrCreateInstance(qrModal)
+
 
         if ($scope.billDetails.content.length == 0) {
             toastr.error("Bạn phải chọn sản phẩm");
@@ -531,7 +550,6 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     })
             }
         });
-
     }
 
     $scope.removeVoucher = function () {
@@ -580,11 +598,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
         $http.get('http://localhost:8080/voucher-detail/get-by-id-customer/' + customer.id).then(function (response) {
             $scope.voucherDetails = response.data
-            
+
             var temp = $scope.voucherDetails[0]
             $scope.voucherDetails.forEach((e) => {
                 if (e.idPhieuGiamGia.giaTriToiThieu <= $scope.totalPrice) {
-                    if(temp.idPhieuGiamGia.phanTramGiam < e.idPhieuGiamGia.phanTramGiam){
+                    if (temp.idPhieuGiamGia.phanTramGiam < e.idPhieuGiamGia.phanTramGiam) {
                         temp = e
                     }
                 }
