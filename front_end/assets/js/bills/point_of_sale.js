@@ -39,6 +39,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     $scope.overage = -1;
     $scope.paymentMethods = []
 
+    // bill detail 
+    $scope.stateBillMethod = false
+
     // scanner qr
     let htmlscanner = new Html5QrcodeScanner(
         "my-qr-reader",
@@ -439,6 +442,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             var voucherModal = document.querySelector("#vietQrAndMoneyModal1")
             var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
             modal.show()
+        } else if ($scope.paymentMethod == 3) {
+            $scope.moneyCustomerPayment = 0;
+            $scope.createOrder()
         }
     }
 
@@ -477,13 +483,16 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     var voucherModal = document.querySelector("#vietQrModal")
                     var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
                     modal.hide()
-                } else {
+                } else if ($scope.paymentMethod == 2) {
                     // phương thức thanh toán là cả 2 
                     $scope.bill.soTienKhachDua = $scope.totalAllPrice
                     var voucherModal2 = document.querySelector("#vietQrAndMoneyModal2")
                     var modal2 = bootstrap.Modal.getOrCreateInstance(voucherModal2)
                     modal2.hide()
 
+                } else if ($scope.paymentMethod == 3) {
+                    // phương thức thanh toán là nhận tiền khi giao hàng thành công
+                    $scope.bill.soTienKhachDua = 0
                 }
 
                 $scope.bill.phuongThucThanhToan = $scope.paymentMethod
@@ -500,6 +509,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
                 if ($scope.voucher != null) {
                     $scope.bill.idVoucher = $scope.voucher
+                    $scope.bill.soPhanTramKhuyenMai = $scope.voucher.phanTramGiam
                 }
 
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
@@ -574,9 +584,8 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                             console.log(error)
                         })
 
-                    } else {
+                    } else if ($scope.paymentMethod == 2) {
                         // phương thức thanh toán là cả 2 
-                        console.log($scope.paymentMethods)
                         $scope.paymentMethods.forEach((x) => {
                             axios.post("http://localhost:8080/payment-method/add", {
                                 loaiThanhToan: x.loaiThanhToan,
@@ -584,11 +593,23 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                                 ghiChu: $scope.bill.ghiChu,
                                 idHoaDon: $scope.bill,
                                 deleted: true
-                            }).then(function (response) {}).catch(function (error) {
+                            }).then(function (response) { }).catch(function (error) {
                                 console.log(error)
                             })
                         })
 
+                    } else if ($scope.paymentMethod == 3) {
+                        axios.post("http://localhost:8080/payment-method/add", {
+                            loaiThanhToan: 2,
+                            soTienThanhToan: $scope.totalAllPrice,
+                            ghiChu: $scope.bill.ghiChu,
+                            idHoaDon: $scope.bill,
+                            deleted: false
+                        }).then(function (response) { }).catch(function (error) {
+                            console.log(error)
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
                     }
 
                     if ($scope.voucher != null) {
@@ -1080,6 +1101,17 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             loaiThanhToan: 1,
             soTienThanhToan: $scope.totalAllPrice - $scope.moneyCustomerPayment
         })
+
+    }
+
+    $scope.chooseBillPaymentMethod = () => {
+        if ($scope.stateBillMethod == false) {
+            $scope.stateBillMethod = true
+            $scope.paymentMethod = 3
+        } else {
+            $scope.stateBillMethod = false
+            $scope.paymentMethod = 0
+        }
 
     }
 

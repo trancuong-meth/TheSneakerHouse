@@ -21,7 +21,7 @@ public class HinhThucThanhToanSerImpl {
         hinhThucThanhToan.setSoTienThanhToan(req.getSoTienThanhToan());
         hinhThucThanhToan.setGhiChu(req.getGhiChu());
         hinhThucThanhToan.setIdHoaDon(req.getIdHoaDon());
-        hinhThucThanhToan.setDeleted(req.getDeleted());
+        hinhThucThanhToan.setTrangThai(req.getDeleted());
         return hinhThucThanhToanRepo.save(hinhThucThanhToan);
     }
 

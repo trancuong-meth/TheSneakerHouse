@@ -59,16 +59,16 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 $scope.totalItemBillDetails = response.data.totalElements
                 $scope.bill.tongTien = 0
                 for (var i = 0; i < $scope.billDetails.content.length; i++) {
-                    if ($scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia == null) {
-                        $scope.bill.tongTien += Number($scope.billDetails.content[i].idSanPhamChiTiet.donGia) * Number($scope.billDetails.content[i].soLuong)
+                    if ($scope.billDetails.content[i].donGiaSauKhiGiam == null) {
+                        $scope.bill.tongTien += Number($scope.billDetails.content[i].donGia) * Number($scope.billDetails.content[i].soLuong)
                     } else {
-                        $scope.bill.tongTien += Number((100 - $scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * $scope.billDetails.content[i].idSanPhamChiTiet.donGia / 100) * Number($scope.billDetails.content[i].soLuong)
+                        $scope.bill.tongTien += Number($scope.billDetails.content[i].donGiaSauKhiGiam)* Number($scope.billDetails.content[i].soLuong) 
                     }
                 }
                 $scope.bill.tongTienSauGiam = Number($scope.bill.tongTien)
 
                 if ($scope.bill.idVoucher != null) {
-                    $scope.bill.tongTienSauGiam = (100 - $scope.bill.idVoucher.phanTramGiam) * $scope.bill.tongTien / 100
+                    $scope.bill.tongTienSauGiam = (100 - $scope.bill.soPhanTramKhuyenMai) * $scope.bill.tongTien / 100
                 }
 
                 $scope.bill.tongTienSauGiam += Number($scope.bill.phiVanChuyen == null || $scope.bill.phiVanChuyen == "" ? 0 : $scope.bill.phiVanChuyen)

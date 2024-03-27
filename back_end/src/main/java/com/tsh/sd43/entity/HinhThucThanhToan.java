@@ -26,6 +26,9 @@ public class HinhThucThanhToan extends PrimaryEntity {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
+    @Column(name = "trang_thai")
+    private Boolean trangThai;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_hoa_don")
     private HoaDon idHoaDon;

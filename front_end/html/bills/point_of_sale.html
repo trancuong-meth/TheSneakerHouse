@@ -351,9 +351,24 @@
           </div>
 
           <div style="width: 48%;">
-            <input type="checkbox" ng-if="bill.idKhachHang != null" role="switch" class="paper"
+            <input type="checkbox" hidden ng-if="bill.idKhachHang != null" role="switch" class="paper"
               ng-change="changeMethodBill()" ng-model="state" />
 
+            <div style="margin-bottom: -22px; display: flex;">
+              <div>
+                <input ng-model="state" type="checkbox" id="switch" ng-if="bill.idKhachHang != null"
+                  ng-change="changeMethodBill()" /><label ng-if="bill.idKhachHang != null" id="label_switch"
+                  for="switch">Toggle</label>
+              </div>
+              <div style="    
+              font-weight: 700;
+              font-size: 14px;
+              transform: translate(10px, 20px)" ng-if="state == false && bill.idKhachHang != null">Tại quầy</div>
+              <div style="    
+              font-weight: 700;
+              font-size: 14px;
+              transform: translate(10px, 20px)" ng-if="state == true && bill.idKhachHang != null">Giao hàng</div>
+            </div>
             <div class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#voucherModal"
               ng-click="openVoucherModal()"
               style="width: 100%; height: 40px;margin-top: 29px; display: flex; justify-content: space-between;font-size: 12px;">
@@ -450,46 +465,136 @@
               <span style="display: inline-block; width: 334px; ">Chọn phương thức thanh toán:</span>
             </div>
 
-            <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
-              <button style="width: 49%;font-size: 14px;" class="btn btn-warning button-payment-method"
-                ng-click="choosePaymentMethod(0)" id="payment-0">
-                <span style="display: inline-block;transform: translateY(-4px);">
-                  <i class="ti ti-cash" style="font-size: 30px;display: inline-block; transform: translateY(4px)"></i>
-                  Tiền mặt
-                </span>
-              </button>
+            <div style=" display: flex;">
+              <div>
+                <input ng-model="stateBillMethod" type="checkbox" id="switch_1" ng-if="state == true"
+                  ng-click="chooseBillPaymentMethod()"/><label ng-if="state == true" id="label_switch_1"
+                  for="switch_1">Toggle</label>
+              </div>
+              <div style="    
+              font-weight: 700;
+              font-size: 14px;
+              transform: translate(10px, 20px)" ng-if="state == true && stateBillMethod == false">Thanh toán ngay</div>
+              <div style="    
+              font-weight: 700;
+              font-size: 14px;
+              transform: translate(10px, 20px)" ng-if="state == true && stateBillMethod == true">Chờ thanh toán</div>
+            </div>
 
-              <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
-                ng-click="openModalVietQr()" id="payment-1">
-                <img style="   
+            <div ng-if="state == false">
+              <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
+                <button style="width: 49%;font-size: 14px;" class="btn btn-warning button-payment-method"
+                  ng-click="choosePaymentMethod(0)" id="payment-0">
+                  <span style="display: inline-block;transform: translateY(-4px);">
+                    <i class="ti ti-cash" style="font-size: 30px;display: inline-block; transform: translateY(4px)"></i>
+                    Tiền mặt
+                  </span>
+                </button>
+
+                <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
+                  ng-click="openModalVietQr()" id="payment-1">
+                  <img style="   
                  width: 29%;
                 transform: translateY(-2px);" src="https://i.gyazo.com/566d62fd25cf0867e0033fb1b9b47927.png">
-                Chuyển khoản
-              </button>
+                  Chuyển khoản
+                </button>
 
-            </div>
+              </div>
 
-            <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 5px;">
-              <button style="width: 100%;font-size: 14px;padding: 15px;"
-                class="btn btn-outline-warning button-payment-method" ng-click="choosePaymentMethod(2)" id="payment-2">
-                <span style="display: inline-block;transform: translateY(-5px);">
-                  <i class="ti ti-cash" style="font-size: 30px; transform: translateY(4px);display: inline-block;"></i>
-                  Tiền mặt và
-                  <img style="   
+              <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 5px;">
+                <button style="width: 100%;font-size: 14px;padding: 15px;"
+                  class="btn btn-outline-warning button-payment-method" ng-click="choosePaymentMethod(2)"
+                  id="payment-2">
+                  <span style="display: inline-block;transform: translateY(-5px);">
+                    <i class="ti ti-cash"
+                      style="font-size: 30px; transform: translateY(4px);display: inline-block;"></i>
+                    Tiền mặt và
+                    <img style="   
                  width: 17%;
                 transform: translateY(-2px);" src="https://i.gyazo.com/566d62fd25cf0867e0033fb1b9b47927.png">
-                  chuyển khoản
-                </span>
+                    chuyển khoản
+                  </span>
 
-              </button>
+                </button>
 
+              </div>
+
+              <div style="margin-bottom: 15px; margin-top: 20px;">
+                <label for="exampleInputEmail1" class="form-label">Ghi chú: <sup
+                    style="color: #fa0000a8;">*</sup></label>
+
+                <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="bill.ghiChu"
+                  id="exampleInputEmail1" rows="2" aria-describedby="emailHelp"></textarea>
+              </div>
             </div>
 
-            <div style="margin-bottom: 15px; margin-top: 20px;">
-              <label for="exampleInputEmail1" class="form-label">Ghi chú: <sup style="color: #fa0000a8;">*</sup></label>
+            <div ng-if="state == true && stateBillMethod == true">
 
-              <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="bill.ghiChu"
-                id="exampleInputEmail1" rows="2" aria-describedby="emailHelp"></textarea>
+              <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 5px;">
+                <button style="width: 100%;font-size: 14px;" class="btn btn-warning button-payment-method"
+                  id="payment-3">
+                  <span style="display: inline-block;transform: translateY(-4px);">
+                    <i class="ti ti-cash" style="font-size: 30px;display: inline-block; transform: translateY(4px)"></i>
+                    Thanh toán khi nhận hàng
+                  </span>
+                </button>
+
+              </div>
+
+              <div style="margin-bottom: 15px; margin-top: 20px;">
+                <label for="exampleInputEmail1" class="form-label">Ghi chú: <sup
+                    style="color: #fa0000a8;">*</sup></label>
+
+                <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="bill.ghiChu"
+                  id="exampleInputEmail1" rows="2" aria-describedby="emailHelp"></textarea>
+              </div>
+            </div>
+
+            <div ng-if="state == true && stateBillMethod == false">
+              <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
+                <button style="width: 49%;font-size: 14px;" class="btn btn-warning button-payment-method"
+                  ng-click="choosePaymentMethod(0)" id="payment-0">
+                  <span style="display: inline-block;transform: translateY(-4px);">
+                    <i class="ti ti-cash" style="font-size: 30px;display: inline-block; transform: translateY(4px)"></i>
+                    Tiền mặt
+                  </span>
+                </button>
+
+                <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
+                  ng-click="openModalVietQr()" id="payment-1">
+                  <img style="   
+                 width: 29%;
+                transform: translateY(-2px);" src="https://i.gyazo.com/566d62fd25cf0867e0033fb1b9b47927.png">
+                  Chuyển khoản
+                </button>
+
+              </div>
+
+              <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 5px;">
+                <button style="width: 100%;font-size: 14px;padding: 15px;"
+                  class="btn btn-outline-warning button-payment-method" ng-click="choosePaymentMethod(2)"
+                  id="payment-2">
+                  <span style="display: inline-block;transform: translateY(-5px);">
+                    <i class="ti ti-cash"
+                      style="font-size: 30px; transform: translateY(4px);display: inline-block;"></i>
+                    Tiền mặt và
+                    <img style="   
+                 width: 17%;
+                transform: translateY(-2px);" src="https://i.gyazo.com/566d62fd25cf0867e0033fb1b9b47927.png">
+                    chuyển khoản
+                  </span>
+
+                </button>
+
+              </div>
+
+              <div style="margin-bottom: 15px; margin-top: 20px;">
+                <label for="exampleInputEmail1" class="form-label">Ghi chú: <sup
+                    style="color: #fa0000a8;">*</sup></label>
+
+                <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="bill.ghiChu"
+                  id="exampleInputEmail1" rows="2" aria-describedby="emailHelp"></textarea>
+              </div>
             </div>
 
             <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
@@ -950,37 +1055,27 @@
                   transform: translateY(2px);
               "></i>
           Đóng</button>
-        <button type="button" class="btn btn-success"
-         ng-class="{
+        <button type="button" class="btn btn-success" ng-class="{
           'btn btn-danger': overage < 0,
           'btn btn-success': overage >= 0
-         }"
-         ng-disabled="overage < 0"
-         ng-if="overage >= 0"
-         ng-click="createOrder()">
+         }" ng-disabled="overage < 0" ng-if="overage >= 0" ng-click="createOrder()">
           <i class="ti ti-checks" style="
                           display: inline-block;
                           font-size: 18px;
                           transform: translateY(2px);
                       "></i>
-         {{overage < 0 ? 'Cần nhập đủ số tiền' : 'Hoàn thành'}}
-        </button>
+          {{overage < 0 ? 'Cần nhập đủ số tiền' : 'Hoàn thành' }} </button>
 
-        <button type="button" class="btn btn-success"
-         ng-class="{
+            <button type="button" class="btn btn-success" ng-class="{
           'btn btn-danger': overage < 0,
           'btn btn-success': overage >= 0
-         }"
-         ng-disabled="overage < 0"
-         ng-if="overage < 0"
-         >
-          <i class="ti ti-x" style="
+         }" ng-disabled="overage < 0" ng-if="overage < 0">
+              <i class="ti ti-x" style="
                           display: inline-block;
                           font-size: 18px;
                           transform: translateY(2px);
                       "></i>
-         {{overage < 0 ? 'Cần nhập đủ số tiền' : 'Hoàn thành'}}
-        </button>
+              {{overage < 0 ? 'Cần nhập đủ số tiền' : 'Hoàn thành' }} </button>
 
       </div>
     </div>
@@ -1041,8 +1136,7 @@
         <div>
           <label for="exampleInputEmail1" class="form-label" style="width: 234px;">Số tiền khách đưa:</label>
           <input placeholder="Nhập số tiền khách đưa...." style="height: 40px;margin-bottom: 10px;" type="text"
-            class="form-control" ng-model="moneyCustomerPayment" id="exampleInputEmail1" aria-describedby="emailHelp"
-            >
+            class="form-control" ng-model="moneyCustomerPayment" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
       </div>
 

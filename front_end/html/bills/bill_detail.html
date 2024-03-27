@@ -788,7 +788,7 @@
         display: inline-block;
        font-size: 14px;
        font-weight: 600; color: #eb4528">
-          {{formatToVND(bill.idVoucher.phanTramGiam * bill.tongTien / 100)}}
+          {{formatToVND(bill.soPhanTramKhuyenMai * bill.tongTien / 100)}} ({{bill.soPhanTramKhuyenMai}}%)
         </span>
       </div>
 
@@ -947,7 +947,16 @@
         Phương thức thanh toán
       </span>
     </div>
+
     <div>
+      <button class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1" data-bs-toggle="modal"
+      data-bs-target="#productListModal" ng-click="loadProductList()">
+      <i class="ti ti-plus" style="
+                          display: inline-block;
+                          font-size: 18px;
+                          transform: translateY(2px);
+                      "></i>
+      Xác nhận thanh toán</button>
     </div>
   </div>
 
@@ -975,16 +984,18 @@
         <tr ng-repeat="paymentMethod in paymentMethods">
           <td>{{$index + 1}}</td>
           <td style="color: #333; font-weight: 600;"
-          >{{paymentMethod.loaiThanhToan == 0 ? "Tiền mặt" : "Chuyển khoản"}}</td>
+          >{{paymentMethod.loaiThanhToan == 0 ? "Tiền mặt" :
+          paymentMethod.loaiThanhToan == 1 ?
+          "Chuyển khoản" : "Thanh toán khi nhận hàng"}}</td>
           <td style="color: #eb4528; font-weight: 600;"
           >{{formatToVND(paymentMethod.soTienThanhToan)}}</td>
           <td>
-            <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.deleted === false">
+            <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.trangThai === false">
               <span class="badge bg-danger rounded-3 fw-semibold" style="    
                           padding: 11px;
                           font-size: 11px;">Chưa thanh toán</span>
             </div>
-            <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.deleted === true">
+            <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.trangThai === true">
               <span class="badge bg-success rounded-3 fw-semibold" style="    
                           padding: 11px;
                           font-size: 11px;">Đã thanh toán</span>
@@ -1088,10 +1099,8 @@
                 color: red;
                 font-size: 12px;
                 font-weight: 800;
-                ">{{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-                  billDetail.idSanPhamChiTiet.donGia : (100 -
-                  billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia /
-                  100)}}</span>
+                ">{{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+                  billDetail.donGia : billDetail.donGiaSauKhiGiam)}}</span>
                 <span style="
                       display: inline-block;
                       color: rgb(150, 150, 150);
@@ -1099,7 +1108,7 @@
                       font-weight: 800;
                       text-decoration: line-through;
                       "
-                  ng-if="billDetail.idSanPhamChiTiet.idDotGiamGia != null">{{formatToVND(billDetail.idSanPhamChiTiet.donGia)}}</span>
+                  ng-if="billDetail.donGiaSauKhiGiam != null">{{formatToVND(billDetail.donGia)}}</span>
 
 
               </div>
@@ -1135,10 +1144,8 @@
                 font-weight: 800;
                 text-align: center;
                 " class="border-bottom-0">
-            {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-            (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
-            billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * billDetail.idSanPhamChiTiet.donGia *
-            billDetail.soLuong / 100)}}
+            {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+            (billDetail.donGia * billDetail.soLuong) : billDetail.donGiaSauKhiGiam * billDetail.soLuong)}}
           </td>
           <td ng-if="bill.trangThai == 4">
             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#billDetailSingleRefund"
@@ -1274,21 +1281,16 @@
                             </td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;">
-                              <small> {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-                                billDetail.idSanPhamChiTiet.donGia : (100 -
-                                billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) *
-                                billDetail.idSanPhamChiTiet.donGia / 100)}}</small>
+                              <small> {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+                                billDetail.donGia : billDetail.donGiaSauKhiGiam)}}</small>
                             </td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"
                               align="center">{{billDetail.soLuong}}</td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33;  line-height: 18px;  vertical-align: top; padding:10px 0;"
-                              align="right"> {{formatToVND(billDetail.idSanPhamChiTiet.idDotGiamGia == null ?
-                              (billDetail.idSanPhamChiTiet.donGia * billDetail.soLuong) : (100 -
-                              billDetail.idSanPhamChiTiet.idDotGiamGia.phanTramGiam) *
-                              billDetail.idSanPhamChiTiet.donGia *
-                              billDetail.soLuong / 100)}}</td>
+                              align="right"> {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+                              (billDetail.donGia * billDetail.soLuong) : (billDetail.donGiaSauKhiGiam * billDetail.soLuong))}}</td>
                           </tr>
 
                           <tr>
@@ -1340,7 +1342,7 @@
                             </td>
                             <td
                               style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              <small>{{formatToVND(bill.idVoucher === null ? 0 : bill.idVoucher.phanTramGiam *
+                              <small>{{formatToVND(bill.idVoucher === null ? 0 : bill.soPhanTramKhuyenMai *
                                 bill.tongTien/100)}}</small>
                             </td>
                           </tr>
@@ -1739,7 +1741,7 @@
                       font-size: 10px;
                       font-weight: 800;
                       text-decoration: line-through;
-                      " ng-if="billDetail.idSanPhamChiTiet.idDotGiamGia != null">{{formatToVND(product.donGia)}}</span>
+                      " ng-if="product.idDotGiamGia != null">{{formatToVND(product.donGia)}}</span>
 
                 </td>
                 <td class="border-bottom-0">
