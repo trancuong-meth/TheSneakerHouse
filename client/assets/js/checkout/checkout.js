@@ -459,6 +459,7 @@ clientApp.controller('checkoutController',
 
                     if ($scope.voucher != null) {
                         $scope.bill.idVoucher = $scope.voucher
+                        $scope.bill.soPhanTramKhuyenMai = $scope.voucher.phanTramGiam
                     }
 
                     if ($scope.paymentMethod == 0) {
@@ -485,6 +486,7 @@ clientApp.controller('checkoutController',
                                     console.log(response.data)
                                 }).catch(function (error) {
                                     toastr.error(error.data.message)
+                                    return;
                                 })
 
                                 x.idSanPhamChiTiet.soLuongTon -= x.soLuong
