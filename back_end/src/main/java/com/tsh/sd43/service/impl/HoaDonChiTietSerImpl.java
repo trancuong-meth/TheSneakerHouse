@@ -110,22 +110,50 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
 
     public HoaDonChiTiet addProductToBillClient(ProductDetailRequest req) {
         try {
-            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-            hoaDonChiTiet.setIdHoaDon(req.getHoaDon());
-            hoaDonChiTiet.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
 
             if(req.getSoLuong() > req.getSanPhamChiTiet().getSoLuongTon()) {
                 throw new RuntimeException("Số lượng còn lại không đủ");
             }
+            ArrayList<HoaDonChiTiet> billDetails = hoaDonChiTietRepo.findBillDetailsByIdBill(req.getHoaDon().getId());
 
-            hoaDonChiTiet.setSoLuong(req.getSoLuong());
-            hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
-            hoaDonChiTiet.setTrangThai(1);
-            if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                        * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+            if(billDetails.size() == 0) {
+                HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                hoaDonChiTiet.setIdHoaDon(req.getHoaDon());
+                hoaDonChiTiet.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
+                hoaDonChiTiet.setSoLuong(req.getSoLuong());
+                hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
+                hoaDonChiTiet.setTrangThai(1);
+                if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
+                    hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                }
+                return hoaDonChiTietRepo.save(hoaDonChiTiet);
+            }else {
+                for(HoaDonChiTiet item : billDetails) {
+                    if(item.getIdSanPhamChiTiet().getId().equals(req.getSanPhamChiTiet().getId())) {
+                        item.setSoLuong(req.getSoLuong());
+                        if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
+                            item.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                    * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                        }
+
+                        return hoaDonChiTietRepo.save(item);
+                    }
+                }
+
+                HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                hoaDonChiTiet.setIdHoaDon(req.getHoaDon());
+                hoaDonChiTiet.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
+                hoaDonChiTiet.setSoLuong(req.getSoLuong());
+                hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
+                hoaDonChiTiet.setTrangThai(1);
+                if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
+                    hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                }
+                return hoaDonChiTietRepo.save(hoaDonChiTiet);
+
             }
-            return hoaDonChiTietRepo.save(hoaDonChiTiet);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

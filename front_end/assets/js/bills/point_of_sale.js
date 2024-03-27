@@ -303,7 +303,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             }
 
             setTimeout(function () {
-                $scope.loadProductDetailByBillId(bill)
+                $scope.loadProductDetailByBillId($scope.getActiveBill())
                 return true;
             }, 100)
         }).catch(function (error) {
@@ -358,7 +358,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 }
 
                 setTimeout(function () {
-                    $scope.loadProductDetailByBillId(bill)
+                    $scope.loadProductDetailByBillId($scope.getActiveBill())
                 }, 100)
             }).catch(function (error) {
                 toastr.error(error.data.message)
@@ -580,6 +580,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                         })
                     }
 
+                    console.log($scope.billDetails)
                     $scope.billDetails.content.forEach((x) => {
                         x.idSanPhamChiTiet.soLuongTon -= x.soLuong
                         axios.put('http://localhost:8080/product-detail/update-product-detail', x.idSanPhamChiTiet)
