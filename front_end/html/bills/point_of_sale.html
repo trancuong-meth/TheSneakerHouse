@@ -460,7 +460,7 @@
               </button>
 
               <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
-                 ng-click="openModalVietQr()" id="payment-1">
+                ng-click="openModalVietQr()" id="payment-1">
                 <img style="   
                  width: 29%;
                 transform: translateY(-2px);" src="https://i.gyazo.com/566d62fd25cf0867e0033fb1b9b47927.png">
@@ -685,7 +685,8 @@
           class="form-control" ng-model="code_voucher" id="exampleInputEmail1" aria-describedby="emailHelp"
           ng-keyup="searchVoucher()">
 
-        <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher dành riêng cho bạn: </label>
+        <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher dành riêng cho
+          bạn: </label>
         <div class="card" style="display: flex;justify-content: space-between;padding: 20px;position: relative;"
           ng-repeat="voucher in voucherPrivates">
           <div style="width: 80%;font-size: 12px;">
@@ -886,6 +887,107 @@
 </div>
 
 <!--modal create vietQr -->
+<div class="modal fade" id="moneyPaymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Thanh toán bằng tiền mặt</h5>
+        <button type="button" ng-click="closeQrCodeModal()" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Đóng"></button>
+      </div>
+
+      <!-- body -->
+      <div class="modal-body">
+
+        <div style="margin-bottom: 5px;">
+          <label for="exampleInputEmail1" class="form-label" style="width: 150px;">Số tiền khách cần trả:</label>
+          <span style="
+          color: red;
+          font-size: 14px;
+          font-weight: 800;
+          text-align: center;
+          display: inline-block;
+          ">{{formatToVND(totalAllPrice)}}</span>
+        </div>
+
+        <div style="display: flex;margin-bottom: 5px;">
+          <label for="exampleInputEmail1" class="form-label" style="width: 234px;">Số tiền khách đưa:</label>
+          <input placeholder="Nhập số tiền khách đưa...." style="height: 40px;margin-bottom: 10px;" type="text"
+            class="form-control" ng-model="moneyCustomerPayment" id="exampleInputEmail1" aria-describedby="emailHelp"
+            ng-keyup="customerPaymenting()">
+        </div>
+
+        <div style="display: flex;margin-bottom: 5px;" ng-if="overage >= 0">
+          <label for="exampleInputEmail1" class="form-label" style="width: 150px;">Số tiền thừa:</label>
+          <span style="
+          color: #13DEB9;
+          font-size: 14px;
+          font-weight: 800;
+          text-align: center;
+          display: inline-block;
+          ">{{formatToVND(overage)}}</span>
+        </div>
+
+        <div style="display: flex;margin-bottom: 5px;" ng-if="overage < 0">
+          <label for="exampleInputEmail1" class="form-label" style="width: 150px;">Số còn thiếu:</label>
+          <span style="
+          color: red;
+          font-size: 14px;
+          font-weight: 800;
+          text-align: center;
+          display: inline-block;
+          ">{{formatToVND(overage)}}</span>
+        </div>
+
+      </div>
+
+      <!-- footer -->
+      <div class="modal-footer" style="display: flex;justify-content: space-evenly;">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-success"
+         ng-class="{
+          'btn btn-danger': overage < 0,
+          'btn btn-success': overage >= 0
+         }"
+         ng-disabled="overage < 0"
+         ng-if="overage >= 0"
+         ng-click="createOrder()">
+          <i class="ti ti-checks" style="
+                          display: inline-block;
+                          font-size: 18px;
+                          transform: translateY(2px);
+                      "></i>
+         {{overage < 0 ? 'Cần nhập đủ số tiền' : 'Hoàn thành'}}
+        </button>
+
+        <button type="button" class="btn btn-success"
+         ng-class="{
+          'btn btn-danger': overage < 0,
+          'btn btn-success': overage >= 0
+         }"
+         ng-disabled="overage < 0"
+         ng-if="overage < 0"
+         >
+          <i class="ti ti-x" style="
+                          display: inline-block;
+                          font-size: 18px;
+                          transform: translateY(2px);
+                      "></i>
+         {{overage < 0 ? 'Cần nhập đủ số tiền' : 'Hoàn thành'}}
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal create vietQr -->
 <div class="modal fade" id="vietQrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -925,11 +1027,52 @@
 </div>
 
 <!--modal qr and money -->
-<div class="modal fade" id="vietQrAndMoneyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="vietQrAndMoneyModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center" id="exampleModalLabel">qrcode</h5>
+        <h5 class="modal-title text-center" id="exampleModalLabel">1: Nhập số tiền mặt khách đưa</h5>
+        <button type="button" ng-click="closeQrCodeModal()" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Đóng"></button>
+      </div>
+
+      <!-- body -->
+      <div class="modal-body">
+        <div>
+          <label for="exampleInputEmail1" class="form-label" style="width: 234px;">Số tiền khách đưa:</label>
+          <input placeholder="Nhập số tiền khách đưa...." style="height: 40px;margin-bottom: 10px;" type="text"
+            class="form-control" ng-model="moneyCustomerPayment" id="exampleInputEmail1" aria-describedby="emailHelp"
+            >
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="modal-footer" style="display: flex;justify-content: space-evenly;">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-success" ng-click="payMethod3Step1()">
+          <i class="ti ti-checks" style="
+                          display: inline-block;
+                          font-size: 18px;
+                          transform: translateY(2px);
+                      "></i>
+          Tiếp theo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="vietQrAndMoneyModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">2: Quét qrcode số tiền còn lại</h5>
         <button type="button" ng-click="closeQrCodeModal()" class="btn-close" data-bs-dismiss="modal"
           aria-label="Đóng"></button>
       </div>

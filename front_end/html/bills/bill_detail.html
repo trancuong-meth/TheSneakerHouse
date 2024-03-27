@@ -943,6 +943,67 @@
   <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
     <div class="mb-3 mb-sm-0">
       <i class="ti ti-receipt-dollar" style="display: inline-block;font-size: 16px;color: #5D87FF;"></i>
+      <span style="color: black;display: inline-block;font-size: 16px;color: #5D87FF;font-weight: 500;">
+        Phương thức thanh toán
+      </span>
+    </div>
+    <div>
+    </div>
+  </div>
+
+  <!-- body -->
+  <div ng-if="billDetails.content.length > 0">
+    <table class="table" style="text-align: center;">
+      <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%)">
+        <tr>
+          <th style="width: 7%;">
+            <h6 class="fw-semibold mb-0 text-center" style="border-right: 1px solid #b1acac;">#</h6>
+          </th>
+          <th class="border-bottom-0 text-center" style="width: 45%;">
+            <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Phuơng thức thanh toán</h6>
+          </th>
+          <th class="border-bottom-0 text-center" style="width: 20%;">
+            <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Số tiền thanh toán</h6>
+          </th>
+          <th class="border-bottom-0 text-center" style="width: 17%;">
+            <h6 class="fw-semibold mb-0">Trạng thái</h6>
+          </th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="paymentMethod in paymentMethods">
+          <td>{{$index + 1}}</td>
+          <td style="color: #333; font-weight: 600;"
+          >{{paymentMethod.loaiThanhToan == 0 ? "Tiền mặt" : "Chuyển khoản"}}</td>
+          <td style="color: #eb4528; font-weight: 600;"
+          >{{formatToVND(paymentMethod.soTienThanhToan)}}</td>
+          <td>
+            <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.deleted === false">
+              <span class="badge bg-danger rounded-3 fw-semibold" style="    
+                          padding: 11px;
+                          font-size: 11px;">Chưa thanh toán</span>
+            </div>
+            <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.deleted === true">
+              <span class="badge bg-success rounded-3 fw-semibold" style="    
+                          padding: 11px;
+                          font-size: 11px;">Đã thanh toán</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+   
+    </table>
+
+  </div>
+</div>
+
+<!-- product -->
+<div class="card p-3 shadow">
+  <!-- bread crumbs -->
+  <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+    <div class="mb-3 mb-sm-0">
+      <i class="ti ti-receipt-dollar" style="display: inline-block;font-size: 16px;color: #5D87FF;"></i>
       <span style="color: black;display: inline-block;font-size: 16px;color: #5D87FF;font-weight: 500;">Danh sách sản
         phẩm
       </span>

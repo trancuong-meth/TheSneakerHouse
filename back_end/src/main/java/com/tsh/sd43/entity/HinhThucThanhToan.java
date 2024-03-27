@@ -1,9 +1,7 @@
 package com.tsh.sd43.entity;
 
 import com.tsh.sd43.entity.base.PrimaryEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +25,8 @@ public class HinhThucThanhToan extends PrimaryEntity {
 
     @Column(name = "ghi_chu")
     private String ghiChu;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_hoa_don")
+    private HoaDon idHoaDon;
 }

@@ -34,6 +34,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     $scope.totalItemCustomers = 1;
     $scope.keyCustomer = ""
 
+    // payment
+    $scope.moneyCustomerPayment = 0;
+    $scope.overage = -1;
+    $scope.paymentMethods = []
+
     // scanner qr
     let htmlscanner = new Html5QrcodeScanner(
         "my-qr-reader",
@@ -417,23 +422,29 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             toastr.error("Bạn phải chọn sản phẩm");
             return;
         }
-        
+
         if ($scope.paymentMethod == 0) {
-            $scope.createOrder()
+            $scope.moneyCustomerPayment = "";
+            var moneyPaymentModal = document.querySelector("#moneyPaymentModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(moneyPaymentModal)
+            modal.show()
+            $scope.overage = -$scope.totalAllPrice
         } else if ($scope.paymentMethod == 1) {
             $scope.openModalVietQr()
             var voucherModal = document.querySelector("#vietQrModal")
             var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
             modal.show()
         } else if ($scope.paymentMethod == 2) {
-
+            $scope.moneyCustomerPayment = "";
+            var voucherModal = document.querySelector("#vietQrAndMoneyModal1")
+            var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
+            modal.show()
         }
     }
 
     $scope.createOrder = () => {
         var qrModal = document.querySelector("#vietQrModal")
         var modal = bootstrap.Modal.getOrCreateInstance(qrModal)
-
 
         if ($scope.billDetails.content.length == 0) {
             toastr.error("Bạn phải chọn sản phẩm");
@@ -452,7 +463,29 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             if (result.isConfirmed) {
                 $scope.getActiveBill();
 
-                //create bill
+                //create payment method
+                if ($scope.paymentMethod == 0) {
+                    // phương thứuc thanh toán là tiền mặt
+                    $scope.bill.soTienKhachDua = $scope.moneyCustomerPayment
+                    var moneyPaymentModal = document.querySelector("#moneyPaymentModal")
+                    var modal = bootstrap.Modal.getOrCreateInstance(moneyPaymentModal)
+                    modal.hide()
+
+                } else if ($scope.paymentMethod == 1) {
+                    // phương thức thanh toán là  chuyển khoản
+                    $scope.bill.soTienKhachDua = $scope.totalAllPrice
+                    var voucherModal = document.querySelector("#vietQrModal")
+                    var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
+                    modal.hide()
+                } else {
+                    // phương thức thanh toán là cả 2 
+                    $scope.bill.soTienKhachDua = $scope.totalAllPrice
+                    var voucherModal2 = document.querySelector("#vietQrAndMoneyModal2")
+                    var modal2 = bootstrap.Modal.getOrCreateInstance(voucherModal2)
+                    modal2.hide()
+
+                }
+
                 $scope.bill.phuongThucThanhToan = $scope.paymentMethod
                 $scope.bill.tongTien = $scope.totalPrice
                 $scope.bill.tongTienSauGiam = $scope.totalAllPrice
@@ -513,7 +546,51 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                             })
                     })
 
-                    console.log($scope.voucher)
+                    //create payment method
+                    if ($scope.paymentMethod == 0) {
+                        // phương thứuc thanh toán là tiền mặt
+                        axios.post("http://localhost:8080/payment-method/add", {
+                            loaiThanhToan: $scope.bill.phuongThucThanhToan,
+                            soTienThanhToan: Number($scope.moneyCustomerPayment),
+                            ghiChu: $scope.bill.ghiChu,
+                            idHoaDon: $scope.bill,
+                            deleted: true
+                        }).then(function (response) {
+
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+                    } else if ($scope.paymentMethod == 1) {
+                        // phương thức thanh toán là  chuyển khoản
+                        axios.post("http://localhost:8080/payment-method/add", {
+                            loaiThanhToan: $scope.bill.phuongThucThanhToan,
+                            soTienThanhToan: $scope.totalAllPrice,
+                            ghiChu: $scope.bill.ghiChu,
+                            idHoaDon: $scope.bill,
+                            deleted: true
+                        }).then(function (response) {
+
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+
+                    } else {
+                        // phương thức thanh toán là cả 2 
+                        console.log($scope.paymentMethods)
+                        $scope.paymentMethods.forEach((x) => {
+                            axios.post("http://localhost:8080/payment-method/add", {
+                                loaiThanhToan: x.loaiThanhToan,
+                                soTienThanhToan: x.soTienThanhToan,
+                                ghiChu: $scope.bill.ghiChu,
+                                idHoaDon: $scope.bill,
+                                deleted: true
+                            }).then(function (response) {}).catch(function (error) {
+                                console.log(error)
+                            })
+                        })
+
+                    }
+
                     if ($scope.voucher != null) {
                         $scope.voucher.soLanDung -= 1
                         axios.put('http://localhost:8080/voucher/edit-voucher', $scope.voucher)
@@ -945,6 +1022,63 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
         }).catch(err => {
             console.log(err)
+        })
+
+    }
+
+    $scope.customerPaymenting = () => {
+        $scope.overage = $scope.moneyCustomerPayment - $scope.totalAllPrice;
+    }
+
+    $scope.payMethod3Step1 = () => {
+        if ($scope.moneyCustomerPayment == "") {
+            toastr.error("Bạn phải nhập số tiền mặt khách đưa");
+            return;
+        }
+
+        if (Number($scope.moneyCustomerPayment) < 1000) {
+            toastr.error("Bạn phải nhập số tiền mặt lớn hơn 1,000 đ");
+            return;
+        }
+
+        $scope.paymentMethods = []
+        var voucherModal1 = document.querySelector("#vietQrAndMoneyModal1")
+        var modal1 = bootstrap.Modal.getOrCreateInstance(voucherModal1)
+        modal1.hide()
+
+        var voucherModal2 = document.querySelector("#vietQrAndMoneyModal2")
+        var modal2 = bootstrap.Modal.getOrCreateInstance(voucherModal2)
+        modal2.show()
+
+        let config = {
+            headers: {
+                "x-client-id": $scope.clientId,
+                "x-api-key": $scope.apiKey,
+                "Content-Type": "application/json"
+            }
+        }
+
+        axios.post("https://api.vietqr.io/v2/generate", {
+            "accountNo": "6868686868", // tài khoản ngân hàng
+            "accountName": "THE SNEAKER HOUSE",
+            "acqId": "970415",
+            "addInfo": "[Xác nhận] Xác nhận thanh toán hóa đơn" + $scope.bill.ma,
+            "amount": Math.round($scope.totalAllPrice - $scope.moneyCustomerPayment),
+            "template": "YmLunzw"
+        }, config).then(res => {
+            $scope.vietQrUrl = res.data.data.qrDataURL
+            $scope.loadCustomer()
+
+        }).catch(err => {
+            console.log(err)
+        })
+
+        $scope.paymentMethods.push({
+            loaiThanhToan: 0,
+            soTienThanhToan: Number($scope.moneyCustomerPayment)
+        }, {
+            loaiThanhToan: 1,
+            soTienThanhToan: $scope.totalAllPrice - $scope.moneyCustomerPayment
         })
 
     }

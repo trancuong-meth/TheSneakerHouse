@@ -31,6 +31,9 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.billDetailRefund = {}
     $scope.quantityRefund = 0;
 
+    // payment
+    $scope.paymentMethods = []
+
     // REGEX
     var phone_regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
     var email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -92,9 +95,16 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             }
             console.log($scope.history)
         })
-            .catch(function (error) {
+        .catch(function (error) {
+            console.log(error)
+        })
 
-            })
+        $http.get('http://localhost:8080/payment-method/get-all/' + id).then(function (response) {
+            console.log(response.data)
+            $scope.paymentMethods = response.data
+        }).catch(function (error) {
+            console.log(error)
+        })
     }
 
     $scope.getAllImagesByIDProductDetail = function (id, text) {

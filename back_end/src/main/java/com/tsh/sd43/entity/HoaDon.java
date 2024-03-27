@@ -74,6 +74,9 @@ public class HoaDon extends PrimaryEntity {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
+    @Column(name = "so_tien_khach_dua")
+    private BigDecimal soTienKhachDua;
+
     @Column(name = "xa")
     @Nationalized
     private String xa;
