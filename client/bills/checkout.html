@@ -211,7 +211,7 @@
          margin-bottom: 20px;">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  " style="padding: 13px;font-size: 13px;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  " style="padding: 13px;font-size: 14px;">
                         <span>Trang chủ /</span>
                         <span>Thanh toán</span>
                     </div>
@@ -318,7 +318,8 @@
                                 <table>
 
                                     <tbody>
-                                        <tr ng-repeat="cartDetail in cartDetails" style="margin-bottom: 10px;display: inline-block;">
+                                        <tr ng-repeat="cartDetail in cartDetails"
+                                            style="margin-bottom: 10px;display: inline-block;">
                                             <td>
                                                 <div style="   
                                                                 width: 4.6em;
@@ -402,39 +403,54 @@
                             </div>
 
                             <!-- voucher -->
-                            <div  ng-if="voucher == null"
-                                style="    
+                            <div ng-if="voucher == null" style="    
                                 border-top: 1px solid;
                                 padding-top: 1.5em;
                                 padding-bottom: 1em;
                                 border-color: #e1e1e1;">
                                 <div style="display: flex;justify-content: space-between;">
-                                    <input type="text" id="code_voucher" placeholder="Nhập mã phiếu giảm giá" required style="
-                                transition: all 0.2s ease-out;
-                                background-color: white;
-                                color: #333333;
-                                border-radius: 4px;
-                                display: block;
-                                box-sizing: border-box;
-                                width: 70%;
-                                padding: 0.94em 2.8em 0.94em 0.8em;
-                                word-break: normal;
-                                border:1px solid #ccc;
-                                height: 50px;
-                            " ng-model="codeVoucher" />
+                                    <input type="text" id="code_voucher" placeholder="Nhập mã phiếu giảm giá" required
+                                        style="
+                                                            transition: all 0.2s ease-out;
+                                                            background-color: white;
+                                                            color: #333333;
+                                                            border-radius: 4px;
+                                                            display: block;
+                                                            box-sizing: border-box;
+                                                            width: 70%;
+                                                            padding: 0.94em 2.8em 0.94em 0.8em;
+                                                            word-break: normal;
+                                                            border:1px solid #ccc;
+                                                            height: 50px;
+                                                        " ng-model="codeVoucher" />
                                     <button style="    
-                                    display: inline-block;
-                                border-radius: 4px;
-                                font-weight: 600;
-                                box-sizing: border-box;
-                                text-align: center;
-                                cursor: pointer;
-                                width: 28%;
-                                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                                position: relative;
-                                background: #e3a51e ;
-                                height: 50px;
-                                color: white;" ng-click="checkVoucher()">Sử dụng</button>
+                                                        display: inline-block;
+                                                        border-radius: 4px;
+                                                        font-weight: 600;
+                                                        box-sizing: border-box;
+                                                        text-align: center;
+                                                        cursor: pointer;
+                                                        width: 28%;
+                                                        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                                                        position: relative;
+                                                        background: #e3a51e ;
+                                                        height: 50px;
+                                                        color: white;" ng-click="checkVoucher()">Sử dụng</button>
+                                </div>
+                                <div ng-click="openVoucherModal()">
+                                    <span style="    
+                                     display: inline-block;
+                                     color: #318dbb;
+                                     font-weight: 500;
+                                     cursor: pointer;
+                                     font-size: 13px;" data-bs-toggle="modal" data-bs-target="#voucherModal">
+                                        <svg width="18" height="15" viewBox="0 0 18 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17.3337 5.3335V2.00016C17.3337 1.07516 16.5837 0.333496 15.667 0.333496H2.33366C1.41699 0.333496 0.675326 1.07516 0.675326 2.00016V5.3335C1.59199 5.3335 2.33366 6.0835 2.33366 7.00016C2.33366 7.91683 1.59199 8.66683 0.666992 8.66683V12.0002C0.666992 12.9168 1.41699 13.6668 2.33366 13.6668H15.667C16.5837 13.6668 17.3337 12.9168 17.3337 12.0002V8.66683C16.417 8.66683 15.667 7.91683 15.667 7.00016C15.667 6.0835 16.417 5.3335 17.3337 5.3335ZM15.667 4.11683C14.6753 4.69183 14.0003 5.77516 14.0003 7.00016C14.0003 8.22516 14.6753 9.3085 15.667 9.8835V12.0002H2.33366V9.8835C3.32533 9.3085 4.00033 8.22516 4.00033 7.00016C4.00033 5.76683 3.33366 4.69183 2.34199 4.11683L2.33366 2.00016H15.667V4.11683ZM9.83366 9.50016H8.16699V11.1668H9.83366V9.50016ZM8.16699 6.16683H9.83366V7.8335H8.16699V6.16683ZM9.83366 2.8335H8.16699V4.50016H9.83366V2.8335Z"
+                                                fill="#318DBB"></path>
+                                        </svg>
+                                        Xem thêm mã giảm giá</span>
                                 </div>
 
                             </div>
@@ -451,7 +467,7 @@
                                                 ">
                                             Áp dụng thành công phiếu giảm giá
                                         </span>
-                                            <span style="
+                                        <span style="
                                                 display: inline-block;
                                                 color: #333;
                                                 font-size: 10px;
@@ -481,8 +497,7 @@
 
                                     </div>
 
-                                    <button class="btn btn-info" ng-click="removeVoucher()" 
-                                                    style="
+                                    <button class="btn btn-info" ng-click="removeVoucher()" style="
                                                     width: 40px;position: absolute;
                                                     right: 16px;
                                                     background-color: transparent;
@@ -622,6 +637,151 @@
         <i class="fa fa-angle-up"></i>
     </div>
     <!-- Scroll to Top End -->
+
+    <!-- list voucher modal -->
+    <div class="modal fade" id="voucherModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 20px;">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">Chọn voucher</h5>
+                    <button type="button" id="closeModal" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body" style="padding: 20px;">
+                    <label for="exampleInputEmail1" class="form-label">Mã voucher: </label>
+                    <input placeholder="Nhập mã voucher...." style="height: 40px;margin-bottom: 10px;" type="text"
+                        class="form-control" ng-model="code_voucher" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" ng-keyup="searchVoucher()">
+
+                    <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher dành
+                        riêng cho
+                        bạn: </label>
+                    <div class="card"
+                        style="display: flex;justify-content: space-between;padding: 20px;position: relative;margin-bottom: 10px;"
+                        ng-repeat="voucher in voucherPrivates">
+                        <div style="width: 80%;font-size: 12px;">
+                            <div>
+                                <span style="color: #5D87FF;">[{{voucher.ma}}]</span>
+                                <span style="
+                    display: inline-block;
+                    font-weight: 500;">
+                                    {{voucher.ten}}
+                                </span>
+                                <button class="btn btn-info" style="
+                    color: #f94c43;
+                    background-color: rgb(238 238 238);
+                    border-radius: 4px;
+                    border: none;
+                    padding: 4px;
+                    font-size: 10px;">- {{voucher.phanTramGiam}}%</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span style="display: inline-block;font-size: 10px;font-weight: 400; width: 100px;">Giá trị
+                                tối
+                                thiểu:</span>
+                            <span
+                                style="display: inline-block;font-size: 10px">{{formatToVND(voucher.giaTriToiThieu)}}</span>
+                        </div>
+
+                        <div>
+                            <span style="display: inline-block;font-size: 10px;font-weight: 400; width: 100px;">Ngày kết
+                                thúc:</span>
+                            <span style="display: inline-block;font-size: 10px">{{voucher.ngayKetThuc| date : 'HH:mm
+                                dd/MM/yyyy'}}</span>
+                        </div>
+
+                        <button class="btn btn-primary" style="
+                        position: absolute;
+                        right: 20px;
+                        bottom: 32px;
+                        display: inline-block;
+                        border-radius: 4px;
+                        font-weight: 600;
+                        text-align: center;
+                        background: #e3a51e ;
+                        color: white;
+                        border: none;
+                      " ng-click="addVoucherToBill(voucher)" ng-if="voucher.soLanDung != 0">Chọn</button>
+                        <button class="btn btn-danger" style="
+                      position: absolute;
+                      right: 20px;
+                      bottom: 32px;
+                      " disabled ng-if="voucher.soLanDung == 0">Hết voucher</button>
+                    </div>
+
+                    <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher
+                        khác: </label>
+                    <div class="card"
+                        style="display: flex;justify-content: space-between;padding: 20px;position: relative; margin-bottom: 10px;"
+                        ng-repeat="voucher in voucherPublics">
+                        <div style="width: 80%;font-size: 12px;">
+                            <div>
+                                <span style="color: #5D87FF;">[{{voucher.ma}}]</span>
+                                <span style="
+                  display: inline-block;
+                  font-weight: 500;">
+                                    {{voucher.ten}}
+                                </span>
+                                <button class="btn btn-info" style="
+                   color: #f94c43;
+                    background-color: rgb(238 238 238);
+                  border-radius: 4px;
+                  border: none;
+                  padding: 4px;
+                  font-size: 10px;">- {{voucher.phanTramGiam}}%</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span style="display: inline-block;font-size: 10px;font-weight: 400; width: 100px;">Giá trị
+                                tối
+                                thiểu:</span>
+                            <span
+                                style="display: inline-block;font-size: 10px">{{formatToVND(voucher.giaTriToiThieu)}}</span>
+                        </div>
+
+                        <div>
+                            <span style="display: inline-block;font-size: 10px;font-weight: 400; width: 100px;">Ngày kết
+                                thúc:</span>
+                            <span style="display: inline-block;font-size: 10px">{{voucher.ngayKetThuc| date : 'HH:mm
+                                dd/MM/yyyy'}}</span>
+                        </div>
+
+                        <button class="btn btn-primary" style="
+                    position: absolute;
+                    right: 20px;
+                    bottom: 32px;
+                    display: inline-block;
+                    border-radius: 4px;
+                    font-weight: 600;
+                    text-align: center;
+                    background: #e3a51e ;
+                    color: white;
+                    border: none;
+                    " ng-click="addVoucherToBill(voucher)" ng-if="voucher.soLanDung != 0">Chọn</button>
+                        <button class="btn btn-danger" style="
+                    position: absolute;
+                    right: 20px;
+                    bottom: 32px;
+                    " disabled ng-if="voucher.soLanDung == 0">Hết voucher</button>
+                    </div>
+
+                    <span ng-show="numPages!=0">
+                        <uib-pagination items-per-page="itemsPerPage" total-items="totalItems" ng-model="currentPage"
+                            class="pagination-sm" previous-text="‹" next-text="›" first-text="«" last-text="»" style="
+                width: 34%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 20px;
+              " max-size="3" ng-change="pageChanged()"></uib-pagination>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--=======================Javascript============================-->
     <!--=== All Vendor Js ===-->

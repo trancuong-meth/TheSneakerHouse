@@ -168,4 +168,9 @@ public class GioHangSerImpl implements IGioHangSer {
         GioHang cart = getCartByIdCustomer(id);
         return gioHangChiTietRepo.findCartDetailsByIdCart(cart.getId());
     }
+
+    public ArrayList<GioHangChiTiet> findCartDetailsByIdCartAndProductDetail(Long id, Long idSanPham) {
+        GioHang cart = getCartByIdCustomer(id);
+        return gioHangChiTietRepo.findCartDetailsByIdCartAndProductDetail(cart.getId(), idSanPham);
+    }
 }

@@ -20,4 +20,9 @@ public interface IGioHangChiTietRepo extends JpaRepository<GioHangChiTiet, Long>
     """, nativeQuery = true)
     ArrayList<GioHangChiTiet> findCartDetailsByIdCart(@Param("id")Long id);
 
+    @Query(value = """
+        select * from gio_hang_chi_tiet where id_gio_hang = :id and id_san_pham_chi_tiet = :idSanPham
+    """, nativeQuery = true)
+    ArrayList<GioHangChiTiet> findCartDetailsByIdCartAndProductDetail(@Param("id")Long id, @Param("idSanPham")Long idSanPham);
+
 }

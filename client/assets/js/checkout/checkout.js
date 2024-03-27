@@ -63,6 +63,31 @@ clientApp.controller('checkoutController',
             }).catch(function (error) {
                 console.log(error)
             })
+
+        }
+
+        $scope.loadVoucher = () => {
+            setTimeout(() => {
+                if ($scope.customer != null) {
+                    $http.get('http://localhost:8080/voucher-detail/get-by-id-customer/' + $scope.customer.id).then(function (response) {
+                        $scope.voucherDetails = response.data
+
+                        var temp = $scope.voucherDetails[0]
+                        $scope.voucherDetails.forEach((e) => {
+                            if (e.idPhieuGiamGia.giaTriToiThieu <= $scope.total) {
+                                if (temp.idPhieuGiamGia.phanTramGiam < e.idPhieuGiamGia.phanTramGiam) {
+                                    temp = e
+                                }
+                            }
+                        })
+                        $scope.addVoucherToBill(temp.idPhieuGiamGia);
+
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                }
+            }, 100);
+
         }
 
         $scope.getAllprovideByCode = function (district_code, ward_code, province_code) {
@@ -159,6 +184,7 @@ clientApp.controller('checkoutController',
         }
 
         $scope.loadDataProductDetail();
+        $scope.loadVoucher()
         $scope.getNewBill()
 
         $scope.formatToVND = function (amount) {
@@ -409,7 +435,7 @@ clientApp.controller('checkoutController',
                 return;
             }
 
-            if($scope.cartDetails.length === 0){
+            if ($scope.cartDetails.length === 0) {
                 toastr.error('Bạn phải chọn sản phẩm.Vui lòng quay lại giỏ hàng.')
                 return;
             }
@@ -511,10 +537,10 @@ clientApp.controller('checkoutController',
                             console.log(response.data)
                             window.location.href = response.data
                         })
-                        .catch(function (response) {
-                            console.log(response.data)
-                        })
-                }
+                            .catch(function (response) {
+                                console.log(response.data)
+                            })
+                    }
 
                 }
             });
@@ -560,5 +586,66 @@ clientApp.controller('checkoutController',
                 $scope.codeVoucher = ""
             }, 10);
         }
+
+        $scope.openVoucherModal = function () {
+
+            if ($scope.customer != null) {
+                $http.get('http://localhost:8080/voucher-detail/get-by-id-customer/' + $scope.customer.id).then(function (response) {
+                    $scope.voucherDetails = response.data
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+
+            setTimeout(() => {
+                $scope.getVoucherByKey("");
+            }, 50);
+
+        }
+
+        $scope.getVoucherByKey = function (key) {
+            $http.get('http://localhost:8080/voucher/get-all?key=' + key).then(function (response) {
+                $scope.vouchers = response.data
+                $scope.voucherPrivates = []
+                $scope.voucherPublics = []
+                response.data.forEach((voucher) => {
+                    if (voucher.loaiVoucher == 0) {
+                        $scope.voucherPublics.push(voucher)
+                    } else {
+                        if ($scope.bill.idKhachHang !== null) {
+                            if ($scope.voucherDetails.find(e => e.idPhieuGiamGia.id == voucher.id) != undefined) {
+                                $scope.voucherPrivates.push(voucher)
+                            }
+                        }
+                    }
+                })
+
+            })
+        }
+
+        $scope.addVoucherToBill = function (voucher) {
+            var voucherModal = document.querySelector("#voucherModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
+
+            if (voucher.giaTriToiThieu > $scope.totalAllPrice) {
+                toastr.error('Giá trị hóa đơn không đủ để áp dụng voucher.');
+                return;
+            }
+
+            if ($scope.voucher != null) {
+                return;
+            }
+
+            $scope.voucher = voucher
+            $scope.bill.idVoucher = voucher
+            $("#closeModal").click()
+
+            setTimeout(() => {
+                toastr.success("Áp dụng voucher thành công.");
+                $scope.loadDataProductDetail()
+            }, 100);
+
+        }
+
 
     });

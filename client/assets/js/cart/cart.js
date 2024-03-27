@@ -79,6 +79,20 @@ clientApp.controller('cartController',
         }
 
         $scope.plusQuantity = (cartDetail) => {
+            if(cartDetail.soLuong + 1 > 3){
+                Swal.fire({
+                    icon: "error",
+                    title: "Xin lỗi vì sự bất tiện này!!",
+                    text: "Theo chính sách công ty, khi mua hàng quá 3 sản phẩm thì sẽ là mua sỉ. Vui lòng liên hệ 0968686868 biết thêm chi tiết.",
+                });
+                return;
+            }
+
+            if(cartDetail.idSanPhamChiTiet.soLuongTon < cartDetail.soLuong + 1){
+                toastr.error("Số lượng còn lại trong kho không đủ.Vui lòng chọn sản phẩm khác.")
+                return
+            }
+
             cartDetail.soLuong += 1
             $scope.addToCart(cartDetail)
         }
@@ -114,6 +128,16 @@ clientApp.controller('cartController',
                 console.log(error)
             })
 
+        }
+
+        $scope.changeQuantity = (cartDetail) => {
+            if(cartDetail.soLuong > 3){
+               cartDetail.soLuong = 3
+            }
+
+            if(cartDetail.soLuong < 1){
+                cartDetail.soLuong = 1
+            }
         }
 
     });

@@ -47,4 +47,14 @@ public class CartRestController {
         }
     }
 
+    @GetMapping("/get-cart-detail-by-id-cart")
+    public ResponseEntity<?> findCartDetailsByIdCartAndIdProductDetail(@RequestParam("id_customer") String idCustomer,
+                                                                       @RequestParam("id_product_detail") String idProductDetail) {
+        try{
+            return new ResponseEntity<>(cartService.findCartDetailsByIdCartAndProductDetail(Long.valueOf(idCustomer), Long.valueOf(idProductDetail)), HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

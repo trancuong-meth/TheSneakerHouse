@@ -23,11 +23,23 @@ clientApp.controller('singleProductController',
         $scope.itemsPerPageProductDetail = 100;
         $scope.quantity_of_cart = 1;
 
+        // cart detail
+        $scope.cartDetails = []
+
         $scope.loadSizes = () => {
             $http.get('http://localhost:8080/size/get-all')
                 .then(function (response) {
                     $scope.sizes = response.data
                 });
+
+            if ($scope.productChooseCurrent != null) {
+                $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
+                    $scope.cartDetails = response.data
+                    console.log(response.data)
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
         }
 
         $scope.formatToVND = function (amount) {
@@ -38,7 +50,6 @@ clientApp.controller('singleProductController',
             });
             return formatter.format(amount);
         }
-
 
         $scope.loadData = function () {
             var colorHtml = document.getElementById("color-product-detail")
@@ -86,6 +97,14 @@ clientApp.controller('singleProductController',
                 console.log(error)
             })
 
+            if ($scope.productChooseCurrent != null) {
+                $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
+                    $scope.cartDetails = response.data
+                    console.log(response.data)
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
 
         }
 
@@ -163,7 +182,49 @@ clientApp.controller('singleProductController',
         }
 
         $scope.addToCart = () => {
-            console.log($scope.productChooseCurrent)
+
+            if ($scope.quantity_of_cart == 0) {
+                toastr.error("Vui lý chọn số lượng mua")
+                return
+            }
+
+            if($scope.quantity_of_cart < 0){
+                toastr.error("Số lượng sản phẩm phải lớn hơn 0")
+                return
+            }
+
+            if ($scope.cartDetails.length != 0) {
+                
+                if ($scope.quantity_of_cart + $scope.cartDetails[0].soLuong  > 3) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Xin lỗi vì sự bất tiện này!!",
+                        text: "Bạn không thể đặt hàng quá 3 sản phẩm. Vui lòng liên hệ 0968686868 biết thêm chi tiết.",
+                    });
+                    return
+                }
+
+                if ($scope.productChooseCurrent.soLuongTon < $scope.quantity_of_cart + $scope.cartDetails[0].soLuong) {
+                    toastr.error("Số lượng còn lại trong kho không đủ.Vui lòng chọn sản phẩm khác.")
+                    return
+                }
+            } else {
+                if ($scope.quantity_of_cart > 3) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Xin lỗi vì sự bất tiện này!!",
+                        text: "Bạn không thể đặt hàng quá 3 sản phẩm. Vui lòng liên hệ 0968686868 biết thêm chi tiết.",
+                        footer: '<a href="#">Why do I have this issue?</a>'
+                    });
+                    return
+                }
+
+                if ($scope.productChooseCurrent.soLuongTon < $scope.quantity_of_cart) {
+                    toastr.error("Số lượng còn lại trong kho không đủ.Vui lòng chọn sản phẩm khác.")
+                    return
+                }
+
+            }
 
             $http.post('http://localhost:8080/cart/add-to-cart-quantity', {
                 sanPhamChiTiet: $scope.productChooseCurrent,
@@ -191,6 +252,7 @@ clientApp.controller('singleProductController',
                 setTimeout(() => {
                     loadQuantityByIdProduct(-1)
                     $scope.showMiniCart()
+                    $scope.loadSizes()
                 }, 300)
 
             }).catch(function (error) {
@@ -200,15 +262,21 @@ clientApp.controller('singleProductController',
         }
 
         $scope.minusQuantity = () => {
-            if ($scope.quantity_of_cart > 0) {
+            if ($scope.quantity_of_cart > 1) {
                 $scope.quantity_of_cart -= 1
             } else {
-                $scope.quantity_of_cart = 0
+                $scope.quantity_of_cart = 1
             }
         }
 
         $scope.plusQuantity = () => {
             $scope.quantity_of_cart += 1
+        }
+
+        $scope.changeQuantity = () => {
+            if ($scope.quantity_of_cart < 0) {
+                $scope.quantity_of_cart = 0
+            }
         }
 
         $scope.getAllImagesByIDProductDetailSwiper = function (id) {
@@ -218,6 +286,16 @@ clientApp.controller('singleProductController',
             }).catch(function (error) {
                 console.log(error)
             })
+        }
+
+        $scope.changeQuantity = (cartDetail) => {
+            if(cartDetail.soLuong > 3){
+               cartDetail.soLuong = 3
+            }
+
+            if(cartDetail.soLuong < 1){
+                cartDetail.soLuong = 1
+            }
         }
 
         $scope.loadData()
