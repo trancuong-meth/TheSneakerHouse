@@ -181,21 +181,29 @@ main_app.controller("editVoucherController", function ($scope, $http, $routePara
                                 }
                             })
                         } else {
-                            $scope.voucherDetails.forEach((e, index) => {
-                                var e = $scope.customerChoose.find(x => x.id == e.idKhachHang.id)
-
-                                axios.delete('http://localhost:8080/voucher-detail/delete-by-id/' + e.id).then((res) => {
-                                }).catch((res) => {
-                                    console.log(res)
+                            if($scope.voucherDetails.length == 0){
+                                toastr.success('Bạn đã thay đổi voucher thành công')
+                                setTimeout(() => {
+                                    location.href = "/html/router.html#!/phieu-giam-gia"
+                                }, 200)
+                            }else{
+                                $scope.voucherDetails.forEach((e, index) => {
+                                    var e = $scope.customerChoose.find(x => x.id == e.idKhachHang.id)
+    
+                                    axios.delete('http://localhost:8080/voucher-detail/delete-by-id/' + e.id).then((res) => {
+                                    }).catch((res) => {
+                                        console.log(res)
+                                    })
+    
+                                    if (index == $scope.voucherDetails.length - 1) {
+                                        toastr.success('Bạn đã thay đổi voucher thành công')
+                                        setTimeout(() => {
+                                            location.href = "/html/router.html#!/phieu-giam-gia"
+                                        }, 200)
+                                    }
                                 })
-
-                                if (index == $scope.voucherDetails.length - 1) {
-                                    toastr.success('Bạn đã thay đổi voucher thành công')
-                                    setTimeout(() => {
-                                        location.href = "/html/router.html#!/phieu-giam-gia"
-                                    }, 200)
-                                }
-                            })
+                            }
+                           
                         }
                     }
                 ).catch((error) => {

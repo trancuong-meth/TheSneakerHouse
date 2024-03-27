@@ -304,9 +304,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
             setTimeout(function () {
                 $scope.loadProductDetailByBillId(bill)
+                return true;
             }, 100)
         }).catch(function (error) {
             toastr.error(error.data.message)
+            return false;
         })
 
     }
@@ -331,9 +333,41 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     }
 
     $scope.plusQuantity = function (billDetail) {
-        var quantityHtml = document.getElementById("bill-detail-quantity-" + billDetail.id)
-        quantityHtml.value = Number(quantityHtml.value) + 1
-        $scope.addProductToBillApi(billDetail.idSanPhamChiTiet, $scope.getActiveBill(), quantityHtml.value)
+        try {
+            var quantityHtml = document.getElementById("bill-detail-quantity-" + billDetail.id)
+            var quantityCurrent = Number(quantityHtml.value)
+
+            if (quantityCurrent > billDetail.idSanPhamChiTiet.soLuongTon) {
+                toastr.error("Số lượng sản phẩm hiện tại không đủ để mua !")
+                return;
+            }
+
+            $http.post('http://localhost:8080/bill-detail/add-product-to-bill', {
+                'hoaDon': $scope.getActiveBill(),
+                'sanPhamChiTiet': billDetail.idSanPhamChiTiet,
+                'soLuong': quantityCurrent + 1
+            }).then(function (response) {
+                quantityHtml.value = Number(quantityHtml.value) + 1
+
+                // check gia tri toi thieu voucher 
+                if ($scope.voucher !== null) {
+                    if (quantity * productDetail.donGia < $scope.voucher.giaTriToiThieu) {
+                        $scope.removeVoucher();
+                        $scope.voucher = null;
+                    }
+                }
+
+                setTimeout(function () {
+                    $scope.loadProductDetailByBillId(bill)
+                }, 100)
+            }).catch(function (error) {
+                toastr.error(error.data.message)
+                return false;
+            })
+
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     $scope.choosePaymentMethod = function (paymentMethod) {
@@ -599,17 +633,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                         })
 
                     } else if ($scope.paymentMethod == 3) {
-                        axios.post("http://localhost:8080/payment-method/add", {
-                            loaiThanhToan: 2,
-                            soTienThanhToan: $scope.totalAllPrice,
-                            ghiChu: $scope.bill.ghiChu,
-                            idHoaDon: $scope.bill,
-                            deleted: false
-                        }).then(function (response) { }).catch(function (error) {
-                            console.log(error)
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
+
                     }
 
                     if ($scope.voucher != null) {

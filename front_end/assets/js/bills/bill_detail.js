@@ -26,6 +26,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.noteState2 = ""
     $scope.noteState3 = ""
     $scope.noteState4 = ""
+    $scope.noteState5 = ""
 
     // product refund
     $scope.billDetailRefund = {}
@@ -62,7 +63,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                     if ($scope.billDetails.content[i].donGiaSauKhiGiam == null) {
                         $scope.bill.tongTien += Number($scope.billDetails.content[i].donGia) * Number($scope.billDetails.content[i].soLuong)
                     } else {
-                        $scope.bill.tongTien += Number($scope.billDetails.content[i].donGiaSauKhiGiam)* Number($scope.billDetails.content[i].soLuong) 
+                        $scope.bill.tongTien += Number($scope.billDetails.content[i].donGiaSauKhiGiam) * Number($scope.billDetails.content[i].soLuong)
                     }
                 }
                 $scope.bill.tongTienSauGiam = Number($scope.bill.tongTien)
@@ -89,15 +90,15 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                     $scope.billState3 = $scope.history[i]
                 } else if ($scope.history[i].trangThai == 4) {
                     $scope.billState4 = $scope.history[i]
-                }else if($scope.history[i].trangThai == 6){
+                } else if ($scope.history[i].trangThai == 6) {
                     $scope.billState6 = $scope.history[i]
                 }
             }
             console.log($scope.history)
         })
-        .catch(function (error) {
-            console.log(error)
-        })
+            .catch(function (error) {
+                console.log(error)
+            })
 
         $http.get('http://localhost:8080/payment-method/get-all/' + id).then(function (response) {
             console.log(response.data)
@@ -749,7 +750,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             modal.hide()
         })
             .catch(function (response) {
-                $scope.loadBills()
+                $scope.loadBill()
             })
 
     }
@@ -779,7 +780,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
         })
     }
 
-    $scope.loadBillDetail = () =>{
+    $scope.loadBillDetail = () => {
         setTimeout(() => {
             axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
             }).catch(function (response) {
@@ -861,10 +862,23 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             cancelButtonText: "Hủy"
         }).then((result) => {
             if (result.isConfirmed) {
-                
+                var brandUpdateModal = document.querySelector("#cancelModal")
+                var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+                modal.hide()
+
                 $scope.bill.trangThai = 5
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
-                   
+
+                    axios.post('http://localhost:8080/history/add', {
+                        'trangThai': 5,
+                        'ghiChu': $scope.noteState5,
+                        'hoaDon': response.data
+                    }).then(function (response) {
+                        console.log(response.data)
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+
                     $scope.billDetails.content.forEach((x) => {
                         x.idSanPhamChiTiet.soLuongTon += x.soLuong
                         axios.put('http://localhost:8080/product-detail/update-product-detail', x.idSanPhamChiTiet)
@@ -875,35 +889,25 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                             })
                     })
 
-                    if ($scope.bill.idVoucher != null) {
-                        var voucher = $scope.bill.idVoucher
-                        voucher.soLanDung += 1
-                        axios.put('http://localhost:8080/voucher/edit-voucher', voucher)
-                            .then((response) => {
-                            }).catch((error) => {
-                                console.log(error)
-                            })
-                    }
-
                     toastr.success("Hủy hóa đơn thành công.")
 
                     setTimeout(() => {
-                        axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
-                        }).catch(function (error) {
-                        })
                         $scope.loadBill()
+                        // axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                        // }).catch(function (error) {
+                        // })
                     }, 100)
                 })
-                .catch(function (response) {
-                    $scope.loadBills()
-                })
+                    .catch(function (response) {
+                        $scope.loadBill()
+                    })
             }
         });
     }
 
     $scope.refundBill = () => {
 
-        if($scope.noteState4 == ""){
+        if ($scope.noteState4 == "") {
             toastr.error('Vui lòng nhập lý do')
             return;
         }
@@ -928,7 +932,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     }
 
     $scope.refundSingleBill = () => {
-        if($scope.noteState4 == ""){
+        if ($scope.noteState4 == "") {
             toastr.error('Vui lòng nhập lý do')
             return;
         }
