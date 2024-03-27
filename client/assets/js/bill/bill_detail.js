@@ -4,9 +4,6 @@ clientApp.controller('billDetailController',
         var today = new Date();
         var file = "";
 
-        // scroll to 0 0
-        window.scrollTo(0, 0)
-
         // bill
         $scope.bill = {}
         $scope.billDetails = []
@@ -30,10 +27,14 @@ clientApp.controller('billDetailController',
         $scope.noteState2 = ""
         $scope.noteState3 = ""
         $scope.noteState4 = ""
+        $scope.noteState5 = ""
 
         // product refund
         $scope.billDetailRefund = {}
         $scope.quantityRefund = 0;
+
+        // payment
+        $scope.paymentMethods = []
 
         // REGEX
         var phone_regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
@@ -45,10 +46,6 @@ clientApp.controller('billDetailController',
         }
 
         $scope.loadBill = () => {
-            document.querySelector("body").classList.remove('fix');
-            document.querySelector(".offcanvas-search-inner").classList.remove('show')
-            document.querySelector(".minicart-inner").classList.remove('show')
-            
             $http.get('http://localhost:8080/bill/get-bill/' + id).then(
                 function (res) {
                     console.log(res.data)
@@ -64,16 +61,16 @@ clientApp.controller('billDetailController',
                     $scope.totalItemBillDetails = response.data.totalElements
                     $scope.bill.tongTien = 0
                     for (var i = 0; i < $scope.billDetails.content.length; i++) {
-                        if ($scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia == null) {
-                            $scope.bill.tongTien += Number($scope.billDetails.content[i].idSanPhamChiTiet.donGia) * Number($scope.billDetails.content[i].soLuong)
+                        if ($scope.billDetails.content[i].donGiaSauKhiGiam == null) {
+                            $scope.bill.tongTien += Number($scope.billDetails.content[i].donGia) * Number($scope.billDetails.content[i].soLuong)
                         } else {
-                            $scope.bill.tongTien += Number((100 - $scope.billDetails.content[i].idSanPhamChiTiet.idDotGiamGia.phanTramGiam) * $scope.billDetails.content[i].idSanPhamChiTiet.donGia / 100) * Number($scope.billDetails.content[i].soLuong)
+                            $scope.bill.tongTien += Number($scope.billDetails.content[i].donGiaSauKhiGiam) * Number($scope.billDetails.content[i].soLuong)
                         }
                     }
                     $scope.bill.tongTienSauGiam = Number($scope.bill.tongTien)
 
                     if ($scope.bill.idVoucher != null) {
-                        $scope.bill.tongTienSauGiam = (100 - $scope.bill.idVoucher.phanTramGiam) * $scope.bill.tongTien / 100
+                        $scope.bill.tongTienSauGiam = (100 - $scope.bill.soPhanTramKhuyenMai) * $scope.bill.tongTien / 100
                     }
 
                     $scope.bill.tongTienSauGiam += Number($scope.bill.phiVanChuyen == null || $scope.bill.phiVanChuyen == "" ? 0 : $scope.bill.phiVanChuyen)
@@ -101,8 +98,15 @@ clientApp.controller('billDetailController',
                 console.log($scope.history)
             })
                 .catch(function (error) {
-
+                    console.log(error)
                 })
+
+            $http.get('http://localhost:8080/payment-method/get-all/' + id).then(function (response) {
+                console.log(response.data)
+                $scope.paymentMethods = response.data
+            }).catch(function (error) {
+                console.log(error)
+            })
         }
 
         $scope.getAllImagesByIDProductDetail = function (id, text) {
@@ -659,6 +663,9 @@ clientApp.controller('billDetailController',
                 $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState1)
                 toastr.success("Xác nhận hóa đơn thành công")
                 setTimeout(() => {
+                    axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                    }).catch(function (error) {
+                    })
                     $scope.loadBill()
                 }, 100)
             }
@@ -677,6 +684,9 @@ clientApp.controller('billDetailController',
                 $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState2)
                 toastr.success("Xác nhận hóa đơn thành công")
                 setTimeout(() => {
+                    axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                    }).catch(function (error) {
+                    })
                     $scope.loadBill()
                 }, 100)
             }
@@ -695,6 +705,9 @@ clientApp.controller('billDetailController',
                 $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState3)
                 toastr.success("Xác nhận hóa đơn thành công")
                 setTimeout(() => {
+                    axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                    }).catch(function (error) {
+                    })
                     $scope.loadBill()
                 }, 100)
             }
@@ -738,7 +751,7 @@ clientApp.controller('billDetailController',
                 modal.hide()
             })
                 .catch(function (response) {
-                    $scope.loadBills()
+                    $scope.loadBill()
                 })
 
         }
@@ -840,6 +853,11 @@ clientApp.controller('billDetailController',
         }
 
         $scope.cancelBill = () => {
+            var brandUpdateModal = document.querySelector("#cancelModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+            modal.hide()
+            $("#cancelClose").click()
+
             Swal.fire({
                 title: "Xác nhận hủy hóa đơn này?",
                 icon: "warning",
@@ -850,9 +868,18 @@ clientApp.controller('billDetailController',
                 cancelButtonText: "Hủy"
             }).then((result) => {
                 if (result.isConfirmed) {
-
                     $scope.bill.trangThai = 5
                     axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
+
+                        axios.post('http://localhost:8080/history/add', {
+                            'trangThai': 5,
+                            'ghiChu': $scope.noteState5,
+                            'hoaDon': response.data
+                        }).then(function (response) {
+                            console.log(response.data)
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
 
                         $scope.billDetails.content.forEach((x) => {
                             x.idSanPhamChiTiet.soLuongTon += x.soLuong
@@ -864,24 +891,17 @@ clientApp.controller('billDetailController',
                                 })
                         })
 
-                        if ($scope.bill.idVoucher != null) {
-                            var voucher = $scope.bill.idVoucher
-                            voucher.soLanDung += 1
-                            axios.put('http://localhost:8080/voucher/edit-voucher', voucher)
-                                .then((response) => {
-                                }).catch((error) => {
-                                    console.log(error)
-                                })
-                        }
-
                         toastr.success("Hủy hóa đơn thành công.")
 
                         setTimeout(() => {
                             $scope.loadBill()
+                            // axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                            // }).catch(function (error) {
+                            // })
                         }, 100)
                     })
                         .catch(function (response) {
-                            $scope.loadBills()
+                            $scope.loadBill()
                         })
                 }
             });
@@ -905,6 +925,9 @@ clientApp.controller('billDetailController',
                 $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState4)
                 toastr.success("Trả hàng thành công.")
                 setTimeout(() => {
+                    axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                    }).catch(function (error) {
+                    })
                     $scope.loadBill()
                 }, 100)
             }

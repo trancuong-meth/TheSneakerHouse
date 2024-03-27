@@ -437,6 +437,11 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             return;
         }
 
+        if (voucher.soLanDung <= 0) {
+            toastr.error('Số lượng voucher đã hết.Vui lòng chọn voucher khác.');
+            return;
+        }
+
         if ($scope.voucher != null) {
             toastr.error('Bạn chỉ có thể chọn một voucher.Vui lòng xóa voucher cũ và thêm lại.');
             return;

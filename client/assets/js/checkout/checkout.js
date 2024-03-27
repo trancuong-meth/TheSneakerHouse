@@ -465,6 +465,7 @@ clientApp.controller('checkoutController',
                     if ($scope.paymentMethod == 0) {
                         axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
 
+                            $scope.bill = response.data
                             axios.post('http://localhost:8080/history/add', {
                                 'trangThai': 1,
                                 'ghiChu': $scope.bill.ghiChu,
@@ -504,7 +505,7 @@ clientApp.controller('checkoutController',
                                                         }).catch(function (error) {
 
                                                         })
-                                                        $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
+                                                        $window.location.href = '#!chi-tiet-hoa-don/' + $scope.bill.id;
                                                         $window.location.reload();
                                                         window.scrollTo(0, 0);
                                                     }, 500)
@@ -518,7 +519,7 @@ clientApp.controller('checkoutController',
                                                 axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                                                 }).catch(function (error) {
                                                 })
-                                                $window.location.href = '#!chi-tiet-hoa-don/' + response.data.id;
+                                                $window.location.href = '#!chi-tiet-hoa-don/' + $scope.bill.id;
                                                 $window.location.reload();
                                             }, 500)
                                         }
@@ -564,6 +565,11 @@ clientApp.controller('checkoutController',
 
                 if (response.data.giaTriToiThieu > $scope.subTotal) {
                     toastr.error("Giá trị hóa đơn không đủ điều kiện để sử dụng mã phiếu giảm giá này.")
+                    return;
+                }
+
+                if (response.data.soLanDung <= 0) {
+                    toastr.error("Số lượng voucher đã hết. Vui chọn mã phiếu khác!!!")
                     return;
                 }
 
@@ -629,6 +635,11 @@ clientApp.controller('checkoutController',
             var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
 
             if (voucher.giaTriToiThieu > $scope.totalAllPrice) {
+                toastr.error('Giá trị hóa đơn không đủ để áp dụng voucher.');
+                return;
+            }
+
+            if (voucher.soLanDung <= 0) {
                 toastr.error('Giá trị hóa đơn không đủ để áp dụng voucher.');
                 return;
             }
