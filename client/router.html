@@ -142,12 +142,14 @@
                                                 width: 34px;
                                                 height: 34px;
                                                 transform: translateY(-7px);" ng-if="user.avatar != null">
+
                                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuL1DqQXdqW4ZQdqeYHwQ4ZxBEUUj9c0LeKeA481_YuDnh4UkLeBG4CsWiTOjlTYgOaQU&usqp=CAU"
                                                     alt="" style="
-                                                border-radius: 50%;
-                                                width: 34px;
-                                                height: 34px;
-                                                transform: translateY(-7px);" ng-if="user.avatar == null">
+                                                            border-radius: 50%;
+                                                            width: 34px;
+                                                            height: 34px;
+                                                            transform: translateY(-7px);" 
+                                                            ng-if="user.avatar == null">
                                             </a>
 
                                             <ul class="dropdown-list" ng-if="user == null">
@@ -366,7 +368,7 @@
                                         <span
                                             ng-repeat="img in getAllImagesByIDProductDetail(cartDetail.idSanPhamChiTiet.id)"></span>
                                         <img src="assets/img/cart/cart-1.jpg" alt="product"
-                                            id="image-{{cartDetail.idSanPhamChiTiet.id}}">
+                                            id="image-cart-{{cartDetail.idSanPhamChiTiet.id}}">
                                     </a>
                                 </div>
                                 <div class="minicart-content">
@@ -533,7 +535,7 @@
                 }
 
                 $scope.getAllImagesByIDProductDetail = function (id) {
-                    var html = document.getElementById("image-" + id);
+                    var html = document.getElementById("image-cart-" + id);
                     axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
                         html.src = response.data[0].duongDan
                     }).catch(function (error) {
