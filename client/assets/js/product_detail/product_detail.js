@@ -32,13 +32,23 @@ clientApp.controller('singleProductController',
                     $scope.sizes = response.data
                 });
 
-            if ($scope.productChooseCurrent != null) {
-                $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
-                    $scope.cartDetails = response.data
-                    console.log(response.data)
-                }).catch(error => {
-                    console.log(error)
-                })
+            if ($scope.productChooseCurrent != null && $scope.productChooseCurrent != undefined ) {
+                if($scope.customer != null){
+                    $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
+                        $scope.cartDetails = response.data
+                        console.log(response.data)
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }else{
+                    $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + -1 + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
+                        $scope.cartDetails = response.data
+                        console.log(response.data)
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
+               
             }
         }
 
@@ -97,13 +107,23 @@ clientApp.controller('singleProductController',
                 console.log(error)
             })
 
-            if ($scope.productChooseCurrent != null) {
-                $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
-                    $scope.cartDetails = response.data
-                    console.log(response.data)
-                }).catch(error => {
-                    console.log(error)
-                })
+            if ($scope.productChooseCurrent != null && $scope.productChooseCurrent != undefined) {
+                if($scope.customer != null){
+                    $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
+                        $scope.cartDetails = response.data
+                        console.log(response.data)
+                    }).catch(error => {
+                        console.log(error)
+                    }) 
+                }else{
+                    $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + -1 + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
+                        $scope.cartDetails = response.data
+                        console.log(response.data)
+                    }).catch(error => {
+                        console.log(error)
+                    }) 
+                }
+                
             }
 
         }
