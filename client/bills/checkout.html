@@ -212,7 +212,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  " style="padding: 13px;font-size: 14px;">
-                        <span>Trang chủ /</span>
+                        <span ng-click="test()">Trang chủ /</span>
                         <span>Thanh toán</span>
                     </div>
 
@@ -791,10 +791,19 @@
     <!--=== Active Js ===-->
     <script src="assets/js/active.js"></script>
 
+    <!-- sockjs -->
+    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+
+
     <!-- toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="../lib/node_modules/angular-websocket/dist/angular-websocket.js"></script>
+    <script src="../lib//node_modules/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="../lib//node_modules/stompjs/lib/stomp.js"></script>
 </body>
 
 

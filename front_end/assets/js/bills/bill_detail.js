@@ -665,6 +665,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                 }).catch(function (error) {
                 })
+                $scope.addBill()
                 $scope.loadBill()
             }, 100)
         }
@@ -686,6 +687,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                 }).catch(function (error) {
                 })
+                $scope.addBill()
                 $scope.loadBill()
             }, 100)
         }
@@ -707,6 +709,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                 }).catch(function (error) {
                 })
+                $scope.addBill()
                 $scope.loadBill()
             }, 100)
         }
@@ -893,6 +896,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
 
                     setTimeout(() => {
                         $scope.loadBill()
+                        $scope.addBill()
                         // axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                         // }).catch(function (error) {
                         // })
@@ -926,6 +930,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                 }).catch(function (error) {
                 })
+                $scope.addBill()
                 $scope.loadBill()
             }, 100)
         }
@@ -963,8 +968,30 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
 
             setTimeout(() => {
                 $scope.loadBill()
+                $scope.addBill()
             }, 100)
         }
     }
+
+    // realtime
+    var socket = new SockJS("http://localhost:8080/ws");
+    var stompClient = Stomp.over(socket);
+  
+    stompClient.connect({}, function (frame) {
+  
+      stompClient.subscribe("/bill/bills", function (message) {
+        $scope.loadBill()
+        console.log(message)
+        $scope.$apply();
+      });
+    });
+  
+    $scope.addBill = function () {
+      var message = {
+        name: 'hehe',
+      };
+  
+      stompClient.send("/app/bills", {}, JSON.stringify(message));
+    };
 
 })

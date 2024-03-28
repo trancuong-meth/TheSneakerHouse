@@ -505,6 +505,7 @@ clientApp.controller('checkoutController',
                                                         }).catch(function (error) {
 
                                                         })
+                                                        $scope.addBill()
                                                         $window.location.href = '#!chi-tiet-hoa-don/' + $scope.bill.id;
                                                         $window.location.reload();
                                                         window.scrollTo(0, 0);
@@ -519,6 +520,7 @@ clientApp.controller('checkoutController',
                                                 axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                                                 }).catch(function (error) {
                                                 })
+                                                $scope.addBill()
                                                 $window.location.href = '#!chi-tiet-hoa-don/' + $scope.bill.id;
                                                 $window.location.reload();
                                             }, 500)
@@ -659,5 +661,25 @@ clientApp.controller('checkoutController',
 
         }
 
+        var socket = new SockJS("http://localhost:8080/ws");
+        var stompClient = Stomp.over(socket);
+
+        // stompClient.connect({}, function (frame) {
+        //     console.log("Connected: " + frame);
+
+        //     stompClient.subscribe("/bill/bills", function (message) {
+        //         console.log(message.body);
+
+        //         $scope.$apply();
+        //     });
+        // });
+
+        $scope.addBill = function () {
+            var message = {
+                name: 'hehe',
+            };
+
+            stompClient.send("/app/bills", {}, JSON.stringify(message));
+        };
 
     });

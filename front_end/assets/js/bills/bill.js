@@ -61,8 +61,8 @@ main_app.controller("billController", function ($scope, $http) {
 
   $scope.pageChanged = (state) => {
     console.log(state)
-     // get bill
-     $http.get('http://localhost:8080/bill/get-bill-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&state=' + $scope.current_state).then(function (response) {
+    // get bill
+    $http.get('http://localhost:8080/bill/get-bill-panigation?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&state=' + $scope.current_state).then(function (response) {
       $scope.bills = response.data
     }).catch(function (error) {
       console.log(error)
@@ -70,6 +70,26 @@ main_app.controller("billController", function ($scope, $http) {
   }
 
   $scope.loadBills(-1)
+
+  var socket = new SockJS("http://localhost:8080/ws");
+  var stompClient = Stomp.over(socket);
+
+  stompClient.connect({}, function (frame) {
+
+    stompClient.subscribe("/bill/bills", function (message) {
+      $scope.loadBills(-1)
+      console.log(message)
+      $scope.$apply();
+    });
+  });
+
+  // $scope.addBill = function () {
+  //   var message = {
+  //     name: 'hehe',
+  //   };
+
+  //   stompClient.send("/app/bills", {}, JSON.stringify(message));
+  // };
 
   $scope.formatToVND = function (amount) {
     const formatter = new Intl.NumberFormat("vi-VN", {
