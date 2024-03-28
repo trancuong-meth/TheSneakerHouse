@@ -11,8 +11,8 @@ public class WebSocketController {
 
     @MessageMapping("/bills")
     @SendTo("/bill/bills")
-    public Hello getListBill(@Payload Hello message) {
+    public String getListBill(@Payload Hello message) {
         System.out.println(message);
-        return message ;
+        return message.getName() ;
     }
 }

@@ -676,7 +676,7 @@ clientApp.controller('checkoutController',
 
         $scope.addBill = function () {
             var message = {
-                name: 'hehe',
+                name: $scope.bill.ma,
             };
 
             stompClient.send("/app/bills", {}, JSON.stringify(message));
