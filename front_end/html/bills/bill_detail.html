@@ -700,6 +700,13 @@
         font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 6">
           Trả hàng
         </span>
+
+        <span style="
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 7">
+          Đã thanh toán
+        </span>
       </div>
 
       <div style="margin-bottom: 10px;display: flex;justify-content: space-between;">
@@ -1966,6 +1973,11 @@
                     <span class="badge bg-warning rounded-3 fw-semibold" style="    
                                 padding: 11px;
                                 font-size: 11px;">Trả hàng</span>
+                  </div>
+                  <div class="d-flex align-items-center gap-2" ng-if="e.trangThai === 7">
+                    <span class="badge bg-success rounded-3 fw-semibold" style="    
+                                padding: 11px;
+                                font-size: 11px;">Đã thanh toán</span>
                   </div>
 
                 </td>

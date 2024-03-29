@@ -19,10 +19,11 @@
   <!-- Modernizer JS -->
   <script src="assets/js/modernizr-2.8.3.min.js"></script>
 
-   <!-- notification -->
-   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  <!-- notification -->
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  
 
   <!--[if lt IE 9]>
 <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -225,12 +226,12 @@
     </div>
     <!-- breadcrumb area end -->
 
-    <div style="padding: 80px;">
-      <div class="card p-3 " style="margin-bottom: 15px;">
+    <div style="padding: 150px;padding-top: 20px;padding-bottom: 20px;">
+      <div class="card p-3 shadow" style="margin-bottom: 10px;">
 
         <div class="sch-style-2" ng-if="bill.trangThai == 5">
           <div class="sch-timeline-content">
-            <div class="sch-content" style="    margin-left: 218px;">
+            <div class="sch-content" style="    margin-left: 211px;">
               <div class="sch-up">
                 <div class="sch-icon btn-cancel">
                   <i class="ti ti-x" style="font-size: 20px;"></i>
@@ -306,7 +307,7 @@
 
         <div class="sch-style-2" ng-if="bill.trangThai == 4 && history.length == 1">
           <div class="sch-timeline-content">
-            <div class="sch-content" style="    margin-left: 218px;">
+            <div class="sch-content" style="    margin-left: 211px;">
               <div class="sch-up">
                 <div class="sch-icon">
                   <i class="ti ti-circle-check" style="font-size: 20px;"></i>
@@ -382,7 +383,7 @@
 
         <div class="sch-style-2" ng-if="bill.trangThai == 1 && history.length >= 1">
           <div class="sch-timeline-content">
-            <div class="sch-content" style="    margin-left: 218px;">
+            <div class="sch-content" style="    margin-left: 211px;">
               <div class="sch-up">
                 <div class="sch-icon">
                   <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -468,7 +469,7 @@
 
         <div class="sch-style-2" ng-if="bill.trangThai == 2 && history.length >= 1">
           <div class="sch-timeline-content">
-            <div class="sch-content" style="    margin-left: 218px;">
+            <div class="sch-content" style="    margin-left: 211px;">
               <div class="sch-up">
                 <div class="sch-icon">
                   <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -538,7 +539,7 @@
 
         <div class="sch-style-2" ng-if="bill.trangThai == 3 && history.length > 1">
           <div class="sch-timeline-content">
-            <div class="sch-content" style="    margin-left: 218px;">
+            <div class="sch-content" style="    margin-left: 211px;">
               <div class="sch-up">
                 <div class="sch-icon">
                   <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -611,7 +612,7 @@
 
         <div class="sch-style-2" ng-if="bill.trangThai == 4 && history.length > 1">
           <div class="sch-timeline-content">
-            <div class="sch-content" style="    margin-left: 218px;">
+            <div class="sch-content" style="    margin-left: 211px;">
               <div class="sch-up">
                 <div class="sch-icon">
                   <i class="ti ti-checklist" style="font-size: 20px;"></i>
@@ -771,116 +772,100 @@
         </div>
 
         <!-- button -->
-
         <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 1 && history.length >= 1">
           <div style="display: flex;width: 33%;">
+        
+           
           </div>
 
-          <div style="display: flex;justify-content: space-between; width: 25%;">
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal" style="
-             margin-left: 10px;
-             display: inline-block;
-             font-size: 14px;
-             border-radius: 4px;
-             margin-top: 20px;
-             font-weight: 600;
-             box-sizing: border-box;
-             text-align: center;
-             cursor: pointer;
-             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-             position: relative;
-             background: #eb4528;
-             border: none;
-             padding-top: 10px;
-             height: 45px;
-             color: white;">
-              <i class="ti ti-x" style="
-              display: inline-block;
-              font-size: 18px;
-              transform: translateY(2px);
-          "></i>
+          <div style="display: flex;justify-content: space-between;">
+            <button 
+            style="display: inline-block;
+            border-radius: 4px;
+            padding-top: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            position: relative;
+            background: #eb4528;
+            border: none;
+            font-size: 14px;
+            height: 45px;
+            color: white;"
+            class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"
+              style="margin-left: 10px;">
               Hủy
             </button>
           </div>
         </div>
 
-        <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 2 && history.length > 1">
+        <!-- <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 2 && history.length > 1">
           <div style="display: flex;width: 60%;">
+           
           </div>
 
           <div style="display: flex;justify-content: space-between;">
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal" style="
-             margin-left: 10px;
-             font-size: 14px;
-             display: inline-block;
-             border-radius: 4px;
-             margin-top: 20px;
-             font-weight: 600;
-             box-sizing: border-box;
-             text-align: center;
-             cursor: pointer;
-             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-             position: relative;
-             background: #eb4528;
-             border: none;
-             padding-top: 10px;
-             height: 45px;
-             color: white;">
-              <i class="ti ti-x" style="
-              display: inline-block;
-              font-size: 18px;
-              transform: translateY(2px);
-          "></i>
+            <button 
+            style="display: inline-block;
+            border-radius: 4px;
+            padding-top: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            position: relative;
+            background: #eb4528;
+            border: none;
+            font-size: 14px;
+            height: 45px;
+            color: white;"
+            class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"
+              style="margin-left: 10px;">
               Hủy
             </button>
           </div>
         </div>
 
-        <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 5 && history.length > 1">
-          <div style="display: flex;width: 60%;">
-
-          </div>
-
-          <div style="display: flex;justify-content: space-between;">
-            
-          </div>
-        </div>
+   
 
         <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 3 && history.length > 1">
           <div style="display: flex;width: 33%;">
+          
           </div>
 
           <div style="display: flex;justify-content: space-between;">
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal" style="
-             margin-left: 10px;
-             font-size: 14px;
-             display: inline-block;
-             padding-top: 10px;
-             border-radius: 4px;
-             margin-top: 20px;
-             font-weight: 600;
-             box-sizing: border-box;
-             text-align: center;
-             cursor: pointer;
-             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-             position: relative;
-             background: #eb4528;
-             border: none;
-             height: 45px;
-             color: white;">
-              <i class="ti ti-x" style="
-              display: inline-block;
-              font-size: 18px;
-              transform: translateY(2px);
-          "></i>
+            <button 
+            style="display: inline-block;
+            border-radius: 4px;
+            padding-top: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            position: relative;
+            background: #eb4528;
+            border: none;
+            font-size: 14px;
+            height: 45px;
+            color: white;"
+            class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"
+              style="margin-left: 10px;">
               Hủy
             </button>
           </div>
-        </div>
+        </div> -->
+
 
       </div>
 
-      <div class="card p-3 " style="margin-bottom: 15px;">
+      <div class="card p-3 shadow" style="margin-bottom: 10px;">
         <!-- bread crumbs -->
         <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
           <div class="mb-3 mb-sm-0">
@@ -945,6 +930,13 @@
               font-size: 14px;
               font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 6">
                 Trả hàng
+              </span>
+
+              <span style="
+              display: inline-block;
+              font-size: 14px;
+              font-weight: 600; color: #eb4528" ng-if="bill.trangThai == 7">
+                Đã thanh toán
               </span>
             </div>
 
@@ -1075,7 +1067,7 @@
         </div>
       </div>
 
-      <div class="card p-3 shadow" style="margin-bottom: 15px;">
+      <div class="card p-3 shadow" style="margin-bottom: 10px;">
         <!-- bread crumbs -->
         <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
           <div class="mb-3 mb-sm-0">
@@ -1087,11 +1079,10 @@
 
           <div>
             <button class="btn btn-primary"
-              ng-if="(bill.trangThai == 2 || bill.trangThai == 1) && bill.tenNguoiNhan != null" style="margin-left: 10px;
-              display: inline-block;
+              style="display: inline-block;
               border-radius: 4px;
-              margin-bottom: 20px;
               padding-top: 10px;
+              margin-bottom: 20px;
               font-weight: 600;
               box-sizing: border-box;
               text-align: center;
@@ -1102,13 +1093,15 @@
               border: none;
               font-size: 14px;
               height: 45px;
-              color: white;" data-bs-toggle="modal" data-bs-target="#customerEdit" ng-click="editCustomer()">
+              color: white;"
+              ng-if="( bill.trangThai == 1) && bill.tenNguoiNhan != null" data-bs-toggle="modal"
+              data-bs-target="#customerEdit" ng-click="editCustomer()">
               <i class="ti ti-edit" style="
                                   display: inline-block;
                                   font-size: 18px;
                                   transform: translateY(2px);
                               "></i>
-              Sửa thông tin</button>
+              Sửa khách hàng</button>
           </div>
         </div>
 
@@ -1217,77 +1210,8 @@
 
       </div>
 
-      <div class="card p-3 shadow" style="margin-bottom: 15px;" hidden>
-        <!-- bread crumbs -->
-        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-          <div class="mb-3 mb-sm-0">
-            <i class="ti ti-receipt-dollar" style="display: inline-block;font-size: 16px;color: #5D87FF;"></i>
-            <span style="color: black;display: inline-block;font-size: 16px;color: #5D87FF;font-weight: 500;">
-              Phương thức thanh toán
-            </span>
-          </div>
-
-          <div>
-            <button class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1" data-bs-toggle="modal"
-              data-bs-target="#productListModal" ng-click="loadProductList()">
-              <i class="ti ti-plus" style="
-                                display: inline-block;
-                                font-size: 18px;
-                                transform: translateY(2px);
-                            "></i>
-              Xác nhận thanh toán</button>
-          </div>
-        </div>
-
-        <!-- body -->
-        <div ng-if="billDetails.content.length > 0">
-          <table class="table" style="text-align: center;">
-            <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%)">
-              <tr>
-                <th style="width: 7%;">
-                  <h6 class="fw-semibold mb-0 text-center" style="border-right: 1px solid #b1acac;">#</h6>
-                </th>
-                <th class="border-bottom-0 text-center" style="width: 45%;">
-                  <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Phuơng thức thanh toán</h6>
-                </th>
-                <th class="border-bottom-0 text-center" style="width: 20%;">
-                  <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Số tiền thanh toán</h6>
-                </th>
-                <th class="border-bottom-0 text-center" style="width: 17%;">
-                  <h6 class="fw-semibold mb-0">Trạng thái</h6>
-                </th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="paymentMethod in paymentMethods">
-                <td>{{$index + 1}}</td>
-                <td style="color: #333; font-weight: 600;">{{paymentMethod.loaiThanhToan == 0 ? "Tiền mặt" :
-                  paymentMethod.loaiThanhToan == 1 ?
-                  "Chuyển khoản" : "Thanh toán khi nhận hàng"}}</td>
-                <td style="color: #eb4528; font-weight: 600;">{{formatToVND(paymentMethod.soTienThanhToan)}}</td>
-                <td>
-                  <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.trangThai === false">
-                    <span class="badge bg-danger rounded-3 fw-semibold" style="    
-                                padding: 11px;
-                                font-size: 11px;">Chưa thanh toán</span>
-                  </div>
-                  <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.trangThai === true">
-                    <span class="badge bg-success rounded-3 fw-semibold" style="    
-                                padding: 11px;
-                                font-size: 11px;">Đã thanh toán</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-
-          </table>
-
-        </div>
-      </div>
-
       <!-- product -->
-      <div class="card p-3 shadow" style="margin-bottom: 15px;">
+      <div class="card p-3 shadow" style="margin-bottom: 10px;">
         <!-- bread crumbs -->
         <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
           <div class="mb-3 mb-sm-0">
@@ -1298,23 +1222,24 @@
             </span>
           </div>
           <div>
-            <button class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1" data-bs-toggle="modal"
-              style="margin-left: 10px;
-              display: inline-block;
-              border-radius: 4px;
-              margin-bottom: 20px;
-              padding-top: 10px;
-              font-weight: 600;
-              box-sizing: border-box;
-              text-align: center;
-              cursor: pointer;
-              transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-              position: relative;
-              background: #e3a51e;
-              border: none;
-              font-size: 14px;
-              height: 45px;
-              color: white;" data-bs-target="#productListModal" ng-click="loadProductList()">
+            <button class="btn btn-primary"
+            style="display: inline-block;
+            border-radius: 4px;
+            padding-top: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            position: relative;
+            background: #e3a51e;
+            border: none;
+            font-size: 14px;
+            height: 45px;
+            color: white;"
+             ng-if=" bill.trangThai == 1" data-bs-toggle="modal"
+              data-bs-target="#productListModal" ng-click="loadProductList()">
               <i class="ti ti-plus" style="
                                   display: inline-block;
                                   font-size: 18px;
@@ -1322,14 +1247,7 @@
                               "></i>
               Thêm sản phẩm</button>
 
-            <button class="btn btn-danger" ng-if="bill.trangThai == 4" data-bs-toggle="modal"
-              data-bs-target="#refundModal">
-              <i class="ti ti-credit-card-refund" style="
-                                    display: inline-block;
-                                    font-size: 18px;
-                                    transform: translateY(2px);
-                                "></i>
-              Trả hàng toàn bộ</button>
+            
           </div>
         </div>
 
@@ -1349,9 +1267,6 @@
                 </th>
                 <th class="border-bottom-0 text-center" style="width: 17%;">
                   <h6 class="fw-semibold mb-0">Tổng tiền</h6>
-                </th>
-                <th class="border-bottom-0 text-center" style="width: 17%;" ng-if="bill.trangThai == 4">
-                  <h6 class="fw-semibold mb-0">Thao tác</h6>
                 </th>
 
               </tr>
@@ -1408,10 +1323,10 @@
                   </div>
                 </td>
                 <td class="border-bottom-0" style="display: flex;justify-content: space-between;">
-                  <div ng-if="bill.trangThai == 1 || bill.trangThai == 2">
+                  <div ng-if="bill.trangThai == 1 ">
                     <button class="btn btn-sm btn-outline-muted"
-                      style="width: 33.3%;border-radius: 0px;border-top-left-radius: 5px;font-size: 1px;
-                      border-bottom-left-radius: 5px;height: 40px;color: #e3a51e;background-color: white; border:1px solid #e3a51e;"
+                      style="width: 33.3%;border-radius: 0px;background-color: white;color: #e3a51e;border-color: #e3a51e;
+                      border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 40px;"
                       ng-click="minusQuantity(billDetail)">
                       <i class="ti ti-minus" style="font-size: 12px;"></i>
                     </button>
@@ -1420,9 +1335,8 @@
                       ng-model="billDetail.soLuong" ng-change="changeQuantity(billDetail)" disabled
                       id="bill-detail-quantity-{{billDetail.id}}">
                     <button class="btn btn-sm btn-outline-muted"
-                      style="width: 33%;border-radius: 0px;border-top-right-radius: 5px;font-size: 1px;
-                      color: #e3a51e;background-color: white; border:1px solid #e3a51e;
-                      border-bottom-right-radius: 5px;height: 40px;"
+                      style="width: 33%;border-radius: 0px;background-color: white;color: #e3a51e;border-color: #e3a51e;
+                      border-top-right-radius: 5px;border-bottom-right-radius: 5px;height: 40px;"
                       ng-click="plusQuantity(billDetail)">
                       <i class="ti ti-plus" style="font-size: 12px;"></i>
                     </button>
@@ -1443,16 +1357,7 @@
                   {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
                   (billDetail.donGia * billDetail.soLuong) : billDetail.donGiaSauKhiGiam * billDetail.soLuong)}}
                 </td>
-                <td ng-if="bill.trangThai == 4">
-                  <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#billDetailSingleRefund"
-                    ng-click="loadProductRefund(billDetail)()">
-                    <i class="ti  ti-a-b-2" style="
-                                    display: inline-block;
-                                    font-size: 18px;
-                                    transform: translateY(2px);
-                                "></i>
-                  </button>
-                </td>
+                
               </tr>
 
             </tbody>
@@ -1847,12 +1752,12 @@
       </div>
 
       <!-- Modal state 3 -->
-      <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding: 20px;">
               <h5 class="modal-title text-center" id="exampleModalLabel">Lý do hủy đơn hàng </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" id="cancelClose" aria-label="Đóng"></button>
+              <button type="button" class="btn-close" id="closeCancelModal" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
             <div class="modal-body">
               <label for="exampleInputEmail1" class="form-label">Lý do: </label>
@@ -1860,50 +1765,46 @@
                 id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
             </div>
             <div class="modal-footer">
-              <button type="button"
-              style="margin-right: 15px;
-                      display: inline-block;
-                      border-radius: 4px;
-                      margin-bottom: 20px;
-                      padding-top: 10px;
-                      font-weight: 600;
-                      box-sizing: border-box;
-                      text-align: center;
-                      cursor: pointer;
-                      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                      position: relative;
-                      background: #eb4528;
-                      border: none;
-                      font-size: 14px;
-                      height: 45px;
-                      color: white;
-                      "
-               class="btn btn-danger" data-bs-dismiss="modal">
+              <button type="button" 
+              style="display: inline-block;
+              border-radius: 4px;
+              padding-top: 10px;
+              margin-bottom: 20px;
+              font-weight: 600;
+              box-sizing: border-box;
+              text-align: center;
+              cursor: pointer;
+              transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+              position: relative;
+              background: #eb4528;
+              border: none;
+              font-size: 14px;
+              height: 45px;
+              color: white;"
+              class="btn btn-danger" data-bs-dismiss="modal">
                 <i class="ti ti-x" style="
                         display: inline-block;
                         font-size: 18px;
                         transform: translateY(2px);
                     "></i>
                 Đóng</button>
-              <button type="button"
-              style="margin-right: 15px;
-                      display: inline-block;
-                      border-radius: 4px;
-                      margin-bottom: 20px;
-                      padding-top: 10px;
-                      font-weight: 600;
-                      box-sizing: border-box;
-                      text-align: center;
-                      cursor: pointer;
-                      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                      position: relative;
-                      background: #e3a51e;
-                      border: none;
-                      font-size: 14px;
-                      height: 45px;
-                      color: white;
-                      "
-               class="btn btn-primary" ng-click="cancelBill()">
+              <button type="button" class="btn btn-primary"
+              style="display: inline-block;
+              border-radius: 4px;
+              padding-top: 15px;
+              margin-bottom: 20px;
+              font-weight: 600;
+              box-sizing: border-box;
+              text-align: center;
+              cursor: pointer;
+              transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+              position: relative;
+              background: #e3a51e;
+              border: none;
+              font-size: 14px;
+              height: 45px;
+              color: white;"
+               ng-click="cancelBill()">
                 Xác nhận hủy
               </button>
             </div>
@@ -1912,12 +1813,12 @@
       </div>
 
       <!-- customer modal -->
-      <div class="modal fade" id="customerEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal" id="customerEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header" style="padding: 20px; padding-bottom: 0px;">
+            <div class="modal-header" style="padding: 20px;">
               <h5 class="modal-title text-center" id="exampleModalLabel">Sửa khách hàng</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+              <button type="button" id="closeModalCustomer" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
             <div class="modal-body">
               <div>
@@ -1925,7 +1826,7 @@
                   <label for="exampleInputEmail1" class="form-label">Tên khách hàng <sup
                       style="color: #fa0000a8;">*</sup></label>
                   <input placeholder="Nhập tên khách hàng...." style="height: 40px;" type="text" class="form-control"
-                    ng-model="bill.tenNguoiNhan" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    ng-model="oldBill.tenNguoiNhan" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
 
                 <div style=" margin-top: 20px;display: flex;justify-content: space-between;">
@@ -1934,14 +1835,14 @@
                         style="color: #fa0000a8;">*</sup>
                     </label>
                     <input placeholder="Nhập số điện thoại..." style="height: 40px;" type="text m" class="form-control"
-                      id="exampleInputEmail1" ng-model="bill.sdtNguoiNhan" aria-describedby="emailHelp">
+                      id="exampleInputEmail1" ng-model="oldBill.sdtNguoiNhan" aria-describedby="emailHelp">
                   </div>
 
                   <div style="width: 48%;">
                     <label for="exampleInputEmail1" class="form-label">Email <sup style="color: #fa0000a8;">*</sup>
                     </label>
                     <input placeholder="Nhập email..." style="height: 40px;" type="text m" class="form-control"
-                      id="exampleInputEmail1" ng-model="bill.email" aria-describedby="emailHelp">
+                      id="exampleInputEmail1" ng-model="oldBill.email" aria-describedby="emailHelp">
                   </div>
 
                 </div>
@@ -1975,8 +1876,7 @@
                     <label for="exampleInputEmail1" class="form-label">Xã/phường <sup
                         style="color: #fa0000a8;">*</sup></label>
                     <div class="select-wrap">
-                      <select class="form-select" id="ward" name="select" placeholder="Chọn trạng thái"
-                        onchange="angular.element(this).scope().getFeeShipping()">
+                      <select class="form-select" id="ward" name="select" placeholder="Chọn trạng thái">
                         >
                         <option value="">--Chọn Xã/Phường--</option>
                       </select>
@@ -1988,43 +1888,18 @@
                         style="color: #fa0000a8;">*</sup>
                     </label>
                     <input placeholder="Nhập địa chỉ..." style="height: 40px;" type="text" class="form-control"
-                      id="exampleInputEmail1" ng-model="bill.diaChi" aria-describedby="emailHelp">
+                      id="exampleInputEmail1" ng-model="oldBill.diaChi" aria-describedby="emailHelp">
                   </div>
 
                 </div>
+
+
 
               </div>
             </div>
             <div class="modal-footer">
               <button type="button"
-                      style="margin-right: 15px;
-                      display: inline-block;
-                      border-radius: 4px;
-                      margin-bottom: 20px;
-                      padding-top: 10px;
-                      font-weight: 600;
-                      box-sizing: border-box;
-                      text-align: center;
-                      cursor: pointer;
-                      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                      position: relative;
-                      background: #eb4528;
-                      border: none;
-                      font-size: 14px;
-                      height: 45px;
-                      color: white;
-                      "
-               class="btn btn-danger" data-bs-dismiss="modal">
-                <i class="ti ti-x" style="
-                                               display: inline-block;
-                                               font-size: 18px;
-                                               transform: translateY(2px);
-                                               
-                                           "></i>
-                Đóng</button>
-              <button type="button" class="btn btn-primary" ng-click="updateCustomer()" 
-              style="margin-right: 15px;
-              display: inline-block;
+              style="display: inline-block;
               border-radius: 4px;
               padding-top: 10px;
               margin-bottom: 20px;
@@ -2034,12 +1909,36 @@
               cursor: pointer;
               transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
               position: relative;
-              background: #e3a51e;
+              background: #eb4528;
               border: none;
               font-size: 14px;
               height: 45px;
-              color: white;
-              ">
+              color: white;"
+               class="btn btn-danger" data-bs-dismiss="modal">
+                <i class="ti ti-x" style="
+                                               display: inline-block;
+                                               font-size: 18px;
+                                               transform: translateY(2px);
+                                           "></i>
+                Đóng</button>
+              <button type="button" 
+              class="btn btn-primary" ng-click="updateCustomer()" 
+               style="display: inline-block;
+               margin-right: 10px;
+                border-radius: 4px;
+                padding-top: 10px;
+                margin-bottom: 20px;
+                font-weight: 600;
+                box-sizing: border-box;
+                text-align: center;
+                cursor: pointer;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                position: relative;
+                background: #e3a51e;
+                border: none;
+                font-size: 14px;
+                height: 45px;
+                color: white;">
                 <i class="ti ti-edit" style="
                                    display: inline-block;
                                    font-size: 18px;
@@ -2053,15 +1952,15 @@
       </div>
 
       <!-- list product -->
-      <div class="modal fade" id="productListModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+      <div class="modal" id="productListModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content" style="width: 900px;
                    top: -4px;
                    left: -147px;">
-            <div class="modal-header" style="padding: 20px; padding-bottom: 0px;">
+            <div class="modal-header" style="padding: 20px;">
               <h5 class="modal-title text-center" id="exampleModalLabel">Chọn sản phẩm</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+              <button type="button" id="closeModalProduct" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
             <div class="modal-body">
               <div class="table-responsive">
@@ -2116,17 +2015,25 @@
                               <span>Thương hiệu: {{product.idSanPham.idThuongHieu.ten}}</span>
                             </div>
 
-                            <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 0">
+                            <div class="d-flex align-items-center gap-2"
+                              ng-if="product.trangThai == 1 && product.soLuongTon == 0">
                               <span class="badge bg-danger rounded-3 fw-semibold" style="    
                                         padding: 10px;
-                                        font-size: 8px;">Ngừng kinh doanh</span>
+                                        font-size: 8px;">Hết hàng</span>
                             </div>
 
-                            <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 1" "
-                            >
+                            <div class="d-flex align-items-center gap-2"
+                              ng-if="product.trangThai == 1 && product.soLuongTon > 0 ">
                               <span class=" badge bg-primary rounded-3 fw-semibold" style="    
                                       padding: 10px;
                                       font-size: 8px;">Đang kinh doanh</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2"
+                              ng-if="product.trangThai == 0 && product.soLuongTon > 0 ">
+                              <span class=" badge bg-primary rounded-3 fw-semibold" style="    
+                                        padding: 10px;
+                                        font-size: 8px;">Đang kinh doanh</span>
                             </div>
 
                           </div>
@@ -2153,21 +2060,27 @@
 
                       </td>
                       <td class="border-bottom-0">
-                        <button class="btn btn-primary" style="margin-left: 10px;
-              display: inline-block;
-              border-radius: 4px;
-              margin-bottom: 20px;
-              font-weight: 600;
-              box-sizing: border-box;
-              text-align: center;
-              cursor: pointer;
-              transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-              position: relative;
-              background: #e3a51e;
-              border: none;
-              font-size: 14px;
-              height: 45px;
-              color: white;" ng-click="addProductToBill(product)">Chọn</button>
+                        <button class="btn btn-primary"
+                        style="display: inline-block;
+                        border-radius: 4px;
+                        padding-top: 15px;
+                        margin-bottom: 20px;
+                        font-weight: 600;
+                        box-sizing: border-box;
+                        text-align: center;
+                        cursor: pointer;
+                        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                        position: relative;
+                        background: #e3a51e;
+                        border: none;
+                        font-size: 14px;
+                        height: 45px;
+                        color: white;"
+                         ng-if="product.soLuongTon > 0"
+                          ng-click="addProductToBill(product)">Chọn</button>
+                        <button class="btn btn-danger" disabled ng-if="product.soLuongTon == 0">
+                          Hết hàng
+                        </button>
                       </td>
                     </tr>
 
@@ -2185,6 +2098,83 @@
               </span>
             </div>
 
+          </div>
+        </div>
+      </div>
+
+      <!--payment -->
+      <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center" id="exampleModalLabel">Xác nhận thanh toán </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+
+              <div style="margin-bottom: 10px;">
+                <!-- xác nhận phươnt thức thanh toán  -->
+                <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
+                  <button style="width: 49%;font-size: 14px;" class="btn btn-warning button-payment-method"
+                    ng-click="choosePaymentMethod(0)" id="payment-product-detail-0">
+                    Tiền mặt
+                  </button>
+
+                  <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
+                    ng-click="choosePaymentMethod(1)" id="payment-product-detail-1">
+                    Chuyển khoản
+                  </button>
+
+                </div>
+              </div>
+
+              <div style="margin-bottom: 10px;display: flex;">
+                <label for="exampleInputPaymentMethod" class="form-label" style="width: 260px;">Số tiền thanh toán:
+                </label>
+                <input type="number"
+                  onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189" name=""
+                  id="exampleInputPaymentMethod" class="form-control" ng-model="moneyPayment">
+              </div>
+
+              <div style="margin-bottom: 10px;">
+                <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền cần thanh toán:
+                </label>
+                <span style="display: inline-block;color: #eb4528; font-weight: 600;">{{formatToVND(bill.tongTienSauGiam
+                  - moneyChange)}}</span>
+              </div>
+
+              <div style="margin-bottom: 10px;" ng-if="bill.tongTienSauGiam - moneyChange <= moneyPayment">
+                <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền thừa: </label>
+                <span style="display: inline-block;color: #eb4528; font-weight: 600;">{{formatToVND(moneyPayment -
+                  (bill.tongTienSauGiam - moneyChange))}}</span>
+              </div>
+
+              <div style="margin-bottom: 10px;" ng-if="bill.tongTienSauGiam - moneyChange > moneyPayment">
+                <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền còn thiếu:
+                </label>
+                <span style="display: inline-block;color: #eb4528; font-weight: 600;">{{formatToVND(moneyPayment -
+                  (bill.tongTienSauGiam - moneyChange))}}</span>
+              </div>
+
+              <div>
+                <label for="exampleInputEmail1" class="form-label">Ghi chú: </label>
+                <textarea placeholder="Nhập ghi chú...." type="text" class="form-control" ng-model="noteState7"
+                  id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                <i class="ti ti-x" style="
+                        display: inline-block;
+                        font-size: 18px;
+                        transform: translateY(2px);
+                    "></i>
+                Đóng</button>
+              <button type="button" class="btn btn-primary" ng-click="confirmPayment()">
+                Xác nhận thanh toán
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -2254,6 +2244,11 @@
                                       padding: 11px;
                                       font-size: 11px;">Trả hàng</span>
                         </div>
+                        <div class="d-flex align-items-center gap-2" ng-if="e.trangThai === 7">
+                          <span class="badge bg-success rounded-3 fw-semibold" style="    
+                                      padding: 11px;
+                                      font-size: 11px;">Đã thanh toán</span>
+                        </div>
 
                       </td>
                       <td class="border-bottom-0">
@@ -2304,8 +2299,11 @@
 
   <!-- toastr -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-  integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../lib/node_modules/angular-websocket/dist/angular-websocket.js"></script>
+  <script src="../lib//node_modules/sockjs-client/dist/sockjs.min.js"></script>
+  <script src="../lib//node_modules/stompjs/lib/stomp.js"></script>
 </body>
 
 </html>
