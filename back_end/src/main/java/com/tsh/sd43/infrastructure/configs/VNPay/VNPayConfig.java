@@ -1,27 +1,22 @@
-package com.tsh.sd43.infrastructure.ConfigPay;
+package com.tsh.sd43.infrastructure.configs.VNPay;
 
+import org.springframework.stereotype.Component;
+import jakarta.servlet.http.HttpServletRequest;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import java.util.*;
+@Component
+public class VNPayConfig {
 
-public class ConfigPay {
-    
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:8080/payment/payment-callback";
-    public static String vnp_TmnCode = "LCW64KGS";
-    public static String secretKey = "OLCJTYXAUBTUICJWLBNEVUMQFQODIYWD";
-    public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
-
-    public static String VNPAY_CLIENT_VNPAY = "http://127.0.0.1:5500/router.html#!/thanh-toan-thanh-cong";
+    public static String vnp_Returnurl = "/vnpay-payment";
+    public static String vnp_TmnCode = "LS3IXBB3";
+    public static String vnp_HashSecret = "WOOMMUQIFSNSLJYHVUERWHPGYDJFHLLQ";
+    public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
     public static String md5(String message) {
         String digest = null;
@@ -59,7 +54,7 @@ public class ConfigPay {
         return digest;
     }
 
-    // Util for VNPAY
+    //Util for VNPAY
     public static String hashAllFields(Map fields) {
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);
@@ -77,7 +72,7 @@ public class ConfigPay {
                 sb.append("&");
             }
         }
-        return hmacSHA512(secretKey, sb.toString());
+        return hmacSHA512(vnp_HashSecret,sb.toString());
     }
 
     public static String hmacSHA512(final String key, final String data) {
@@ -103,6 +98,18 @@ public class ConfigPay {
         }
     }
 
+    public static String getIpAddress(HttpServletRequest request) {
+        String ipAdress;
+        try {
+            ipAdress = request.getHeader("X-FORWARDED-FOR");
+            if (ipAdress == null) {
+                ipAdress = request.getLocalAddr();
+            }
+        } catch (Exception e) {
+            ipAdress = "Invalid IP:" + e.getMessage();
+        }
+        return ipAdress;
+    }
 
     public static String getRandomNumber(int len) {
         Random rnd = new Random();
@@ -113,5 +120,4 @@ public class ConfigPay {
         }
         return sb.toString();
     }
-
 }

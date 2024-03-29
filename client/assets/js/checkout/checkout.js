@@ -537,7 +537,9 @@ clientApp.controller('checkoutController',
                                 console.log(response.data)
                             })
                     } else {
-                        axios.post('http://localhost:8080/vnpay/payment?total=' + $scope.total + "&orderInfor=" + $scope.bill.ma + "&orderCode=" + $scope.bill.ma).then(function (response) {
+                        var currentLocation = window.location.host + "/router.html#!";
+                        
+                        axios.post('http://localhost:8080/payment?total=' + $scope.total + "&orderInfor=" + $scope.bill.ma + "&currentLocation=" + currentLocation).then(function (response) {
                             console.log(response.data)
                             window.location.href = response.data
                         })

@@ -32,6 +32,7 @@ clientApp.controller('singleProductController',
                     $scope.sizes = response.data
                 });
 
+                console.log($scope.productChooseCurrent)
             if ($scope.productChooseCurrent != null && $scope.productChooseCurrent != undefined ) {
                 if($scope.customer != null){
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
@@ -321,10 +322,12 @@ clientApp.controller('singleProductController',
                     loadQuantityByIdProduct(-1)
                     $scope.showMiniCart()
                     $scope.loadSizes()
+                    $scope.getAllImagesBecomeSlides($scope.productChooseCurrent.id, 'product')
+                    console.log($scope.productChooseCurrent)
                 }, 300)
 
             }).catch(function (error) {
-                console.log(error)
+                toastr.error("Đã có lỗi xảy ra vui lòng liên hệ quản trị viên.")
             })
 
         }
