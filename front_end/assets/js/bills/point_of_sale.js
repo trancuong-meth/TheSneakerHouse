@@ -283,8 +283,34 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     $scope.addProductToBill = function (productDetail) {
         var brandModal = document.querySelector("#productListModal")
         var addModal = bootstrap.Modal.getOrCreateInstance(brandModal)
-        $scope.addProductToBillApi(productDetail, $scope.getActiveBill(), -1)
-        addModal.hide()
+
+        if(productDetail.soLuongTon <=0 ){
+            toastr.error("Số lượng sản phẩm còn lại trong cửa hàng không đủ.Vui lòng chọn sản phẩm khác.")
+            return
+        }
+
+        $http.post('http://localhost:8080/bill-detail/add-product-to-bill', {
+            'hoaDon': $scope.getActiveBill(),
+            'sanPhamChiTiet': productDetail,
+            'soLuong': -1
+        }).then(function (response) {
+            // check gia tri toi thieu voucher 
+            if ($scope.voucher !== null) {
+                if (quantity * productDetail.donGia < $scope.voucher.giaTriToiThieu) {
+                    $scope.removeVoucher();
+                    $scope.voucher = null;
+                }
+            }
+            addModal.hide()
+
+            setTimeout(function () {
+                $scope.loadProductDetailByBillId($scope.getActiveBill())
+                return true;
+            }, 100)
+        }).catch(function (error) {
+            toastr.error(error.data.message)
+            return;
+        })
     }
 
     $scope.addProductToBillApi = function (productDetail, bill, quantity) {
@@ -308,7 +334,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             }, 100)
         }).catch(function (error) {
             toastr.error(error.data.message)
-            return false;
+            return;
         })
 
     }
@@ -511,7 +537,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 //create payment method
                 if ($scope.paymentMethod == 0) {
                     // phương thứuc thanh toán là tiền mặt
-                    $scope.bill.soTienKhachDua = $scope.moneyCustomerPayment
+                    $scope.bill.soTienKhachDua = $scope.totalAllPrice
                     var moneyPaymentModal = document.querySelector("#moneyPaymentModal")
                     var modal = bootstrap.Modal.getOrCreateInstance(moneyPaymentModal)
                     modal.hide()

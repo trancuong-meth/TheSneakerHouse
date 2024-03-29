@@ -554,7 +554,7 @@
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
         Xác nhận
       </button>
-      <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#cancelModal"  style="margin-left: 10px;">
+      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal" style="margin-left: 10px;">
         Hủy
       </button>
     </div>
@@ -574,7 +574,7 @@
       <button class="btn btn-warning" ng-click="print()" style="margin-left: 10px;">
         Xuất hóa đơn
       </button>
-      <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#cancelModal" style="margin-left: 10px;">
+      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal" style="margin-left: 10px;">
         Hủy
       </button>
     </div>
@@ -588,7 +588,7 @@
 
   <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 5 && history.length > 1">
     <div style="display: flex;width: 60%;">
-      
+
     </div>
 
     <div style="display: flex;justify-content: space-between;">
@@ -606,7 +606,7 @@
       <button class="btn btn-warning" ng-click="print()" style="margin-left: 10px;">
         Xuất hóa đơn
       </button>
-      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal" style="margin-left: 10px;">
+      <button class="btn btn-danger" id="btnCancelShip" data-bs-toggle="modal" data-bs-target="#cancelModal" style="margin-left: 10px;">
         Hủy
       </button>
     </div>
@@ -964,14 +964,24 @@
     </div>
 
     <div>
-      <button class="btn btn-primary" ng-if="bill.trangThai == 2 || bill.trangThai == 1" data-bs-toggle="modal"
-        data-bs-target="#productListModal" ng-click="loadProductList()">
+      <button class="btn btn-primary" ng-if="moneyChange < bill.tongTienSauGiam" data-bs-toggle="modal"
+        ng-click="loadMoneyPayment()"
+        data-bs-target="#paymentModal">
         <i class="ti ti-plus" style="
                           display: inline-block;
                           font-size: 18px;
                           transform: translateY(2px);
                       "></i>
         Xác nhận thanh toán</button>
+
+      <!-- <button class="btn btn-danger" ng-if="moneyChange > bill.tongTienSauGiam" data-bs-toggle="modal"
+        data-bs-target="#productListModal" ng-click="loadProductList()">
+        <i class="ti ti-a-b-2" style="
+                          display: inline-block;
+                          font-size: 18px;
+                          transform: translateY(2px);
+                      "></i>
+        Xác nhận hoàn tiền</button> -->
     </div>
   </div>
 
@@ -984,7 +994,7 @@
             <h6 class="fw-semibold mb-0 text-center" style="border-right: 1px solid #b1acac;">#</h6>
           </th>
           <th class="border-bottom-0 text-center" style="width: 45%;">
-            <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Phuơng thức thanh toán</h6>
+            <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Phương thức thanh toán</h6>
           </th>
           <th class="border-bottom-0 text-center" style="width: 20%;">
             <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Số tiền thanh toán</h6>
@@ -1597,7 +1607,7 @@
             <label for="exampleInputEmail1" class="form-label">Tên khách hàng <sup
                 style="color: #fa0000a8;">*</sup></label>
             <input placeholder="Nhập tên khách hàng...." style="height: 40px;" type="text" class="form-control"
-              ng-model="bill.tenNguoiNhan" id="exampleInputEmail1" aria-describedby="emailHelp">
+              ng-model="oldBill.tenNguoiNhan" id="exampleInputEmail1" aria-describedby="emailHelp">
           </div>
 
           <div style=" margin-top: 20px;display: flex;justify-content: space-between;">
@@ -1605,14 +1615,14 @@
               <label for="exampleInputEmail1" class="form-label">Số điện thoại <sup style="color: #fa0000a8;">*</sup>
               </label>
               <input placeholder="Nhập số điện thoại..." style="height: 40px;" type="text m" class="form-control"
-                id="exampleInputEmail1" ng-model="bill.sdtNguoiNhan" aria-describedby="emailHelp">
+                id="exampleInputEmail1" ng-model="oldBill.sdtNguoiNhan" aria-describedby="emailHelp">
             </div>
 
             <div style="width: 48%;">
               <label for="exampleInputEmail1" class="form-label">Email <sup style="color: #fa0000a8;">*</sup>
               </label>
               <input placeholder="Nhập email..." style="height: 40px;" type="text m" class="form-control"
-                id="exampleInputEmail1" ng-model="bill.email" aria-describedby="emailHelp">
+                id="exampleInputEmail1" ng-model="oldBill.email" aria-describedby="emailHelp">
             </div>
 
           </div>
@@ -1646,8 +1656,7 @@
               <label for="exampleInputEmail1" class="form-label">Xã/phường <sup
                   style="color: #fa0000a8;">*</sup></label>
               <div class="select-wrap">
-                <select class="form-select" id="ward" name="select" placeholder="Chọn trạng thái"
-                  onchange="angular.element(this).scope().getFeeShipping()">
+                <select class="form-select" id="ward" name="select" placeholder="Chọn trạng thái">
                   >
                   <option value="">--Chọn Xã/Phường--</option>
                 </select>
@@ -1658,7 +1667,7 @@
               <label for="exampleInputEmail1" class="form-label">Số nhà/Ngõ/Đường <sup style="color: #fa0000a8;">*</sup>
               </label>
               <input placeholder="Nhập địa chỉ..." style="height: 40px;" type="text" class="form-control"
-                id="exampleInputEmail1" ng-model="bill.diaChi" aria-describedby="emailHelp">
+                id="exampleInputEmail1" ng-model="oldBill.diaChi" aria-describedby="emailHelp">
             </div>
 
           </div>
@@ -1750,17 +1759,25 @@
                         <span>Thương hiệu: {{product.idSanPham.idThuongHieu.ten}}</span>
                       </div>
 
-                      <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 0">
+                      <div class="d-flex align-items-center gap-2"
+                        ng-if="product.trangThai == 1 && product.soLuongTon == 0">
                         <span class="badge bg-danger rounded-3 fw-semibold" style="    
                                   padding: 10px;
-                                  font-size: 8px;">Ngừng kinh doanh</span>
+                                  font-size: 8px;">Hết hàng</span>
                       </div>
 
-                      <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 1" "
-                      >
+                      <div class="d-flex align-items-center gap-2"
+                        ng-if="product.trangThai == 1 && product.soLuongTon > 0 ">
                         <span class=" badge bg-primary rounded-3 fw-semibold" style="    
                                 padding: 10px;
                                 font-size: 8px;">Đang kinh doanh</span>
+                      </div>
+
+                      <div class="d-flex align-items-center gap-2"
+                        ng-if="product.trangThai == 0 && product.soLuongTon > 0 ">
+                        <span class=" badge bg-primary rounded-3 fw-semibold" style="    
+                                  padding: 10px;
+                                  font-size: 8px;">Đang kinh doanh</span>
                       </div>
 
                     </div>
@@ -1787,7 +1804,11 @@
 
                 </td>
                 <td class="border-bottom-0">
-                  <button class="btn btn-primary" ng-click="addProductToBill(product)">Chọn</button>
+                  <button class="btn btn-primary" ng-if="product.soLuongTon > 0"
+                    ng-click="addProductToBill(product)">Chọn</button>
+                  <button class="btn btn-danger" disabled ng-if="product.soLuongTon == 0">
+                    Hết hàng
+                  </button>
                 </td>
               </tr>
 
@@ -1805,6 +1826,78 @@
         </span>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!--payment -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Xác nhận thanh toán </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+
+        <div style="margin-bottom: 10px;">
+          <!-- xác nhận phươnt thức thanh toán  -->
+          <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
+            <button style="width: 49%;font-size: 14px;" class="btn btn-warning button-payment-method"
+              ng-click="choosePaymentMethod(0)" id="payment-product-detail-0">
+                Tiền mặt
+            </button>
+
+            <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
+              ng-click="choosePaymentMethod(1)" id="payment-product-detail-1">
+              Chuyển khoản
+            </button>
+
+          </div>  
+        </div>
+
+        <div style="margin-bottom: 10px;display: flex;">
+          <label for="exampleInputPaymentMethod" class="form-label" style="width: 260px;">Số tiền thanh toán: </label>
+          <input type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189" name="" id="exampleInputPaymentMethod" class="form-control" ng-model="moneyPayment">
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền cần thanh toán: </label>
+          <span style="display: inline-block;color: #eb4528; font-weight: 600;"
+          >{{formatToVND(bill.tongTienSauGiam - moneyChange)}}</span>
+        </div>
+
+        <div style="margin-bottom: 10px;" ng-if="bill.tongTienSauGiam - moneyChange <= moneyPayment">
+          <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền thừa: </label>
+          <span style="display: inline-block;color: #eb4528; font-weight: 600;"
+          >{{formatToVND(moneyPayment - (bill.tongTienSauGiam - moneyChange))}}</span>
+        </div>
+
+        <div style="margin-bottom: 10px;" ng-if="bill.tongTienSauGiam - moneyChange > moneyPayment">
+          <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền còn thiếu: </label>
+          <span style="display: inline-block;color: #eb4528; font-weight: 600;"
+          >{{formatToVND(moneyPayment - (bill.tongTienSauGiam - moneyChange))}}</span>
+        </div>
+
+        <div>
+          <label for="exampleInputEmail1" class="form-label">Ghi chú: </label>
+          <textarea placeholder="Nhập ghi chú...." type="text" class="form-control" ng-model="noteState7"
+            id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-primary" ng-click="confirmPayment()">
+          Xác nhận thanh toán
+        </button>
+      </div>
     </div>
   </div>
 </div>
