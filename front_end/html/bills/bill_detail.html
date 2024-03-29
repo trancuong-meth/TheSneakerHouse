@@ -606,7 +606,8 @@
       <button class="btn btn-warning" ng-click="print()" style="margin-left: 10px;">
         Xuất hóa đơn
       </button>
-      <button class="btn btn-danger" id="btnCancelShip" data-bs-toggle="modal" data-bs-target="#cancelModal" style="margin-left: 10px;">
+      <button class="btn btn-danger" id="btnCancelShip" data-bs-toggle="modal" data-bs-target="#cancelModal"
+        style="margin-left: 10px;">
         Hủy
       </button>
     </div>
@@ -971,9 +972,8 @@
     </div>
 
     <div>
-      <button class="btn btn-primary" ng-if="moneyChange < bill.tongTienSauGiam" data-bs-toggle="modal"
-        ng-click="loadMoneyPayment()"
-        data-bs-target="#paymentModal">
+      <button class="btn btn-primary" ng-if="moneyChange < bill.tongTienSauGiam && bill.trangThai !== 5" data-bs-toggle="modal"
+        ng-click="loadMoneyPayment()" data-bs-target="#paymentModal">
         <i class="ti ti-plus" style="
                           display: inline-block;
                           font-size: 18px;
@@ -1852,7 +1852,7 @@
           <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
             <button style="width: 49%;font-size: 14px;" class="btn btn-warning button-payment-method"
               ng-click="choosePaymentMethod(0)" id="payment-product-detail-0">
-                Tiền mặt
+              Tiền mặt
             </button>
 
             <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
@@ -1860,30 +1860,32 @@
               Chuyển khoản
             </button>
 
-          </div>  
+          </div>
         </div>
 
         <div style="margin-bottom: 10px;display: flex;">
           <label for="exampleInputPaymentMethod" class="form-label" style="width: 260px;">Số tiền thanh toán: </label>
-          <input type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189" name="" id="exampleInputPaymentMethod" class="form-control" ng-model="moneyPayment">
+          <input type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+            name="" id="exampleInputPaymentMethod" class="form-control" ng-model="moneyPayment">
         </div>
 
         <div style="margin-bottom: 10px;">
-          <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền cần thanh toán: </label>
-          <span style="display: inline-block;color: #eb4528; font-weight: 600;"
-          >{{formatToVND(bill.tongTienSauGiam - moneyChange)}}</span>
+          <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền cần thanh toán:
+          </label>
+          <span style="display: inline-block;color: #eb4528; font-weight: 600;">{{formatToVND(bill.tongTienSauGiam -
+            moneyChange)}}</span>
         </div>
 
         <div style="margin-bottom: 10px;" ng-if="bill.tongTienSauGiam - moneyChange <= moneyPayment">
           <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền thừa: </label>
-          <span style="display: inline-block;color: #eb4528; font-weight: 600;"
-          >{{formatToVND(moneyPayment - (bill.tongTienSauGiam - moneyChange))}}</span>
+          <span style="display: inline-block;color: #eb4528; font-weight: 600;">{{formatToVND(moneyPayment -
+            (bill.tongTienSauGiam - moneyChange))}}</span>
         </div>
 
         <div style="margin-bottom: 10px;" ng-if="bill.tongTienSauGiam - moneyChange > moneyPayment">
           <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền còn thiếu: </label>
-          <span style="display: inline-block;color: #eb4528; font-weight: 600;"
-          >{{formatToVND(moneyPayment - (bill.tongTienSauGiam - moneyChange))}}</span>
+          <span style="display: inline-block;color: #eb4528; font-weight: 600;">{{formatToVND(moneyPayment -
+            (bill.tongTienSauGiam - moneyChange))}}</span>
         </div>
 
         <div>

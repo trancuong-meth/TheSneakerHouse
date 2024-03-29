@@ -911,13 +911,14 @@ clientApp.controller('billDetailController',
         stompClient.connect({}, function (frame) {
 
             stompClient.subscribe("/bill/bill-detail", function (message) {
-                toastr.success(message.body)
+                // toastr.success(message.body)
                 $scope.loadBill()
                 return;
             });
         });
 
         $scope.addBill = function (text) {
+            toastr.success(text)
             var message = {
                 name: text,
             };
