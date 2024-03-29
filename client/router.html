@@ -634,6 +634,8 @@
 
                 // success payment
                 .when("/thanh-toan-thanh-cong", { templateUrl: "bills/success_payment.html", controller: "successPaymentController" })
+                .when("/thanh-toan-that-bai", { templateUrl: "bills/error_payment.html", controller: "errorPaymentController" })
+
 
                 // mặc định 
                 .otherwise({ redirectTo: "/trang-chu" })
@@ -653,6 +655,7 @@
     <script src="assets/js/user/bill.js"></script>
     <script src="assets/js/user/changePass.js"></script>
     <script src="assets/js/product_detail/shop.js"></script>
+    <script src="assets/js/bill/success_payment.js"></script>
     
 </body>
 

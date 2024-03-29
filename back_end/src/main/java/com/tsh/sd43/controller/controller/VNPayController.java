@@ -26,6 +26,6 @@ public class VNPayController {
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
 
-        return paymentStatus == 1 ? "index" : "orderfail";
+        return paymentStatus == 1 ? "index" : "index2";
     }
 }

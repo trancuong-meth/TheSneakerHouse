@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx">
 
 <!-- Mirrored from htmldemo.net/juan/juan/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 16:53:36 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,15 +30,83 @@
 
     <!-- main wrapper start -->
     <main>
-    
-       <div class="card">
-            
-       </div>
-        
+
+        <div class="card text-center" style="   
+                                            width: 50%;
+                                            margin-left: auto;
+                                            height: 300px;
+                                            margin-right: auto;
+                                            margin-bottom: 20px;
+                                            ">
+
+            <div class="card-body">
+                <div style="    
+                width: 80px;
+                height: 80px;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: #2bbe7d;
+                color: white;
+                font-size: 50px;
+                margin-bottom: 20px;
+                border-radius: 50%;">
+                    <i class="ti ti-check"></i>
+                </div>
+                <h5 class="card-title" style="
+                                            color: #2bbe7d;
+                                            width: 55%;
+                                            margin-right: auto;
+                                            margin-left: auto;"
+                >Hóa đơn {{bill.ma}} đã được thanh toán thành công</h5>
+                <p style="margin-bottom: 20px;" class="card-text">
+                    Số tiền bạn vừa thanh toán là : <span style="
+                                                            color: #e60e23;
+                                                            font-size: 18px;
+                                                            font-weight: 700;">{{formatToVND(bill.tongTienSauGiam)}}</span>
+                </p>
+                <a
+                style="display: inline-block;
+                border-radius: 4px;
+                padding-top: 15px;
+                margin-bottom: 20px;
+                font-weight: 600;
+                box-sizing: border-box;
+                text-align: center;
+                cursor: pointer;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                position: relative;
+                background: #e3a51e;
+                border: none;
+                font-size: 14px;
+                height: 45px;
+                color: white;"
+                 href="#!chi-tiet-hoa-don/{{bill.id}}" class="btn btn-primary">Xem chi tiết đơn hàng</a>
+
+                 <a
+                 style="display: inline-block;
+                 border-radius: 4px;
+                 padding-top: 15px;
+                 margin-bottom: 20px;
+                 font-weight: 600;
+                 box-sizing: border-box;
+                 text-align: center;
+                 cursor: pointer;
+                 transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                 position: relative;
+                 background: #e3a51e;
+                 border: none;
+                 font-size: 14px;
+                 height: 45px;
+                 color: white;"
+                  href="#!trang-chu" class="btn btn-primary">Đi về trang chủ</a>
+            </div>
+
+        </div>
+
     </main>
     <!-- main wrapper end -->
 
-  
+
     <!-- offcanvas search form start -->
     <div class="offcanvas-search-wrapper">
         <div class="offcanvas-search-inner">
@@ -148,8 +217,13 @@
     <script src="assets/js/plugins.js"></script>
     <!--=== Active Js ===-->
     <script src="assets/js/active.js"></script>
+
+    <script src="../lib/node_modules/angular-websocket/dist/angular-websocket.js"></script>
+    <script src="../lib//node_modules/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="../lib//node_modules/stompjs/lib/stomp.js"></script>
 </body>
-    
+
 
 <!-- Mirrored from htmldemo.net/juan/juan/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 16:53:36 GMT -->
+
 </html>

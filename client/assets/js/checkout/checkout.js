@@ -471,7 +471,6 @@ clientApp.controller('checkoutController',
                                 'ghiChu': $scope.bill.ghiChu,
                                 'hoaDon': response.data
                             }).then(function (response) {
-
                             }).catch(function (error) {
                                 console.log(error);
                             })
@@ -537,8 +536,9 @@ clientApp.controller('checkoutController',
                                 console.log(response.data)
                             })
                     } else {
-                        var currentLocation = window.location.host + "/router.html#!";
-                        localStorage.setItem("currentLocation", currentLocation)
+                        localStorage.setItem("bill_vnpay", JSON.stringify($scope.bill) )
+                        localStorage.setItem("bill_detail_vnpay",  JSON.stringify($scope.cartDetails))
+                        var currentLocation = "/"
                         axios.post('http://localhost:8080/payment?total=' + $scope.total + "&orderInfor=" + $scope.bill.ma + "&currentLocation=" + currentLocation).then(function (response) {
                             console.log(response.data)
                             window.location.href = response.data
