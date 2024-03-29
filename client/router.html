@@ -632,6 +632,9 @@
                 // register
                 .when("/danh-sach-san-pham", { templateUrl: "products/shop.html", controller: "shopControllers" })
 
+                // success payment
+                .when("/thanh-toan-thanh-cong", { templateUrl: "bills/success_payment.html", controller: "successPaymentController" })
+
                 // mặc định 
                 .otherwise({ redirectTo: "/trang-chu" })
         })

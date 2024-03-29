@@ -277,4 +277,13 @@ clientApp.controller('shopControllers',
             return formatter.format(amount);
         }
 
+        $scope.getAllImagesByIDProductDetail = function (id) {
+            var html = document.getElementById("image-" + id);
+            axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
+                html.src = response.data[0].duongDan
+            }).catch(function (error) {
+                console.log(error)
+            })
+        }
+
     });

@@ -538,7 +538,7 @@ clientApp.controller('checkoutController',
                             })
                     } else {
                         var currentLocation = window.location.host + "/router.html#!";
-                        
+                        localStorage.setItem("currentLocation", currentLocation)
                         axios.post('http://localhost:8080/payment?total=' + $scope.total + "&orderInfor=" + $scope.bill.ma + "&currentLocation=" + currentLocation).then(function (response) {
                             console.log(response.data)
                             window.location.href = response.data
