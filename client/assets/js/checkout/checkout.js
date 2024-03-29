@@ -539,7 +539,7 @@ clientApp.controller('checkoutController',
                         localStorage.setItem("bill_vnpay", JSON.stringify($scope.bill) )
                         localStorage.setItem("bill_detail_vnpay",  JSON.stringify($scope.cartDetails))
                         var currentLocation = "/"
-                        axios.post('http://localhost:8080/payment?total=' + $scope.total + "&orderInfor=" + $scope.bill.ma + "&currentLocation=" + currentLocation).then(function (response) {
+                        axios.post('http://localhost:8080/payment?total=' + Math.round($scope.total) + "&orderInfor=" + $scope.bill.ma + "&currentLocation=" + currentLocation).then(function (response) {
                             console.log(response.data)
                             window.location.href = response.data
                         })
