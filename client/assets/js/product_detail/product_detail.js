@@ -186,10 +186,9 @@ clientApp.controller('singleProductController',
             currentSize.classList.remove("size-product-detail")
 
             $scope.productChooseCurrent = productDetail
-            console.log($scope.productChooseCurrent)
             setTimeout(() => {
-                $scope.getAllImagesByIDProductDetail($scope.productChooseCurrent.id)
-            }, 10)
+                $scope.getAllImagesBecomeSlides($scope.productChooseCurrent.id, 'product')
+            }, 100)
         }
 
         $scope.getAllImagesByIDProductDetail = function (id) {
@@ -200,6 +199,55 @@ clientApp.controller('singleProductController',
                 console.log(error)
             })
         }
+
+        $scope.getAllImagesBecomeSlides = function (id, text) {
+            var textFist = `
+            <div id="carousel-${id}" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                
+            `
+            var textCenter = ''
+            var textLast = `
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-${id}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-${id}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            `
+            var html = document.getElementById("image-" + id)
+            if (text !== undefined) {
+                var html = document.getElementById("image-" + text + "-" + $scope.product.id)
+            }
+            console.log(html)
+    
+            axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    if (i == 0) {
+                        textCenter += `
+                            <div class="carousel-item active">
+                                <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
+                            </div>`
+                    } else {
+                        textCenter += `
+                            <div class="carousel-item">
+                                <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
+                            </div>`
+                    }
+    
+                }
+    
+                html.innerHTML = textFist + textCenter + textLast
+    
+            }).catch(function (error) {
+                console.log(error)
+            })
+        }
+    
 
         $scope.addToCart = () => {
 

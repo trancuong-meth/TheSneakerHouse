@@ -79,7 +79,9 @@ main_app.controller("billController", function ($scope, $http) {
     stompClient.subscribe("/bill/bills", function (message) {
       $scope.loadBills(-1)
       console.log(message)
-      toastr.success(`Có đơn hàng ${message.body} vừa được đặt.`)
+      if(message.body == "hehe"){
+        toastr.success(`Có đơn hàng ${message.body} vừa được đặt.`)
+      }
       return;
     });
   });
