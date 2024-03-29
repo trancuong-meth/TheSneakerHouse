@@ -34,7 +34,7 @@ public class CustomerRestController {
         try{
             return new ResponseEntity<>(customerSer.addCustomer(req), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -61,7 +61,7 @@ public class CustomerRestController {
         try{
             return new ResponseEntity<>(customerSer.register(req), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 

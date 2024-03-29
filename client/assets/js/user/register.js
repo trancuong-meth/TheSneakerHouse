@@ -68,7 +68,7 @@ clientApp.controller('registerController',
                         $window.location.href = "#!dang-nhap"
                     })
                         .catch(function (response) {
-                            console.log(response.data.message)
+                            toastr.error(response.response.data.message)
                         })
                 }
             }
