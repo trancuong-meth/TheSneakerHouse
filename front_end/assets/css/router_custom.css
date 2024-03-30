@@ -1171,7 +1171,7 @@ svg * {
   position: absolute;
   overflow: hidden;
   top: 15px;
-  left: 35px;
+  left: 65px;
   z-index: 3;
 }
 .ribbon span {
