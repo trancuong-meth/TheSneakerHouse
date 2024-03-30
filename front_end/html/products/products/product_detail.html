@@ -224,14 +224,16 @@
             <div style="width: 48%;">
               <label for="exampleInputEmail1" class="form-label">Số lượng tồn
               </label>
-              <input placeholder="Nhập số điện thoại..." style="height: 40px;" type="text m" class="form-control"
+              <input placeholder="Nhập số điện thoại..." style="height: 40px;" type="number" class="form-control"
+                onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                 id="exampleInputEmail1" ng-model="product_detail.soLuongTon" aria-describedby="emailHelp">
             </div>
 
             <div style="width: 48%;">
               <label for="exampleInputEmail1" class="form-label">Đơn giá
               </label>
-              <input placeholder="Nhập email..." style="height: 40px;" type="text m" class="form-control"
+              <input placeholder="Nhập email..." style="height: 40px;" type="number" class="form-control"
+                onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                 id="exampleInputEmail1" ng-model="product_detail.donGia" aria-describedby="emailHelp">
             </div>
 
