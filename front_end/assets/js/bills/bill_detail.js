@@ -32,6 +32,8 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.noteState4 = ""
     $scope.noteState5 = ""
     $scope.noteState7 = ""
+    $scope.noteState8 = ""
+    $scope.noteState9 = ""
 
     // product refund
     $scope.billDetailRefund = {}
@@ -47,6 +49,12 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     // refund
     $scope.billDetailRefunds = []
     $scope.moneyRefund = 0;
+
+    // reason back
+    $scope.reasonBack = 0;
+    $scope.moneyBack = 0;
+    $scope.moneyBacked = 0;
+    $scope.billDetailBacks;
 
     // REGEX
     var phone_regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
@@ -65,6 +73,12 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 response.data.forEach(element => {
                     $scope.moneyRefund += element.donGiaSauKhiGiam == null ? element.donGia * element.soLuong : element.donGiaSauKhiGiam * element.soLuong
                 })
+            }
+        )
+
+        $http.get('http://localhost:8080/bill-detail/get-bill-detail-state?state=' + 3 + "&id=" + $scope.bill.id).then(
+            function (response) {
+                $scope.billDetailBacks = response.data
             }
         )
     }
@@ -137,13 +151,16 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             $scope.paymentMethods = response.data
             $scope.moneyChange = 0;
             $scope.moneyRefuned = 0
-
+            $scope.moneyBack = 0
+            $scope.moneyBacked = 0
             // total money change
             response.data.forEach((x) => {
                 if(x.trangThai == true) {
+                    $scope.moneyBack += Number(x.soTienThanhToan)
                     $scope.moneyChange += Number(x.soTienThanhToan)
                 }else{
                     $scope.moneyRefuned += Number(x.soTienThanhToan)
+                    $scope.moneyBacked += Number(x.soTienThanhToan)
                 }
             })
 
@@ -152,6 +169,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
         })
 
         setTimeout(() => {
+            
             $scope.loadBillRefund();
         }, 100);
     }
@@ -1030,9 +1048,12 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.choosePaymentMethod = function (paymentMethod) {
         $scope.clearButtonPaymentMethod()
 
-        var e = document.getElementById("payment-product-detail-" + paymentMethod);
-        e.classList.remove("btn-outline-warning")
-        e.classList.add("btn-warning")
+        var htmls = document.getElementsByClassName("payment-product-detail-" + paymentMethod);
+        htmls.forEach((e) => {
+            e.classList.remove("btn-outline-warning")
+            e.classList.add("btn-warning")
+        })
+     
         $scope.paymentMethod = paymentMethod
     }
 
@@ -1132,6 +1153,96 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
         }).catch(function (error) {
             console.log(error)
         })
+    }
+
+    $scope.backBill = () => {
+        
+        if($scope.reasonBack == 3){
+            if ($scope.noteState8 == "") {
+                toastr.error('Vui lòng nhập lý do')
+                return;
+            }
+        }
+        
+        if ($scope.bill === null) {
+            toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
+        } else {
+            var brandUpdateModal = document.querySelector("#backModal")
+            var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
+            var reason = $scope.reasonBack == 0 ? "Không liên hệ được khách hàng.": $scope.reasonBack == 1 ? "Nguyên nhân từ shop." : $scope.noteState8
+
+            modal.hide()
+            $scope.bill.trangThai = 5;
+            $scope.updateStateOfBill($scope.bill.trangThai, reason)
+            $scope.billDetails.content.forEach((x) => {
+                $scope.backSingleProduct(x, x.soLuong)
+            })
+            toastr.success("Sản phẩm đang quay trở lại cửa hàng.")
+            setTimeout(() => {
+                axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
+                }).catch(function (error) {
+                })
+                $scope.loadBill()
+            }, 100)
+        }
+    }
+
+    $scope.backSingleProduct = (billDetail, quantity) => {
+        if (billDetail.soLuong == quantity) {
+            billDetail.trangThai = 3;
+            axios.put('http://localhost:8080/bill-detail/refund-single', billDetail)
+                .then((response) => {
+                    $scope.loadBillRefund()
+                }).catch((error) => {
+                    console.log(error)
+                })
+        } 
+    }
+
+    $scope.backPayment = () => {
+        var paymentRefundModal = document.querySelector("#paymentBackModal")
+        var modal = bootstrap.Modal.getOrCreateInstance(paymentRefundModal)
+        modal.hide()
+
+        if ($scope.moneyBack == "") {
+            toastr.error("Vui lòng nhập số tiền.")
+            return;
+        }
+
+        if (Number($scope.moneyBack) < 1000) {
+            toastr.error('Số tiền phải lớn hơn 1000')
+            return;
+        }
+
+        axios.post('http://localhost:8080/history/add', {
+            'trangThai': 8,
+            'ghiChu': $scope.noteState9,
+            'hoaDon': $scope.bill
+        }).then(function (response) {
+        }).catch(function (error) {
+            console.log(error);
+        })
+
+        axios.post("http://localhost:8080/payment-method/add", {
+            loaiThanhToan: $scope.paymentMethod,
+            soTienThanhToan: Number($scope.moneyBack),
+            ghiChu: $scope.noteState8,
+            idHoaDon: $scope.bill,
+            deleted: false
+        }).then(function (response) {
+            modal.hide()
+
+            setTimeout(() => {
+                $scope.addBill(`Hóa đơn ${$scope.bill.ma} đã hoàn tiền thành công.`)
+                $scope.loadBill()
+            }, 100);
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
+
+    $scope.changeReasonBack = (state) => {
+        $scope.reasonBack = state
     }
 
 })
