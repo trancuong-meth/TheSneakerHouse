@@ -475,7 +475,8 @@ main_app.controller("addProductController", function ($scope, $http) {
                     }
                 })
                 .then((res) => {
-                    newList.push(res.data.secure_url);
+                    newList.push(res.data);
+                    console.log(res.data)
                 }).catch((error) => console.error("Error:", error));
         }
 
@@ -483,9 +484,10 @@ main_app.controller("addProductController", function ($scope, $http) {
     }
 
     $scope.removeImage = function (colorId, image) {
+        console.log(image)
         var listImage = $scope.images.get(colorId);
         for (var i = 0; i < listImage.length; i++) {
-            if (listImage[i].size === image) {
+            if (listImage[i].bytes === image) {
                 var imageZone = document.querySelector("#image-" + colorId + "-" + image)
                 imageZone.remove()
                 listImage.splice(i, 1);
@@ -614,7 +616,7 @@ main_app.controller("addProductController", function ($scope, $http) {
                                 .then(function (resOfProductDetail) {
                                     var imageOfProductDetails = $scope.images.get(resOfProductDetail.data.idMauSac.id)
                                     for (var j = 0; j < imageOfProductDetails.length; j++) {
-                                        var imageUrl = imageOfProductDetails[j];
+                                        var imageUrl = imageOfProductDetails[j].secure_url;
                                         axios.post('http://localhost:8080/image/add', {
                                             "duongDan": imageUrl,
                                             "idSanPhamChiTiet": resOfProductDetail.data.id
