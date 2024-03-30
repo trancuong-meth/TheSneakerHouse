@@ -598,6 +598,18 @@
     </div>
   </div>
 
+  <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 6 && history.length > 1">
+    <div style="display: flex;width: 60%;">
+
+    </div>
+
+    <div style="display: flex;justify-content: space-between;">
+      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#historyModal">
+        Lịch sử
+      </button>
+    </div>
+  </div>
+
   <div style="display: flex;justify-content: space-between;" ng-if="bill.trangThai == 3 && history.length > 1">
     <div style="display: flex;width: 33%;">
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successModal">
@@ -632,7 +644,6 @@
       </button>
     </div>
   </div>
-
 
 </div>
 
@@ -981,6 +992,16 @@
                       "></i>
         Xác nhận thanh toán</button>
 
+        <button class="btn btn-danger" data-bs-toggle="modal"
+        ng-if="moneyRefund > moneyRefuned "
+        ng-click="loadMoneyPayment()" data-bs-target="#paymentRefundModal">
+        <i class="ti ti-a-b-2" style="
+                          display: inline-block;
+                          font-size: 18px;
+                          transform: translateY(2px);
+                      "></i>
+        Hoàn tiền</button>
+
       <!-- <button class="btn btn-danger" ng-if="moneyChange > bill.tongTienSauGiam" data-bs-toggle="modal"
         data-bs-target="#productListModal" ng-click="loadProductList()">
         <i class="ti ti-a-b-2" style="
@@ -1023,7 +1044,7 @@
             <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.trangThai === false">
               <span class="badge bg-danger rounded-3 fw-semibold" style="    
                           padding: 11px;
-                          font-size: 11px;">Chưa thanh toán</span>
+                          font-size: 11px;">Đã hoàn tiền</span>
             </div>
             <div class="d-flex align-items-center gap-2" ng-if="paymentMethod.trangThai === true">
               <span class="badge bg-success rounded-3 fw-semibold" style="    
@@ -1093,7 +1114,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="billDetail in billDetails.content">
+        <tr ng-repeat="billDetail in billDetails.content" ng-if="billDetail.trangThai == 1">
           <td class="border-bottom-0">
             <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
           </td>
@@ -1101,7 +1122,7 @@
             <img ng-repeat="image in getAllImagesByIDProductDetail(billDetail.idSanPhamChiTiet.id,'product')"
               style="width: 100px;height: 100px;">
             <div style="justify-content: space-between;display: flex;">
-              <div id="image-product-{{billDetail.idSanPhamChiTiet.id}}" style="width: 40%;">
+              <div class="image-product-{{billDetail.idSanPhamChiTiet.id}}" style="width: 40%;">
               </div>
 
               <div style="width: 58%;">
@@ -1192,6 +1213,7 @@
       </tbody>
     </table>
 
+
     <!-- Pagination -->
     <span ng-show="!=0">
       <uib-pagination items-per-page="itemsPerPageBillDetails" total-items="totalItemBillDetails"
@@ -1203,218 +1225,377 @@
               " max-size="3" ng-change="pageChangedBillDetails()"></uib-pagination>
     </span>
 
-    <div id="invoice" hidden>
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+    
+  </div>
+
+</div>
+
+<div class="card p-3 shadow">
+  <!-- bread crumbs -->
+  <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+    <div class="mb-3 mb-sm-0">
+      <i class="ti ti-receipt-dollar" style="display: inline-block;font-size: 16px;color: #5D87FF;"></i>
+      <span style="color: black;display: inline-block;font-size: 16px;color: #5D87FF;font-weight: 500;">
+        Danh sách sản phẩm trả hàng
+      </span>
+    </div>
+    <div>
+     
+    </div>
+  </div>
+
+  <!-- body -->
+  <div ng-if="billDetailRefunds.length > 0">
+    <table class="table">
+      <thead class="text-dark fs-4" style="background-color: rgb(218 212 212 / 24%)">
         <tr>
-          <td>
-            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
-              bgcolor="#ffffff" style="border-radius: 10px 10px 0 0;">
-              <tr class="hiddenMobile">
+          <th style="width: 7%;">
+            <h6 class="fw-semibold mb-0 text-center" style="border-right: 1px solid #b1acac;">#</h6>
+          </th>
+          <th class="border-bottom-0 text-center" style="width: 45%;">
+            <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Sản phẩm</h6>
+          </th>
+          <th class="border-bottom-0 text-center" style="width: 20%;">
+            <h6 class="fw-semibold mb-0" style="border-right: 1px solid #b1acac;">Số lượng</h6>
+          </th>
+          <th class="border-bottom-0 text-center" style="width: 17%;">
+            <h6 class="fw-semibold mb-0">Tổng tiền</h6>
+          </th>
+          <th class="border-bottom-0 text-center" style="width: 17%;" ng-if="bill.trangThai == 4">
+            <h6 class="fw-semibold mb-0">Thao tác</h6>
+          </th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="billDetail in billDetailRefunds" ng-if="billDetail.trangThai == 2">
+          <td class="border-bottom-0">
+            <h6 class="fw-semibold mb-0"> {{$index + 1}}</h6>
+          </td>
+          <td class="border-bottom-0">
+            <img ng-repeat="image in getAllImagesByIDProductDetail(billDetail.idSanPhamChiTiet.id,'product')"
+              style="width: 100px;height: 100px;">
+            <div style="justify-content: space-between;display: flex;">
+              <div class="image-product-{{billDetail.idSanPhamChiTiet.id}}" style="width: 40%;">
+              </div>
+
+              <div style="width: 58%;">
+                <span style="
+                    display: inline-block;
+                    color: #333;
+                    font-size: 14px;
+                    font-weight: 600;
+                    transform: translateY(-5px);
+                    ">{{billDetail.idSanPhamChiTiet.idSanPham.ten}}[{{billDetail.idSanPhamChiTiet.idMauSac.ten}}
+                  - {{billDetail.idSanPhamChiTiet.idKichCo.kichCo}}]</span>
+
+                <div style="display: flex;font-size: 12px;transform: translateY(-7px);">
+                  <span>Màu: {{billDetail.idSanPhamChiTiet.idMauSac.ten}}</span>
+                  <span style="margin-left: 10px;">Kích cỡ:
+                    {{billDetail.idSanPhamChiTiet.idKichCo.kichCo}}</span>
+                </div>
+
+                <div style="display: flex;font-size: 12px;transform: translateY(-7px);">
+                  <span>Thương hiệu: {{billDetail.idSanPhamChiTiet.idSanPham.idThuongHieu.ten}}</span>
+                </div>
+
+                <span style="
+                display: inline-block;
+                color: red;
+                font-size: 12px;
+                font-weight: 800;
+                ">{{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+                  billDetail.donGia : billDetail.donGiaSauKhiGiam)}}</span>
+                <span style="
+                      display: inline-block;
+                      color: rgb(150, 150, 150);
+                      font-size: 10px;
+                      font-weight: 800;
+                      text-decoration: line-through;
+                      " ng-if="billDetail.donGiaSauKhiGiam != null">{{formatToVND(billDetail.donGia)}}</span>
+
+
+              </div>
+            </div>
+          </td>
+          <td class="border-bottom-0" style="display: flex;justify-content: space-between;">
+            <div ng-if="bill.trangThai == 1 || bill.trangThai == 2">
+              <button class="btn btn-sm btn-outline-muted"
+                style="width: 33.3%;border-radius: 0px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 40px;"
+                ng-click="minusQuantity(billDetail)">
+                <i class="ti ti-minus" style="font-size: 12px;"></i>
+              </button>
+              <input type="number" class="btn btn-sm btn-outline-muted text-center"
+                onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                style="width: 29.3%;height: 40px;border-radius: 0;border-left: 0px;border-right: 0px;font-size: 14px;"
+                ng-model="billDetail.soLuong" ng-change="changeQuantity(billDetail)" disabled
+                id="bill-detail-quantity-{{billDetail.id}}">
+              <button class="btn btn-sm btn-outline-muted"
+                style="width: 33%;border-radius: 0px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;height: 40px;"
+                ng-click="plusQuantity(billDetail)">
+                <i class="ti ti-plus" style="font-size: 12px;"></i>
+              </button>
+            </div>
+
+            <div ng-if="bill.trangThai == 4 || bill.trangThai == 3 || bill.trangThai == 5 || bill.trangThai == 6"
+              style="text-align: center;margin-left: 54px;">
+              <button class="btn btn-outline-muted" disabled>{{billDetail.soLuong}}</button>
+            </div>
+
+          </td>
+          <td style="
+                color: #eb4528;
+                font-size: 14px;
+                font-weight: 800;
+                text-align: center;
+                " class="border-bottom-0">
+            {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+            (billDetail.donGia * billDetail.soLuong) : billDetail.donGiaSauKhiGiam * billDetail.soLuong)}}
+          </td>
+          <td ng-if="bill.trangThai == 4">
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#billDetailSingleRefund"
+              ng-click="loadProductRefund(billDetail)()">
+              <i class="ti  ti-a-b-2" style="
+                              display: inline-block;
+                              font-size: 18px;
+                              transform: translateY(2px);
+                          "></i>
+            </button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+    <!-- Pagination -->
+    <span ng-show="!=0">
+      <uib-pagination items-per-page="itemsPerPageBillDetails" total-items="totalItemBillDetails"
+        ng-model="currentPageBillDetails" class="pagination-sm" previous-text="‹" next-text="›" first-text="«"
+        last-text="»" style="
+              width: 16%;
+              margin-left: auto;
+              margin-right: auto;
+              " max-size="3" ng-change="pageChangedBillDetails()"></uib-pagination>
+    </span>
+
+    
+  </div>
+
+</div>
+
+<!-- invoice -->
+
+<div id="invoice" hidden>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+    <tr>
+      <td>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+          bgcolor="#ffffff" style="border-radius: 10px 10px 0 0;">
+          <tr class="hiddenMobile">
+            <td height="40"></td>
+          </tr>
+
+          <tr>
+            <td>
+              <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                <tbody>
+                  <tr>
+                    <td>
+                      <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                        <tbody>
+                          <tr>
+                            <td
+                              style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                              <div height="40" style="color: #5D87FF; font-weight: 700;">THE SNEAKER HOUSE</div>
+                              <br />
+                              Xin chào, {{bill.tenNguoiNhan == null || bill.tenNguoiNhan == "" ? 'khách hàng' :
+                              bill.tenNguoiNhan}}.
+                              <br> Cảm ơn bạn đã ủng hộ shop.
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                        <tbody>
+
+                          <tr style=" transform: translateY(19px);">
+                            <td
+                              style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
+                              <div height="40" style="color: #5D87FF; font-weight: 700;"></div>
+                              <br />
+                              <small>Mã hóa đơn:</small> {{bill.ma}}<br />
+                              <small>{{bill.ngayTao | date : 'HH:mm dd/MM/yyyy'}}</small>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <!-- /Header -->
+  <!-- Order Details -->
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+    <tbody>
+      <tr>
+        <td>
+          <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+            bgcolor="#ffffff">
+            <tbody>
+              <tr>
+              <tr class="visibleMobile">
                 <td height="40"></td>
               </tr>
-
               <tr>
                 <td>
                   <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
                     <tbody>
                       <tr>
-                        <td>
-                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
-                            <tbody>
-                              <tr>
-                                <td
-                                  style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
-                                  <div height="40" style="color: #5D87FF; font-weight: 700;">THE SNEAKER HOUSE</div>
-                                  <br />
-                                  Xin chào, {{bill.tenNguoiNhan == null || bill.tenNguoiNhan == "" ? 'khách hàng' :
-                                  bill.tenNguoiNhan}}.
-                                  <br> Cảm ơn bạn đã ủng hộ shop.
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
-                            <tbody>
-
-                              <tr style=" transform: translateY(19px);">
-                                <td
-                                  style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
-                                  <div height="40" style="color: #5D87FF; font-weight: 700;"></div>
-                                  <br />
-                                  <small>Mã hóa đơn:</small> {{bill.ma}}<br />
-                                  <small>{{bill.ngayTao | date : 'HH:mm dd/MM/yyyy'}}</small>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                        <th
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;"
+                          width="52%" align="left">
+                          Sản phẩm
+                        </th>
+                        <th
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
+                          align="center">
+                          Đơn giá
+                        </th>
+                        <th
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
+                          align="center">
+                          Số lượng
+                        </th>
+                        <th
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
+                          align="right">
+                          Thành tiền
+                        </th>
+                      </tr>
+                      <tr>
+                        <td height="1" style="background: #bebebe;" colspan="4"></td>
+                      </tr>
+                      <tr>
+                        <td height="10" colspan="4"></td>
+                      </tr>
+                      <tr ng-repeat="billDetail in billDetails.content">
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000;  line-height: 18px;  vertical-align: top; padding:10px 0;"
+                          class="article">
+                          {{billDetail.idSanPhamChiTiet.idSanPham.ten}}[{{billDetail.idSanPhamChiTiet.idMauSac.ten}}
+                          - {{billDetail.idSanPhamChiTiet.idKichCo.kichCo}}]
                         </td>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;">
+                          <small> {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+                            billDetail.donGia : billDetail.donGiaSauKhiGiam)}}</small>
+                        </td>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"
+                          align="center">{{billDetail.soLuong}}</td>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33;  line-height: 18px;  vertical-align: top; padding:10px 0;"
+                          align="right"> {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
+                          (billDetail.donGia * billDetail.soLuong) : (billDetail.donGiaSauKhiGiam *
+                          billDetail.soLuong))}}</td>
+                      </tr>
+
+                      <tr>
+                        <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
                       </tr>
                     </tbody>
                   </table>
                 </td>
               </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <!-- /Header -->
-      <!-- Order Details -->
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
-        <tbody>
-          <tr>
-            <td>
-              <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
-                bgcolor="#ffffff">
-                <tbody>
-                  <tr>
-                  <tr class="visibleMobile">
-                    <td height="40"></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
-                        <tbody>
-                          <tr>
-                            <th
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;"
-                              width="52%" align="left">
-                              Sản phẩm
-                            </th>
-                            <th
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
-                              align="center">
-                              Đơn giá
-                            </th>
-                            <th
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
-                              align="center">
-                              Số lượng
-                            </th>
-                            <th
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
-                              align="right">
-                              Thành tiền
-                            </th>
-                          </tr>
-                          <tr>
-                            <td height="1" style="background: #bebebe;" colspan="4"></td>
-                          </tr>
-                          <tr>
-                            <td height="10" colspan="4"></td>
-                          </tr>
-                          <tr ng-repeat="billDetail in billDetails.content">
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000;  line-height: 18px;  vertical-align: top; padding:10px 0;"
-                              class="article">
-                              {{billDetail.idSanPhamChiTiet.idSanPham.ten}}[{{billDetail.idSanPhamChiTiet.idMauSac.ten}}
-                              - {{billDetail.idSanPhamChiTiet.idKichCo.kichCo}}]
-                            </td>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;">
-                              <small> {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
-                                billDetail.donGia : billDetail.donGiaSauKhiGiam)}}</small>
-                            </td>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"
-                              align="center">{{billDetail.soLuong}}</td>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33;  line-height: 18px;  vertical-align: top; padding:10px 0;"
-                              align="right"> {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
-                              (billDetail.donGia * billDetail.soLuong) : (billDetail.donGiaSauKhiGiam *
-                              billDetail.soLuong))}}</td>
-                          </tr>
+              <tr>
+                <td height="20"></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- /Order Details -->
+  <!-- Total -->
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+    <tbody>
+      <tr>
+        <td>
+          <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+            bgcolor="#ffffff">
+            <tbody>
+              <tr>
+                <td>
 
-                          <tr>
-                            <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height="20"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- /Order Details -->
-      <!-- Total -->
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
-        <tbody>
-          <tr>
-            <td>
-              <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
-                bgcolor="#ffffff">
-                <tbody>
-                  <tr>
-                    <td>
+                  <!-- Table Total -->
+                  <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                    <tbody>
+                      <tr>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                          Tạm tính
+                        </td>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;"
+                          width="80">
+                          {{formatToVND(bill.tongTien)}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                          <small>Phiếu giảm giá</small>
+                        </td>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                          <small>{{formatToVND(bill.idVoucher === null ? 0 : bill.soPhanTramKhuyenMai *
+                            bill.tongTien/100)}}</small>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                          Phí vận chuyển
+                        </td>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                          {{formatToVND(bill.phiVanChuyen === null || bill.phiVanChuyen === 0 ? 0 :
+                          bill.phiVanChuyen)}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                          <strong>Tổng tiền</strong>
+                        </td>
+                        <td
+                          style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                          <strong>{{formatToVND(bill.tongTienSauGiam)}}</strong>
+                        </td>
+                      </tr>
 
-                      <!-- Table Total -->
-                      <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
-                        <tbody>
-                          <tr>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              Tạm tính
-                            </td>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;"
-                              width="80">
-                              {{formatToVND(bill.tongTien)}}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              <small>Phiếu giảm giá</small>
-                            </td>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              <small>{{formatToVND(bill.idVoucher === null ? 0 : bill.soPhanTramKhuyenMai *
-                                bill.tongTien/100)}}</small>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              Phí vận chuyển
-                            </td>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                              {{formatToVND(bill.phiVanChuyen === null || bill.phiVanChuyen === 0 ? 0 :
-                              bill.phiVanChuyen)}}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
-                              <strong>Tổng tiền</strong>
-                            </td>
-                            <td
-                              style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
-                              <strong>{{formatToVND(bill.tongTienSauGiam)}}</strong>
-                            </td>
-                          </tr>
+                    </tbody>
+                  </table>
+                  <!-- /Table Total -->
 
-                        </tbody>
-                      </table>
-                      <!-- /Table Total -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- /Total -->
 
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- /Total -->
-
-    </div>
-  </div>
 </div>
 
 <!-- Modal state 1 -->
@@ -1914,6 +2095,67 @@
   </div>
 </div>
 
+<!--payment -->
+<div class="modal fade" id="paymentRefundModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Xác nhận hoàn tiền </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+
+        <div style="margin-bottom: 10px;">
+          <!-- xác nhận phươnt thức thanh toán  -->
+          <div style="width: 100%;display: flex;justify-content: space-between;margin-top: 10px;">
+            <button style="width: 49%;font-size: 14px;" class="btn btn-warning button-payment-method"
+              ng-click="choosePaymentMethod(0)" id="payment-product-detail-0">
+              Tiền mặt
+            </button>
+
+            <button style="width: 49%;font-size: 14px;" class="btn btn-outline-warning button-payment-method"
+              ng-click="choosePaymentMethod(1)" id="payment-product-detail-1">
+              Chuyển khoản
+            </button>
+
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px;display: flex;">
+          <label for="exampleInputPaymentMethod" class="form-label" style="width: 260px;">Số tiền thanh toán: </label>
+          <input type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+            name="" id="exampleInputPaymentMethod" class="form-control" ng-model="moneyRefund">
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <label for="exampleInputPaymentMethod" class="form-label" style="width: 165px;">Số tiền cần hoàn:
+          </label>
+          <span style="display: inline-block;color: #eb4528; font-weight: 600;">{{formatToVND(moneyRefund)}}</span>
+        </div>
+
+        <div>
+          <label for="exampleInputEmail1" class="form-label">Ghi chú: </label>
+          <textarea placeholder="Nhập ghi chú...." type="text" class="form-control" ng-model="noteState8"
+            id="exampleInputEmail1" rows="4" aria-describedby="emailHelp"></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="ti ti-x" style="
+                  display: inline-block;
+                  font-size: 18px;
+                  transform: translateY(2px);
+              "></i>
+          Đóng</button>
+        <button type="button" class="btn btn-warning" ng-click="refundPayment()">
+          Xác nhận hoàn tiền
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- history -->
 <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -1983,6 +2225,12 @@
                     <span class="badge bg-success rounded-3 fw-semibold" style="    
                                 padding: 11px;
                                 font-size: 11px;">Đã thanh toán</span>
+                  </div>
+
+                  <div class="d-flex align-items-center gap-2" ng-if="e.trangThai === 8">
+                    <span class="badge bg-info rounded-3 fw-semibold" style="    
+                                padding: 11px;
+                                font-size: 11px;">Đã hoàn tiền</span>
                   </div>
 
                 </td>

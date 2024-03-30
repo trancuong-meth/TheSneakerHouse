@@ -665,7 +665,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                         // phương thứuc thanh toán là tiền mặt
                         axios.post("http://localhost:8080/payment-method/add", {
                             loaiThanhToan: $scope.bill.phuongThucThanhToan,
-                            soTienThanhToan: Number($scope.moneyCustomerPayment),
+                            soTienThanhToan: Number($scope.totalAllPrice),
                             ghiChu: $scope.bill.ghiChu,
                             idHoaDon: $scope.bill,
                             deleted: true

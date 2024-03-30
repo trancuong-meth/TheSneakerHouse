@@ -108,6 +108,25 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
         }
     }
 
+    public HoaDonChiTiet addProductToBillRefund(ProductDetailRequest req) {
+        try {
+            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+            hoaDonChiTiet.setIdHoaDon(req.getHoaDon());
+            hoaDonChiTiet.setIdSanPhamChiTiet(req.getSanPhamChiTiet());
+            hoaDonChiTiet.setSoLuong(req.getSoLuong());
+            hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
+            hoaDonChiTiet.setTrangThai(1);
+            if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
+                hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                        * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+            }
+            return hoaDonChiTietRepo.save(hoaDonChiTiet);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public HoaDonChiTiet addProductToBillClient(ProductDetailRequest req) {
         try {
 
@@ -170,5 +189,9 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
 
     public HoaDonChiTiet updateBillDetail(HoaDonChiTiet req) {
         return hoaDonChiTietRepo.save(req);
+    }
+
+    public ArrayList<HoaDonChiTiet> getBillDetailByState(Integer state, Long id) {
+        return hoaDonChiTietRepo.findBillDetailByState(state, id);
     }
 }

@@ -26,7 +26,7 @@ public interface IHoaDonChiTietRepo extends JpaRepository<HoaDonChiTiet, Long> {
     @Query(value = """
         select hdct.* from hoa_don_chi_tiet hdct
          join hoa_don hd on hd.id = hdct.id_hoa_don
-         where hd.ma = :code_bill
+         where hd.ma = :code_bill 
     """, nativeQuery = true)
     ArrayList<HoaDonChiTiet> findBillDetailsByCodeBill(@Param("code_bill")String codeBill);
 
@@ -36,4 +36,9 @@ public interface IHoaDonChiTietRepo extends JpaRepository<HoaDonChiTiet, Long> {
         delete from hoa_don_chi_tiet where id = :id
     """, nativeQuery = true)
     void deleteById(@Param("id")Long id);
+
+    @Query(value = """
+        select * from hoa_don_chi_tiet where trang_thai = :state and id_hoa_don = :id
+    """, nativeQuery = true)
+    ArrayList<HoaDonChiTiet> findBillDetailByState(@Param("state")Integer state, @Param("id")Long id);
 }

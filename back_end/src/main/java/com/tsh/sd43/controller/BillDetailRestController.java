@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/bill-detail")
 @CrossOrigin("*")
@@ -31,6 +33,15 @@ public class BillDetailRestController {
     public ResponseEntity<?> addToBill(@RequestBody ProductDetailRequest req) {
         try {
             return new ResponseEntity<>(hoaDonChiTietService.addProductToBill(req), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getCause(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/add-product-to-bill-refund")
+    public ResponseEntity<?> addToBillRefund(@RequestBody ProductDetailRequest req) {
+        try {
+            return new ResponseEntity<>(hoaDonChiTietService.addProductToBillRefund(req), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getCause(), HttpStatus.BAD_REQUEST);
         }
@@ -62,5 +73,15 @@ public class BillDetailRestController {
             throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/get-bill-detail-state")
+    public ArrayList<HoaDonChiTiet> getBillDetailState(@RequestParam("state")Integer state, @RequestParam("id")Long id){
+        try{
+            return hoaDonChiTietService.getBillDetailByState(state, id);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

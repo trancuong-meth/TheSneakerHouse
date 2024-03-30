@@ -42,6 +42,11 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     $scope.moneyChange = 0;
     $scope.paymentMethod = 0;
     $scope.moneyPayment = "";
+    $scope.moneyRefuned = 0;
+
+    // refund
+    $scope.billDetailRefunds = []
+    $scope.moneyRefund = 0;
 
     // REGEX
     var phone_regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
@@ -50,6 +55,18 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
     // choose gender
     $scope.selectGender = function (gender) {
         $scope.customer.gioiTinh = gender
+    }
+
+    $scope.loadBillRefund = () => {
+        $http.get('http://localhost:8080/bill-detail/get-bill-detail-state?state=' + 2 + "&id=" + $scope.bill.id).then(
+            function (response) {
+                $scope.billDetailRefunds = response.data
+                $scope.moneyRefund = 0;
+                response.data.forEach(element => {
+                    $scope.moneyRefund += element.donGiaSauKhiGiam == null ? element.donGia * element.soLuong : element.donGiaSauKhiGiam * element.soLuong
+                })
+            }
+        )
     }
 
     $scope.loadBill = () => {
@@ -119,15 +136,24 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             console.log(response.data)
             $scope.paymentMethods = response.data
             $scope.moneyChange = 0;
+            $scope.moneyRefuned = 0
 
             // total money change
             response.data.forEach((x) => {
-                $scope.moneyChange += Number(x.soTienThanhToan)
+                if(x.trangThai == true) {
+                    $scope.moneyChange += Number(x.soTienThanhToan)
+                }else{
+                    $scope.moneyRefuned += Number(x.soTienThanhToan)
+                }
             })
 
         }).catch(function (error) {
             console.log(error)
         })
+
+        setTimeout(() => {
+            $scope.loadBillRefund();
+        }, 100);
     }
 
     $scope.getAllImagesByIDProductDetail = function (id, text) {
@@ -149,32 +175,35 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             </button>
         </div>
         `
-        var html = document.getElementById("image-" + id)
+        var htmls = document.getElementsByClassName("image-" + id)
         if (text !== undefined) {
-            var html = document.getElementById("image-" + text + "-" + id)
+            var htmls = document.getElementsByClassName("image-" + text + "-" + id)
         }
 
-        axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
-            for (var i = 0; i < response.data.length; i++) {
-                if (i == 0) {
-                    textCenter += `
+        htmls.forEach((x) => {
+            axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    if (i == 0) {
+                        textCenter += `
                         <div class="carousel-item active">
                             <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
-                } else {
-                    textCenter += `
+                    } else {
+                        textCenter += `
                         <div class="carousel-item">
                             <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                         </div>`
+                    }
+
                 }
 
-            }
+                x.innerHTML = textFist + textCenter + textLast
 
-            html.innerHTML = textFist + textCenter + textLast
-
-        }).catch(function (error) {
-            console.log(error)
+            }).catch(function (error) {
+                console.log(error)
+            })
         })
+
     }
 
     $scope.loadBill()
@@ -698,11 +727,11 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
         var quantityHtml = document.getElementById("bill-detail-quantity-" + billDetail.id)
         var quantityBillDetail = Number(quantityHtml.value) - 1
         if (quantityBillDetail == 0) {
-            if($scope.billDetails.content.length == 1){
+            if ($scope.billDetails.content.length == 1) {
                 var brandUpdateModal = document.querySelector("#cancelModal")
                 var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
                 modal.show()
-            }else{
+            } else {
                 $scope.removeBillDetailByBillAndProductDetail(billDetail.id)
             }
         } else {
@@ -870,15 +899,52 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             modal.hide()
             $scope.bill.trangThai = 6;
             $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState4)
+            $scope.billDetails.content.forEach((x) => {
+                $scope.refundSingleProduct(x, x.soLuong)
+            })
             toastr.success("Trả hàng thành công.")
             setTimeout(() => {
                 axios.post("http://localhost:8080/email/send-email", $scope.bill).then(function (response) {
                 }).catch(function (error) {
                 })
-                $scope.addBill(`Hóa đơn ${$scope.bill.ma} đã được hoàn lại hàng thành công`)
+                $scope.addBill(`Hóa đơn ${$scope.bill.ma} đã được hoàn trả hàng thành công`)
                 $scope.loadBill()
             }, 100)
         }
+    }
+
+    $scope.refundSingleProduct = (billDetail, quantity) => {
+        if (billDetail.soLuong == quantity) {
+            billDetail.trangThai = 2;
+            axios.put('http://localhost:8080/bill-detail/refund-single', billDetail)
+                .then((response) => {
+                    $scope.loadBillRefund()
+                }).catch((error) => {
+                    console.log(error)
+                })
+        } else {
+            $http.post('http://localhost:8080/bill-detail/add-product-to-bill-refund', {
+                'hoaDon': billDetail.idHoaDon,
+                'sanPhamChiTiet': billDetail.idSanPhamChiTiet,
+                'soLuong': Number(billDetail.soLuong - quantity)
+            }).then(function (response) {
+                billDetail.trangThai = 2;
+                billDetail.soLuong = quantity
+                console.log(billDetail)
+                axios.put('http://localhost:8080/bill-detail/refund-single', billDetail)
+                    .then((response) => {
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+            }).catch(function (error) {
+                toastr.error(error.data.message)
+            })
+
+        }
+    }
+
+    $scope.loadProductRefund = (billDetailRefund) => {
+        $scope.billDetailRefund = billDetailRefund
     }
 
     $scope.refundSingleBill = () => {
@@ -898,6 +964,11 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             return;
         }
 
+        if (Number($scope.quantityRefund) > $scope.billDetailRefund.soLuong) {
+            toastr.error("Số lần phải nhỏ hơn hoặc bằng số sản phẩm của đơn hàng.")
+            return;
+        }
+
         if ($scope.bill === null) {
             toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
         } else {
@@ -907,9 +978,10 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             modal.hide()
             $scope.bill.trangThai = 6;
             $scope.updateStateOfBill($scope.bill.trangThai, $scope.noteState4)
+            $scope.refundSingleProduct($scope.billDetailRefund, $scope.quantityRefund)
+            console.log($scope.billDetailRefund)
+            console.log($scope.quantityRefund)
             toastr.success("Trả hàng thành công.")
-
-            // $scope.addProductToBillApi($scope.billDetailRefund.idSanPhamChiTiet, $scope.bill, $scope.billDetailRefund.soLuong - $scope.quantityRefund)
 
             setTimeout(() => {
                 $scope.loadBill()
@@ -1018,6 +1090,48 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
 
     $scope.loadMoneyPayment = () => {
         $scope.moneyPayment = $scope.bill.tongTienSauGiam - $scope.moneyChange
+    }
+
+    $scope.refundPayment = () => {
+        var paymentRefundModal = document.querySelector("#paymentRefundModal")
+        var modal = bootstrap.Modal.getOrCreateInstance(paymentRefundModal)
+        modal.hide()
+
+        if ($scope.moneyRefund == "") {
+            toastr.error("Vui lòng nhập số tiền.")
+            return;
+        }
+
+        if (Number($scope.moneyRefund) < 1000) {
+            toastr.error('Số tiền phải lớn hơn 1000')
+            return;
+        }
+
+        axios.post('http://localhost:8080/history/add', {
+            'trangThai': 8,
+            'ghiChu': $scope.noteState8,
+            'hoaDon': $scope.bill
+        }).then(function (response) {
+        }).catch(function (error) {
+            console.log(error);
+        })
+
+        axios.post("http://localhost:8080/payment-method/add", {
+            loaiThanhToan: $scope.paymentMethod,
+            soTienThanhToan: Number($scope.moneyRefund),
+            ghiChu: $scope.noteState8,
+            idHoaDon: $scope.bill,
+            deleted: false
+        }).then(function (response) {
+            modal.hide()
+
+            setTimeout(() => {
+                $scope.addBill(`Hóa đơn ${$scope.bill.ma} đã hoàn tiền thành công.`)
+                $scope.loadBill()
+            }, 100);
+        }).catch(function (error) {
+            console.log(error)
+        })
     }
 
 })
