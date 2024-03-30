@@ -85,10 +85,12 @@ main_app.controller("addProductController", function ($scope, $http) {
                 if ($scope.listChooseSizeModal[i] === size)
                     $scope.listChooseSizeModal.splice(i, 1);
             }
+            toastr.success("Bạn đã xóa kích cỡ " + size + " thành công.")
         } else {
             html.classList.add('btn-primary')
             html.classList.remove('btn-outline-primary')
             $scope.listChooseSizeModal.push(size)
+            toastr.success("Bạn đã thêm kích cỡ " + size + " thành công.")
         }
         console.log($scope.listChooseSizeModal)
     }
@@ -104,10 +106,12 @@ main_app.controller("addProductController", function ($scope, $http) {
                 if ($scope.listChooseColorId[i] === color)
                     $scope.listChooseColorId.splice(i, 1);
             }
+            toastr.success("Bạn đã xóa màu sắc " + $scope.colors.find(x => x.id == color).ten + " thành công.")
         } else {
             html.classList.add('btn-primary')
             html.classList.remove('btn-outline-primary')
             $scope.listChooseColorId.push(color)
+            toastr.success("Bạn đã thêm màu sắc " + $scope.colors.find(x => x.id == color).ten + " thành công.")
         }
 
         var temp = []
