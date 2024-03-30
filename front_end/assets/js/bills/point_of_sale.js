@@ -509,7 +509,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                     return;
                 }
 
-                if ( $scope.bill.maTinh === null
+                if ($scope.bill.maTinh === null
                     || $scope.bill.maPhuong === null
                     || $scope.bill.maXa === null) {
                     toastr.error('Bạn phải nhập đầy đủ các trường có trên form!! ')
@@ -1097,6 +1097,18 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
 
                         setTimeout(() => {
                             var productDetail = response.data.content.find(productDetail => productDetail.id == Number(decodeText))
+                            if (productDetail.soLuongTon <= 0) {
+                                toastr.error("Sản phẩm đã hết hàng. Vui lòng chọn sản phẩm khác")
+                                htmlscanner.clear();
+                                modal.hide()
+                                return;
+                            }
+                            if (productDetail.trangThai == 0) {
+                                toastr.error("Sản phẩm đã ngừng kinh doanh. Vui này chọn sản phẩm khác")
+                                htmlscanner.clear();
+                                modal.hide()
+                                return;
+                            }
                             $scope.addProductToBillApi(productDetail, $scope.getActiveBill(), -1)
                             htmlscanner.clear();
                             modal.hide()
