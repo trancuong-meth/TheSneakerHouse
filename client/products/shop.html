@@ -260,16 +260,33 @@
                     <div class="col-lg-9 order-1 order-lg-2">
                         <div class="shop-product-wrapper">
                             <!-- product item list start -->
-                            <div class="shop-product-wrap grid-view row mbn-50" >
+                            <div class="shop-product-wrap grid-view row mbn-50">
                                 <div class="col-lg-3 col-sm-6" ng-repeat="product in products">
                                     <!-- product single item start -->
                                     <div class="product-item mb-50">
-                                        <div class="product-thumb">
+                                        <div class="product-thumb" style="position: relative;">
                                             <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}">
                                                 </span>
                                                 <span
                                                     ng-repeat="image in getAllImagesByIDProductDetail(product.id)"></span>
                                                 <img id="image-{{product.id}}" style="width: 221px;height: 210px;   " />
+                                                <div ng-if="product.idDotGiamGia != null" style="position: absolute;
+                                                                                                top: 10px;
+                                                                                                font-size: 12px;
+                                                                                                left: 10px;
+                                                                                                line-height: 1;
+                                                                                                font-weight: bold;
+                                                                                                z-index: 9;
+                                                                                                color: #fff;
+                                                                                                background: #000000;
+                                                                                                border-radius: 50%;
+                                                                                                width: 35px;
+                                                                                                height: 35px;
+                                                                                                line-height: 35px;">
+                                                    <span>
+                                                        {{"-" + product.idDotGiamGia.phanTramGiam + "%"}}
+                                                    </span>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="product-content">
@@ -304,9 +321,9 @@
                                     </div>
                                     <!-- product single item start -->
 
-                                  
+
                                 </div>
-                               
+
                             </div>
                             <!-- product item list end -->
 
