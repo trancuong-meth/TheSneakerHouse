@@ -90,6 +90,7 @@ main_app.controller("addProductController", function ($scope, $http) {
             html.classList.remove('btn-outline-primary')
             $scope.listChooseSizeModal.push(size)
         }
+        console.log($scope.listChooseSizeModal)
     }
 
     $scope.chooseColor = function (color) {
@@ -108,6 +109,12 @@ main_app.controller("addProductController", function ($scope, $http) {
             html.classList.remove('btn-outline-primary')
             $scope.listChooseColorId.push(color)
         }
+
+        var temp = []
+        for(var id of $scope.listChooseColorId){
+            temp.push($scope.colors.find(x => x.id == id))
+        }
+        $scope.listChooseColor = temp;
     }
 
     $scope.chooseSizeAddProduct = function () {
@@ -143,7 +150,7 @@ main_app.controller("addProductController", function ($scope, $http) {
                 $scope.listChooseSize.splice(i, 1);
         }
 
-        if(state != 1){
+        if (state != 1) {
             for (var i = 0; i < $scope.productDetails.length; i++) {
                 if ($scope.productDetails[i].size == size) {
                     $scope.productDetails.splice(i, 1)
@@ -166,7 +173,7 @@ main_app.controller("addProductController", function ($scope, $http) {
             }
         }
 
-        if(state != 1){
+        if (state != 1) {
             for (var i = 0; i < $scope.productDetails.length; i++) {
                 if ($scope.productDetails[i].color.id == color.id) {
                     $scope.productDetails.splice(i, 1)
@@ -179,7 +186,7 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     $scope.buttonChooseSize = function () {
         var sizes = document.getElementsByClassName('btn-list-size')
-
+        $scope.listChooseSizeModal = $scope.listChooseSize
         for (var i = 0; i < sizes.length; i++) {
             var html = sizes[i]
 
@@ -198,6 +205,12 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     $scope.buttonChooseColor = function () {
         var colors = document.getElementsByClassName('btn-list-color')
+        
+        var temp = []
+        for(var id of $scope.listChooseColorId){
+            temp.push($scope.colors.find(x => x.id == id))
+        }
+        $scope.listChooseColor = temp;
 
         for (var i = 0; i < colors.length; i++) {
             var html = colors[i]
@@ -249,9 +262,9 @@ main_app.controller("addProductController", function ($scope, $http) {
             for (var i = 0; i < $scope.listChooseColor.length; i++) {
                 for (var j = 0; j < $scope.listChooseSize.length; j++) {
                     var productDetail = $scope.productDetails.find(x => x.color.id == $scope.listChooseColor[i].id && x.size == $scope.listChooseSize[j]);
-                    if(productDetail != undefined){ 
+                    if (productDetail != undefined) {
                         productDetail.id = id;
-                    }else{
+                    } else {
                         $scope.productDetails.push({
                             'id': id,
                             'color': $scope.listChooseColor[i],
@@ -261,7 +274,7 @@ main_app.controller("addProductController", function ($scope, $http) {
                             'product': {}
                         })
                     }
-                    
+
 
                     id++;
                 }
@@ -388,18 +401,18 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     var readURL = function (input) {
         console.log($scope.images.get($scope.colorSelected.id))
-        if($scope.images.get($scope.colorSelected.id) === undefined){
-            if( input.files.length > 6){
+        if ($scope.images.get($scope.colorSelected.id) === undefined) {
+            if (input.files.length > 6) {
                 toastr.error("Bạn chỉ được chọn 6 ảnh")
                 return;
             }
-        }else{
-            if($scope.images.get($scope.colorSelected.id).length + input.files.length > 6){
+        } else {
+            if ($scope.images.get($scope.colorSelected.id).length + input.files.length > 6) {
                 toastr.error("Bạn chỉ được chọn 6 ảnh")
                 return;
             }
         }
-        
+
         if (input.files) {
             if ($scope.images.get($scope.colorSelected.id)) {
                 var oldFiles = $scope.images.get($scope.colorSelected.id)
@@ -584,8 +597,8 @@ main_app.controller("addProductController", function ($scope, $http) {
             return;
         }
 
-        for(var productDetail of $scope.productDetails) {
-            if(productDetail.quantity == "" || productDetail.price == "") {
+        for (var productDetail of $scope.productDetails) {
+            if (productDetail.quantity == "" || productDetail.price == "") {
                 toastr.error("Bạn phải nhập đầy đủ số lượng và giá của sản phẩm")
                 return;
             }

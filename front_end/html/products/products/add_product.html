@@ -611,7 +611,7 @@
                                 {{color.ten}}</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                             <i class="ti ti-x" style="
                                                     display: inline-block;
@@ -628,7 +628,7 @@
                                     "></i>
                             Thêm
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -658,12 +658,13 @@
                         <div style="display: block; margin-top: 20px;clear: all">
                             <button ng-repeat="size in sizes" class="btn btn-outline-primary btn-list-size"
                                 ng-click="chooseSize(size.kichCo)" id="size-{{size.kichCo}}"
+                                id="size-modal-{{size.id}}"
                                 style=" margin-bottom: 10px; display: inline-block;margin-right: 5px;margin-bottom:10px;">
                                 {{size.kichCo}}</button>
 
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                             <i class="ti ti-x" style="
                                                         display: inline-block;
@@ -680,7 +681,7 @@
                                         "></i>
                             Thêm
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
