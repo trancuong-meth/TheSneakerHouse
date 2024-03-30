@@ -717,7 +717,7 @@
                         <span>Thương hiệu: {{product.idSanPham.idThuongHieu.ten}}</span>
                       </div>
 
-                      <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 0 && product.soLuongTon > 0">
+                      <div class="d-flex align-items-center gap-2" ng-if="product.trangThai == 0 ">
                         <span class="badge bg-danger rounded-3 fw-semibold" style="    
                                   padding: 10px;
                                   font-size: 8px;">Ngừng kinh doanh</span>
@@ -760,9 +760,13 @@
 
                 </td>
                 <td class="border-bottom-0">
-                  <button class="btn btn-primary" ng-if="product.soLuongTon > 0" ng-click="addProductToBill(product)">Chọn</button>
-                  <button class="btn btn-danger" disabled ng-if="product.soLuongTon == 0" >
+                  <button class="btn btn-primary" ng-if="product.soLuongTon > 0 && product.trangThai == 1" 
+                    ng-click="addProductToBill(product)">Chọn</button>
+                  <button class="btn btn-danger" disabled ng-if="product.soLuongTon == 0 && product.trangThai == 1" >
                     Hết hàng
+                  </button>
+                  <button class="btn btn-danger" disabled ng-if="product.trangThai == 0" >
+                    Ngừng kinh doanh
                   </button>
                 </td>
               </tr>
