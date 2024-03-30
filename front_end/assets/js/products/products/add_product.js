@@ -387,6 +387,19 @@ main_app.controller("addProductController", function ($scope, $http) {
     }
 
     var readURL = function (input) {
+        console.log($scope.images.get($scope.colorSelected.id))
+        if($scope.images.get($scope.colorSelected.id) === undefined){
+            if( input.files.length > 6){
+                toastr.error("Bạn chỉ được chọn 6 ảnh")
+                return;
+            }
+        }else{
+            if($scope.images.get($scope.colorSelected.id).length + input.files.length > 6){
+                toastr.error("Bạn chỉ được chọn 6 ảnh")
+                return;
+            }
+        }
+        
         if (input.files) {
             if ($scope.images.get($scope.colorSelected.id)) {
                 var oldFiles = $scope.images.get($scope.colorSelected.id)
@@ -568,6 +581,13 @@ main_app.controller("addProductController", function ($scope, $http) {
         if ($scope.product.idTheLoai === undefined) {
             toastr.error("Bạn phải chọn thể loại.")
             return;
+        }
+
+        for(var productDetail of $scope.productDetails) {
+            if(productDetail.quantity == "" || productDetail.price == "") {
+                toastr.error("Bạn phải nhập đầy đủ số lượng và giá của sản phẩm")
+                return;
+            }
         }
 
         Swal.fire({

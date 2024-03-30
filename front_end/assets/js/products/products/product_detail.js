@@ -287,6 +287,11 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
     }
 
     var readURL = function (input) {
+        if (input.files.length + $scope.images.length > 6) {
+            toastr.error("Vui lòng chọn tối đa 6 hình ảnh")
+            return
+        }
+
         if (input.files) {
             $scope.addFileList(input.files)
         }

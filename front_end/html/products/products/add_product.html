@@ -514,14 +514,16 @@
 
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <input type="number" 
-                                                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
-                                                    id="quantity-{{color.id}}-{{size}}" class="form-control" ng-keyup="changeQuantity(color,size)">
+                                                    <input type="number"
+                                                        onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                                                        id="quantity-{{color.id}}-{{size}}" class="form-control"
+                                                        ng-keyup="changeQuantity(color,size)">
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <input type="number" 
-                                                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
-                                                    id="price-{{color.id}}-{{size}}" class="form-control" ng-keyup="changePrice(color, size)">
+                                                    <input type="number"
+                                                        onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                                                        id="price-{{color.id}}-{{size}}" class="form-control"
+                                                        ng-keyup="changePrice(color, size)">
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <i class="ti ti-trash-x-filled"
@@ -535,11 +537,10 @@
                                                         display: flex;
                                                         justify-content: space-around;
                                                         flex-wrap: wrap;">
-
-
                                                     </div>
 
-                                                    <h6 class="fw-semibold mb-0 fs-4" style="position: relative;">
+                                                    <h6
+                                                        class="fw-semibold mb-0 fs-4" style="position: relative;">
                                                         <a>
                                                             <i style="
                                                             display: inline-block;
@@ -809,9 +810,8 @@
                     <div class="modal-body">
                         <label for="exampleInputEmail1" class="form-label">Kích thước <sup
                                 style="color: #fa0000a8;">*</sup></label>
-                        <input placeholder="Nhập kích thước...." style="height: 40px;"
-                             type="number"
-                             onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                        <input placeholder="Nhập kích thước...." style="height: 40px;" type="number"
+                            onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                             class="form-control" ng-model="newSize" id="exampleInputEmail1"
                             aria-describedby="emailHelp">
                     </div>
@@ -839,5 +839,3 @@
 
     </div>
 </div>
-
-
