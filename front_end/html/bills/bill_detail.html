@@ -1080,7 +1080,7 @@
                         "></i>
         Thêm sản phẩm</button>
 
-      <button class="btn btn-danger" ng-if="bill.trangThai == 4" data-bs-toggle="modal" data-bs-target="#refundModal">
+      <button class="btn btn-danger" ng-if="bill.trangThai == 4 &&bill.idVoucher == null" data-bs-toggle="modal" data-bs-target="#refundModal">
         <i class="ti ti-credit-card-refund" style="
                               display: inline-block;
                               font-size: 18px;
@@ -1198,8 +1198,9 @@
             {{formatToVND(billDetail.donGiaSauKhiGiam == null ?
             (billDetail.donGia * billDetail.soLuong) : billDetail.donGiaSauKhiGiam * billDetail.soLuong)}}
           </td>
-          <td ng-if="bill.trangThai == 4">
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#billDetailSingleRefund"
+          <td ng-if="bill.trangThai == 4 && bill.idVoucher == null">
+            <button class="btn btn-danger" data-bs-toggle="modal"
+              data-bs-target="#billDetailSingleRefund"
               ng-click="loadProductRefund(billDetail)()">
               <i class="ti  ti-a-b-2" style="
                               display: inline-block;
@@ -1353,8 +1354,10 @@
             (billDetail.donGia * billDetail.soLuong) : billDetail.donGiaSauKhiGiam * billDetail.soLuong)}}
           </td>
           <td ng-if="bill.trangThai == 4">
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#billDetailSingleRefund"
-              ng-click="loadProductRefund(billDetail)()">
+            <button class="btn btn-danger" data-bs-toggle="modal" 
+            ng-if="bill.idVoucher == null"
+            data-bs-target="#billDetailSingleRefund"
+              ng-click="loadProductRefund(billDetail)">
               <i class="ti  ti-a-b-2" style="
                               display: inline-block;
                               font-size: 18px;
