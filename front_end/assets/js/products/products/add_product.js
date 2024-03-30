@@ -476,7 +476,6 @@ main_app.controller("addProductController", function ($scope, $http) {
                 })
                 .then((res) => {
                     newList.push(res.data);
-                    console.log(res.data)
                 }).catch((error) => console.error("Error:", error));
         }
 
