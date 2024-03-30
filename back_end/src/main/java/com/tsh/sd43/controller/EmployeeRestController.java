@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class EmployeeRestController {
 
-
     @Autowired
     private NhanVienSerImpl employeeSer;
 
@@ -25,7 +24,7 @@ public class EmployeeRestController {
         try{
             return new ResponseEntity<>(employeeSer.getEmployeesWithPanigation(pageNo, pageSize, key, trangThai), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -34,7 +33,7 @@ public class EmployeeRestController {
         try{
             return new ResponseEntity<>(employeeSer.addEmployee(req), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -43,7 +42,7 @@ public class EmployeeRestController {
         try{
             return new ResponseEntity<>(employeeSer.getEmployeeByID(id), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -52,7 +51,7 @@ public class EmployeeRestController {
         try{
             return new ResponseEntity<>(employeeSer.updateEmployee(req), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 

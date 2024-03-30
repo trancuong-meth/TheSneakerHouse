@@ -90,13 +90,14 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
                 axios.post("http://localhost:8080/employee/add", $scope.employee)
                     .then((res) => {
                         toastr.success('Bạn tạo thành công nhân viên này!!!');
+                        setTimeout(() => {
+                            location.href = "/html/router.html#!/nhan-vien"
+                            $window.location.reload();
+                        }, 100)
                     })
-                    .catch((error) => console.error("Error:", error));
-
-                setTimeout(() => {
-                    location.href = "/html/router.html#!/nhan-vien"
-                    $window.location.reload();
-                }, 100)
+                    .catch((error) => {
+                        toastr.error(error.response.data.message);
+                    });
 
             }
         })
@@ -140,7 +141,7 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
                 defaultOption.value = -1; // Set the value as needed
                 defaultOption.textContent = "--Chọn Tỉnh/Thành phố--"; // Set the text content
                 // Set the 'disabled' and 'selected' attributes to make it the default option
-                defaultOption.disabled = true;
+                defaultOption.disabled = false;
                 defaultOption.selected = true;
                 selectCity.appendChild(defaultOption);
                 const options = data.data;

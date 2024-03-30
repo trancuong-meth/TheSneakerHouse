@@ -328,8 +328,10 @@
                 <div style="width: 48%;">
                   <label for="exampleInputEmail1" class="form-label">Số lượng <sup style="color: #fa0000a8;">*</sup>
                   </label>
-                  <input placeholder="Nhập số lượng..." style="height: 40px;" type="number" class="form-control"
-                    id="exampleInputEmail1" ng-model="voucher.quantity" aria-describedby="emailHelp">
+                  <input placeholder="Nhập số lượng..." style="height: 40px;"
+                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                    type="number" class="form-control" id="exampleInputEmail1" ng-model="voucher.quantity"
+                    aria-describedby="emailHelp">
                 </div>
 
               </div>
@@ -339,14 +341,17 @@
                   <label for="exampleInputEmail1" class="form-label">Phần trăm giảm <sup
                       style="color: #fa0000a8;">*</sup>
                   </label>
-                  <input placeholder="Nhập phần trăm...." style="height: 40px;" type="number" class="form-control"
-                    id="exampleInputEmail1" ng-model="voucher.percent" aria-describedby="emailHelp">
+                  <input placeholder="Nhập phần trăm...." style="height: 40px;"
+                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                    type="number" class="form-control" id="exampleInputEmail1" ng-model="voucher.percent"
+                    aria-describedby="emailHelp">
                 </div>
 
                 <div style="width: 38%;">
                   <label for="exampleInputEmail1" class="form-label">Giá trị đơn tối thiểu <sup
                       style="color: #fa0000a8;">*</sup> </label>
                   <input placeholder="Nhập giá trị đơn tối thiểu..." style="height: 40px;" type="number"
+                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                     class="form-control" id="exampleInputEmail1" ng-model="voucher.min_price"
                     aria-describedby="emailHelp">
                 </div>
@@ -355,8 +360,10 @@
                   <label for="exampleInputEmail1" class="form-label">Giá trị tối đa <sup
                       style="color: #fa0000a8;">*</sup>
                   </label>
-                  <input placeholder="Nhập giá trị tối đa..." style="height: 40px;" type="number" class="form-control"
-                    id="exampleInputEmail1" ng-model="voucher.max_price" aria-describedby="emailHelp">
+                  <input placeholder="Nhập giá trị tối đa..." style="height: 40px;" type="number"
+                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                    class="form-control" id="exampleInputEmail1" ng-model="voucher.max_price"
+                    aria-describedby="emailHelp">
                 </div>
 
               </div>

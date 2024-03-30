@@ -42,6 +42,10 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
     // bill detail 
     $scope.stateBillMethod = false
 
+    // REGEX
+    var phone_regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+    var email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     // scanner qr
     let htmlscanner = new Html5QrcodeScanner(
         "my-qr-reader",
@@ -284,7 +288,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         var brandModal = document.querySelector("#productListModal")
         var addModal = bootstrap.Modal.getOrCreateInstance(brandModal)
 
-        if(productDetail.soLuongTon <=0 ){
+        if (productDetail.soLuongTon <= 0) {
             toastr.error("Số lượng sản phẩm còn lại trong cửa hàng không đủ.Vui lòng chọn sản phẩm khác.")
             return
         }
@@ -490,6 +494,40 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
             toastr.error("Bạn phải chọn sản phẩm");
             return;
         }
+
+        if ($scope.bill.loaiHoaDon == null || $scope.bill.loaiHoaDon == 0) {
+        } else {
+            if ($scope.bill.idKhachHang != null) {
+                if ($scope.bill.tenNguoiNhan === ""
+                    || $scope.bill.sdtNguoiNhan === ""
+                    || $scope.bill.email === ""
+                    || $scope.bill.maTinh === ""
+                    || $scope.bill.maPhuong === ""
+                    || $scope.bill.maXa === ""
+                    || $scope.bill.diaChi === "") {
+                    toastr.error('Bạn phải nhập đầy đủ các trường có trên form! ')
+                    return;
+                }
+
+                if ( $scope.bill.maTinh === null
+                    || $scope.bill.maPhuong === null
+                    || $scope.bill.maXa === null) {
+                    toastr.error('Bạn phải nhập đầy đủ các trường có trên form!! ')
+                    return;
+                }
+
+                if (!email_regex.test($scope.bill.email)) {
+                    toastr.error('Bạn phải nhập đúng định dạng email')
+                    return;
+                }
+
+                if (!phone_regex.test($scope.bill.sdtNguoiNhan)) {
+                    toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
+                    return;
+                }
+            }
+        }
+
 
         if ($scope.paymentMethod == 0) {
             $scope.moneyCustomerPayment = "";
@@ -827,7 +865,7 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
                 defaultOption.value = -1; // Set the value as needed
                 defaultOption.textContent = "Chọn Tỉnh"; // Set the text content
                 // Set the 'disabled' and 'selected' attributes to make it the default option
-                defaultOption.disabled = true;
+                defaultOption.disabled = false;
                 selectCityCustomer.appendChild(defaultOption);
                 const options = data.data;
                 for (let i = 0; i < options.length; i++) {

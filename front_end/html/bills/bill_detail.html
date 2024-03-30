@@ -1151,6 +1151,7 @@
                 <i class="ti ti-minus" style="font-size: 12px;"></i>
               </button>
               <input type="number" class="btn btn-sm btn-outline-muted text-center"
+                onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                 style="width: 29.3%;height: 40px;border-radius: 0;border-left: 0px;border-right: 0px;font-size: 14px;"
                 ng-model="billDetail.soLuong" ng-change="changeQuantity(billDetail)" disabled
                 id="bill-detail-quantity-{{billDetail.id}}">
@@ -1544,7 +1545,9 @@
       <div class="modal-body">
         <div>
           <label for="exampleInputEmail1" class="form-label">Số lượng: </label>
-          <input placeholder="Nhập số lượng...." type="number" class="form-control" ng-model="quantityRefund"
+          <input placeholder="Nhập số lượng...." type="number"
+           onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+           class="form-control" ng-model="quantityRefund"
             id="exampleInputEmail1" aria-describedby="emailHelp"></input>
         </div>
 

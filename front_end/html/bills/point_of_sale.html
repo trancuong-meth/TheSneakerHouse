@@ -163,7 +163,9 @@
                     ng-click="minusQuantity(billDetail)">
                     <i class="ti ti-minus" style="font-size: 14px;"></i>
                   </button>
-                  <input type="number" class="btn btn-sm btn-outline-muted text-center"
+                  <input type="number" 
+                   onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                   class="btn btn-sm btn-outline-muted text-center"
                     style="width: 33%;height: 40px;border-radius: 0;border-left: 0px;border-right: 0px;font-size: 14px;"
                     ng-model="billDetail.soLuong" ng-change="changeQuantity(billDetail)" disabled
                     id="bill-detail-quantity-{{billDetail.id}}">

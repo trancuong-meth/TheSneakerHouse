@@ -70,7 +70,7 @@ main_app.controller("editEmployeeController", function ($scope, $http, $routePar
                 defaultOption.value = -1; // Set the value as needed
                 defaultOption.textContent = "--Chọn Tỉnh/Thành phố--"; // Set the text content
                 // Set the 'disabled' and 'selected' attributes to make it the default option
-                defaultOption.disabled = true;
+                defaultOption.disabled = false;
                 defaultOption.selected = true;
                 selectCityCustomer.appendChild(defaultOption);
                 const options = data.data;
@@ -195,7 +195,7 @@ main_app.controller("editEmployeeController", function ($scope, $http, $routePar
                 defaultOption.value = -1; // Set the value as needed
                 defaultOption.textContent = "Chọn Tỉnh"; // Set the text content
                 // Set the 'disabled' and 'selected' attributes to make it the default option
-                defaultOption.disabled = true;
+                defaultOption.disabled = false;
                 selectCityCustomer.appendChild(defaultOption);
                 const options = data.data;
                 for (let i = 0; i < options.length; i++) {

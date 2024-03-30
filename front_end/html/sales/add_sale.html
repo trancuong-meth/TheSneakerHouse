@@ -7,7 +7,7 @@
           <!-- bread crumbs -->
           <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
             <div class="mb-3 mb-sm-0">
-              <i class="ti ti-home-2"></i> / <a href="#!phieu-giam-gia">Danh sách đợt giảm giá</a> / <span
+              <i class="ti ti-home-2"></i> / <a href="#!dot-giam-gia">Danh sách đợt giảm giá</a> / <span
                 style="color: black;display: inline-block;">Thêm đợt giảm giá</span>
             </div>
           </div>
@@ -28,6 +28,7 @@
                   <label for="exampleInputEmail1" class="form-label">Giá trị (%) <sup style="color: #fa0000a8;">*</sup>
                   </label>
                   <input placeholder="Nhập phần trăm...." style="height: 40px;" type="number" class="form-control"
+                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                     id="exampleInputEmail1" ng-model="sale.phanTramGiam" aria-describedby="emailHelp">
                 </div>
 

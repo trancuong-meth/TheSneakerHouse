@@ -65,7 +65,7 @@ main_app.controller("addCustomerController", function ($scope, $http, $window) {
             return;
         }
 
-        if($scope.avatar === "" || $scope.avatar === null){
+        if ($scope.avatar === "" || $scope.avatar === null) {
             toastr.error('Bạn phải chọn ảnh đại diện');
             return;
         }
@@ -86,13 +86,14 @@ main_app.controller("addCustomerController", function ($scope, $http, $window) {
                 axios.post("http://localhost:8080/customer/add", $scope.customer)
                     .then((res) => {
                         toastr.success('Bạn đã tạo thành công khách hàng');
+                        setTimeout(() => {
+                            location.href = "/html/router.html#!/khach-hang"
+                            $window.location.reload();
+                        }, 100)
                     })
-                    .catch((error) => console.error("Error:", error));
-
-                setTimeout(() => {
-                    location.href = "/html/router.html#!/khach-hang"
-                    $window.location.reload();
-                }, 100)
+                    .catch((error) => {
+                        toastr.error(error.response.data.message);
+                    });
 
             }
         })
@@ -130,7 +131,7 @@ main_app.controller("addCustomerController", function ($scope, $http, $window) {
                 defaultOption.value = -1; // Set the value as needed
                 defaultOption.textContent = "--Chọn Tỉnh/Thành phố--"; // Set the text content
                 // Set the 'disabled' and 'selected' attributes to make it the default option
-                defaultOption.disabled = true;
+                defaultOption.disabled = false;
                 defaultOption.selected = true;
                 selectCity.appendChild(defaultOption);
                 const options = data.data;

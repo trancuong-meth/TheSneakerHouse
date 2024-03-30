@@ -34,6 +34,12 @@ public interface INhanVienRepo extends JpaRepository<NhanVien, Long> {
 
     @Query(value = """
         select * from nhan_vien
+        where email = :email 
+    """, nativeQuery = true)
+    NhanVien findNhanVienByEmail(@Param("email") String email);
+
+    @Query(value = """
+        select * from nhan_vien
         where email = :email and mat_khau = :matKhau
     """, nativeQuery = true)
     NhanVien findNhanVienByEmailAndPass(@Param("email") String email, @Param("matKhau") String pass);

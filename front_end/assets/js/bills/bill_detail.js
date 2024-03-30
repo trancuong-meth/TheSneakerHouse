@@ -286,7 +286,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 defaultOption.value = -1; // Set the value as needed
                 defaultOption.textContent = "--Chọn Tỉnh/Thành phố--"; // Set the text content
                 // Set the 'disabled' and 'selected' attributes to make it the default option
-                defaultOption.disabled = true;
+                defaultOption.disabled = false;
                 defaultOption.selected = true;
                 selectCityCustomer.appendChild(defaultOption);
                 const options = data.data;
@@ -438,7 +438,7 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
                 defaultOption.value = -1; // Set the value as needed
                 defaultOption.textContent = "Chọn Tỉnh"; // Set the text content
                 // Set the 'disabled' and 'selected' attributes to make it the default option
-                defaultOption.disabled = true;
+                defaultOption.disabled = false;
                 selectCityCustomer.appendChild(defaultOption);
                 const options = data.data;
                 for (let i = 0; i < options.length; i++) {
@@ -680,7 +680,6 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
 
         if (!phone_regex.test($scope.oldBill.sdtNguoiNhan)) {
             toastr.error('Bạn phải nhập đúng định dạng số điện thoại')
-            $scope.bill = $scope.oldBill
             return;
         }
 

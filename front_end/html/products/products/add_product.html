@@ -309,7 +309,7 @@
                     <!-- bread crumbs -->
                     <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                         <div class="mb-3 mb-sm-0">
-                            <i class="ti ti-home-2"></i> / <a href="#!phieu-giam-gia">Danh sách sản phẩm</a> / <span
+                            <i class="ti ti-home-2"></i> / <a href="#!san-pham">Danh sách sản phẩm</a> / <span
                                 style="color: black;display: inline-block;">Thêm sản phẩm</span>
                         </div>
                     </div>
@@ -514,10 +514,14 @@
 
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <input type="number" id="quantity-{{color.id}}-{{size}}" class="form-control" ng-keyup="changeQuantity(color,size)">
+                                                    <input type="number" 
+                                                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                                                    id="quantity-{{color.id}}-{{size}}" class="form-control" ng-keyup="changeQuantity(color,size)">
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <input type="number" id="price-{{color.id}}-{{size}}" class="form-control" ng-keyup="changePrice(color, size)">
+                                                    <input type="number" 
+                                                    onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
+                                                    id="price-{{color.id}}-{{size}}" class="form-control" ng-keyup="changePrice(color, size)">
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <i class="ti ti-trash-x-filled"
@@ -805,7 +809,9 @@
                     <div class="modal-body">
                         <label for="exampleInputEmail1" class="form-label">Kích thước <sup
                                 style="color: #fa0000a8;">*</sup></label>
-                        <input placeholder="Nhập kích thước...." style="height: 40px;" type="number"
+                        <input placeholder="Nhập kích thước...." style="height: 40px;"
+                             type="number"
+                             onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                             class="form-control" ng-model="newSize" id="exampleInputEmail1"
                             aria-describedby="emailHelp">
                     </div>
