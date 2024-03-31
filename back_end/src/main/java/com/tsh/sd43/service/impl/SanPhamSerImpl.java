@@ -122,6 +122,14 @@ public class SanPhamSerImpl implements ISanPhamSer {
                 }
             }
 
+        }else {
+            ArrayList<SanPhamChiTiet> productDetails = sanPhamChiTietRepo.getProductDetailsByIdProduct(req.getId());
+            if(!productDetails.isEmpty()){
+                for(SanPhamChiTiet productDetail : productDetails){
+                    productDetail.setTrangThai(true);
+                    sanPhamChiTietRepo.save(productDetail);
+                }
+            }
         }
         return sanPhamRepo.save(e);
     }
