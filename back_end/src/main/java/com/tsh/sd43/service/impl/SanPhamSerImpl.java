@@ -1,6 +1,7 @@
 package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.SanPham;
+import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.request.ProductAddRequest;
 import com.tsh.sd43.entity.request.ProductUpdateRequest;
 import com.tsh.sd43.entity.responce.ProductResponce;
@@ -33,6 +34,9 @@ public class SanPhamSerImpl implements ISanPhamSer {
 
     @Autowired
     private IMauSacRepo mauSacRepo;
+
+    @Autowired
+    private ISanPhamChiTietRepo sanPhamChiTietRepo;
 
     public Page<ProductResponce> getProducts(int pageNo,
                                              int pageSize,
@@ -106,6 +110,19 @@ public class SanPhamSerImpl implements ISanPhamSer {
         e.setIdTheLoai(req.getIdTheLoai());
         e.setIdThuongHieu(req.getIdThuongHieu());
         e.setTrangThai(req.getTrangThai());
+
+        if(req.getTrangThai() == false){
+            // trạng thái khi san pham da bao la khong con kinh doanh
+            // tat ca cac san pham chi tiet se bao la het hang va khong cho phep kinh doanh nua
+            ArrayList<SanPhamChiTiet> productDetails = sanPhamChiTietRepo.getProductDetailsByIdProduct(req.getId());
+            if(!productDetails.isEmpty()){
+                for(SanPhamChiTiet productDetail : productDetails){
+                    productDetail.setTrangThai(false);
+                    sanPhamChiTietRepo.save(productDetail);
+                }
+            }
+
+        }
         return sanPhamRepo.save(e);
     }
 

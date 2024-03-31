@@ -74,4 +74,10 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
         """, nativeQuery = true)
     ArrayList<SanPhamChiTiet> getProductDetailByIdSale(@Param("id") Long id);
 
+    @Query(value = """
+        select * from san_pham_chi_tiet spct
+        where spct.id_san_pham = :id
+        """, nativeQuery = true)
+    ArrayList<SanPhamChiTiet> getProductDetailsByIdProduct(@Param("id") Long id);
+
 }
