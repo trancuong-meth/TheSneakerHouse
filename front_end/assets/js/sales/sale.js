@@ -27,6 +27,11 @@ main_app.controller("saleController", function($scope, $http){
     }
   
     loadData()
+
+    setInterval(() => {
+      loadData()
+      console.log("running")
+    }, 1000);
     
     $scope.changeStatusSale = function(id, state){
   

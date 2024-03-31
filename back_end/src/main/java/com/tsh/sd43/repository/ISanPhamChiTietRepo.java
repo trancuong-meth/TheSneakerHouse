@@ -70,7 +70,7 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
                                                Pageable pageable);
 
     @Query(value = """
-        select * from san_pham_chi_tiet where deleted = 1 and id_dot_giam_gia    = :id
+        select * from san_pham_chi_tiet where deleted = 1 and id_dot_giam_gia = :id
         """, nativeQuery = true)
     ArrayList<SanPhamChiTiet> getProductDetailByIdSale(@Param("id") Long id);
 
@@ -79,5 +79,11 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
         where spct.id_san_pham = :id
         """, nativeQuery = true)
     ArrayList<SanPhamChiTiet> getProductDetailsByIdProduct(@Param("id") Long id);
+
+    @Query(value = """
+        select * from san_pham_chi_tiet
+        where id_dot_giam_gia = :id
+    """, nativeQuery = true)
+    ArrayList<SanPhamChiTiet> getProductDetailsByIdSale(@Param("id") Long id);
 
 }

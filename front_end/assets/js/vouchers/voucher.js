@@ -25,6 +25,11 @@ main_app.controller("voucherController", function ($scope, $http) {
       });
   }
 
+  setInterval(() => {
+    loadData()
+    console.log("running")
+  }, 1000);
+
   loadData()
 
   $scope.changeStatus = function (id, state) {

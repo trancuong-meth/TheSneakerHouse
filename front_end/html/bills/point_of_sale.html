@@ -806,7 +806,7 @@
         <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher dành riêng cho
           bạn: </label>
         <div class="card" style="display: flex;justify-content: space-between;padding: 20px;position: relative;"
-          ng-repeat="voucher in voucherPrivates">
+          ng-repeat="voucher in voucherPrivates" ng-if="voucher.trangThai == 1">
           <div style="width: 80%;font-size: 12px;">
             <div>
               <span style="color: #5D87FF;">[{{voucher.ma}}]</span>
@@ -848,7 +848,7 @@
 
         <label for="exampleInputEmail1" class="form-label" ng-if="voucherPrivates.length !== 0">Voucher khác: </label>
         <div class="card" style="display: flex;justify-content: space-between;padding: 20px;position: relative;"
-          ng-repeat="voucher in voucherPublics">
+          ng-repeat="voucher in voucherPublics" ng-if="voucher.trangThai == 1">
           <div style="width: 80%;font-size: 12px;">
             <div>
               <span style="color: #5D87FF;">[{{voucher.ma}}]</span>
