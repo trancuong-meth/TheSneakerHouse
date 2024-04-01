@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
 </head>
 
-<body style="background-image: url(https://e0.pxfuel.com/wallpapers/735/662/desktop-wallpaper-sneakers-sneakers-background-on-bat-sneaker.jpg);background-size: cover;">
+<body
+  style="background-image: url(https://e0.pxfuel.com/wallpapers/735/662/desktop-wallpaper-sneakers-sneakers-background-on-bat-sneaker.jpg);background-size: cover;">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -25,19 +26,20 @@
                 color: #e3a51e;
                 font-weight: 700;
                 font-size: 21px;
-                margin-bottom: 16px;" 
-                >The sneaker house</div>
-                <form>
+                margin-bottom: 16px;">The sneaker house</div>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="emailForget" aria-describedby="emailHelp">
                   </div>
-                 
-                  <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
-                     style="background-color: #e3a51e; border: none"
-                  >Gửi mật khẩu về email</a>
-                  
-                </form>
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <a class="text-primary fw-bold" href="./login.html" style="color: #e3a51e!important;">Quay lại đăng
+                      nhập
+                    </a>
+                  </div>
+
+                  <button onclick="forgetPass()" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
+                    style="background-color: #e3a51e; border: none">Gửi mật khẩu về email</button>
+
               </div>
             </div>
           </div>
@@ -47,6 +49,47 @@
   </div>
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- axios -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    var email = document.getElementById("emailForget")
+    var email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function forgetPass() {
+      email = email.value
+
+      if (email === "") {
+        Swal.fire({
+          icon: "error",
+          title: "Đã có lỗi",
+          text: "Bạn phải nhập email",
+        });
+        return;
+      }
+
+      if (!email_regex.test(email)) {
+        Swal.fire({
+          icon: "error",
+          title: "Đã có lỗi",
+          text: "Bạn phải nhập đúng định dạng email!",
+        });
+        return;
+      }
+
+      axios.post('http://localhost:8080/email/send-html-email-get-pass?email=' + email).then((response) => {
+      }).catch((error) => {
+        console.log(error)
+      })
+
+      window.location.href = "/html/login.html"
+
+    }
+  </script>
 </body>
 
 </html>

@@ -49,8 +49,8 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <ul id="sidebarnav">
 
-            <li class="sidebar-item">
-              <a class="sidebar-link active" href="#!thong-ke" aria-expanded="false" onclick="removeOption()">
+            <li ng-if="employee.chucVu.ma == 1" class="sidebar-item">
+              <a class="sidebar-link" href="#!thong-ke" aria-expanded="false" onclick="removeOption()">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -59,7 +59,7 @@
             </li>
 
             <li class="sidebar-item" onclick="removeOption()">
-              <a class="sidebar-link" aria-expanded="false" href="#!ban-hang">
+              <a class="sidebar-link active" aria-expanded="false" href="#!ban-hang">
                 <span>
                   <i class="ti ti-garden-cart"></i>
                 </span>
@@ -76,7 +76,7 @@
               </a>
             </li>
 
-            <li class="OptionContainer sidebar-item">
+            <li ng-if="employee.chucVu.ma == 1" class="OptionContainer sidebar-item">
               <a class="OptionHead sidebar-link" onclick="ToggleOption(this)" style="cursor: pointer;">
                 <div style="display: flex;">
                   <span>
@@ -156,7 +156,7 @@
                   </i></div>
               </a>
               <div class="OptionBody sidebar-item">
-                <a href="#!nhan-vien" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
+                <a ng-if="employee.chucVu.ma == 1" href="#!nhan-vien" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
                   onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Nhân viên
@@ -172,7 +172,7 @@
               </div>
             </li>
 
-            <li class="sidebar-item" onclick="removeOption()">
+            <li ng-if="employee.chucVu.ma == 1" class="sidebar-item" onclick="removeOption()">
               <a class="sidebar-link" aria-expanded="false" href="#!dot-giam-gia">
                 <span>
                   <i class="ti ti-discount-2"></i>
@@ -181,7 +181,7 @@
               </a>
             </li>
 
-            <li class="sidebar-item" onclick="removeOption()">
+            <li ng-if="employee.chucVu.ma == 1" class="sidebar-item" onclick="removeOption()">
               <a class="sidebar-link" href="#!phieu-giam-gia" aria-expanded="false">
                 <span>
                   <i class="ti ti-gift"></i>
@@ -222,7 +222,8 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                    <a data-bs-toggle="modal" data-bs-target="#changePassModal" style="cursor: pointer;"
+                      class="d-flex align-items-center gap-2 dropdown-item">
                       <i class="ti ti-edit-circle fs-6"></i>
                       <p class="mb-0 fs-3">Đổi mật khẩu</p>
                     </a>
@@ -245,6 +246,48 @@
       </div>
     </div>
 
+    <!-- brand modal -->
+    <div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center" id="exampleModalLabel">Thay đổi mật khẩu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <label for="exampleInputEmail1" class="form-label">Nhập mật khẩu cũ</label>
+              <input placeholder="Nhập nhập mật khẩu cũ...." style="height: 40px;" type="password" class="form-control"
+                ng-model="oldPass" id="exampleInputEmail1">
+            </div>
+
+            <div>
+              <label for="exampleInputEmail1" class="form-label">Nhập mật khẩu mới</label>
+              <input placeholder="Nhập mật khẩu mới...." style="height: 40px;" type="password" class="form-control"
+                ng-model="newPass" id="exampleInputEmail1">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              <i class="ti ti-x" style="
+                                             display: inline-block;
+                                             font-size: 18px;
+                                             transform: translateY(2px);
+                                         "></i>
+              Đóng</button>
+            <button type="button" class="btn btn-primary" ng-click="changePass()" style="margin-right: 15px;">
+              <i class="ti ti-edit" style="
+                                 display: inline-block;
+                                 font-size: 18px;
+                                 transform: translateY(2px);
+                             "></i>
+              Thay đổi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -333,6 +376,21 @@
           localStorage.removeItem("employee")
           window.location.href = "/html/login.html"
         }
+
+        $scope.changePass = () => {
+          var changePassModal = document.querySelector("#changePassModal")
+          var modal = bootstrap.Modal.getOrCreateInstance(changePassModal)
+
+          axios.put(`http://localhost:8080/employee/change-pass?oldPass=${$scope.oldPass}&newPass=${$scope.newPass}&id=${$scope.employee.id}`)
+            .then((response) => {
+              toastr.success("Đổi mật khẩu thành công!!!");
+              modal.hide()
+              $scope.oldPass = ""
+              $scope.newPass = ""
+            }).catch((error) => {
+              toastr.error(error.response.data.message)
+            })
+        }
       });
 
     // router
@@ -389,7 +447,8 @@
         .when("/hoan-tien", { templateUrl: "refunds/refund.html", controller: "refundController" })
 
         // mặc định 
-        .otherwise({ redirectTo: "/thong-ke" })
+        .otherwise({
+           redirectTo:  "/ban-hang" })
     })
 
     function ToggleOption(element) {

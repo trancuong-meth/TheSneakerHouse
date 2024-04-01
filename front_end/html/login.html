@@ -37,7 +37,7 @@
                   <input type="password" id="pass" class="form-control" id="exampleInputPassword1">
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                  <a class="text-primary fw-bold" href="./index.html" style="color: #e3a51e!important;">Quên mật khẩu
+                  <a class="text-primary fw-bold" href="./forget_pass.html" style="color: #e3a51e!important;">Quên mật khẩu
                     ?</a>
                 </div>
                 <button onclick="login()" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
@@ -67,8 +67,6 @@
     const login = () => {
       email = email.value
       pass = pass.value
-      console.log(email)
-      console.log(pass)
       if (email === "") {
         Swal.fire({
           icon: "error",
