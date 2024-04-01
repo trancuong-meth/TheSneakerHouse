@@ -93,6 +93,7 @@ main_app.controller("addProductController", function ($scope, $http) {
             toastr.success("Bạn đã thêm kích cỡ " + size + " thành công.")
         }
         console.log($scope.listChooseSizeModal)
+        $scope.addProductDetail()
     }
 
     $scope.chooseColor = function (color) {
@@ -119,6 +120,7 @@ main_app.controller("addProductController", function ($scope, $http) {
             temp.push($scope.colors.find(x => x.id == id))
         }
         $scope.listChooseColor = temp;
+        $scope.addProductDetail()
     }
 
     $scope.chooseSizeAddProduct = function () {
@@ -620,6 +622,8 @@ main_app.controller("addProductController", function ($scope, $http) {
             if (result.isConfirmed) {
                 axios.post('http://localhost:8080/product/add', $scope.product)
                     .then(function (response) {
+                        console.log(response)
+                        console.log($scope.productDetails)
                         for (var i = 0; i < $scope.productDetails.length; i++) {
                             $scope.productDetails[i].product = response.data
                             axios.post('http://localhost:8080/product-detail/add', {
