@@ -81,19 +81,19 @@ main_app.controller("addProductController", function ($scope, $http) {
         if (html.classList.contains('btn-primary')) {
             html.classList.remove('btn-primary')
             html.classList.add('btn-outline-primary')
-            for (var i = $scope.listChooseSizeModal.length; i--;) {
-                if ($scope.listChooseSizeModal[i] === size)
-                    $scope.listChooseSizeModal.splice(i, 1);
-            }
             toastr.success("Bạn đã xóa kích cỡ " + size + " thành công.")
+            $scope.removeChooseSize(size)
         } else {
             html.classList.add('btn-primary')
             html.classList.remove('btn-outline-primary')
             $scope.listChooseSizeModal.push(size)
             toastr.success("Bạn đã thêm kích cỡ " + size + " thành công.")
+            setTimeout(() => {
+                $scope.addProductDetail()
+            }, 100);
         }
         console.log($scope.listChooseSizeModal)
-        $scope.addProductDetail()
+
     }
 
     $scope.chooseColor = function (color) {
@@ -103,24 +103,24 @@ main_app.controller("addProductController", function ($scope, $http) {
         if (html.classList.contains('btn-primary')) {
             html.classList.remove('btn-primary')
             html.classList.add('btn-outline-primary')
-            for (var i = $scope.listChooseColorId.length; i--;) {
-                if ($scope.listChooseColorId[i] === color)
-                    $scope.listChooseColorId.splice(i, 1);
-            }
             toastr.success("Bạn đã xóa màu sắc " + $scope.colors.find(x => x.id == color).ten + " thành công.")
+            $scope.removeChooseColor(color)
         } else {
             html.classList.add('btn-primary')
             html.classList.remove('btn-outline-primary')
             $scope.listChooseColorId.push(color)
             toastr.success("Bạn đã thêm màu sắc " + $scope.colors.find(x => x.id == color).ten + " thành công.")
+            setTimeout(() => {
+                $scope.addProductDetail()
+            }, 100);
         }
 
         var temp = []
-        for(var id of $scope.listChooseColorId){
+        for (var id of $scope.listChooseColorId) {
             temp.push($scope.colors.find(x => x.id == id))
         }
         $scope.listChooseColor = temp;
-        $scope.addProductDetail()
+
     }
 
     $scope.chooseSizeAddProduct = function () {
@@ -211,9 +211,9 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     $scope.buttonChooseColor = function () {
         var colors = document.getElementsByClassName('btn-list-color')
-        
+
         var temp = []
-        for(var id of $scope.listChooseColorId){
+        for (var id of $scope.listChooseColorId) {
             temp.push($scope.colors.find(x => x.id == id))
         }
         $scope.listChooseColor = temp;
@@ -234,7 +234,7 @@ main_app.controller("addProductController", function ($scope, $http) {
         }
     }
 
-    $scope.removeChooseByColorAndSize = function (colorId, size) {
+    $scope.removeChooseByColorAndSize = function (colorId, size, index) {
         var productDetailHtml = document.getElementById("color-size-" + colorId + "-" + size)
         var productDetailTabColor = document.getElementById("modal-product-detail-color-" + colorId)
 

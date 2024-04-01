@@ -316,25 +316,25 @@
 
                     <!-- form -->
                     <div style="margin-bottom: 15px;">
-                        <label for="exampleInputEmail1" class="form-label">Tên sản phẩm: <sup
+                        <label for="nameProduct" class="form-label">Tên sản phẩm: <sup
                                 style="color: #fa0000a8;">*</sup></label>
 
                         <input placeholder="Nhập tên sản phẩm...." style="height: 40px;" type="text"
-                            class="form-control" ng-model="product.ten" id="exampleInputEmail1"
-                            aria-describedby="emailHelp">
+                            class="form-control" ng-model="product.ten" id="nameProduct"
+                            >
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="exampleInputEmail1" class="form-label">Mô tả: <sup
+                        <label for="moTa" class="form-label">Mô tả: <sup
                                 style="color: #fa0000a8;">*</sup></label>
 
                         <textarea placeholder="Nhập mô tả...." type="text" class="form-control" ng-model="product.moTa"
-                            id="exampleInputEmail1" rows="5" aria-describedby="emailHelp"></textarea>
+                            id="moTa" rows="5" aria-describedby="emailHelp"></textarea>
                     </div>
 
                     <div style="display: flex;justify-content: space-between;align-items: center;margin-top: 10px;">
                         <div style="width: 48%;">
-                            <label for="exampleInputEmail1" class="form-label">Thương hiệu : <sup
+                            <label for="brandName" class="form-label">Thương hiệu : <sup
                                     style="color: #fa0000a8;">*</sup></label>
                             <div class="select-wrap"
                                 style="display: flex; justify-content: space-between; align-items: center;">
@@ -355,7 +355,7 @@
                         </div>
 
                         <div style="width: 48%;">
-                            <label for="exampleInputEmail1" class="form-label">Thể loại: <sup
+                            <label for="typeName" class="form-label">Thể loại: <sup
                                     style="color: #fa0000a8;">*</sup></label>
                             <div class="select-wrap"
                                 style="display: flex; justify-content: space-between; align-items: center;">
@@ -382,7 +382,7 @@
                         </div>
                         <div class="card-body">
                             <div style="text-align: left;">
-                                <label style="width: 100px; " for="exampleInputEmail1" class="form-label">Kích cỡ:
+                                <label style="width: 100px; " for="size" class="form-label">Kích cỡ:
                                     <sup style="color: #fa0000a8;">*</sup>
                                 </label>
 
@@ -420,7 +420,7 @@
                             </div>
 
                             <div style="text-align: left; margin-top: 20px;">
-                                <label style="width: 100px;" for="exampleInputEmail1" class="form-label">Màu sắc:<sup
+                                <label style="width: 100px;" for="colorName" class="form-label">Màu sắc:<sup
                                         style="color: #fa0000a8;">*</sup> </label>
 
                                 <span ng-repeat="color in listChooseColor">
@@ -527,33 +527,37 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <i class="ti ti-trash-x-filled"
-                                                        ng-click="removeChooseByColorAndSize(color.id, size)" style="    
+                                                        ng-click="removeChooseByColorAndSize(color.id, size, $index)"
+                                                        style="    
                                                    font-size: 23px;
                                                    color: #d11a2a;"></i>
                                                 </td>
-                                                <td class="border-bottom-0" rowspan="{{listChooseSize.length}}"
-                                                    ng-if="$index == 0">
-                                                    <div id="image-{{color.id}}-{{size}}" style="
+                                                <td class="border-bottom-0 uploadImage" rowspan="{{listChooseSize.length}}"
+                                                    ng-if="$index == 0" >
+                                                    <div>
+
+                                                        <div id="image-{{color.id}}-{{size}}" style="
                                                         display: flex;
                                                         justify-content: space-around;
                                                         flex-wrap: wrap;">
-                                                    </div>
+                                                        </div>
 
-                                                    <h6
-                                                        class="fw-semibold mb-0 fs-4" style="position: relative;">
-                                                        <a>
-                                                            <i style="
+                                                        <h6 class="fw-semibold mb-0 fs-4" style="position: relative;">
+                                                            <a>
+                                                                <i style="
                                                             display: inline-block;
                                                             font-size: 23px;  
                                                             color: #d4d42e;" class="ti ti-photo-plus"></i>
-                                                        </a>
-                                                        <input type="file" multiple accept="image/*" style="position: absolute;
+                                                            </a>
+                                                            <input type="file" multiple accept="image/*" style="position: absolute;
                                                         top: 1px;
                                                         left: 24px;
                                                         width: 37%;
                                                         opacity: 0;" ng-click="getColorSelected(color, size)"
-                                                            onchange="angular.element(this).scope().changeImage(this)" />
-                                                    </h6>
+                                                                onchange="angular.element(this).scope().changeImage(this)" />
+                                                        </h6>
+                                                    </div>
+
                                                 </td>
                                             </tr>
 
@@ -657,8 +661,7 @@
                         </div>
                         <div style="display: block; margin-top: 20px;clear: all">
                             <button ng-repeat="size in sizes" class="btn btn-outline-primary btn-list-size"
-                                ng-click="chooseSize(size.kichCo)" id="size-{{size.kichCo}}"
-                                id="size-modal-{{size.id}}"
+                                ng-click="chooseSize(size.kichCo)" id="size-{{size.kichCo}}" id="size-modal-{{size.id}}"
                                 style=" margin-bottom: 10px; display: inline-block;margin-right: 5px;margin-bottom:10px;">
                                 {{size.kichCo}}</button>
 
@@ -696,10 +699,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body">
-                        <label for="exampleInputEmail1" class="form-label">Tên thương hiệu <sup
+                        <label for="brandName1" class="form-label">Tên thương hiệu <sup
                                 style="color: #fa0000a8;">*</sup></label>
                         <input placeholder="Nhập tên thương hiệu...." style="height: 40px;" type="text"
-                            class="form-control" ng-model="name_brand" id="exampleInputEmail1"
+                            class="form-control" ng-model="name_brand" id="brandName1"
                             aria-describedby="emailHelp">
                     </div>
                     <div class="modal-footer">
@@ -734,10 +737,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body">
-                        <label for="exampleInputEmail1" class="form-label">Tên thể loại <sup
+                        <label for="typeName" class="form-label">Tên thể loại <sup
                                 style="color: #fa0000a8;">*</sup></label>
                         <input placeholder="Nhập tên thể loại...." style="height: 40px;" type="text"
-                            class="form-control" ng-model="name_type" id="exampleInputEmail1"
+                            class="form-control" ng-model="name_type" id="typeName"
                             aria-describedby="emailHelp">
                     </div>
                     <div class="modal-footer">
