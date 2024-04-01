@@ -176,4 +176,18 @@ public class NhanVienSerImpl implements INhanVienSer {
         return nv;
     }
 
+    public String changePass(String oldPass, String newPass, Long id){
+        // change pass
+        NhanVien employee = nhanVienRepo.findById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy nhân viên"));
+
+        if(employee.getMatKhau().equals(oldPass)){
+            employee.setMatKhau(newPass);
+            nhanVienRepo.save(employee);
+            return "Đổi mật khẩu thành công";
+        }else{
+            throw new RuntimeException("Mật khẩu cũ không đúng");
+        }
+
+    }
+
 }

@@ -3,12 +3,15 @@ package com.tsh.sd43.infrastructure.configs.mail;
 import com.tsh.sd43.entity.HoaDon;
 import com.tsh.sd43.entity.HoaDonChiTiet;
 import com.tsh.sd43.entity.KhachHang;
+import com.tsh.sd43.entity.NhanVien;
 import com.tsh.sd43.entity.request.VoucherDetailRequest;
 import com.tsh.sd43.repository.IHoaDonChiTietRepo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import com.tsh.sd43.repository.INhanVienRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.text.NumberFormat;
@@ -31,6 +34,9 @@ public class EmailController {
     public EmailController(EmailService emailService) {
         this.emailService = emailService;
     }
+
+    @Autowired
+    public INhanVienRepo nhanVienRepo;
 
     @PostMapping("/send-email")
     public String sendEmail(@RequestBody HoaDon hoaDon) {
@@ -98,23 +104,23 @@ public class EmailController {
         return "HTML email sent successfully!";
     }
 
-//    @PostMapping("/send-html-email-get-pass")
-//    public String sendHtmlEmailGetPass(@RequestBody ForgetPassRequest forgetPassRequest) {
-//        Account account = accountClientRepository.findByEmail(forgetPassRequest.getEmail());
-//
-//        if (account == null) {
-//            throw new RuntimeException("Không tìm thấy tài khoản");
-//        }
-//        Context context = new Context();
-//
-//        //create new pass
+    @PostMapping("/send-html-email-get-pass")
+    public String sendHtmlEmailGetPass(@RequestParam("email")String email) {
+        NhanVien account = nhanVienRepo.findNhanVienByEmail(email);
+
+        if (account == null) {
+            throw new RuntimeException("Không tìm thấy tài khoản");
+        }
+        Context context = new Context();
+
+        //create new pass
 //        String newPass = "Abc123.";
 //        account.setMatKhau(passwordEncoder.encode(newPass));
 //        accountClientRepository.save(account);
-//        //send new pass
-//        context.setVariable("password", newPass);
-//
-//        emailService.sendEmailWithHtmlTemplate(forgetPassRequest.getEmail(), "Mật khẩu của bạn", "email-get-pass-template", context);
-//        return "HTML email sent successfully!";
-//    }
+        //send new pass
+        context.setVariable("password", account.getMatKhau());
+
+        emailService.sendEmailWithHtmlTemplate(account.getEmail(), "Mật khẩu của bạn", "forget-template", context);
+        return "HTML email sent successfully!";
+    }
 }

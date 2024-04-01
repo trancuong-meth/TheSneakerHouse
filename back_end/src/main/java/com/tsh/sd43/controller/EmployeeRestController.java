@@ -64,4 +64,15 @@ public class EmployeeRestController {
         }
     }
 
+    @PutMapping("/change-pass")
+    public ResponseEntity<?> changePass(@RequestParam("oldPass")String pass,
+                                        @RequestParam("newPass")String newPass,
+                                        @RequestParam("id")Long id){
+        try{
+            return new ResponseEntity<>(employeeSer.changePass(pass, newPass, id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
