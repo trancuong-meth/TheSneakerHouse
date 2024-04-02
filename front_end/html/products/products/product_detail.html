@@ -98,7 +98,7 @@
                   <div id="image-{{product.id}}">
 
                   </div>
-                  <div class="ribbon" ng-if="product.idDotGiamGia !== null">
+                  <div class="ribbon" ng-if="product.idDotGiamGia !== null && product.idDotGiamGia.trangThai === 1">
                     <span>- {{product.idDotGiamGia.phanTramGiam}}%</span>
                   </div>
 
