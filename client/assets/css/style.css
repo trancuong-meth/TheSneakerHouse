@@ -2033,6 +2033,7 @@ fieldset legend {
 .product-name a {
   color: #333333;
   font-weight: 500;
+  text-decoration: none;
 }
 .product-name a:hover {
   color: #3a4863;
@@ -4313,6 +4314,7 @@ fieldset legend {
 .location-wrap li a,
 .useful-link li a {
   color: white;
+  text-decoration: none;
 }
 .location-wrap li a:hover,
 .useful-link li a:hover {
