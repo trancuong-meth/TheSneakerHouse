@@ -525,6 +525,14 @@
                     console.log($scope.user)
                 }
 
+                $scope.checkUser = () => {
+                    if($scope.user != null){
+                        $http.get('http://localhost:8080/employee/get-employee/' + $scope.user.id).then(function (response) {
+                            localStorage.setItem("user", JSON.stringify(response.data))
+                        })
+                    }
+                }
+
                 $scope.formatToVND = function (amount) {
                     const formatter = new Intl.NumberFormat("vi-VN", {
                         style: "currency",
@@ -594,6 +602,8 @@
                 }
 
                 $scope.showMiniCart();
+
+                $scope.checkUser()
 
                 $scope.logOut = () => {
                     localStorage.setItem("user", null)

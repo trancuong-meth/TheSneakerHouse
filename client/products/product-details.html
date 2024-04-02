@@ -244,15 +244,15 @@
                         <div style="padding: 14px;">
                             <div class="row">
                                 <div class="col-lg-5">
-                                    <div class="" mb-20" >
+                                    <div class="" mb-20">
                                         <!-- <div ng-repeat="img in imageCurrents" >
                                             <img src="{{img.duongDan}}" alt="" style="width: 475px;" />
                                         </div> -->
                                         <span ng-repeat="img in getAllImagesBecomeSlides(product.id, 'product')"></span>
                                         <div id="image-product-{{product.id}}"></div>
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="product-details-des">
@@ -320,7 +320,8 @@
                                             <span id="size-product-detail">
                                                 <button id="size-product-detail-{{productDetail.idKichCo.id}}"
                                                     ng-repeat="productDetail in productDetailChooses"
-                                                    class="size-product-detail" ng-if="productDetail.soLuongTon !== 0"
+                                                    class="size-product-detail"
+                                                    ng-disabled="productDetail.soLuongTon === 0"
                                                     ng-click="chooseSize(productDetail)">{{productDetail.idKichCo.kichCo}}
                                                 </button>
                                             </span>
@@ -349,7 +350,8 @@
                                             text-align: center;
                                             border-radius: 0;" ng-click="minusQuantity()" value="-">
 
-                                            <input disabled ng-change="changeQuantity(cartDetail)" min="1" value="1" ng-model="quantity_of_cart" style="    
+                                            <input disabled ng-change="changeQuantity(cartDetail)" min="1" value="1"
+                                                ng-model="quantity_of_cart" style="    
                                                                         background: #fff;
                                                                         font-weight: 600;
                                                                         height: 32px;
@@ -383,9 +385,22 @@
                                             background-color: #e3a51e;
                                             color: white;
                                             font-weight: 700;
-                                            border-radius: 5px;width: 360px;">
+                                            border-radius: 5px;width: 360px;"
+                                                ng-if="productChooseCurrent.soLuongTon !== 0">
                                                 <i class="fa-solid fa-cart-plus"></i>
                                                 Thêm vào giỏ hàng</button>
+
+                                            <button ng-click="addToCart()" style="    
+                                                font-size: 16px;
+                                                padding: 15px;
+                                                background-color: #f94c43;
+                                                opacity: 0.6;
+                                                color: white;
+                                                font-weight: 700;
+                                                border-radius: 5px;width: 360px;"
+                                                disabled
+                                                ng-if="productChooseCurrent.soLuongTon === 0">
+                                                Sản phẩm đã tạm hết hàng</button>
                                         </div>
 
                                         <div class="color-option">
@@ -397,7 +412,7 @@
                                                 color: #333;
                                                 font-size: 13px;">Mô tả :</label>
                                             <div>
-                                             {{product.moTa}}
+                                                {{product.moTa}}
                                             </div>
                                         </div>
 
@@ -430,21 +445,26 @@
                                                     <div class="product-thumb">
                                                         <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}">
                                                             </span>
-                                                            <span ng-repeat="image in getAllImagesByIDProductDetailSwiper(product.id)"></span>
-                                                            <img id="image-{{product.id}}" style="width: 221px;height: 210px;   " />
+                                                            <span
+                                                                ng-repeat="image in getAllImagesByIDProductDetailSwiper(product.id)"></span>
+                                                            <img id="image-{{product.id}}"
+                                                                style="width: 221px;height: 210px;   " />
                                                         </a>
                                                     </div>
                                                     <div class="product-content">
                                                         <h5 class="product-name">
-                                                            <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}" style="color: #272727;
+                                                            <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}"
+                                                                style="color: #272727;
                                                             font-weight: 500;
                                                             font-size: 16px;">{{product.idSanPham.ten}}</a>
                                                         </h5>
                                                         <div class="price-box">
                                                             <span class="price-regular"
                                                                 style="color: #f94c43;font-weight: 700;font-size: 14px;">
-                                                                {{formatToVND(product.idDotGiamGia == null ? product.donGia : (100 -
-                                                                product.idDotGiamGia.phanTramGiam) * product.donGia / 100) }}</span>
+                                                                {{formatToVND(product.idDotGiamGia == null ?
+                                                                product.donGia : (100 -
+                                                                product.idDotGiamGia.phanTramGiam) * product.donGia /
+                                                                100) }}</span>
                                                             <span class="price-old" style="   
                                                                 color: #939393;
                                                                 font-size: 13px;
@@ -457,23 +477,24 @@
                                                                     class="ion-android-favorite-outline"></i></a>
                                                             <a href="#" data-bs-toggle="tooltip" title="Add To Cart"><i
                                                                     class="ion-bag"></i></a>
-                                                            <a ng-click="quickView(product.idSanPham.id)" data-bs-toggle="modal"
-                                                                data-bs-target="#quick_view"> <span data-bs-toggle="tooltip"
-                                                                    title="Quick View"><i class="ion-ios-eye-outline"></i></span> </a>
+                                                            <a ng-click="quickView(product.idSanPham.id)"
+                                                                data-bs-toggle="modal" data-bs-target="#quick_view">
+                                                                <span data-bs-toggle="tooltip" title="Quick View"><i
+                                                                        class="ion-ios-eye-outline"></i></span> </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- product single item start -->
                                             </div>
-                                            
+
                                         </div>
-                
+
                                         <!-- If we need navigation buttons -->
                                         <div class="swiper-button-prev"></div>
                                         <div class="swiper-button-next"></div>
-                
+
                                     </div>
-                
+
                                 </div>
                             </div>
                         </section>
@@ -617,8 +638,8 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
 

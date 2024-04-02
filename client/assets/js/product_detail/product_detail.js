@@ -32,19 +32,16 @@ clientApp.controller('singleProductController',
                     $scope.sizes = response.data
                 });
 
-                console.log($scope.productChooseCurrent)
             if ($scope.productChooseCurrent != null && $scope.productChooseCurrent != undefined ) {
                 if($scope.customer != null){
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
-                        console.log(response.data)
                     }).catch(error => {
                         console.log(error)
                     })
                 }else{
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + -1 + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
-                        console.log(response.data)
                     }).catch(error => {
                         console.log(error)
                     })
@@ -69,7 +66,6 @@ clientApp.controller('singleProductController',
             $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&trang_thai=' + '&idSize=' + '&idColor=' + '&id=' + id,)
                 .then(function (response) {
                     $scope.productDetails = response.data.content
-                    console.log(response.data)
                     $scope.product = response.data.content[0].idSanPham
                     $scope.totalItemsProductDetail = response.data.totalElements
                 }).catch(function (error) {
@@ -112,14 +108,12 @@ clientApp.controller('singleProductController',
                 if($scope.customer != null){
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
-                        console.log(response.data)
                     }).catch(error => {
                         console.log(error)
                     }) 
                 }else{
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + -1 + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
-                        console.log(response.data)
                     }).catch(error => {
                         console.log(error)
                     }) 
@@ -131,7 +125,6 @@ clientApp.controller('singleProductController',
 
         $scope.getImageByProductId = function (id) {
             axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
-                console.log(response)
                 return response.data[0].duongDan
             }).catch(function (error) {
                 console.log(error)
@@ -167,15 +160,23 @@ clientApp.controller('singleProductController',
 
             $scope.productDetailChooses = $scope.productDetails.filter(productDetail => productDetail.idMauSac.id === id)
             $scope.loadSizes()
+            console.log($scope.productDetailChooses)
 
             setTimeout(() => {
                 $scope.productDetailChooses.forEach((productDetail, index) => {
                     if (productDetail.soLuongTon > 0) {
                         $scope.chooseSize(productDetail)
                         return
+                    }else{
+                        $scope.productChooseCurrent = productDetail
+                        return;
                     }
                 })
             }, 10)
+
+            setTimeout(() => {
+                console.log($scope.productChooseCurrent)
+            }, 100)
         }
 
         $scope.chooseSize = (productDetail) => {
@@ -224,7 +225,6 @@ clientApp.controller('singleProductController',
             if (text !== undefined) {
                 var html = document.getElementById("image-" + text + "-" + $scope.product.id)
             }
-            console.log(html)
     
             axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
                 for (var i = 0; i < response.data.length; i++) {
@@ -249,7 +249,6 @@ clientApp.controller('singleProductController',
             })
         }
     
-
         $scope.addToCart = () => {
 
             if ($scope.quantity_of_cart == 0) {
@@ -323,7 +322,6 @@ clientApp.controller('singleProductController',
                     $scope.showMiniCart()
                     $scope.loadSizes()
                     $scope.getAllImagesBecomeSlides($scope.productChooseCurrent.id, 'product')
-                    console.log($scope.productChooseCurrent)
                 }, 300)
 
             }).catch(function (error) {

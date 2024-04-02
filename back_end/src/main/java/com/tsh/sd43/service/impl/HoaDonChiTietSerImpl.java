@@ -43,8 +43,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                 hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
                 hoaDonChiTiet.setTrangThai(1);
                 if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                    hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 - req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                    if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1) {
+                        hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 - req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                    }
                 }
                 return hoaDonChiTietRepo.save(hoaDonChiTiet);
             }else{
@@ -56,8 +58,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                                 throw new RuntimeException("Số lượng còn lại không đủ");
                             }
                             if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                                item.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                                        * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                                if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                                    item.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                                }
                             }
                             item.setSoLuong(item.getSoLuong() + 1);
                             return hoaDonChiTietRepo.save(item);
@@ -65,8 +69,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                             if(req.getSanPhamChiTiet().getSoLuongTon() >= req.getSoLuong()) {
                                 item.setSoLuong(req.getSoLuong());
                                 if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                                    item.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 - req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                                    if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                                        item.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 - req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                                * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                                    }
                                 }
                                 return hoaDonChiTietRepo.save(item);
                             }else{
@@ -84,8 +90,11 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                     hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
                     hoaDonChiTiet.setTrangThai(1);
                     if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                        hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                                * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                        if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                            hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                    * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                        }
+
                     }
                     return hoaDonChiTietRepo.save(hoaDonChiTiet);
                 }else{
@@ -96,8 +105,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                     hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
                     hoaDonChiTiet.setTrangThai(1);
                     if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                        hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                                * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                        if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                            hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                    * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                        }
                     }
                     return hoaDonChiTietRepo.save(hoaDonChiTiet);
                 }
@@ -117,8 +128,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
             hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
             hoaDonChiTiet.setTrangThai(1);
             if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                        * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                    hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                }
             }
             return hoaDonChiTietRepo.save(hoaDonChiTiet);
         } catch (Exception e) {
@@ -143,8 +156,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                 hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
                 hoaDonChiTiet.setTrangThai(1);
                 if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                    hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                    if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                        hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                    }
                 }
                 return hoaDonChiTietRepo.save(hoaDonChiTiet);
             }else {
@@ -152,8 +167,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                     if(item.getIdSanPhamChiTiet().getId().equals(req.getSanPhamChiTiet().getId())) {
                         item.setSoLuong(req.getSoLuong());
                         if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                            item.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                                    * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                            if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                                item.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                        * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                            }
                         }
 
                         return hoaDonChiTietRepo.save(item);
@@ -167,8 +184,10 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
                 hoaDonChiTiet.setDonGia(req.getSanPhamChiTiet().getDonGia());
                 hoaDonChiTiet.setTrangThai(1);
                 if(req.getSanPhamChiTiet().getIdDotGiamGia() != null) {
-                    hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
-                            * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                    if(req.getSanPhamChiTiet().getIdDotGiamGia().getTrangThai() == 1){
+                        hoaDonChiTiet.setDonGiaSauKhiGiam(BigDecimal.valueOf((100 -req.getSanPhamChiTiet().getIdDotGiamGia().getPhanTramGiam())
+                                * req.getSanPhamChiTiet().getDonGia().doubleValue()/100));
+                    }
                 }
                 return hoaDonChiTietRepo.save(hoaDonChiTiet);
 
