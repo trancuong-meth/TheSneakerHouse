@@ -527,9 +527,11 @@
 
                 $scope.checkUser = () => {
                     if($scope.user != null){
-                        $http.get('http://localhost:8080/employee/get-employee/' + $scope.user.id).then(function (response) {
+                        $http.get('http://localhost:8080/customer/get-customer/' + $scope.user.id).then(function (response) {
                             localStorage.setItem("user", JSON.stringify(response.data))
                         })
+                    }else{
+                        localStorage.setItem("user", null)
                     }
                 }
 

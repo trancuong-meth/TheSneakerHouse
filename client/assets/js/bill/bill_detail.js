@@ -716,6 +716,10 @@ clientApp.controller('billDetailController',
 
         $scope.plusQuantity = function (billDetail) {
             var quantityHtml = document.getElementById("bill-detail-quantity-" + billDetail.id)
+            if(quantityHtml.value == 3){
+                toastr.error("Bạn chỉ được thêm tối đa 3 sản phẩm trong một đơn hàng.")
+                return;
+            }
             quantityHtml.value = Number(quantityHtml.value) + 1
             $scope.addProductToBillApi(billDetail.idSanPhamChiTiet, $scope.bill, quantityHtml.value)
         }
