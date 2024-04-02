@@ -182,7 +182,9 @@
 }
 
 .pagination .active {
-  background-color: #5D87FF;
+  background-color: rgb(62 74 99 / 56%)
+
+;
 }
 
 .pagination .active a {
@@ -196,7 +198,9 @@
 }
 
 .pagination>li>a {
-  color: #5D87FF;
+  color: rgb(62 74 99 / 56%)
+
+;
 }
 
 .pagination>.pagination-prev {
@@ -294,7 +298,9 @@
 }
 
 .sub_menu_active {
-  background-color: #5D87FF;
+  background-color: rgb(62 74 99 / 56%)
+
+;
 }
 
 .sub_menu_active span {
@@ -302,7 +308,9 @@
 }
 
 .sub_menu_active:hover {
-  background-color: #5D87FF !important;
+  background-color: rgb(62 74 99 / 56%)
+
+ !important;
   color: #fff !important;
 }
 
@@ -988,7 +996,9 @@ svg * {
   content: "";
   width: 2px;
   height: 50px;
-  background: #5D87FF;
+  background: rgb(62 74 99 / 56%)
+
+;
   position: absolute;
   top: 0;
   left: 0;
@@ -1005,7 +1015,9 @@ svg * {
 .sch-style-2 .sch-content:nth-child(1) .btn-right::before,
 .sch-style-2 .sch-content:nth-child(1) .btn-right::after,
 .sch-style-2 .sch-content:nth-child(1) .sch-icon::before {
-  background: #5D87FF;
+  background: rgb(62 74 99 / 56%)
+
+;
 }
 
 .sch-style-2 .sch-content:nth-child(2) .sch-year,
@@ -1288,7 +1300,9 @@ video {
 }
 
 #switch:checked + #label_switch {
-	background: #5d87ff;
+	background: rgb(62 74 99 / 56%)
+
+;
 }
 
 #switch:checked + #label_switch:after {
@@ -1332,7 +1346,9 @@ video {
 }
 
 #switch_1:checked + #label_switch_1 {
-	background: #5d87ff;
+	background: rgb(62 74 99 / 56%)
+
+;
 }
 
 #switch_1:checked + #label_switch_1:after {
@@ -1342,4 +1358,8 @@ video {
 
 #label_switch_1:active:after {
 	width: 130px;
+}
+
+.btn {
+  border: none;
 }

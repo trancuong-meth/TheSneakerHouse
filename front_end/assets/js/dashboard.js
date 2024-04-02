@@ -21,7 +21,9 @@ $(function () {
     },
 
 
-    colors: ["#5D87FF", "#49BEFF"],
+    colors: ["rgb(62 74 99 / 56%)
+
+", "#49BEFF"],
 
 
     plotOptions: {
@@ -138,7 +140,9 @@ $(function () {
     legend: {
       show: false,
     },
-    colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+    colors: ["rgb(62 74 99 / 56%)
+
+", "#ecf2ff", "#F9F9FD"],
 
     responsive: [
       {
