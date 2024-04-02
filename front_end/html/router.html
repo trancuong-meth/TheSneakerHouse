@@ -24,9 +24,13 @@
   <!-- ICON -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
 </head>
 
-<body ng-app="main-app">
+<body ng-app="main-app" style="font-family: 'Quicksand', sans-serif!important;">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed" ng-controller="AngularController">
@@ -39,7 +43,8 @@
             font-size: 24px;
             font-weight: 900;
           ">
-            <img style="width: 45%;margin-left: 48px;" src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png" alt="">
+            <img style="width: 45%;margin-left: 48px;"
+              src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png" alt="">
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -156,8 +161,8 @@
                   </i></div>
               </a>
               <div class="OptionBody sidebar-item">
-                <a ng-if="employee.chucVu.ma == 1" href="#!nhan-vien" class="sidebar-link OptionContainer" style="color: #2A3547; display: block;"
-                  onclick="selectSubMenu(this)">
+                <a ng-if="employee.chucVu.ma == 1" href="#!nhan-vien" class="sidebar-link OptionContainer"
+                  style="color: #2A3547; display: block;" onclick="selectSubMenu(this)">
                   <span style="color: #2A3547; transform: translateX(48px); display: inline-block;">
                     Nhân viên
                   </span>
@@ -448,7 +453,8 @@
 
         // mặc định 
         .otherwise({
-           redirectTo:  "/ban-hang" })
+          redirectTo: "/ban-hang"
+        })
     })
 
     function ToggleOption(element) {
