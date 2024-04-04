@@ -81,11 +81,12 @@
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active" id="home" ng-click="changeActive(0)"><a
+                                            <li class="active btn-nav" id="home" ng-click="changeActive(0)"><a
                                                     href="#!trang-chu" style="font-weight: 600;">Trang
                                                     chủ</a>
                                             </li>
-                                            <li class="static" id="men_shoes" ng-click="changeActive(1)"
+
+                                            <li class="static btn-nav" id="men_shoes" ng-click="changeActive(1)"
                                                 style="font-weight: 600;"><a href="#!danh-sach-san-pham"
                                                     style="font-weight: 600;">Giày nam
                                                     <!-- <i class="fa fa-angle-down"></i> -->
@@ -118,6 +119,10 @@
                                                 </ul> -->
                                             </li>
 
+                                            <li class="static btn-nav" id="newsest" ng-click="changeActive(2    )"><a
+                                                    href="#!tin-tuc" style="font-weight: 600;">
+                                                    Tin tức</a>
+                                            </li>
                                         </ul>
                                     </nav>
                                     <!-- main menu navbar end -->
@@ -226,8 +231,8 @@
 
 
     <!-- map -->
-    <div style="position: relative;margin-bottom: -6px;">
-        <div class="well" style="position: absolute;">
+    <div style="position: relative;margin-bottom: -6px; margin-top: 20px;">
+        <!-- <div class="well" style="position: absolute;">
             <form style="padding: 5px;">
                 <hggroup style="margin-top: 20px;display: inline-block;">
                     <h2>Nhập email để nhận những thông tin mới nhất</h2>
@@ -245,7 +250,7 @@
                     </div>
                 </button>
             </form>
-        </div>
+        </div> -->
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6096.147427374028!2d105.73155268917573!3d21.03955903588125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab6b960c64f3%3A0xe299d1031f8a0a95!2zQ2FvIMSR4bqzbmcgcG9seQ!5e0!3m2!1sen!2s!4v1712204828208!5m2!1sen!2s"
             width="600" height="450" style="border:0;width: 100%;" allowfullscreen="" loading="lazy"
@@ -610,17 +615,27 @@
                     })
                 }
 
+                $scope.removeNavButton = () => {
+                    var htmls = document.getElementsByClassName("btn-nav")
+                    console.log(htmls)
+                    for(var html of htmls){
+                        html.classList.add('static')
+                        html.classList.remove('active')
+                    }
+                }
+
                 $scope.changeActive = (status) => {
+                    $scope.removeNavButton()
                     if (status == 0) {
                         document.getElementById("home").classList.add('active')
                         document.getElementById("home").classList.remove('static')
-                        document.getElementById("men_shoes").classList.add('static')
-                        document.getElementById("men_shoes").classList.remove('active')
-                    } else {
-                        document.getElementById("home").classList.add('static')
-                        document.getElementById("home").classList.remove('active')
+                       
+                    } else if(status == 1) {
                         document.getElementById("men_shoes").classList.add('active')
                         document.getElementById("men_shoes").classList.remove('static')
+                    } else if( status == 2){
+                        document.getElementById("newsest").classList.add('active')
+                        document.getElementById("newsest").classList.remove('static')
                     }
                 }
 
@@ -653,6 +668,9 @@
         clientApp.config(function ($routeProvider) {
             $routeProvider
                 .when("/trang-chu", { templateUrl: "home/index.html", controller: "homeController" })
+
+                .when("/tin-tuc", { templateUrl: "news/new.html", controller: "newController" })
+                .when("/thong-tin-tin-tuc", { templateUrl: "news/single-new.html", controller: "newController" })
 
                 // product detail
                 .when('/san-pham-chi-tiet/:id', { templateUrl: "products/product-details.html", controller: "singleProductController" })
