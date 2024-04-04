@@ -442,10 +442,10 @@ main_app.controller("addProductController", function ($scope, $http) {
                 reader.onload = function (e) {
 
                     var html = imageZone.innerHTML + `
-                    <div style="position: relative;width:50px;height: 50px;margin-right: 20px;margin-bottom:10px" id="image-${$scope.colorSelected.id}-${e.total}"
+                    <div style="position: relative;width:100px;height: 100px;margin-right: 20px;margin-bottom:10px" id="image-${$scope.colorSelected.id}-${e.total}"
                          
                     >
-                    <img src="${e.target.result}" style="width: 50px; height: 50px; margin-right: 5px; margin-bottom: 5px;">
+                    <img src="${e.target.result}" style="width: 100px; height: 100px; margin-right: 5px; margin-bottom: 5px;">
                     <i class="ti ti-x" style="
                         font-size: 12px;
                         position: absolute;
