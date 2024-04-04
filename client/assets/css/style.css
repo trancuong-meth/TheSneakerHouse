@@ -5929,3 +5929,7 @@ font-size: 14px;
   text-decoration: none;
   color: #333;
 }
+
+ol,ul{
+  padding-left: 0px!important;
+}
