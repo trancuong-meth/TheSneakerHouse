@@ -66,7 +66,9 @@
                                 <a href="#!trang-chu" style="   
                                  font-size: 19px;
                                 font-weight: 200;">
-                                    <img style="width: 50%;" src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png" alt="">
+                                    <img style="width: 50%;"
+                                        src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png"
+                                        alt="">
                                 </a>
                             </div>
                         </div>
@@ -79,10 +81,12 @@
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active" id="home" ng-click="changeActive(0)"><a href="#!trang-chu" style="font-weight: 600;" >Trang
+                                            <li class="active" id="home" ng-click="changeActive(0)"><a
+                                                    href="#!trang-chu" style="font-weight: 600;">Trang
                                                     chủ</a>
                                             </li>
-                                            <li class="static" id="men_shoes"  ng-click="changeActive(1)"  style="font-weight: 600;"><a href="#!danh-sach-san-pham"
+                                            <li class="static" id="men_shoes" ng-click="changeActive(1)"
+                                                style="font-weight: 600;"><a href="#!danh-sach-san-pham"
                                                     style="font-weight: 600;">Giày nam
                                                     <!-- <i class="fa fa-angle-down"></i> -->
                                                 </a>
@@ -148,8 +152,7 @@
                                                             border-radius: 50%;
                                                             width: 34px;
                                                             height: 34px;
-                                                            transform: translateY(-7px);" 
-                                                            ng-if="user.avatar == null">
+                                                            transform: translateY(-7px);" ng-if="user.avatar == null">
                                             </a>
 
                                             <ul class="dropdown-list" ng-if="user == null">
@@ -193,7 +196,9 @@
                                 <a href="#!trang-chu" style="   
                                      font-size: 15px;
                                      font-weight: 600;">
-                                     <img style="width: 50%;" src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png" alt="">
+                                    <img style="width: 50%;"
+                                        src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png"
+                                        alt="">
                                 </a>
                             </div>
                             <div class="mobile-menu-toggler">
@@ -219,6 +224,35 @@
 
     <div ng-view></div>
 
+
+    <!-- map -->
+    <div style="position: relative;margin-bottom: -6px;">
+        <div class="well" style="position: absolute;">
+            <form style="padding: 5px;">
+                <hggroup style="margin-top: 20px;display: inline-block;">
+                    <h2>Nhập email để nhận những thông tin mới nhất</h2>
+                </hggroup>
+                <div style="margin-bottom: 10px;">
+                    <label style="font-weight: 500;font-size: 16px;color:#333" for="">Email</label>
+                    <input type="text" class="form-control" name="login-username" id="login-username" required>
+                </div>
+
+                <button class='btn btn-primary' style="background-color: #3a4863;border: none;height: 50px;width: 100%;"
+                    id="btn-submit">
+                    <span class="button-text"><i style="margin-right: 10px;display: inline-block;"
+                            class="ti ti-send"></i>Đăng kí nhận thông tin!</span>
+                    <div class="button-loader">
+                    </div>
+                </button>
+            </form>
+        </div>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6096.147427374028!2d105.73155268917573!3d21.03955903588125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab6b960c64f3%3A0xe299d1031f8a0a95!2zQ2FvIMSR4bqzbmcgcG9seQ!5e0!3m2!1sen!2s!4v1712204828208!5m2!1sen!2s"
+            width="600" height="450" style="border:0;width: 100%;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    </div>
+
     <!-- Start Footer Area Wrapper -->
     <footer class="footer-wrapper" style="background-color: #191919;">
         <!-- footer main area start -->
@@ -232,7 +266,9 @@
                                 <a href="index.html" style="   
                                 font-size: 19px;
                                font-weight: 200;">
-                                    <img style="width: 40%;" src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png" alt="">
+                                    <img style="width: 40%;"
+                                        src="https://thesneakershouse.com/wp-content/uploads/2024/01/Diseno-sin-titulo-18.png"
+                                        alt="">
                                 </a>
                             </h5>
                             <div class="widget-body">
@@ -526,11 +562,11 @@
                 }
 
                 $scope.checkUser = () => {
-                    if($scope.user != null){
+                    if ($scope.user != null) {
                         $http.get('http://localhost:8080/customer/get-customer/' + $scope.user.id).then(function (response) {
                             localStorage.setItem("user", JSON.stringify(response.data))
                         })
-                    }else{
+                    } else {
                         localStorage.setItem("user", null)
                     }
                 }
@@ -575,12 +611,12 @@
                 }
 
                 $scope.changeActive = (status) => {
-                    if(status == 0){
+                    if (status == 0) {
                         document.getElementById("home").classList.add('active')
                         document.getElementById("home").classList.remove('static')
                         document.getElementById("men_shoes").classList.add('static')
                         document.getElementById("men_shoes").classList.remove('active')
-                    }else{
+                    } else {
                         document.getElementById("home").classList.add('static')
                         document.getElementById("home").classList.remove('active')
                         document.getElementById("men_shoes").classList.add('active')
@@ -668,7 +704,7 @@
     <script src="assets/js/user/changePass.js"></script>
     <script src="assets/js/product_detail/shop.js"></script>
     <script src="assets/js/bill/success_payment.js"></script>
-    
+
 </body>
 
 
