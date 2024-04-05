@@ -34,7 +34,7 @@ public class CartRestController {
         try{
             return new ResponseEntity<>(cartService.addProductToCartPlusQuantity(req), HttpStatus.OK);
         }catch (Exception ex){
-            return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(ex.getCause(), HttpStatus.BAD_REQUEST);
         }
     }
 

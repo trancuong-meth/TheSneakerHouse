@@ -325,7 +325,8 @@ clientApp.controller('singleProductController',
                 }, 300)
 
             }).catch(function (error) {
-                toastr.error("Đã có lỗi xảy ra vui lòng liên hệ quản trị viên.")
+                console.log(error)
+                toastr.error(error.data.message)
             })
 
         }

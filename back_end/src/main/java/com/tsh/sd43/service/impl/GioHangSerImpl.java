@@ -110,6 +110,12 @@ public class GioHangSerImpl implements IGioHangSer {
         GioHang cart = getCartByIdCustomer(req.getIdKhachHang());
         try {
             ArrayList<GioHangChiTiet> productDetails = gioHangChiTietRepo.findCartDetailsByIdCart(cart.getId());
+            Long quantity = gioHangChiTietRepo.getQuantityOfCartDetailByIdCart2(cart.getId()) == null ? 0 : gioHangChiTietRepo.getQuantityOfCartDetailByIdCart(cart.getId());
+
+            Integer quantityProduct = req.getSoLuong() == -1 ? 1 : req.getSoLuong();
+            if(quantity + quantityProduct > 5) {
+                throw new RuntimeException("Tổng sản phẩm trong giỏ hàng chỉ được phép là 5.Vui lòng liên hệ 0968686868 để biết thêm chi tiết.");
+            }
 
             if(productDetails.size() == 0) {
                 GioHangChiTiet cartDetail = new GioHangChiTiet();
@@ -121,6 +127,7 @@ public class GioHangSerImpl implements IGioHangSer {
                 cartDetail.setSoLuong(req.getSoLuong() == -1 ? 1 : req.getSoLuong());
                 return gioHangChiTietRepo.save(cartDetail);
             }else{
+
                 for(GioHangChiTiet item : productDetails) {
                     if(item.getIdSanPhamChiTiet().getId().equals(req.getSanPhamChiTiet().getId())) {
 
@@ -129,11 +136,19 @@ public class GioHangSerImpl implements IGioHangSer {
                                 throw new RuntimeException("Số lượng còn lại không đủ");
                             }
 
+                            if(item.getSoLuong() + 1 > 3) {
+                                throw new RuntimeException("Tối đa 3 sản phẩm trong một đơn hàng");
+                            }
+
                             item.setSoLuong(item.getSoLuong() == null ? 0 : item.getSoLuong() + 1);
                             return gioHangChiTietRepo.save(item);
                         }else{
                             Integer quantityCart = item.getSoLuong() == null ? 0 : item.getSoLuong();
                             if( quantityCart + req.getSoLuong() >= req.getSanPhamChiTiet().getSoLuongTon()) {
+                                if(quantityCart + req.getSoLuong() > 3) {
+                                    throw new RuntimeException("Tối đa 3 sản phẩm trong một đơn hàng");
+                                }
+
                                 item.setSoLuong(req.getSoLuong() + quantityCart);
                                 return gioHangChiTietRepo.save(item);
                             }else{
