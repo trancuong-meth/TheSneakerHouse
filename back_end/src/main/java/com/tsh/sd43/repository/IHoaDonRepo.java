@@ -176,6 +176,13 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
 
     @Query(value = """
             select hd.trang_thai, count(hd.id)as so_luong from hoa_don hd
+            where hd.loai_hoa_don = :typeBill
+             group by hd.trang_thai
+    """, nativeQuery = true)
+    ArrayList<BillRevenueResponse> getQuantityBillByBuyPaymentState(@Param("typeBill")Integer typeBill);
+
+    @Query(value = """
+            select hd.trang_thai, count(hd.id)as so_luong from hoa_don hd
             where id_khach_hang = :id_khach_hang
             group by hd.trang_thai
     """, nativeQuery = true)

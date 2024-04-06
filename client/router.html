@@ -160,7 +160,8 @@
                                                             transform: translateY(-7px);" ng-if="user.avatar == null">
                                             </a>
 
-                                            <ul class="dropdown-list" ng-if="user == null">
+                                            <ul style="padding: 10px!important;padding-left: 16px!important;"
+                                                class="dropdown-list" ng-if="user == null">
                                                 <li><a href="#!dang-nhap">Đăng nhập</a></li>
                                                 <li><a href="#!dang-ky">Đăng ký</a></li>
                                             </ul>
@@ -170,7 +171,7 @@
                                                 <li><a href="#!thong-tin">Thông tin</a></li>
                                                 <li><a href="#!danh-sach-hoa-don">Danh sách hóa đơn</a></li>
                                                 <li><a href="#!doi-mat-khau">Đổi mật khẩu</a></li>
-                                                <li><a ng-click="logOut()">Đăng xuất</a></li>
+                                                <li style="cursor: pointer;"><a ng-click="logOut()">Đăng xuất</a></li>
                                             </ul>
                                         </li>
                                         <li ng-click="showMiniCart()">
@@ -259,9 +260,9 @@
     <!-- Start Footer Area Wrapper -->
     <footer class="footer-wrapper" style="background-color: #191919;">
         <!-- footer main area start -->
-        <div class="footer-widget-area " >
-            <div  style="display: flex;">
-                <div class="row mtn-40" style="padding: 20px;width: 70%;padding-top: 50px;" >
+        <div class="footer-widget-area ">
+            <div style="display: flex;">
+                <div class="row mtn-40" style="padding: 20px;width: 70%;padding-top: 50px;">
                     <!-- footer widget item start -->
                     <div class="col-xl-6 col-lg-3 col-md-6" style="padding-left: 60px;transform: translateY(-24px);">
                         <div class="widget-item mt-40">
@@ -287,10 +288,12 @@
                                         </div>
                                     </li>
                                     <li><i class="ion-ios-location-outline"></i>Số 14, Vinhome, Phước Mỹ, Hà Nội</li>
-                                    <li><i class="ion-ios-email-outline"></i>Email: <a
-                                            href="mailto:yourmail@gmail.com" style="display: inline-block;font-size: inherit;">thesneaker@gmail.com</a></li>
+                                    <li><i class="ion-ios-email-outline"></i>Email: <a href="mailto:yourmail@gmail.com"
+                                            style="display: inline-block;font-size: inherit;">thesneaker@gmail.com</a>
+                                    </li>
                                     <li><i class="ion-ios-telephone-outline"></i>Số điện thoại: <a
-                                            href="%2b0025425456554.html" style="display: inline-block;font-size: inherit;">0968686868</a></li>
+                                            href="%2b0025425456554.html"
+                                            style="display: inline-block;font-size: inherit;">0968686868</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -338,7 +341,7 @@
                 </div>
 
                 <!-- brand area start -->
-                <div style="width: 40%;" >
+                <div style="width: 40%;">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6096.147427374028!2d105.73155268917573!3d21.03955903588125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab6b960c64f3%3A0xe299d1031f8a0a95!2zQ2FvIMSR4bqzbmcgcG9seQ!5e0!3m2!1sen!2s!4v1712204828208!5m2!1sen!2s"
                         width="600" height="450" style="border:0;width: 100%;height: 100%;" allowfullscreen=""
@@ -655,6 +658,7 @@
 
                 $scope.logOut = () => {
                     localStorage.setItem("user", null)
+                    $window.location.href = '#!trang-chu'
                     $window.location.reload()
                 }
             });

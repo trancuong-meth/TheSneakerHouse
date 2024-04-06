@@ -192,6 +192,15 @@ public class BillRestController {
         }
     }
 
+    @GetMapping("/get-quantity-bills-state/{state}")
+    public ResponseEntity<?> getQuantityBillBuyState(@PathVariable("state") Integer state){
+        try{
+            return new ResponseEntity<>(hoaDonService.getQuantityBillWithState(state), HttpStatus.OK);
+        }catch (Exception ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
     @GetMapping("/get-quantity-bills-by-id-customer/{id}")
     public ResponseEntity<?> getQuantityBillAndIdCustomer(@PathVariable("id") Long id){
         try{

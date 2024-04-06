@@ -17,6 +17,22 @@ main_app.controller("statisticalController", function ($scope, $http) {
   $scope.keyTopProduct = "1"
   $scope.fillterChar = "0"
 
+  // quantity with state of bill 
+  $scope.quantityState1 = 0
+  $scope.quantityState2 = 0
+  $scope.quantityState3 = 0
+  $scope.quantityState4 = 0
+  $scope.quantityState5 = 0
+  $scope.quantityState6 = 0
+
+  // list of bill detail with state bill
+  $scope.billDetailOfStateLabel = []
+  $scope.billDetailOfStateValue = []
+  $scope.billDetailOfStates = []
+
+  // state
+  $scope.stateOfBuyPayment = "3";
+
   $scope.loadBills = function () {
     $http.get('http://localhost:8080/bill/get-revenue-month').then(function (response) {
       $scope.revenueMonth = response.data;
@@ -61,10 +77,141 @@ main_app.controller("statisticalController", function ($scope, $http) {
       console.log(error)
     })
 
+    $scope.loadQuantityBillOfStateAll();
+
     setTimeout(function () {
       $scope.loadPieChart()
     }, 200)
 
+  }
+
+  $scope.loadQuantityBillOfStateAll = () => {
+    // get all quantity product of bill with state bill 
+    // get quantity bill
+    $http.get('http://localhost:8080/bill/get-quantity-bills').then(function (response) {
+      $scope.billDetailOfState = []
+      $scope.billDetailOfStateLabel = []
+      $scope.billDetailOfStateValue = []
+
+      response.data.forEach((bill) => {
+        if (bill.trangThai == 1) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đang chờ xác nhận"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đang chờ xác nhận',
+            soLuong: bill.soLuong
+          })
+          $scope.quantityState1 = bill.soLuong
+        } else if (bill.trangThai == 2) {
+          $scope.quantityState2 = bill.soLuong
+        } else if (bill.trangThai == 3) {
+          $scope.quantityState3 = bill.soLuong
+        } else if (bill.trangThai == 4) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đã hoàn thành"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đã hoàn thành',
+            soLuong: bill.soLuong
+          })
+          $scope.quantityState4 = bill.soLuong
+        } else if (bill.trangThai == 5) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đã bị hủy"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đã bị hủy',
+            soLuong: bill.soLuong
+          })
+          $scope.quantityState5 = bill.soLuong
+        } else if (bill.trangThai == 6) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đã được hoàn trả"
+          )
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đã được hoàn trả',
+            soLuong: bill.soLuong
+          })
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.quantityState6 = bill.soLuong
+        }
+      })
+
+      setTimeout(() => {
+        $scope.loadPieChartBillDetailOfState()
+      }, 100);
+
+    }).catch(function (error) {
+      console.log(error)
+    })
+  }
+
+  $scope.loadQuantityBillOfStateBuyState = (state) => {
+    // get all quantity product of bill with state bill 
+    // get quantity bill
+    $http.get('http://localhost:8080/bill/get-quantity-bills-state/' + state).then(function (response) {
+      $scope.billDetailOfState = []
+      $scope.billDetailOfStateLabel = []
+      $scope.billDetailOfStateValue = []
+      response.data.forEach((bill) => {
+        if (bill.trangThai == 1) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đang chờ xác nhận"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đang chờ xác nhận',
+            soLuong: bill.soLuong
+          })
+          $scope.quantityState1 = bill.soLuong
+        } else if (bill.trangThai == 2) {
+          $scope.quantityState2 = bill.soLuong
+        } else if (bill.trangThai == 3) {
+          $scope.quantityState3 = bill.soLuong
+        } else if (bill.trangThai == 4) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đã hoàn thành"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đã hoàn thành',
+            soLuong: bill.soLuong
+          })
+          $scope.quantityState4 = bill.soLuong
+        } else if (bill.trangThai == 5) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đã bị hủy"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đã bị hủy',
+            soLuong: bill.soLuong
+          })
+          $scope.quantityState5 = bill.soLuong
+        } else if (bill.trangThai == 6) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đã được hoàn trả"
+          )
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đã được hoàn trả',
+            soLuong: bill.soLuong
+          })
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.quantityState6 = bill.soLuong
+        }
+      })
+
+      setTimeout(() => {
+        $scope.loadPieChartBillDetailOfState()
+      }, 100);
+
+    }).catch(function (error) {
+      console.log(error)
+    })
   }
 
   $scope.loadBills()
@@ -149,6 +296,36 @@ main_app.controller("statisticalController", function ($scope, $http) {
     });
   }
 
+  $scope.loadPieChartBillDetailOfState = function () {
+
+    // hàm này dùng đẻ xóa chart 
+    let pieStatus = Chart.getChart("pieChartStateBillDetail"); // <canvas> id
+    if (pieStatus != undefined) {
+      pieStatus.destroy();
+    }
+    //-- End of chart destroy   
+
+    // function is update value of pie chart j
+    var pieCanvas = $('#pieChartStateBillDetail'); //<canvas> id
+    chartInstance = new Chart(pieCanvas, {
+      type: 'pie',
+      data: {
+        labels: $scope.billDetailOfStateLabel,
+        datasets: [{
+          label: 'đơn hàng',
+          data: $scope.billDetailOfStateValue,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(53, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      }
+    });
+  }
+
   $scope.onLoadChart = function (startDate, endDate) {
     $scope.labels = []
     $scope.datas = []
@@ -205,12 +382,22 @@ main_app.controller("statisticalController", function ($scope, $http) {
         }).catch((error) => {
           console.log(error)
         })
-    }else{
+    } else {
       document.getElementById("dates").style.opacity = 1
     }
 
   }
 
-  $scope.changeFillterBill ()
+  $scope.searchByStateBuyPayment = () => {
+    // fillter by buy payment ---
+    console.log($scope.stateOfBuyPayment)
+    if(Number($scope.stateOfBuyPayment) == 3){
+      $scope.loadQuantityBillOfStateAll()
+    }else{
+      $scope.loadQuantityBillOfStateBuyState(Number($scope.stateOfBuyPayment))
+    }
+  }
+
+  $scope.changeFillterBill()
 
 })

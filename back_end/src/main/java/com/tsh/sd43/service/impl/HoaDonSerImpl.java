@@ -177,6 +177,10 @@ public class HoaDonSerImpl implements IHoaDonChiTietSer {
         return hoaDonRepo.getQuantityBillByStates();
     }
 
+    public ArrayList<BillRevenueResponse> getQuantityBillWithState(Integer state){
+        return hoaDonRepo.getQuantityBillByBuyPaymentState(state);
+    }
+
     public ArrayList<BillRevenueResponse> getQuantityBillByStateAndIdCustomer(Long id){
         return hoaDonRepo.getQuantityBillByStatesAndIDCustomer(id);
     }
