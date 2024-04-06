@@ -579,8 +579,13 @@
 
                                 <div>
                                     <div style="margin-bottom: 10px;cursor: pointer;" ng-click="changePaymentMethod()">
-                                        <input ng-checked="paymentMethod == 0" type="radio" name="payment_method"
-                                            class="radio"> Thanh toán khi nhận hàng
+                                        <div style="display: flex;align-items: center;">
+                                            <input style="width: 15px;display: block;margin-right: 5px;"
+                                                ng-checked="paymentMethod == 0" type="radio" name="payment_method"
+                                                class="radio">
+                                            Thanh toán khi nhận hàng
+                                        </div>
+
                                         <div ng-if="paymentMethod == 0" style="    
                                     margin-left: 19px;
                                     font-size: 13px;
@@ -590,8 +595,11 @@
                                     </div>
 
                                     <div ng-click="changePaymentMethod()" style="cursor: pointer;">
-                                        <input ng-checked="paymentMethod == 1" type="radio" name="payment_method"
-                                            class="radio"> Chuyển khoản qua vnpay
+                                        <div style="display: flex;align-items: center;">
+                                            <input ng-checked="paymentMethod == 1" type="radio" name="payment_method"
+                                                style="width: 15px;display: block;margin-right: 5px;" class="radio">
+                                            Chuyển khoản qua vnpay
+                                        </div>
 
                                         <div ng-if="paymentMethod == 1" style="    
                                     margin-left: 19px;
@@ -715,7 +723,7 @@
                         khác: </label>
                     <div class="card"
                         style="display: flex;justify-content: space-between;padding: 20px;position: relative; margin-bottom: 10px;"
-                        ng-repeat="voucher in voucherPublics"  ng-if="voucher.trangThai == 1">
+                        ng-repeat="voucher in voucherPublics" ng-if="voucher.trangThai == 1">
                         <div style="width: 80%;font-size: 12px;">
                             <div>
                                 <span style="color: #5D87FF;">[{{voucher.ma}}]</span>

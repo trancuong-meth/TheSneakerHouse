@@ -32,21 +32,21 @@ clientApp.controller('singleProductController',
                     $scope.sizes = response.data
                 });
 
-            if ($scope.productChooseCurrent != null && $scope.productChooseCurrent != undefined ) {
-                if($scope.customer != null){
+            if ($scope.productChooseCurrent != null && $scope.productChooseCurrent != undefined) {
+                if ($scope.customer != null) {
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
                     }).catch(error => {
                         console.log(error)
                     })
-                }else{
+                } else {
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + -1 + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
                     }).catch(error => {
                         console.log(error)
                     })
                 }
-               
+
             }
         }
 
@@ -104,23 +104,27 @@ clientApp.controller('singleProductController',
                 console.log(error)
             })
 
+            $scope.loadCartDetails();
+
+        }
+
+        $scope.loadCartDetails = () => {
             if ($scope.productChooseCurrent != null && $scope.productChooseCurrent != undefined) {
-                if($scope.customer != null){
+                if ($scope.customer != null) {
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + $scope.customer.id + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
                     }).catch(error => {
                         console.log(error)
-                    }) 
-                }else{
+                    })
+                } else {
                     $http.get('http://localhost:8080/cart/get-cart-detail-by-id-cart?id_customer=' + -1 + '&id_product_detail=' + $scope.productChooseCurrent.id).then(response => {
                         $scope.cartDetails = response.data
                     }).catch(error => {
                         console.log(error)
-                    }) 
+                    })
                 }
-                
-            }
 
+            }
         }
 
         $scope.getImageByProductId = function (id) {
@@ -167,16 +171,13 @@ clientApp.controller('singleProductController',
                     if (productDetail.soLuongTon > 0) {
                         $scope.chooseSize(productDetail)
                         return
-                    }else{
+                    } else {
                         $scope.productChooseCurrent = productDetail
                         return;
                     }
                 })
             }, 10)
 
-            setTimeout(() => {
-                console.log($scope.productChooseCurrent)
-            }, 100)
         }
 
         $scope.chooseSize = (productDetail) => {
@@ -189,6 +190,7 @@ clientApp.controller('singleProductController',
 
             $scope.productChooseCurrent = productDetail
             setTimeout(() => {
+                $scope.loadCartDetails()
                 $scope.getAllImagesBecomeSlides($scope.productChooseCurrent.id, 'product')
             }, 100)
         }
@@ -225,7 +227,7 @@ clientApp.controller('singleProductController',
             if (text !== undefined) {
                 var html = document.getElementById("image-" + text + "-" + $scope.product.id)
             }
-    
+
             axios.get('http://localhost:8080/image/get-all/' + id).then(function (response) {
                 for (var i = 0; i < response.data.length; i++) {
                     if (i == 0) {
@@ -239,16 +241,16 @@ clientApp.controller('singleProductController',
                                 <img src="${response.data[i].duongDan}" class="d-block w-100" alt="...">
                             </div>`
                     }
-    
+
                 }
-    
+
                 html.innerHTML = textFist + textCenter + textLast
-    
+
             }).catch(function (error) {
                 console.log(error)
             })
         }
-    
+
         $scope.addToCart = () => {
 
             if ($scope.quantity_of_cart == 0) {
@@ -256,14 +258,14 @@ clientApp.controller('singleProductController',
                 return
             }
 
-            if($scope.quantity_of_cart < 0){
+            if ($scope.quantity_of_cart < 0) {
                 toastr.error("Số lượng sản phẩm phải lớn hơn 0")
                 return
             }
 
             if ($scope.cartDetails.length != 0) {
-                
-                if ($scope.quantity_of_cart + $scope.cartDetails[0].soLuong  > 3) {
+
+                if ($scope.quantity_of_cart + $scope.cartDetails[0].soLuong > 3) {
                     Swal.fire({
                         icon: "error",
                         title: "Xin lỗi vì sự bất tiện này!!",
@@ -325,7 +327,6 @@ clientApp.controller('singleProductController',
                 }, 300)
 
             }).catch(function (error) {
-                console.log(error)
                 toastr.error(error.data.message)
             })
 
@@ -359,11 +360,11 @@ clientApp.controller('singleProductController',
         }
 
         $scope.changeQuantity = (cartDetail) => {
-            if(cartDetail.soLuong > 3){
-               cartDetail.soLuong = 3
+            if (cartDetail.soLuong > 3) {
+                cartDetail.soLuong = 3
             }
 
-            if(cartDetail.soLuong < 1){
+            if (cartDetail.soLuong < 1) {
                 cartDetail.soLuong = 1
             }
         }
