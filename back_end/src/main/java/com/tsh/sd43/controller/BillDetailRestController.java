@@ -83,5 +83,13 @@ public class BillDetailRestController {
         }
     }
 
+    @PostMapping("/check-bill-detail-client")
+    public ResponseEntity<?> checkBillDetailClient(@RequestBody ProductDetailRequest req) {
+        try {
+            return new ResponseEntity<>(hoaDonChiTietService.checkBillDetail(req), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getCause(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

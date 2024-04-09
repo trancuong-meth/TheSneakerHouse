@@ -2,6 +2,7 @@ package com.tsh.sd43.service.impl;
 
 import com.tsh.sd43.entity.HoaDon;
 import com.tsh.sd43.entity.HoaDonChiTiet;
+import com.tsh.sd43.entity.SanPham;
 import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.request.ProductDetailRequest;
 import com.tsh.sd43.repository.IHoaDonChiTietRepo;
@@ -21,6 +22,9 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
 
     @Autowired
     private IHoaDonChiTietRepo hoaDonChiTietRepo;
+
+    @Autowired
+    private ISanPhamChiTietRepo sanPhamChiTietRepo;
 
     public Page<HoaDonChiTiet> findProductDetailsByIdProduct(Integer pageNo, Integer pageSize, Long id) {
         try {
@@ -142,10 +146,13 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
 
     public HoaDonChiTiet addProductToBillClient(ProductDetailRequest req) {
         try {
-
-            if(req.getSoLuong() > req.getSanPhamChiTiet().getSoLuongTon()) {
-                throw new RuntimeException("Số lượng còn lại không đủ");
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.findById(req.getSanPhamChiTiet().getId()).orElse(null);
+            if(sanPhamChiTiet != null){
+                if(req.getSoLuong() > sanPhamChiTiet.getSoLuongTon()) {
+                    throw new RuntimeException("Số lượng còn lại không đủ");
+                }
             }
+
             ArrayList<HoaDonChiTiet> billDetails = hoaDonChiTietRepo.findBillDetailsByIdBill(req.getHoaDon().getId());
 
             if(billDetails.size() == 0) {
@@ -212,5 +219,20 @@ public class HoaDonChiTietSerImpl implements IHoaDonChiTietSer {
 
     public ArrayList<HoaDonChiTiet> getBillDetailByState(Integer state, Long id) {
         return hoaDonChiTietRepo.findBillDetailByState(state, id);
+    }
+
+    public HoaDonChiTiet checkBillDetail(ProductDetailRequest req) {
+        try {
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.findById(req.getSanPhamChiTiet().getId()).orElse(null);
+            if(sanPhamChiTiet != null){
+                if(req.getSoLuong() > sanPhamChiTiet.getSoLuongTon()) {
+                    throw new RuntimeException("Số lượng còn lại không đủ");
+                }
+            }
+
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
