@@ -539,6 +539,15 @@
                                             color: #4b4b4b;">{{formatToVND(shipFee)}}</span>
                                             </td>
                                         </tr>
+
+                                        <tr ng-if="voucher != null" style="margin-bottom: 10px;">
+                                            <td>Số tiền giảm:</td>
+                                            <td style="text-align: right;">
+                                                <span style="    
+                                            font-weight: 500;
+                                            color: #f94c43;">-{{formatToVND(voucher.phanTramGiam * subTotal / 100)}}</span>
+                                            </td>
+                                        </tr>
                                     </tbody>
 
                                 </table>

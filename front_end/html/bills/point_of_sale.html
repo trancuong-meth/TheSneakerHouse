@@ -455,6 +455,12 @@
               </div>
             </div>
 
+            <div ng-if="voucher != null" style="margin-top: 10px;font-size: 12px;display: flex;justify-content: space-between;">
+              <span style="display: inline-block; width: 324px; ">Số tiền giảm:</span>
+              <span
+                style="color: red; font-weight: bold;font-size: 12px;display: inline-block;">-{{formatToVND(voucher.phanTramGiam * totalPrice /100)}}</span>
+            </div>
+
             <div style="margin-top: 10px;font-size: 12px;display: flex;justify-content: space-between;">
               <span style="display: inline-block; width: 324px; ">Tổng tiền:</span>
               <span
