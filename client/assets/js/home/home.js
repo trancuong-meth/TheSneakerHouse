@@ -4,6 +4,7 @@ clientApp.controller('homeController',
         // entity
         $scope.productNewests = []
         $scope.productBestSellers = []
+        $scope.productDetailsWithSale = []
 
         $scope.loadData = () => {
             $http.get('http://localhost:8080/product-detail/get-product-newests').then(response => {
@@ -19,6 +20,12 @@ clientApp.controller('homeController',
                 console.log(error)
             })
 
+            $http.get('http://localhost:8080/product-detail/get-product-detail-with-sale').then(response => {
+                $scope.productDetailsWithSale = response.data
+                console.log(response.data)
+            }).catch(error => {
+                console.log(error)
+            })
         }
 
         $scope.getAllImagesByIDProductDetail = function (id) {

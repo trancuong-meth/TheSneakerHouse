@@ -105,7 +105,16 @@ public class ProductDetailRestController {
         }
     }
 
-        @GetMapping("/get-color-identity/{id}")
+    @GetMapping("/get-product-detail-with-sale")
+    public ResponseEntity<?> getProductDetailWithSale(){
+        try{
+            return new ResponseEntity<>(sanPhamChiTietService.getProductDetailWithSales(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-color-identity/{id}")
     public ResponseEntity<?> getColorIdentity(@PathVariable("id")Long id){
         try{
             return new ResponseEntity<>(sanPhamChiTietService.getProductDetailIdentity(id), HttpStatus.OK);

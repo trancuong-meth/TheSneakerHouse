@@ -182,6 +182,92 @@
         </section>
         <!-- service features end -->
 
+         <!-- our product area start -->
+         <section class="our-product section-padding" style="padding-bottom: 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title text-center">
+                            <h2 class="title">Sản phẩm đang khuyến mại.</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Slider main container -->
+                    <div class="swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            <div class="swiper-slide" ng-repeat="product in productDetailsWithSale">
+                                <!-- product single item start -->
+                                <div class="product-item mb-50">
+                                    <div class="product-thumb" style="position: relative;">
+                                        <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}">
+                                            </span>
+                                            <span ng-repeat="image in getAllImagesByIDProductDetail(product.id)"></span>
+                                            <img class="image-{{product.id}}" style="width: 241px; height: 213px;   " />
+                                            <div ng-if="product.idDotGiamGia != null" style="position: absolute;
+                                        top: 10px;
+                                        font-size: 12px;
+                                        left: 10px;
+                                        line-height: 1;
+                                        font-weight: bold;
+                                        z-index: 9;
+                                        color: #fff;
+                                        background: #000000;
+                                        border-radius: 50%;
+                                        width: 35px;
+                                        height: 35px;
+                                        line-height: 35px;">
+                                                <span>
+                                                    {{"-" + product.idDotGiamGia.phanTramGiam + "%"}}
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h5 class="product-name">
+                                            <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}" style="color: #272727;
+                                        font-weight: 500;
+                                        font-size: 16px;">{{product.idSanPham.ten}}</a>
+                                        </h5>
+                                        <div class="price-box">
+                                            <span class="price-regular"
+                                                style="color: #f94c43;font-weight: 700;font-size: 14px;">
+                                                {{formatToVND(product.idDotGiamGia == null ? product.donGia : (100 -
+                                                product.idDotGiamGia.phanTramGiam) * product.donGia / 100) }}</span>
+                                            <span class="price-old" style="   
+                                            color: #939393;
+                                            font-size: 13px;
+                                            margin-left: 5px;
+                                            font-weight: normal;"
+                                                ng-if="product.idDotGiamGia != null"><del>{{formatToVND(product.donGia)}}</del></span>
+                                        </div>
+                                        <div class="product-action-link">
+                                            <a hidden href="#" data-bs-toggle="tooltip" title="Wishlist"><i
+                                                    class="ion-android-favorite-outline"></i></a>
+                                            <a href="#!san-pham-chi-tiet/{{product.idSanPham.id}}"
+                                                data-bs-toggle="tooltip" title="Add To Cart"><i class="ion-bag"></i></a>
+                                            <a hidden ng-click="quickView(product.idSanPham.id)" data-bs-toggle="modal"
+                                                data-bs-target="#quick_view"> <span data-bs-toggle="tooltip"
+                                                    title="Quick View"><i class="ion-ios-eye-outline"></i></span> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- product single item start -->
+                            </div>
+
+                        </div>
+
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+
+                    </div>
+
+                </div>
+        </section>
+
         <!-- our product area start -->
         <section class="our-product section-padding" style="padding-bottom: 0px;">
             <div class="container">

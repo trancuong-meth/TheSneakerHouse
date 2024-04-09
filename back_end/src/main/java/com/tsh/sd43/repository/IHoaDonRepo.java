@@ -1,6 +1,7 @@
 package com.tsh.sd43.repository;
 
 import com.tsh.sd43.entity.HoaDon;
+import com.tsh.sd43.entity.SanPhamChiTiet;
 import com.tsh.sd43.entity.responce.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -200,6 +201,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
          order by so_luong desc
     """, nativeQuery = true)
     ArrayList<ProductBestSellerResponse> getTopProductBestSeller();
+
 
     @Query(value = """
     select * from hoa_don where ma = :ma

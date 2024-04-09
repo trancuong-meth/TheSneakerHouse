@@ -138,6 +138,23 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
         return productDetailNewest;
     }
 
+    public ArrayList<SanPhamChiTiet> getProductDetailWithSales(){
+        ArrayList<SanPhamChiTiet> productDetailsWithSale = sanPhamChiTietRepo   .getTopProductOfSales();
+        ArrayList<SanPhamChiTiet> productDetails = (ArrayList<SanPhamChiTiet>) sanPhamChiTietRepo.findAll();
+
+        ArrayList<SanPhamChiTiet> productDetailNewest = new ArrayList<>();
+        for (SanPhamChiTiet spct : productDetailsWithSale) {
+            for(SanPhamChiTiet sp1 : productDetails){
+                if(sp1.getIdSanPham().getId().equals(spct.getId())){
+                    productDetailNewest.add(sp1);
+                    break;
+                }
+            }
+        }
+        return productDetailNewest;
+    }
+
+
     public ArrayList<ProductDetailIdentityReponse> getProductDetailIdentity(Long id){
         ArrayList<ColorIdentityResponse> colors = mauSacRepo.getColorIdentity(id);
 
