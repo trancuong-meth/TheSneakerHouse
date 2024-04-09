@@ -54,13 +54,13 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     Page<HoaDon> getBillPanigationByStateByIdCustomer(Pageable pageable, @Param("trangThai")Integer trangThai, @Param("id") Long id);
 
     @Query(value = """
-            select count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien from hoa_don as hd
+            select count(*) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien from hoa_don as hd
             where deleted = 1 and not trang_thai in (0, 5, 6) and MONTH(hd.ngay_tao) = MONTH(GETDATE())
     """, nativeQuery = true)
     RevenueResponce getRevenueMonth();
 
     @Query(value = """
-            select count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien from hoa_don as hd
+            select count(*) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien from hoa_don as hd
             where deleted = 1 and not trang_thai in (0, 5, 6) and CAST( hd.ngay_tao AS Date ) = CAST( GETDATE() AS Date )
     """, nativeQuery = true)
     RevenueResponce getRevenueDay();
@@ -73,7 +73,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     Integer getQuantityOfProductWithMonth();
 
     @Query(value = """
-     select CAST( hd.ngay_tao AS Date ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
+     select CAST( hd.ngay_tao AS Date ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
      from hoa_don as hd
      where deleted = 1 and not trang_thai in (0, 5, 6)
      and( CAST( hd.ngay_tao AS Date ) > CAST( :start_date AS Date )
@@ -85,7 +85,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
                                                               @Param("end_date")Date endDate);
 
     @Query(value = """
-     select CAST( hd.ngay_tao AS Date ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
+     select CAST( hd.ngay_tao AS Date ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
      from hoa_don as hd
      where deleted = 1 and not trang_thai in (0, 5, 6)
      group by CAST( hd.ngay_tao AS Date )
@@ -93,7 +93,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<RevenueFillterResponce> getRevenueRangeDay();
 
     @Query(value = """
-     select MONTH( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
+     select MONTH( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
      from hoa_don as hd
      where deleted = 1 and not trang_thai in (0, 5, 6)
      group by MONTH( hd.ngay_tao  )
@@ -101,7 +101,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<RevenueFillterResponce> getRevenueRangeMonth();
 
     @Query(value = """
-     select YEAR( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien\s
+     select YEAR( hd.ngay_tao  ) as ngay ,count(*) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
      from hoa_don as hd
      where deleted = 1 and not trang_thai in (0, 5, 6)
      group by YEAR( hd.ngay_tao  )
@@ -109,7 +109,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<RevenueFillterResponce> getRevenueRangeYear();
 
     @Query(value = """
-     select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+     select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
      from hoa_don as hd
      join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
      join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
@@ -131,7 +131,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<BillStateResponce> getBillState();
 
     @Query(value = """
-         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
          from hoa_don as hd
          join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
          join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
@@ -144,7 +144,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<ProductBestSellerResponce> getTop5ProductBestSellerDay();
 
     @Query(value = """
-         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
          from hoa_don as hd
          join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
          join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
@@ -157,7 +157,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<ProductBestSellerResponce> getTop5ProductBestSellerMonth();
 
     @Query(value = """
-         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+         select top 5 sp.ten ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
          from hoa_don as hd
          join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
          join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
@@ -190,7 +190,7 @@ public interface IHoaDonRepo extends JpaRepository<HoaDon, Long> {
     ArrayList<BillRevenueResponse> getQuantityBillByStatesAndIDCustomer(@Param("id_khach_hang") Long id_khach_hang);
 
     @Query(value = """
-        select sp.id ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam) as tong_tien
+        select sp.id ,sum(hdct.so_luong) as so_luong, SUM(hd.tong_tien_sau_giam - hd.phi_van_chuyen) as tong_tien
          from hoa_don as hd
          join hoa_don_chi_tiet hdct on hdct.id_hoa_don = hd.id
          join san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet
