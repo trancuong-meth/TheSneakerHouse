@@ -654,10 +654,10 @@ main_app.controller("billDetailController", function ($scope, $http, $routeParam
             toastr.error('Đã có lỗi xảy ra vui lòng kiểm tra lại')
         } else {
 
-            if ($scope.moneyChange < $scope.bill.tongTienSauGiam) {
-                toastr.error("Bạn phải xác nhận thanh toán trước khi hoàn thành đơn hàng.")
-                return;
-            }
+            // if ($scope.moneyChange < $scope.bill.tongTienSauGiam) {
+            //     toastr.error("Bạn phải xác nhận thanh toán trước khi hoàn thành đơn hàng.")
+            //     return;
+            // }
 
             var brandUpdateModal = document.querySelector("#successModal")
             var modal = bootstrap.Modal.getOrCreateInstance(brandUpdateModal)
