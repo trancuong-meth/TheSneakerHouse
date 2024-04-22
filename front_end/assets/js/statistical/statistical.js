@@ -107,6 +107,14 @@ main_app.controller("statisticalController", function ($scope, $http) {
         } else if (bill.trangThai == 2) {
           $scope.quantityState2 = bill.soLuong
         } else if (bill.trangThai == 3) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đang giao"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đang giao',
+            soLuong: bill.soLuong
+          })
           $scope.quantityState3 = bill.soLuong
         } else if (bill.trangThai == 4) {
           $scope.billDetailOfStateLabel.push(
@@ -157,6 +165,7 @@ main_app.controller("statisticalController", function ($scope, $http) {
       $scope.billDetailOfState = []
       $scope.billDetailOfStateLabel = []
       $scope.billDetailOfStateValue = []
+      console.log(response.data)
       response.data.forEach((bill) => {
         if (bill.trangThai == 1) {
           $scope.billDetailOfStateLabel.push(
@@ -171,6 +180,14 @@ main_app.controller("statisticalController", function ($scope, $http) {
         } else if (bill.trangThai == 2) {
           $scope.quantityState2 = bill.soLuong
         } else if (bill.trangThai == 3) {
+          $scope.billDetailOfStateLabel.push(
+            "Đơn hàng đang giao"
+          )
+          $scope.billDetailOfStateValue.push(bill.soLuong)
+          $scope.billDetailOfState.push({
+            trangThai : 'Đơn hàng đang giao',
+            soLuong: bill.soLuong
+          })
           $scope.quantityState3 = bill.soLuong
         } else if (bill.trangThai == 4) {
           $scope.billDetailOfStateLabel.push(
@@ -315,12 +332,13 @@ main_app.controller("statisticalController", function ($scope, $http) {
           label: 'đơn hàng',
           data: $scope.billDetailOfStateValue,
           backgroundColor: [
-            'rgb(255, 99, 132)',
+            'rgb(245, 66, 194)',
             'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
-            'rgb(53, 205, 86)'
+            'rgb(245, 150, 66)',
+            'rgb(153, 66, 245)',
+            'rgb(66, 135, 245)',
           ],
-          hoverOffset: 4
+          hoverOffset: 5
         }]
       }
     });
