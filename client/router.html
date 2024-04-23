@@ -119,9 +119,18 @@
                                                 </ul> -->
                                             </li>
 
-                                            <li class="static btn-nav" id="newsest" ng-click="changeActive(2    )"><a
+                                            <li class="static btn-nav" id="newsest" ng-click="changeActive(2)"><a
                                                     href="#!tin-tuc" style="font-weight: 600;">
                                                     Tin tức</a>
+                                            </li>
+
+                                            <li class="static btn-nav" id="introduce" ng-click="changeActive(3)"><a
+                                                    href="#!gioi-thieu" style="font-weight: 600;">
+                                                    Giới thiệu</a>
+                                            </li>
+                                            <li class="static btn-nav" id="contact" ng-click="changeActive(4)"><a
+                                                    href="#!lien-he" style="font-weight: 600;">
+                                                    Liên hệ</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -634,6 +643,12 @@
                     } else if (status == 2) {
                         document.getElementById("newsest").classList.add('active')
                         document.getElementById("newsest").classList.remove('static')
+                    } else if (status == 3) {
+                        document.getElementById("introduce").classList.add('active')
+                        document.getElementById("introduce").classList.remove('static')
+                    } else if (status == 4) {
+                        document.getElementById("contact").classList.add('active')
+                        document.getElementById("contact").classList.remove('static')
                     }
                 }
 
@@ -701,6 +716,11 @@
                 .when("/thanh-toan-thanh-cong", { templateUrl: "bills/success_payment.html", controller: "successPaymentController" })
                 .when("/thanh-toan-that-bai", { templateUrl: "bills/error_payment.html", controller: "errorPaymentController" })
 
+                // gioi thieu
+                .when("/gioi-thieu", { templateUrl: "introduce/introduce.html", controller: "introduceController" })
+
+                // lien he
+                .when("/lien-he", { templateUrl: "contact/contact.html", controller: "contactController" })
 
                 // mặc định 
                 .otherwise({ redirectTo: "/trang-chu" })
