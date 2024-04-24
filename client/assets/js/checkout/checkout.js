@@ -658,7 +658,8 @@ clientApp.controller('checkoutController',
             var voucherModal = document.querySelector("#voucherModal")
             var modal = bootstrap.Modal.getOrCreateInstance(voucherModal)
 
-            if (voucher.giaTriToiThieu > $scope.totalAllPrice) {
+            console.log($scope.total)
+            if (voucher.giaTriToiThieu > $scope.total) {
                 toastr.error('Giá trị hóa đơn không đủ để áp dụng voucher.');
                 return;
             }
