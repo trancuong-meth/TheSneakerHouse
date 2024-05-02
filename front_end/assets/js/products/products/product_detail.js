@@ -66,7 +66,9 @@ main_app.controller("productDetailController", function ($scope, $http, $routePa
 
     $scope.pageChangedProductDetail = function () {
 
-        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&trang_thai=' + $scope.trang_thai + '&id=' + idProduct,)
+        console.log($scope.currentPageProductDetail);
+        console.log($scope.itemsPerPageProductDetail);
+        $http.get('http://localhost:8080/product-detail/find-all-panigation?page=' + ($scope.currentPageProductDetail - 1) + '&size=' + $scope.itemsPerPageProductDetail + '&trang_thai=' + $scope.trang_thai + '&id=' + idProduct + '&idSize=' + $scope.idSize + '&idColor=' + $scope.idColor,)
             .then(function (response) {
                 $scope.productDetails = response.data
             });
