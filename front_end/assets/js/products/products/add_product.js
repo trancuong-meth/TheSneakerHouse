@@ -181,13 +181,16 @@ main_app.controller("addProductController", function ($scope, $http) {
 
         if (state != 1) {
             for (var i = 0; i < $scope.productDetails.length; i++) {
+                console.log($scope.productDetails[i].color.id == color.id)
                 if ($scope.productDetails[i].color.id == color.id) {
                     $scope.productDetails.splice(i, 1)
                 }
             }
         }
+        setTimeout(() => {
+            $scope.addProductDetail()
+        }, 100);
 
-        $scope.addProductDetail()
     }
 
     $scope.buttonChooseSize = function () {
@@ -262,6 +265,7 @@ main_app.controller("addProductController", function ($scope, $http) {
 
     $scope.addProductDetail = function () {
         // $scope.resetProductDetails()
+        var temp = []
 
         if ($scope.listChooseColor.length > 0 && $scope.listChooseSize.length > 0) {
             var id = 0;
@@ -270,8 +274,9 @@ main_app.controller("addProductController", function ($scope, $http) {
                     var productDetail = $scope.productDetails.find(x => x.color.id == $scope.listChooseColor[i].id && x.size == $scope.listChooseSize[j]);
                     if (productDetail != undefined) {
                         productDetail.id = id;
+                        temp.push(productDetail)
                     } else {
-                        $scope.productDetails.push({
+                        temp.push({
                             'id': id,
                             'color': $scope.listChooseColor[i],
                             'size': $scope.listChooseSize[j],
@@ -284,7 +289,7 @@ main_app.controller("addProductController", function ($scope, $http) {
                     id++;
                 }
             }
-            console.log($scope.productDetails)
+            $scope.productDetails = temp
         }
 
     }
@@ -432,7 +437,7 @@ main_app.controller("addProductController", function ($scope, $http) {
 
             console.log($scope.images.get($scope.colorSelected.id))
 
-            var imageZone = document.querySelector("#image-" + $scope.colorSelected.id )
+            var imageZone = document.querySelector("#image-" + $scope.colorSelected.id)
 
             for (var i = 0; i < input.files.length; i++) {
                 var e = input.files[i]
