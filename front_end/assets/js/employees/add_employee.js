@@ -7,7 +7,7 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
         ten: '',
         ngaySinh: '',
         cccd: '',
-        gioiTinh: 1,
+        gioiTinh: 0,
         email: "",
         soDienThoai: "",
         maTinh: "",
@@ -28,6 +28,7 @@ main_app.controller("addEmployeeController", function ($scope, $http) {
     // choose gender
     $scope.selectGender = function (gender) {
         $scope.employee.gioiTinh = gender
+        console.log(gender)
     }
 
     $scope.selectRole = function (role) {
