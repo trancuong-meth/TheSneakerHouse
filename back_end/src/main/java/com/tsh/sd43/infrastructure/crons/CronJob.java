@@ -41,21 +41,22 @@ public class CronJob {
         Date today = new Date();
         List<Voucher> vouchers = voucherRepo.findAll();
         vouchers.forEach(voucher -> {
-            if(voucher.getNgayBatDau().after(today)){
-                voucher.setTrangThai(StatusVoucher.CHUA_BAT_DAU.getTrangThai());
-            }else if(voucher.getNgayKetThuc().before(today)){
-                voucher.setTrangThai(StatusVoucher.KET_THUC.getTrangThai());
-                // khi phieu giam gia ket thuc thi lap tuc nhung kh co voucher nay se mat ap dung
+            if(!voucher.getTrangThai().equals(StatusVoucher.HUY.getTrangThai())){
+                if(voucher.getNgayBatDau().after(today)){
+                    voucher.setTrangThai(StatusVoucher.CHUA_BAT_DAU.getTrangThai());
+                }else if(voucher.getNgayKetThuc().before(today)){
+                    voucher.setTrangThai(StatusVoucher.KET_THUC.getTrangThai());
+                    // khi phieu giam gia ket thuc thi lap tuc nhung kh co voucher nay se mat ap dung
 
-                List<PhieuGiamGiaChiTiet> voucherDetails = phieuGiamGiaChiTietRepo.getChiTietByPhieuGiamGia(voucher.getId());
-                voucherDetails.forEach(voucherDetail -> {
-                    phieuGiamGiaChiTietRepo.deleteById(voucherDetail.getId());
-                });
-            }else{
-                voucher.setTrangThai(StatusVoucher.DANG_DIEN_RA.getTrangThai());
+                    List<PhieuGiamGiaChiTiet> voucherDetails = phieuGiamGiaChiTietRepo.getChiTietByPhieuGiamGia(voucher.getId());
+                    voucherDetails.forEach(voucherDetail -> {
+                        phieuGiamGiaChiTietRepo.deleteById(voucherDetail.getId());
+                    });
+                }else{
+                    voucher.setTrangThai(StatusVoucher.DANG_DIEN_RA.getTrangThai());
+                }
+                voucherRepo.save(voucher);
             }
-            voucherRepo.save(voucher);
-
         });
     }
 
@@ -64,20 +65,28 @@ public class CronJob {
         Date today = new Date();
         List<DotGiamGia> sales = dotGiamGiaRepo.findAll();
         sales.forEach(sale -> {
-            if(sale.getNgayBatDau().after(today)){
-                sale.setTrangThai(StatusDotGiamGia.CHUA_BAT_DAU.getTrangThai());
-            }else if(sale.getNgayKetThuc().before(today)){
-                sale.setTrangThai(StatusDotGiamGia.KET_THUC.getTrangThai());
-                // Kh dot giam gia ket thuc lap tuc xoa tat ca cac sanpham co ap dung
+            if(!sale.getTrangThai().equals(StatusDotGiamGia.HUY.getTrangThai())){
+                if(sale.getNgayBatDau().after(today)){
+                    sale.setTrangThai(StatusDotGiamGia.CHUA_BAT_DAU.getTrangThai());
+                }else if(sale.getNgayKetThuc().before(today)){
+                    sale.setTrangThai(StatusDotGiamGia.KET_THUC.getTrangThai());
+                    // Kh dot giam gia ket thuc lap tuc xoa tat ca cac sanpham co ap dung
+                    List<SanPhamChiTiet> productDetails = sanPhamChiTietRepo.getProductDetailsByIdSale(sale.getId());
+                    productDetails.forEach(productDetail -> {
+                        productDetail.setIdDotGiamGia(null);
+                        sanPhamChiTietRepo.save(productDetail);
+                    });
+                }else{
+                    sale.setTrangThai(StatusDotGiamGia.DANG_DIEN_RA.getTrangThai());
+                }
+                dotGiamGiaRepo.save(sale);
+            }else{
                 List<SanPhamChiTiet> productDetails = sanPhamChiTietRepo.getProductDetailsByIdSale(sale.getId());
                 productDetails.forEach(productDetail -> {
                     productDetail.setIdDotGiamGia(null);
                     sanPhamChiTietRepo.save(productDetail);
                 });
-            }else{
-                sale.setTrangThai(StatusDotGiamGia.DANG_DIEN_RA.getTrangThai());
             }
-            dotGiamGiaRepo.save(sale);
         });
     }
 
