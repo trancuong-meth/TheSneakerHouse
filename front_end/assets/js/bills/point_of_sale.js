@@ -848,6 +848,9 @@ main_app.controller("pointOfSaleController", function ($scope, $http) {
         }).catch(function (response) {
             $scope.loadCustomer()
         })
+
+        $scope.state = true
+        $scope.changeMethodBill()
     }
 
     $scope.getAllprovideByCode = function (district_code, ward_code, province_code) {
