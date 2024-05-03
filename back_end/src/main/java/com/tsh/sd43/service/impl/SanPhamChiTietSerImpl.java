@@ -151,7 +151,7 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
         for (SanPhamChiTiet spct : productDetailsWithSale) {
             for(SanPhamChiTiet sp1 : productDetails){
                 if(sp1.getIdSanPham().getTrangThai()){
-                    if(sp1.getIdSanPham().getId().equals(spct.getId())){
+                    if(sp1.getId().equals(spct.getId())){
                         productDetailNewest.add(sp1);
                         break;
                     }
