@@ -101,7 +101,7 @@ main_app.controller("editVoucherController", function ($scope, $http, $routePara
             return;
         }
 
-        if ($scope.voucher.phanTramGiam >= 100) {
+        if ($scope.voucher.phanTramGiam > 100) {
             toastr.error('Giá trị phần trăm phải nhỏ hơn 100%')
             return;
         }

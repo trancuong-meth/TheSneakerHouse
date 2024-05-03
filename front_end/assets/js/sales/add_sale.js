@@ -299,7 +299,7 @@ main_app.controller("addSaleController", function ($scope, $http) {
             return;
         }
 
-        if ($scope.sale.phanTramGiam >= 100) {
+        if ($scope.sale.phanTramGiam > 100) {
             toastr.error('Giá trị phần trăm phải nhỏ hon 100%')
             return;
         }

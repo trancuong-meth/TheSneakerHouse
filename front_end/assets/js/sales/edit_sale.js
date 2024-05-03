@@ -324,7 +324,7 @@ main_app.controller("editSaleController", function ($scope, $http, $routeParams)
             return;
         }
 
-        if ($scope.sale.phanTramGiam >= 100) {
+        if ($scope.sale.phanTramGiam > 100) {
             toastr.error('Giá trị phần trăm phải nhỏ hon 100%')
             return;
         }

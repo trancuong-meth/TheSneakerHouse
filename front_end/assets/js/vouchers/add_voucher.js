@@ -82,7 +82,7 @@ main_app.controller("addVoucherController", function ($scope, $http) {
             return;
         }
 
-        if ($scope.voucher.percent >= 100) {
+        if ($scope.voucher.percent > 100) {
             toastr.error('Giá trị phần trăm phải nhỏ hon 100%')
             return;
         }
