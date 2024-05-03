@@ -103,21 +103,24 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
 
         ArrayList<SanPhamChiTiet> productDetailNewest = new ArrayList<>();
         for (SanPhamChiTiet sp : productDetails) {
-            Boolean flag = false;
-            if(productDetailNewest.isEmpty()){
-                productDetailNewest.add(sp);
-                continue;
-            }
-            for(SanPhamChiTiet sp1 : productDetailNewest){
-                if(sp1.getIdSanPham().getMa().equals(sp.getIdSanPham().getMa())){
-                    flag = true;
-                    break;
+            if(sp.getIdSanPham().getTrangThai()){
+                Boolean flag = false;
+                if(productDetailNewest.isEmpty()){
+                    productDetailNewest.add(sp);
+                    continue;
+                }
+                for(SanPhamChiTiet sp1 : productDetailNewest){
+                    if(sp1.getIdSanPham().getMa().equals(sp.getIdSanPham().getMa())){
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if(!flag){
+                    productDetailNewest.add(sp);
                 }
             }
 
-            if(!flag){
-                productDetailNewest.add(sp);
-            }
         }
         return productDetailNewest;
     }
@@ -129,9 +132,11 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
         ArrayList<SanPhamChiTiet> productDetailNewest = new ArrayList<>();
         for (ProductBestSellerResponse sp : resp) {
             for(SanPhamChiTiet sp1 : productDetails){
-                if(sp1.getIdSanPham().getId().equals(sp.getId())){
-                    productDetailNewest.add(sp1);
-                    break;
+                if(sp1.getIdSanPham().getTrangThai()){
+                    if(sp1.getIdSanPham().getId().equals(sp.getId())){
+                        productDetailNewest.add(sp1);
+                        break;
+                    }
                 }
             }
         }
@@ -139,15 +144,17 @@ public class SanPhamChiTietSerImpl implements ISanPhamChiTietSer {
     }
 
     public ArrayList<SanPhamChiTiet> getProductDetailWithSales(){
-        ArrayList<SanPhamChiTiet> productDetailsWithSale = sanPhamChiTietRepo   .getTopProductOfSales();
+        ArrayList<SanPhamChiTiet> productDetailsWithSale = sanPhamChiTietRepo.getTopProductOfSales();
         ArrayList<SanPhamChiTiet> productDetails = (ArrayList<SanPhamChiTiet>) sanPhamChiTietRepo.findAll();
 
         ArrayList<SanPhamChiTiet> productDetailNewest = new ArrayList<>();
         for (SanPhamChiTiet spct : productDetailsWithSale) {
             for(SanPhamChiTiet sp1 : productDetails){
-                if(sp1.getIdSanPham().getId().equals(spct.getId())){
-                    productDetailNewest.add(sp1);
-                    break;
+                if(sp1.getIdSanPham().getTrangThai()){
+                    if(sp1.getIdSanPham().getId().equals(spct.getId())){
+                        productDetailNewest.add(sp1);
+                        break;
+                    }
                 }
             }
         }

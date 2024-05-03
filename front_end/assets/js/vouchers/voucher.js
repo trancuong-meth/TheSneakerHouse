@@ -26,8 +26,7 @@ main_app.controller("voucherController", function ($scope, $http) {
   }
 
   setInterval(() => {
-    loadData()
-    console.log("running")
+    fillter("", $scope.trang_thai)
   }, 1000);
 
   loadData()

@@ -29,7 +29,7 @@ main_app.controller("saleController", function($scope, $http){
     loadData()
 
     setInterval(() => {
-      loadData()
+      fillter("", $scope.trang_thai)
       console.log("running")
     }, 1000);
     
