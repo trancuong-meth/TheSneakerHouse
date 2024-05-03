@@ -7,7 +7,7 @@ clientApp.controller('successPaymentController',
         $scope.loadData = () => {
             $http.get('http://localhost:8080/bill/get-bill-by-code/' + $scope.bill.ma).then(function (response) {
             }).catch(function (error) {
-                $scope.bill.trangThai = 2
+                $scope.bill.trangThai = 1
                 $scope.bill.phuongThucThanhToan = 1
                 axios.put('http://localhost:8080/bill/update-bill', $scope.bill).then(function (response) {
 

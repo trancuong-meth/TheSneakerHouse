@@ -138,15 +138,27 @@ clientApp.controller('shopControllers',
 
                 if (temp.length == 0) {
                     response.data.content.forEach(e => {
-                        if (e.donGia >= minPrice && e.donGia <= maxPrice) {
-                            temp.push(e)
+                        if(e.idDotGiamGia == null){
+                            if (e.donGia >= minPrice && e.donGia <= maxPrice) {
+                                temp.push(e)
+                            }
+                        }else{
+                            if (e.giaTriGiam >= minPrice && e.giaTriGiam <= maxPrice) {
+                                temp.push(e)
+                            }
                         }
                     })
                 } else {
                     var list = []
                     temp.forEach(e => {
-                        if (e.donGia >= minPrice && e.donGia <= maxPrice) {
-                            list.push(e)
+                        if(e.idDotGiamGia == null){
+                            if (e.donGia >= minPrice && e.donGia <= maxPrice) {
+                                list.push(e)
+                            }
+                        }else{
+                            if (e.giaTriGiam >= minPrice && e.giaTriGiam <= maxPrice) {
+                                list.push(e)
+                            }
                         }
                     })
                     temp = list
