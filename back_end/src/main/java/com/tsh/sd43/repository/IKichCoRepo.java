@@ -43,7 +43,7 @@ public interface IKichCoRepo extends JpaRepository<KichCo, Long> {
 
     @Query(value = """
         select kc.id, kc.kich_co, count(spct.id) from san_pham_chi_tiet spct
-        join kich_co kc on kc.id = spct.id_kich_co
+        right join kich_co kc on kc.id = spct.id_kich_co
         group by kc.id, kc.kich_co
     """, nativeQuery = true)
     ArrayList<Object> getQuantitysOfProductBySize();

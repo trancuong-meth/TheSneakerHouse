@@ -44,7 +44,7 @@ public interface IMauSacRepo extends JpaRepository<MauSac, Long> {
 
     @Query(value = """
        select ms.id, ms.ten, count(spct.id) from san_pham_chi_tiet spct
-          join mau_sac ms on ms.id  = spct.id_mau_sac
+          right join mau_sac ms on ms.id  = spct.id_mau_sac
           group by ms.id, ms.ten
     """, nativeQuery = true)
     ArrayList<Object> getQuantitysOfProductByColor();

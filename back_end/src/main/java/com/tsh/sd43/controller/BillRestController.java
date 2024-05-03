@@ -137,7 +137,7 @@ public class BillRestController {
         return new ResponseEntity<>(hoaDonService.getQuantityOfProductWithMonth(), HttpStatus.OK);
     }
 
-    @GetMapping("/get-revenue-range-date")
+    @GetMapping("/get-revenue-range-date") //revenue = tổng doanh thu
     public ResponseEntity<?> getRevenueRangeDate(@RequestParam("startDate") String startDate,
                                                  @RequestParam("endDate") String endDate) {
         try{
