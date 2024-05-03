@@ -34,8 +34,25 @@ public interface ISanPhamChiTietRepo extends JpaRepository<SanPhamChiTiet, Long>
     ArrayList<SanPhamChiTiet> findByOrderByNgayTaoDesc();
 
     @Query( value = """
-        select * from san_pham_chi_tiet v
-        ORDER BY ngay_tao DESC
+       select 
+                          spct.[deleted]
+                         ,spct.[don_gia]
+                         ,spct.[gia_tri_giam]
+                         ,spct.[so_luong_ton]
+                         ,spct.[trang_thai]
+                         ,spct.[trong_luong]
+                         ,spct.[id]
+                         ,spct.[id_dot_giam_gia]
+                         ,spct.[id_kich_co]
+                         ,spct.[id_mau_sac]
+                         ,spct.[id_san_pham]
+                         ,spct.[ngay_cap_nhat]
+                         ,spct.[ngay_tao]
+                         ,spct.[QRcode]
+        from san_pham_chi_tiet spct
+       JOIN san_pham sp ON sp.id = spct.id_san_pham
+       WHERE sp.trang_thai = 1
+       ORDER BY spct.ngay_tao DESC
     """, nativeQuery = true)
     Page<SanPhamChiTiet> findAllAndPanigation(Pageable pageable);
 
