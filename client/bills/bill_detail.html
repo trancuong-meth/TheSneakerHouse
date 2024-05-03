@@ -1238,7 +1238,7 @@
             font-size: 14px;
             height: 45px;
             color: white;"
-             ng-if=" bill.trangThai == 1" data-bs-toggle="modal"
+             ng-if=" bill.trangThai == 1 && bill.phuongThucThanhToan != 1" data-bs-toggle="modal"
               data-bs-target="#productListModal" ng-click="loadProductList()">
               <i class="ti ti-plus" style="
                                   display: inline-block;
@@ -1246,6 +1246,24 @@
                                   transform: translateY(2px);
                               "></i>
               Thêm sản phẩm</button>
+
+              <button class="btn btn-danger"
+              style="display: inline-block;
+              border-radius: 4px;
+              padding-top: 10px;
+              margin-bottom: 20px;
+              font-weight: 600;
+              box-sizing: border-box;
+              text-align: center;
+              background-color: #fbbb25;
+              position: relative;
+              border: none;
+              font-size: 14px;
+              height: 45px;
+              color: white;"
+               ng-if=" bill.trangThai == 1 && bill.phuongThucThanhToan == 1" >
+              
+              Không thể thêm sản phẩm, vui lòng gọi 0969696966 để biết thêm chi tiết!!!</button>
 
             
           </div>
@@ -1323,7 +1341,7 @@
                   </div>
                 </td>
                 <td class="border-bottom-0" style="display: flex;justify-content: space-between;">
-                  <div ng-if="bill.trangThai == 1 ">
+                  <div ng-if="bill.trangThai == 1 && bill.phuongThucThanhToan != 1 ">
                     <button class="btn btn-sm btn-outline-muted"
                       style="width: 33.3%;border-radius: 0px;background-color: white;color: #3a4863;border-color: #3a4863;
                       border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 40px;"
@@ -1346,6 +1364,11 @@
                     style="text-align: center;margin-left: 54px;">
                     <button class="btn btn-outline-muted" disabled>{{billDetail.soLuong}}</button>
                   </div>
+
+                  <div ng-if="bill.trangThai == 1 && bill.phuongThucThanhToan == 1 "
+                  style="text-align: center;margin-left: 54px;">
+                  <button class="btn btn-outline-muted" disabled>{{billDetail.soLuong}}</button>
+                </div>
 
                 </td>
                 <td style="

@@ -715,6 +715,16 @@ clientApp.controller('billDetailController',
         }
 
         $scope.plusQuantity = function (billDetail) {
+            var sumProductDetail = 0;
+
+            $scope.billDetails.content.forEach(x => {
+                sumProductDetail += x.soLuong
+            })
+            if(Number(sumProductDetail) + 1){
+                toastr.error("Bạn chỉ được thêm tối đa 5 sản phẩm trong một đơn hàng.")
+                return;
+            }
+
             var quantityHtml = document.getElementById("bill-detail-quantity-" + billDetail.id)
             if(quantityHtml.value == 3){
                 toastr.error("Bạn chỉ được thêm tối đa 3 sản phẩm trong một đơn hàng.")
